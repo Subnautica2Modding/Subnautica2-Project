@@ -261,7 +261,7 @@ UClass* FSuziePluginModule::FindOrCreateUnregisteredClass(FDynamicClassGeneratio
     UClass* ParentClass = ParentClassPath.IsEmpty() ? UClass::StaticClass() : FindOrCreateClass(Context, ParentClassPath);
     if (!ParentClass)
     {
-        UE_LOG(LogSuzie, Error, TEXT("Parent class not found: %s"), *ParentClassPath);
+        UE_LOG(LogSuzie, Warning, TEXT("Parent class not found: %s"), *ParentClassPath);
         return nullptr;
     }
     
@@ -627,7 +627,7 @@ UClass* FSuziePluginModule::FindOrCreateClass(FDynamicClassGenerationContext& Co
         NewClass = FindOrCreateUnregisteredClass(Context, ClassPath);
         if (NewClass == nullptr)
         {
-            UE_LOG(LogSuzie, Error, TEXT("Failed to create dynamic class: %s"), *ClassPath);
+            UE_LOG(LogSuzie, Warning, TEXT("Failed to create dynamic class: %s"), *ClassPath);
             return nullptr;
         }
     }
@@ -917,6 +917,11 @@ UFunction* FSuziePluginModule::FindOrCreateFunction(FDynamicClassGenerationConte
     {
         // This is a class path because it is at least two levels deep. We do not need our outer to be registered, just to exist
         FunctionOuterObject = FindOrCreateUnregisteredClass(Context, ClassPathOrPackageName);
+        if (FunctionOuterObject == nullptr)
+        {
+            UE_LOG(LogSuzie, Warning, TEXT("Skipping function %s: outer class %s could not be created (likely a re-entry cycle)"), *FunctionPath, *ClassPathOrPackageName);
+            return nullptr;
+        }
     }
     else
     {
@@ -979,7 +984,17 @@ UFunction* FSuziePluginModule::FindOrCreateFunction(FDynamicClassGenerationConte
     }
 
     // Have to temporarily mark the function as RF_ArchetypeObject to be able to create functions with UPackage as outer
-    UFunction* NewFunction = NewObject<UFunction>(FunctionOuterObject, *ObjectName, RF_Public | RF_MarkAsRootSet | RF_ArchetypeObject);
+    // Delegate signature functions must be USparseDelegateFunction so that FMulticastSparseDelegateProperty::CastChecked succeeds.
+    // USparseDelegateFunction IS-A UFunction so all other code continues to work unmodified.
+    UFunction* NewFunction;
+    if (ObjectName.EndsWith(TEXT("__DelegateSignature")))
+    {
+        NewFunction = NewObject<USparseDelegateFunction>(FunctionOuterObject, *ObjectName, RF_Public | RF_MarkAsRootSet | RF_ArchetypeObject);
+    }
+    else
+    {
+        NewFunction = NewObject<UFunction>(FunctionOuterObject, *ObjectName, RF_Public | RF_MarkAsRootSet | RF_ArchetypeObject);
+    }
     NewFunction->ClearFlags(RF_ArchetypeObject);
     NewFunction->FunctionFlags |= FunctionFlags;
 
@@ -1829,7 +1844,10 @@ void FSuziePluginModule::FinalizeClass(FDynamicClassGenerationContext& Context, 
     // Do not create archetypes for NetConnection-derived classes, they have faulty shutdown logic leading to a crash on exit
     // Do not create archetypes for GameInstance-derived classes, EndPlayMap iterates all UGameInstance objects and calls
     // MarkAsGarbage on them which asserts !IsRooted(), but our archetypes are rooted via AddToRoot to prevent GC
-    if (!Class->IsChildOf<UNetConnection>() && !Class->IsChildOf<UGameInstance>())
+    // Do not create archetypes when running as a commandlet (e.g. packaging): Slate is not initialized in that context,
+    // so native constructors that call FSlateApplication::Get() (e.g. UGameViewportClient) will crash inside DuplicateObject
+    // because the duplicated object does not yet have RF_ArchetypeObject when its constructor runs.
+    if (!Class->IsChildOf<UNetConnection>() && !Class->IsChildOf<UGameInstance>() && !IsRunningCommandlet())
     {
         const FString ArchetypeObjectName = TEXT("InitializationArchetype__") + Class->GetName();
         {
