@@ -1,5 +1,5 @@
 # setup-fmod.ps1
-# Copies FMOD banks from your local SN2 install. Run this once after cloning.
+# Copies FMOD banks from your local SN2 install and native DLLs from the FMOD download. Run once after cloning.
 
 param(
     [string]$SN2Path = "",
@@ -38,23 +38,37 @@ Copy-Item "$bankSrc\Master.bank" $bankDst -Force
 Copy-Item "$bankSrc\Master.strings.bank" $bankDst -Force
 Write-Host "[OK] FMOD banks copied from $bankSrc"
 
-# Check FMOD UE plugin
-$pluginDst = Join-Path $StubRoot "Plugins\FMODStudio"
+# Extract native FMOD DLLs and plugin source from the official FMOD download
+$binDst = Join-Path $StubRoot "Plugins\FMODStudio\Binaries\Win64"
+$nativeDlls = @("fmod.dll", "fmodL.dll", "fmodstudio.dll", "fmodstudioL.dll", "resonanceaudio.dll", "fmod_vc.lib", "fmodL_vc.lib", "fmodstudio_vc.lib", "fmodstudioL_vc.lib")
+$needDlls = $nativeDlls | Where-Object { -not (Test-Path (Join-Path $binDst $_)) }
 
-if (Test-Path $pluginDst) {
-    Write-Host "[OK] FMODStudio plugin already present"
-} elseif ($FMODPluginZip -and (Test-Path $FMODPluginZip)) {
+if ($needDlls.Count -gt 0) {
+    if (-not $FMODPluginZip -or -not (Test-Path $FMODPluginZip)) {
+        Write-Host ""
+        Write-Host "[ACTION REQUIRED] Native FMOD DLLs are not included in this repo (Firelight copyright)."
+        Write-Host "  1. Download 'FMOD for Unreal' (UE 5.6, Windows) from https://www.fmod.com/download"
+        Write-Host "  2. Re-run: .\setup-fmod.ps1 -FMODPluginZip 'C:\...\fmodstudio20309ue5.6win64.zip'"
+        Write-Host ""
+        Write-Host "Done (banks copied, but FMOD DLLs still needed before opening the project)."
+        exit 0
+    }
+
     $tmp = Join-Path $env:TEMP "fmod_ue56_setup"
     Expand-Archive -Path $FMODPluginZip -DestinationPath $tmp -Force
-    Copy-Item (Join-Path $tmp "FMODStudio") $pluginDst -Recurse -Force
+
+    New-Item -ItemType Directory -Force $binDst | Out-Null
+    foreach ($dll in $nativeDlls) {
+        $src = Join-Path $tmp "FMODStudio\Binaries\Win64\$dll"
+        if (Test-Path $src) {
+            Copy-Item $src $binDst -Force
+        }
+    }
+
     Remove-Item $tmp -Recurse -Force
-    Write-Host "[OK] FMODStudio plugin extracted from zip"
+    Write-Host "[OK] Native FMOD DLLs extracted from zip"
 } else {
-    Write-Host ""
-    Write-Host "[ACTION REQUIRED] FMODStudio plugin not found."
-    Write-Host "  1. Download 'FMOD for Unreal' (UE 5.6, Windows) from https://www.fmod.com/download"
-    Write-Host "  2. Re-run: .\setup-fmod.ps1 -FMODPluginZip 'C:\...\fmodstudio20309ue5.6win64.zip'"
-    Write-Host "  OR extract the zip and copy the FMODStudio folder into Plugins\FMODStudio"
+    Write-Host "[OK] Native FMOD DLLs already present"
 }
 
 Write-Host ""

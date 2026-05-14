@@ -45,6 +45,12 @@ DerivedDataCache/*
 # FMOD bank files contain SN2 audio (Unknown Worlds copyright). Copy from your local install via setup-fmod.ps1.
 Content/FMOD/Desktop/*.bank
 
+# Native FMOD DLLs are Firelight copyright. Copy from the official FMOD download via setup-fmod.ps1.
+Plugins/FMODStudio/Binaries/Win64/fmod*.dll
+Plugins/FMODStudio/Binaries/Win64/fmod*.lib
+Plugins/FMODStudio/Binaries/Win64/resonanceaudio.dll
+Plugins/FMODStudio/Binaries/Android/
+
 # Compiled FMOD UE module DLLs - machine/version-specific, rebuilt on first editor open.
 Plugins/FMODStudio/Binaries/Win64/UnrealEditor-*.dll
 Plugins/FMODStudio/Binaries/Win64/UnrealEditor-*.pdb

@@ -21,6 +21,10 @@
 		{
 			"Name": "Suzie",
 			"Enabled": true
+		},
+		{
+			"Name": "FMODStudio",
+			"Enabled": true
 		}
 	]
 }
