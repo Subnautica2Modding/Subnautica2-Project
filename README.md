@@ -16,7 +16,7 @@ Get started with [basic mod tooling](./Docs/Tools.md) as outlined in the above U
 
 ## Prerequisites
 
-If you haven't already, install Unreal Engine 5.6.
+If you haven't already, install Unreal Engine 5.6.1.
 
 You also need to install Visual Studio 2022 and select the MSVC `v14.38` toolchain to be able to open the project.
 
@@ -31,8 +31,12 @@ You also need to install Visual Studio 2022 and select the MSVC `v14.38` toolcha
 
 ![FMOD-Download](Docs/Images/FMOD-Download.png)
 
-3. Run `powershell -ExecutionPolicy Bypass -File setup-fmod.ps1 -FMODPluginZip '<downloads>\fmodstudio20309ue5.6win64.zip'` to copy banks and extract native DLLs
-4. Open `Subnautica2.uproject`. It will spend some time compiling first.
+3. Run this command to copy banks and extract native DLLs 
+```ps1
+powershell -ExecutionPolicy Bypass -File setup-fmod.ps1 -FMODPluginZip "<downloads>\fmodstudio20309ue5.6win64.zip"
+``` 
+
+4. Open `Subnautica2.uproject`. It may spend some time compiling first (2-10 mins depending on your hardware)
 
 This setup must be done for legal reasons:
 - Raw FMOD bank files are not included (Unknown Worlds copyright). Copy from your local SN2 install via `setup-fmod.ps1`.
