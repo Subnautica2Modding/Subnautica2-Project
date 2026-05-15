@@ -1,0 +1,1 @@
+DEL "F:\Whiskerwood Modding\unpacked\Content\*.*" /S /Q
