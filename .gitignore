@@ -51,7 +51,6 @@ Plugins/FMODStudio/Binaries/Win64/fmod*.lib
 Plugins/FMODStudio/Binaries/Win64/resonanceaudio.dll
 Plugins/FMODStudio/Binaries/Android/
 
-# Compiled FMOD UE module DLLs - machine/version-specific, rebuilt on first editor open.
-Plugins/FMODStudio/Binaries/Win64/UnrealEditor-*.dll
-Plugins/FMODStudio/Binaries/Win64/UnrealEditor-*.pdb
-Plugins/FMODStudio/Binaries/Win64/*.modules
+Content/FMOD/*
+
+Automation/copy.bat

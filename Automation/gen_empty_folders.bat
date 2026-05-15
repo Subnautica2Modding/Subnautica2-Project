@@ -1,1 +1,1 @@
-DEL "F:\Whiskerwood Modding\unpacked\Content\*.*" /S /Q
+DEL "F:\Subnautica2 Modding\Subnautica2\*.*" /S /Q
