@@ -169,16 +169,16 @@ if errorlevel 1 (
 echo.
 
 echo Running TableGraph.exe for DataTable dumps...
-echo Command: DTDumps/TableGraph.exe --pak-dir "%INSTALL_DIR%\Subnautica2\Content\Paks" --mappings "%OUTPUT_USMAP_PATH%" --version GAME_UE5_6 --include-loc --export "DataTableIndex.json"
-DTDumps\TableGraph.exe --pak-dir "%INSTALL_DIR%\Subnautica2\Content\Paks" --mappings "%OUTPUT_USMAP_PATH%" --version GAME_UE5_6 --include-loc --export "DataTableIndex.json"
+echo Command: DTDumps/TableGraph.exe --pak-dir "%INSTALL_DIR%\Subnautica2\Content\Paks" --mappings "%OUTPUT_USMAP_PATH%" --version GAME_UE5_6 --export "DataIndex.json"
+DTDumps\TableGraph.exe --pak-dir "%INSTALL_DIR%\Subnautica2\Content\Paks" --mappings "%OUTPUT_USMAP_PATH%" --version GAME_UE5_6 --export "DataIndex.json"
 if errorlevel 1 (
     echo WARNING: TableGraph.exe failed or returned an error
 ) else (
     echo SUCCESS: TableGraph.exe completed successfully
-    if exist "DataTableIndex.json" (
-        echo File created: "DataTableIndex.json"
+    if exist "DataIndex.json" (
+        echo File created: "DataIndex.json"
     ) else (
-        echo ERROR: DataTableIndex.json file not found after export!
+        echo ERROR: DataIndex.json file not found after export!
     )
 )
 
