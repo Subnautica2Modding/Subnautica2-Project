@@ -1847,7 +1847,12 @@ void FSuziePluginModule::FinalizeClass(FDynamicClassGenerationContext& Context, 
     // Do not create archetypes when running as a commandlet (e.g. packaging): Slate is not initialized in that context,
     // so native constructors that call FSlateApplication::Get() (e.g. UGameViewportClient) will crash inside DuplicateObject
     // because the duplicated object does not yet have RF_ArchetypeObject when its constructor runs.
-    if (!Class->IsChildOf<UNetConnection>() && !Class->IsChildOf<UGameInstance>() && !IsRunningCommandlet())
+    // Do not create archetypes for WaterBody-derived classes: PostDuplicate on UWaterBodyComponent calls UpdateWaterBody->OnUpdateBody
+    // which calls RegisterComponent on dynamically-created collision components. RegisterComponent requires a valid world,
+    // but the archetype actor is not part of any world, triggering an ensure failure.
+    static const UClass* WaterBodyClass = FindObject<UClass>(nullptr, TEXT("/Script/Water.WaterBody"));
+    const bool bIsWaterBodyClass = WaterBodyClass && Class->IsChildOf(WaterBodyClass);
+    if (!Class->IsChildOf<UNetConnection>() && !Class->IsChildOf<UGameInstance>() && !IsRunningCommandlet() && !bIsWaterBodyClass)
     {
         const FString ArchetypeObjectName = TEXT("InitializationArchetype__") + Class->GetName();
         {

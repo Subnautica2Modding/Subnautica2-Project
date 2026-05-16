@@ -218,15 +218,7 @@
 			"Enabled": true
 		},
 		{
-			"Name": "AnalyticsMulticast",
-			"Enabled": true
-		},
-		{
 			"Name": "UWEStimulus",
-			"Enabled": true
-		},
-		{
-			"Name": "SkeletalMeshModelingTools",
 			"Enabled": true
 		},
 		{
@@ -243,10 +235,6 @@
 		},
 		{
 			"Name": "SkeletalMeshModelingTools",
-			"Enabled": true
-		},
-		{
-			"Name": "AnimationBudgetAllocator",
 			"Enabled": true
 		},
 		{
@@ -417,14 +405,6 @@
 		{
 			"Name": "VPxDecoderElectra",
 			"Enabled": true
-		},
-		{
-			"Name": "GameInputWindows",
-			"Enabled": true,
-			"SupportedTargetPlatforms": [
-				"Win64",
-				"WinGDK"
-			]
 		}
 	]
 }
