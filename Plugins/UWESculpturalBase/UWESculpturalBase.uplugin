@@ -1,0 +1,91 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "UWESculpturalBase",
+  "Description": "",
+  "Category": "Other",
+  "CreatedBy": "",
+  "CreatedByURL": "",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "SupportURL": "",
+  "CanContainContent": true,
+  "IsBetaVersion": false,
+  "IsExperimentalVersion": false,
+  "Installed": false,
+  "Plugins": [
+    {
+      "Name": "UWELoadingScreen",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEGameplayMessage",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEVolumeTracker",
+      "Enabled": true
+    },
+    {
+      "Name": "UWESaveSystem",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEUtilities",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEAssetRegistry",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEMath",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEInventory",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEAbilitySystem",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEPower",
+      "Enabled": true
+    },
+    {
+      "Name": "GameplayAbilities",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEImGui",
+      "Enabled": true
+    },
+    {
+      "Name": "EditorScriptingUtilities",
+      "Enabled": true
+    },
+    {
+      "Name": "UWECrafting",
+      "Enabled": true
+    },
+    {
+      "Name": "UWESpawnSystems",
+      "Enabled": true
+    },
+    {
+      "Name": "ScriptableToolsFramework",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEPingSystem",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEActorUID",
+      "Enabled": true
+    }
+  ]
+}

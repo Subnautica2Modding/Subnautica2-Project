@@ -1,0 +1,30 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "UWEUnlockables",
+  "Description": "",
+  "Category": "Other",
+  "CreatedBy": "",
+  "CreatedByURL": "",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "CanContainContent": true,
+  "IsBetaVersion": false,
+  "IsExperimentalVersion": false,
+  "Installed": false,
+  "Plugins": [
+    {
+      "Name": "UWEAssetRegistry",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEDialogue",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEEventTracker",
+      "Enabled": true
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "UWEGauntletTests",
+  "Description": "",
+  "Category": "Other",
+  "CreatedBy": "",
+  "CreatedByURL": "",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "CanContainContent": true,
+  "IsBetaVersion": false,
+  "IsExperimentalVersion": false,
+  "Installed": false,
+  "Plugins": [
+    {
+      "Name": "Gauntlet",
+      "Enabled": true
+    },
+    {
+      "Name": "UWESmoketest",
+      "Enabled": true
+    },
+    {
+      "Name": "UWELobby",
+      "Enabled": true
+    },
+    {
+      "Name": "UWESaveSystem",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEUtilities",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEGameplay",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEGameModeTypes",
+      "Enabled": true
+    }
+  ]
+}

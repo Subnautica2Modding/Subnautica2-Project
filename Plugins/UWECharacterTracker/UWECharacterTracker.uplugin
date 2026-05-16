@@ -1,0 +1,23 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "UWECharacterTracker",
+  "Description": "For tracking the location of dynamic entities (players, creatures) in a material parameter collection",
+  "Category": "Other",
+  "CreatedBy": "Unknown Worlds",
+  "CreatedByURL": "",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "SupportURL": "",
+  "CanContainContent": true,
+  "IsBetaVersion": false,
+  "IsExperimentalVersion": false,
+  "Installed": false,
+  "Plugins": [
+    {
+      "Name": "UWEUtilities",
+      "Enabled": true
+    }
+  ]
+}

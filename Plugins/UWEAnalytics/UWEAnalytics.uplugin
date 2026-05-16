@@ -1,0 +1,43 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "UWEAnalytics",
+  "Description": "Plugin for custom UWE analytics logging",
+  "Category": "Analytics",
+  "CreatedBy": "Jessica Damerst",
+  "CreatedByURL": "",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "CanContainContent": true,
+  "IsBetaVersion": false,
+  "IsExperimentalVersion": false,
+  "Installed": false,
+  "Plugins": [
+    {
+      "Name": "GameplayAbilities",
+      "Enabled": true
+    },
+    {
+      "Name": "OnlineSubsystem",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEUtilities",
+      "Enabled": true
+    },
+    {
+      "Name": "AnalyticsBlueprintLibrary",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEImGui",
+      "Enabled": true
+    },
+    {
+      "Name": "UWESonarAPI",
+      "Enabled": true
+    }
+  ],
+  "SupportURL": ""
+}

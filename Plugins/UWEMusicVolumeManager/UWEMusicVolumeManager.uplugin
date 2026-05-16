@@ -1,0 +1,55 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "UWEMusicVolumeManager",
+  "Description": "Create music volumes to select music to play in a given area",
+  "Category": "Other",
+  "CreatedBy": "Unknown Worlds Entertainment",
+  "CreatedByURL": "",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "SupportURL": "",
+  "CanContainContent": true,
+  "IsBetaVersion": false,
+  "IsExperimentalVersion": false,
+  "Installed": false,
+  "Plugins": [
+    {
+      "Name": "UWEAssetRegistry",
+      "Enabled": true
+    },
+    {
+      "Name": "FMODStudio",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEUtilities",
+      "Enabled": true
+    },
+    {
+      "Name": "UWECollision",
+      "Enabled": true
+    },
+    {
+      "Name": "UWETimeOfDay",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEStoryGoals",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEGameplay",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEVolumeTracker",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEPlayerReady",
+      "Enabled": true
+    }
+  ]
+}

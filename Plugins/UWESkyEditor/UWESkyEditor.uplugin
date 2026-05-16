@@ -1,0 +1,22 @@
+{
+  "FileVersion": 1,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "UWESkyEditor",
+  "Description": "Sky editor plugin",
+  "Category": "Rendering",
+  "CreatedBy": "Daniel Quach",
+  "CreatedByURL": "",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "CanContainContent": true,
+  "IsBetaVersion": false,
+  "IsExperimentalVersion": false,
+  "Installed": false,
+  "Plugins": [
+    {
+      "Name": "UWESky",
+      "Enabled": true
+    }
+  ]
+}

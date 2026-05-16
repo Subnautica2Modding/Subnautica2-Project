@@ -1,0 +1,42 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "UWEAudio",
+  "Description": "",
+  "Category": "Other",
+  "CreatedBy": "",
+  "CreatedByURL": "",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "CanContainContent": false,
+  "IsBetaVersion": false,
+  "IsExperimentalVersion": false,
+  "Installed": false,
+  "Plugins": [
+    {
+      "Name": "FMODStudio",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEUtilities",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEAssetRegistry",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEMath",
+      "Enabled": true
+    },
+    {
+      "Name": "UWETickAggregation",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEAssetFilter",
+      "Enabled": true
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "UWEGameCapture",
+  "Description": "Tools for capturing gameplay for screenshots and trailer",
+  "Category": "Other",
+  "CreatedBy": "Carolyn Lu",
+  "CreatedByURL": "",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "SupportURL": "",
+  "CanContainContent": true,
+  "IsBetaVersion": false,
+  "IsExperimentalVersion": false,
+  "Installed": false,
+  "Plugins": [
+    {
+      "Name": "EnhancedInput",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEImGui",
+      "Enabled": true
+    },
+    {
+      "Name": "UWECollision",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEAbilitySystem",
+      "Enabled": true
+    },
+    {
+      "Name": "UWENotifications",
+      "Enabled": true
+    }
+  ]
+}

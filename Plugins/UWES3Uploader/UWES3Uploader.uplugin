@@ -1,0 +1,22 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "UWES3Uploader",
+  "Description": "Allows modules to upload files to a specific bucket on S3 through the simple s3 upload service",
+  "Category": "Other",
+  "CreatedBy": "UWE Entertainment",
+  "CreatedByURL": "",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "CanContainContent": true,
+  "IsBetaVersion": false,
+  "IsExperimentalVersion": false,
+  "Installed": false,
+  "Plugins": [
+    {
+      "Name": "UWESonarAPI",
+      "Enabled": true
+    }
+  ]
+}

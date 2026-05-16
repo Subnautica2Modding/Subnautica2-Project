@@ -1,0 +1,30 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "UWEComputerTextInterface",
+  "Description": "",
+  "Category": "Other",
+  "CreatedBy": "",
+  "CreatedByURL": "",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "CanContainContent": true,
+  "IsBetaVersion": false,
+  "IsExperimentalVersion": false,
+  "Installed": false,
+  "Plugins": [
+    {
+      "Name": "UWEStoryGoals",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEAnalytics",
+      "Enabled": true
+    },
+    {
+      "Name": "UWERangeTracker",
+      "Enabled": true
+    }
+  ]
+}

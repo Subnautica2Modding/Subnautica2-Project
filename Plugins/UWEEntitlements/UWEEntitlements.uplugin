@@ -1,0 +1,29 @@
+﻿{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "UWEEntitlements",
+  "Description": "Plugin to support granting, revoking and caching storefront entitlements to in-game items.",
+  "Category": "Other",
+  "CreatedBy": "Unknown Worlds",
+  "CreatedByURL": "",
+  "DocsURL": "https://www.notion.so/unknownworlds/Entitlements-1b6a6d983bd880218255e77512940e4a",
+  "CanContainContent": false,
+  "IsBetaVersion": false,
+  "IsExperimentalVersion": false,
+  "Installed": false,
+  "Plugins": [
+    {
+      "Name": "UWEAssetRegistry",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEUnlockables",
+      "Enabled": true
+    },
+    {
+      "Name": "OnlineSubsystem",
+      "Enabled": true
+    }
+  ]
+}

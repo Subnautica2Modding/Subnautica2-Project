@@ -1,0 +1,58 @@
+﻿{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "UWEFarming",
+  "Description": "",
+  "Category": "Other",
+  "CreatedBy": "Andreas Urwalek",
+  "CreatedByURL": "",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "CanContainContent": true,
+  "IsBetaVersion": false,
+  "IsExperimentalVersion": false,
+  "Installed": false,
+  "Plugins": [
+    {
+      "Name": "UWESaveSystem",
+      "Enabled": true
+    },
+    {
+      "Name": "UWETickAggregation",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEGameplayTime",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEInventory",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEPhysics",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEGameplay",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEWorldPopulation2",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEActorUID",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEInteract",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEImGui",
+      "Enabled": true
+    }
+  ]
+}

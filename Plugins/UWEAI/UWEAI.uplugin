@@ -1,0 +1,166 @@
+﻿{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "UWEAI",
+  "Description": "Unknown Worlds Artificial Intelligence",
+  "Category": "Other",
+  "CreatedBy": "",
+  "CreatedByURL": "",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "CanContainContent": true,
+  "IsBetaVersion": false,
+  "IsExperimentalVersion": false,
+  "Installed": false,
+  "Plugins": [
+    {
+      "Name": "GameplayAbilities",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEAbilitySystem",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEAssetRegistry",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEAIMovement",
+      "Enabled": true
+    },
+    {
+      "Name": "UWENetworking",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEInventory",
+      "Enabled": true
+    },
+    {
+      "Name": "GameplayBehaviorSmartObjects",
+      "Enabled": true
+    },
+    {
+      "Name": "GameplayBehaviors",
+      "Enabled": true
+    },
+    {
+      "Name": "SmartObjects",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEVolumeTracker",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEMath",
+      "Enabled": true
+    },
+    {
+      "Name": "FMODStudio",
+      "Enabled": true
+    },
+    {
+      "Name": "UWECollision",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEPawnAttachment",
+      "Enabled": true
+    },
+    {
+      "Name": "UWELog",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEMovement",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEStimulus",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEAnalytics",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEBreakable",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEPhysics",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEUtilities",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEGameplay",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEInteract",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEStimulusSystem",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEStoryGoals",
+      "Enabled": true
+    },
+    {
+      "Name": "UWETickAggregation",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEDynamicItems",
+      "Enabled": true
+    },
+    {
+      "Name": "UWESaveSystem",
+      "Enabled": true
+    },
+    {
+      "Name": "UWERangeTracker",
+      "Enabled": true
+    },
+    {
+      "Name": "UWESequence",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEAudio",
+      "Enabled": true
+    },
+    {
+      "Name": "FMODStudio",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEWorldPopulation2",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEUtilities",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEEventTracker",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEMercuna",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEEdgeOfWorld",
+      "Enabled": true
+    }
+  ]
+}

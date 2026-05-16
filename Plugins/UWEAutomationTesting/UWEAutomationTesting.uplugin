@@ -1,0 +1,35 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "UWEAutomationTesting",
+  "Description": "Helper functions and shared functionality for C++ testing",
+  "Category": "Other",
+  "CreatedBy": "UWE",
+  "CreatedByURL": "",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "SupportURL": "",
+  "CanContainContent": true,
+  "IsBetaVersion": false,
+  "IsExperimentalVersion": false,
+  "Installed": false,
+  "Plugins": [
+    {
+      "Name": "UWES3Uploader",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEInterfaces",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEAssetRegistry",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEUtilities",
+      "Enabled": true
+    }
+  ]
+}

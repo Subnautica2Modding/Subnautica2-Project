@@ -1,0 +1,43 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "0.1",
+  "FriendlyName": "UWEWater",
+  "Description": "All encompassing Water system",
+  "Category": "Water",
+  "CreatedBy": "Sharad Gupta",
+  "CreatedByURL": "",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "SupportURL": "",
+  "CanContainContent": true,
+  "IsBetaVersion": true,
+  "IsExperimentalVersion": true,
+  "Installed": false,
+  "Plugins": [
+    {
+      "Name": "Water",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEVolumeTracker",
+      "Enabled": true
+    },
+    {
+      "Name": "UWESky",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEMath",
+      "Enabled": true
+    },
+    {
+      "Name": "Niagara",
+      "Enabled": true
+    },
+    {
+      "Name": "GeometryMode",
+      "Enabled": true
+    }
+  ]
+}

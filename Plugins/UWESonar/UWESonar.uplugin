@@ -1,0 +1,78 @@
+﻿{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "UWESonar",
+  "Description": "Plugin for SONAR integration and gameServer scaling logic",
+  "Category": "Other",
+  "CreatedBy": "Unknown Worlds Entertainment",
+  "CreatedByURL": "",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "CanContainContent": true,
+  "IsBetaVersion": false,
+  "IsExperimentalVersion": false,
+  "Installed": false,
+  "Plugins": [
+    {
+      "Name": "UWEUtilities",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEAnalytics",
+      "Enabled": true
+    },
+    {
+      "Name": "UWESaveSystem",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEGameplayMessage",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEImGui",
+      "Enabled": true
+    },
+    {
+      "Name": "ModelViewViewModel",
+      "Enabled": true
+    },
+    {
+      "Name": "OnlineSubsystem",
+      "Enabled": true
+    },
+    {
+      "Name": "OnlineSubsystemSteam",
+      "Enabled": true,
+      "TargetAllowList": [
+        "Editor",
+        "Win64"
+      ]
+    },
+    {
+      "Name": "OnlineSubsystemGDK",
+      "Enabled": true,
+      "PlatformAllowList": [
+        "WinGDK",
+        "XSX"
+      ]
+    },
+    {
+      "Name": "OnlineSubsystemEOS",
+      "Enabled": true
+    },
+    {
+      "Name": "UWESonarAPI",
+      "Enabled": true
+    },
+    {
+      "Name": "UWECommonUI",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEGameModeTypes",
+      "Enabled": true
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "UWEPower",
+  "Description": "",
+  "Category": "Other",
+  "CreatedBy": "Unknown Worlds",
+  "CreatedByURL": "",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "CanContainContent": true,
+  "IsBetaVersion": false,
+  "IsExperimentalVersion": false,
+  "Installed": false,
+  "Plugins": [
+    {
+      "Name": "UWEAbilitySystem",
+      "Enabled": true
+    },
+    {
+      "Name": "GameplayAbilities",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEGameConfiguration",
+      "Enabled": true
+    },
+    {
+      "Name": "FMODStudio",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEEquipment",
+      "Enabled": true
+    },
+    {
+      "Name": "UWETickAggregation",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEGlobalSimulation",
+      "Enabled": true
+    },
+    {
+      "Name": "UWESpawnSystems",
+      "Enabled": true
+    }
+  ]
+}

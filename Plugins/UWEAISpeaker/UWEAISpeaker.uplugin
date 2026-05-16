@@ -1,0 +1,26 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "UWEAISpeaker",
+  "Description": "",
+  "Category": "Other",
+  "CreatedBy": "Andreas Urwalek",
+  "CreatedByURL": "",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "CanContainContent": true,
+  "IsBetaVersion": false,
+  "IsExperimentalVersion": false,
+  "Installed": false,
+  "Plugins": [
+    {
+      "Name": "FMODStudio",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEChildActor",
+      "Enabled": true
+    }
+  ]
+}

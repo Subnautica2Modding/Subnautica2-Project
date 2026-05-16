@@ -1,0 +1,86 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "UWEScanner",
+  "Description": "",
+  "Category": "Other",
+  "CreatedBy": "Andreas Urwalek",
+  "CreatedByURL": "",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "CanContainContent": true,
+  "IsBetaVersion": false,
+  "IsExperimentalVersion": false,
+  "Installed": false,
+  "Plugins": [
+    {
+      "Name": "GameplayAbilities",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEAssetRegistry",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEStoryGoals",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEUtilities",
+      "Enabled": true
+    },
+    {
+      "Name": "UWESaveSystem",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEAnalytics",
+      "Enabled": true
+    },
+    {
+      "Name": "UWENotifications",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEGameplayMessage",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEInGameCurrency",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEEventTracker",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEInventory",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEEquipment",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEPlayerReady",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEGameplay",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEActorUID",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEUnlockables",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEPathLookup",
+      "Enabled": true
+    }
+  ]
+}

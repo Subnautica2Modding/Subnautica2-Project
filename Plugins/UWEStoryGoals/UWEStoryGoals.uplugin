@@ -1,0 +1,62 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "UWEStoryGoals",
+  "Description": "",
+  "Category": "Other",
+  "CreatedBy": "",
+  "CreatedByURL": "",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "CanContainContent": true,
+  "IsBetaVersion": false,
+  "IsExperimentalVersion": false,
+  "Installed": false,
+  "Plugins": [
+    {
+      "Name": "UWEAssetRegistry",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEUtilities",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEAutomationTesting",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEInterfaces",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEStoryEvents",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEDialogue",
+      "Enabled": true
+    },
+    {
+      "Name": "UWECollision",
+      "Enabled": true
+    },
+    {
+      "Name": "UWESaveSystem",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEEventTracker",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEInGameCurrency",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEPathLookup",
+      "Enabled": true
+    }
+  ]
+}

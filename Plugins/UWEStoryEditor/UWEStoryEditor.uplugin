@@ -1,0 +1,58 @@
+﻿{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "UWEStoryEditor",
+  "Description": "",
+  "Category": "Other",
+  "CreatedBy": "",
+  "CreatedByURL": "",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "CanContainContent": true,
+  "IsBetaVersion": false,
+  "IsExperimentalVersion": false,
+  "Installed": false,
+  "Plugins": [
+    {
+      "Name": "UWEAssetRegistry",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEStoryGoals",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEDialogue",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEDatabank",
+      "Enabled": true
+    },
+    {
+      "Name": "AssetManagerEditor",
+      "Enabled": true
+    },
+    {
+      "Name": "UWECrafting",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEScanner",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEBiomods",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEEquipment",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEComputerTextInterface",
+      "Enabled": true
+    }
+  ]
+}

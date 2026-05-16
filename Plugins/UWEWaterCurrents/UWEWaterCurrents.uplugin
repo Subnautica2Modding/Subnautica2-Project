@@ -1,0 +1,50 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "UWEWaterCurrents",
+  "Description": "",
+  "Category": "Other",
+  "CreatedBy": "",
+  "CreatedByURL": "",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "CanContainContent": false,
+  "IsBetaVersion": false,
+  "IsExperimentalVersion": false,
+  "Installed": false,
+  "Plugins": [
+    {
+      "Name": "UWEInterfaces",
+      "Enabled": true
+    },
+    {
+      "Name": "GeometryScripting",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEAssetRegistry",
+      "Enabled": true
+    },
+    {
+      "Name": "GameplayAbilities",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEAbilitySystem",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEGameplayCues",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEPhysics",
+      "Enabled": true
+    },
+    {
+      "Name": "UWELog",
+      "Enabled": true
+    }
+  ]
+}

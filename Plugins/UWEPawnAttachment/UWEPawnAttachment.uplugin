@@ -1,0 +1,74 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "UWEPawnAttachment",
+  "Description": "",
+  "Category": "Other",
+  "CreatedBy": "",
+  "CreatedByURL": "",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "CanContainContent": true,
+  "IsBetaVersion": false,
+  "IsExperimentalVersion": false,
+  "Installed": false,
+  "Plugins": [
+    {
+      "Name": "UWECamera",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEInterfaces",
+      "Enabled": true
+    },
+    {
+      "Name": "UWELog",
+      "Enabled": true
+    },
+    {
+      "Name": "UWECollision",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEUtilities",
+      "Enabled": true
+    },
+    {
+      "Name": "GameplayAbilities",
+      "Enabled": true
+    },
+    {
+      "Name": "UWENetworking",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEMath",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEGameplay",
+      "Enabled": true
+    },
+    {
+      "Name": "UWETickAggregation",
+      "Enabled": true
+    },
+    {
+      "Name": "UWESaveSystem",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEActorUID",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEPhysics",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEMovement",
+      "Enabled": true
+    }
+  ]
+}

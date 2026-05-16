@@ -1,0 +1,38 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "UWEBioBed",
+  "Description": "",
+  "Category": "Other",
+  "CreatedBy": "Andreas Urwalek",
+  "CreatedByURL": "",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "CanContainContent": true,
+  "IsBetaVersion": false,
+  "IsExperimentalVersion": false,
+  "Installed": false,
+  "Plugins": [
+    {
+      "Name": "UWESaveSystem",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEActorUID",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEPlayerReady",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEDynamicItems",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEUtilities",
+      "Enabled": true
+    }
+  ]
+}

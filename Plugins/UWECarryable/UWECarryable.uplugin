@@ -1,0 +1,74 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "UWECarryable",
+  "Description": "",
+  "Category": "Other",
+  "CreatedBy": "Adrian Lopez-Mobilia",
+  "CreatedByURL": "",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "CanContainContent": true,
+  "IsBetaVersion": false,
+  "IsExperimentalVersion": false,
+  "Installed": false,
+  "Plugins": [
+    {
+      "Name": "UWEAssetRegistry",
+      "Enabled": true
+    },
+    {
+      "Name": "GameplayAbilities",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEAbilitySystem",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEPawnAttachment",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEInventory",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEPhysics",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEPower",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEDynamicItems",
+      "Enabled": true
+    },
+    {
+      "Name": "UWESculpturalBase",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEInteract",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEInterfaces",
+      "Enabled": true
+    },
+    {
+      "Name": "UWECollision",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEGameplayTime",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEUtilities",
+      "Enabled": true
+    }
+  ]
+}

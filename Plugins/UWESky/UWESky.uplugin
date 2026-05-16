@@ -1,0 +1,42 @@
+{
+  "FileVersion": 1,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "UWESky",
+  "Description": "Sky plugin",
+  "Category": "Rendering",
+  "CreatedBy": "Daniel Quach",
+  "CreatedByURL": "",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "CanContainContent": true,
+  "IsBetaVersion": false,
+  "IsExperimentalVersion": false,
+  "Installed": false,
+  "Plugins": [
+    {
+      "Name": "UWETimeOfDay",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEVolumeTracker",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEMath",
+      "Enabled": true
+    },
+    {
+      "Name": "LevelSequenceEditor",
+      "Enabled": true
+    },
+    {
+      "Name": "DaySequence",
+      "Enabled": true
+    },
+    {
+      "Name": "UWEWeather",
+      "Enabled": true
+    }
+  ]
+}

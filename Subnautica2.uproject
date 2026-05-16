@@ -82,7 +82,23 @@
 			"Enabled": true
 		},
 		{
+			"Name": "UWEInterfaces",
+			"Enabled": true
+		},
+		{
+			"Name": "UWEWater",
+			"Enabled": true
+		},
+		{
 			"Name": "Landmass",
+			"Enabled": true
+		},
+		{
+			"Name": "UWEAI",
+			"Enabled": true
+		},
+		{
+			"Name": "UWEAIWorld",
 			"Enabled": true
 		},
 		{
@@ -90,7 +106,23 @@
 			"Enabled": true
 		},
 		{
+			"Name": "UWEPrototype",
+			"Enabled": true
+		},
+		{
+			"Name": "UWEAssetRegistry",
+			"Enabled": true
+		},
+		{
 			"Name": "FMODStudio",
+			"Enabled": true
+		},
+		{
+			"Name": "UWEDialogue",
+			"Enabled": true
+		},
+		{
+			"Name": "UWEStoryGoals",
 			"Enabled": true
 		},
 		{
@@ -110,7 +142,19 @@
 			"Enabled": true
 		},
 		{
+			"Name": "UWEImGui",
+			"Enabled": true
+		},
+		{
+			"Name": "UWENotifications",
+			"Enabled": true
+		},
+		{
 			"Name": "AnimToTexture",
+			"Enabled": true
+		},
+		{
+			"Name": "UWEGameplayCues",
 			"Enabled": true
 		},
 		{
@@ -118,7 +162,79 @@
 			"Enabled": true
 		},
 		{
+			"Name": "UWES3Uploader",
+			"Enabled": true
+		},
+		{
+			"Name": "HardwareEncoders",
+			"Enabled": true
+		},
+		{
+			"Name": "UWESmoketest",
+			"Enabled": true
+		},
+		{
 			"Name": "GameplayInsights",
+			"Enabled": true
+		},
+		{
+			"Name": "UWEBreakable",
+			"Enabled": true
+		},
+		{
+			"Name": "UWECuttable",
+			"Enabled": true
+		},
+		{
+			"Name": "UWECrashReporter",
+			"Enabled": true
+		},
+		{
+			"Name": "UWECamera",
+			"Enabled": true
+		},
+		{
+			"Name": "UWEPawnAttachment",
+			"Enabled": true
+		},
+		{
+			"Name": "UWESonar",
+			"Enabled": true
+		},
+		{
+			"Name": "UWEPinnedRecipes",
+			"Enabled": true
+		},
+		{
+			"Name": "UWEPingSystem",
+			"Enabled": true
+		},
+		{
+			"Name": "UWESky",
+			"Enabled": true
+		},
+		{
+			"Name": "UWESkyEditor",
+			"Enabled": true
+		},
+		{
+			"Name": "AnalyticsMulticast",
+			"Enabled": true
+		},
+		{
+			"Name": "UWEStimulus",
+			"Enabled": true
+		},
+		{
+			"Name": "SkeletalMeshModelingTools",
+			"Enabled": true
+		},
+		{
+			"Name": "AnimationBudgetAllocator",
+			"Enabled": true
+		},
+		{
+			"Name": "UWESkeletalMeshScalability",
 			"Enabled": true
 		},
 		{
@@ -135,6 +251,26 @@
 		},
 		{
 			"Name": "HairStrands",
+			"Enabled": true
+		},
+		{
+			"Name": "UWEBiomods",
+			"Enabled": true
+		},
+		{
+			"Name": "UWEGameplay",
+			"Enabled": true
+		},
+		{
+			"Name": "UWEStimulusSystem",
+			"Enabled": true
+		},
+		{
+			"Name": "UWELobby",
+			"Enabled": true
+		},
+		{
+			"Name": "UWEChangelistValidators",
 			"Enabled": true
 		},
 		{
@@ -158,11 +294,48 @@
 			"Enabled": true
 		},
 		{
+			"Name": "UWEGameplayTime",
+			"Enabled": true
+		},
+		{
 			"Name": "GeometryScripting",
 			"Enabled": true
 		},
 		{
+			"Name": "UWEInterchange",
+			"Enabled": true,
+			"SupportedTargetPlatforms": [
+				"Win64",
+				"Linux",
+				"Mac"
+			]
+		},
+		{
+			"Name": "UWEConsole",
+			"Enabled": true
+		},
+		{
 			"Name": "ScriptableToolsEditorMode",
+			"Enabled": true
+		},
+		{
+			"Name": "UWEPlayerReady",
+			"Enabled": true
+		},
+		{
+			"Name": "UWEDynamicEvents",
+			"Enabled": true
+		},
+		{
+			"Name": "UWEAIDynamicEvents",
+			"Enabled": true
+		},
+		{
+			"Name": "UWEAIDirector",
+			"Enabled": true
+		},
+		{
+			"Name": "UWEPhysics",
 			"Enabled": true
 		},
 		{
@@ -178,7 +351,23 @@
 			"Enabled": true
 		},
 		{
+			"Name": "UWEPCG",
+			"Enabled": true
+		},
+		{
 			"Name": "DaySequence",
+			"Enabled": true
+		},
+		{
+			"Name": "UWETemperatureRegions",
+			"Enabled": true
+		},
+		{
+			"Name": "UWEFrontend",
+			"Enabled": true
+		},
+		{
+			"Name": "UWEPerfMon",
 			"Enabled": true
 		},
 		{
@@ -195,6 +384,18 @@
 		},
 		{
 			"Name": "NiagaraMRQ",
+			"Enabled": true
+		},
+		{
+			"Name": "UWEPathLookup",
+			"Enabled": true
+		},
+		{
+			"Name": "UWEUserGeneratedContent",
+			"Enabled": true
+		},
+		{
+			"Name": "UWEFeedbackSurvey",
 			"Enabled": true
 		},
 		{

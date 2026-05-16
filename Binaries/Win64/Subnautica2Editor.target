@@ -4782,6 +4782,18 @@
 			"Type": "RequiredResource"
 		},
 		{
+			"Path": "$(EngineDir)/Plugins/Editor/BlueprintMaterialTextureNodes/Binaries/Win64/UnrealEditor-BlueprintMaterialTextureNodes.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Editor/BlueprintMaterialTextureNodes/Binaries/Win64/UnrealEditor-BlueprintMaterialTextureNodes.pdb",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Editor/BlueprintMaterialTextureNodes/Binaries/Win64/UnrealEditor.modules",
+			"Type": "RequiredResource"
+		},
+		{
 			"Path": "$(EngineDir)/Plugins/Editor/ChangelistReview/Binaries/Win64/UnrealEditor-ChangelistReview.dll",
 			"Type": "DynamicLibrary"
 		},
@@ -6126,6 +6138,26 @@
 			"Type": "RequiredResource"
 		},
 		{
+			"Path": "$(EngineDir)/Plugins/Experimental/Water/Binaries/Win64/UnrealEditor-Water.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Experimental/Water/Binaries/Win64/UnrealEditor-Water.pdb",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Experimental/Water/Binaries/Win64/UnrealEditor-WaterEditor.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Experimental/Water/Binaries/Win64/UnrealEditor-WaterEditor.pdb",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Experimental/Water/Binaries/Win64/UnrealEditor.modules",
+			"Type": "RequiredResource"
+		},
+		{
 			"Path": "$(EngineDir)/Plugins/FX/Cascade/Binaries/Win64/UnrealEditor-Cascade.dll",
 			"Type": "DynamicLibrary"
 		},
@@ -6707,6 +6739,26 @@
 		},
 		{
 			"Path": "$(EngineDir)/Plugins/Media/ElectraUtil/Binaries/Win64/UnrealEditor.modules",
+			"Type": "RequiredResource"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Media/HardwareEncoders/Binaries/Win64/UnrealEditor-EncoderAMF.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Media/HardwareEncoders/Binaries/Win64/UnrealEditor-EncoderAMF.pdb",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Media/HardwareEncoders/Binaries/Win64/UnrealEditor-EncoderNVENC.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Media/HardwareEncoders/Binaries/Win64/UnrealEditor-EncoderNVENC.pdb",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Media/HardwareEncoders/Binaries/Win64/UnrealEditor.modules",
 			"Type": "RequiredResource"
 		},
 		{
@@ -7347,6 +7399,18 @@
 		},
 		{
 			"Path": "$(EngineDir)/Plugins/Runtime/ActorLayerUtilities/Binaries/Win64/UnrealEditor.modules",
+			"Type": "RequiredResource"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Runtime/Analytics/AnalyticsBlueprintLibrary/Binaries/Win64/UnrealEditor-AnalyticsBlueprintLibrary.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Runtime/Analytics/AnalyticsBlueprintLibrary/Binaries/Win64/UnrealEditor-AnalyticsBlueprintLibrary.pdb",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Runtime/Analytics/AnalyticsBlueprintLibrary/Binaries/Win64/UnrealEditor.modules",
 			"Type": "RequiredResource"
 		},
 		{
@@ -8210,6 +8274,18 @@
 			"Type": "RequiredResource"
 		},
 		{
+			"Path": "$(EngineDir)/Plugins/Runtime/ReplicationGraph/Binaries/Win64/UnrealEditor-ReplicationGraph.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Runtime/ReplicationGraph/Binaries/Win64/UnrealEditor-ReplicationGraph.pdb",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Runtime/ReplicationGraph/Binaries/Win64/UnrealEditor.modules",
+			"Type": "RequiredResource"
+		},
+		{
 			"Path": "$(EngineDir)/Plugins/Runtime/ResonanceAudio/Binaries/Win64/UnrealEditor-ResonanceAudio.dll",
 			"Type": "DynamicLibrary"
 		},
@@ -8713,6 +8789,534 @@
 		},
 		{
 			"Path": "$(ProjectDir)/Plugins/Suzie/Suzie.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEAIDirector/UWEAIDirector.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEAIDynamicEvents/UWEAIDynamicEvents.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEAIMovement/UWEAIMovement.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEAISpeaker/UWEAISpeaker.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEAIWorld/UWEAIWorld.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEAI/UWEAI.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEAbilitySystem/UWEAbilitySystem.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEAbilityTask/UWEAbilityTask.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEActorUID/UWEActorUID.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEAlerts/UWEAlerts.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEAmbienceSound/UWEAmbienceSound.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEAnalytics/UWEAnalytics.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEAssetFilter/UWEAssetFilter.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEAssetRegistry/UWEAssetRegistry.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEAudio/UWEAudio.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEAutomationTesting/UWEAutomationTesting.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEBioBed/UWEBioBed.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEBiomods/UWEBiomods.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEBiosampler/UWEBiosampler.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEBreakable/UWEBreakable.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWECameraFeed/UWECameraFeed.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWECamera/UWECamera.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWECarryable/UWECarryable.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEChangelistValidators/UWEChangelistValidators.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWECharacterTracker/UWECharacterTracker.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEChildActor/UWEChildActor.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWECollision/UWECollision.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWECommonUI/UWECommonUI.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEComputerTextInterface/UWEComputerTextInterface.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEConsole/UWEConsole.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWECrafting/UWECrafting.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWECrashReporter/UWECrashReporter.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWECuttable/UWECuttable.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEDatabank/UWEDatabank.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEDialogue/UWEDialogue.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEDoor/UWEDoor.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEDynamicEvents/UWEDynamicEvents.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEDynamicItems/UWEDynamicItems.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEDynamicResources/UWEDynamicResources.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEEdgeOfWorld/UWEEdgeOfWorld.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEEntitlements/UWEEntitlements.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEEquipment/UWEEquipment.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEEventTracker/UWEEventTracker.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEFarming/UWEFarming.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEFeedbackSurvey/UWEFeedbackSurvey.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEFeedback/UWEFeedback.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEFrontend/UWEFrontend.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEGameCapture/UWEGameCapture.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEGameConfiguration/UWEGameConfiguration.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEGameModeTypes/UWEGameModeTypes.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEGameplayCues/UWEGameplayCues.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEGameplayMessage/UWEGameplayMessage.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEGameplayTime/UWEGameplayTime.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEGameplay/UWEGameplay.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEGauntletTests/UWEGauntletTests.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEGlobalActorData/UWEGlobalActorData.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEGlobalSimulation/UWEGlobalSimulation.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEImGui/UWEImGui.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEInGameCurrency/UWEInGameCurrency.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEInputActions/UWEInputActions.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEInteract/UWEInteract.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEInterchange/UWEInterchange.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEInterfaces/UWEInterfaces.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEInventory/UWEInventory.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWELadder/UWELadder.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWELeviathan/UWELeviathan.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWELighting/UWELighting.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWELoadingScreen/UWELoadingScreen.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWELobby/UWELobby.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWELock/UWELock.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWELog/UWELog.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEMath/UWEMath.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEMercuna/UWEMercuna.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEMovement/UWEMovement.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEMusicVolumeManager/UWEMusicVolumeManager.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWENetworking/UWENetworking.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWENewsfeed/UWENewsfeed.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWENotifications/UWENotifications.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEPCG/UWEPCG.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEPathLookup/UWEPathLookup.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEPawnAttachment/UWEPawnAttachment.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEPerfMon/UWEPerfMon.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEPhotoTours/UWEPhotoTours.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEPhysics/UWEPhysics.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEPingSystem/UWEPingSystem.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEPinnedRecipes/UWEPinnedRecipes.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEPlayerCustomization/UWEPlayerCustomization.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEPlayerReady/UWEPlayerReady.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEPower/UWEPower.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEPrototype/UWEPrototype.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWERangeTracker/UWERangeTracker.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWERendering/UWERendering.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWES3Uploader/UWES3Uploader.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWESaveSystem/UWESaveSystem.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEScanner/UWEScanner.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEScubaMask/UWEScubaMask.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWESculpturalBase/UWESculpturalBase.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWESequence/UWESequence.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWESkeletalMeshScalability/UWESkeletalMeshScalability.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWESkyEditor/UWESkyEditor.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWESky/UWESky.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWESmoketest/UWESmoketest.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWESonarAPI/UWESonarAPI.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWESonar/UWESonar.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWESpawnSystems/UWESpawnSystems.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWESplineEditor/UWESplineEditor.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWESpline/UWESpline.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWESteamDeck/UWESteamDeck.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEStimulusSystem/UWEStimulusSystem.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEStimulus/UWEStimulus.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEStoryEditor/UWEStoryEditor.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEStoryEvents/UWEStoryEvents.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEStoryGoals/UWEStoryGoals.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEStringTableEditor/UWEStringTableEditor.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWESubmarine/UWESubmarine.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWETemperatureRegions/UWETemperatureRegions.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWETickAggregation/UWETickAggregation.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWETimeOfDay/UWETimeOfDay.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWETrigger/UWETrigger.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWETriggeredNotifications/UWETriggeredNotifications.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEUnlockables/UWEUnlockables.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEUserGeneratedContent/UWEUserGeneratedContent.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEUtilities/UWEUtilities.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEVehicle/UWEVehicle.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEVolumeTracker/UWEVolumeTracker.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEWaterCurrents/UWEWaterCurrents.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEWater/UWEWater.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEWeather/UWEWeather.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEWorldForces/UWEWorldForces.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEWorldPartitionTest/UWEWorldPartitionTest.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEWorldPopulation2/UWEWorldPopulation2.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEXboxFSE/UWEXboxFSE.uplugin",
 			"Type": "UFS"
 		},
 		{
@@ -32652,6 +33256,10 @@
 			"Type": "UFS"
 		},
 		{
+			"Path": "$(EngineDir)/Plugins/Editor/BlueprintMaterialTextureNodes/BlueprintMaterialTextureNodes.uplugin",
+			"Type": "UFS"
+		},
+		{
 			"Path": "$(EngineDir)/Plugins/Editor/ChangelistReview/ChangelistReview.uplugin",
 			"Type": "UFS"
 		},
@@ -32964,6 +33572,10 @@
 			"Type": "UFS"
 		},
 		{
+			"Path": "$(EngineDir)/Plugins/Experimental/Water/Water.uplugin",
+			"Type": "UFS"
+		},
+		{
 			"Path": "$(EngineDir)/Plugins/FX/Cascade/Cascade.uplugin",
 			"Type": "UFS"
 		},
@@ -33049,6 +33661,10 @@
 		},
 		{
 			"Path": "$(EngineDir)/Plugins/Media/ElectraUtil/ElectraUtil.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Media/HardwareEncoders/HardwareEncoders.uplugin",
 			"Type": "UFS"
 		},
 		{
@@ -33201,6 +33817,10 @@
 		},
 		{
 			"Path": "$(EngineDir)/Plugins/Runtime/ActorLayerUtilities/ActorLayerUtilities.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Runtime/Analytics/AnalyticsBlueprintLibrary/AnalyticsBlueprintLibrary.uplugin",
 			"Type": "UFS"
 		},
 		{
@@ -33360,6 +33980,10 @@
 			"Type": "UFS"
 		},
 		{
+			"Path": "$(EngineDir)/Plugins/Runtime/ReplicationGraph/ReplicationGraph.uplugin",
+			"Type": "UFS"
+		},
+		{
 			"Path": "$(EngineDir)/Plugins/Runtime/ResonanceAudio/ResonanceAudio.uplugin",
 			"Type": "UFS"
 		},
@@ -33464,6 +34088,7 @@
 		"ActorSequence",
 		"AdvancedRenamer",
 		"AlembicImporter",
+		"AnalyticsBlueprintLibrary",
 		"AnalyticsMulticast",
 		"AndroidDeviceProfileSelector",
 		"AndroidFileServer",
@@ -33493,6 +34118,7 @@
 		"BlendSpaceMotionAnalysis",
 		"BlendStack",
 		"BlueprintHeaderView",
+		"BlueprintMaterialTextureNodes",
 		"CLionSourceCodeAccess",
 		"CableComponent",
 		"CameraCalibrationCore",
@@ -33584,6 +34210,7 @@
 		"GoogleCloudMessaging",
 		"GooglePAD",
 		"HairStrands",
+		"HardwareEncoders",
 		"HttpBlueprint",
 		"IKRig",
 		"IOSDeviceProfileSelector",
@@ -33669,6 +34296,7 @@
 		"PythonScriptPlugin",
 		"RenderDocPlugin",
 		"RenderGraphInsights",
+		"ReplicationGraph",
 		"ResonanceAudio",
 		"RiderLink",
 		"RiderSourceCodeAccess",
@@ -33706,6 +34334,138 @@
 		"UMGWidgetPreview",
 		"UObjectPlugin",
 		"UVEditor",
+		"UWEAI",
+		"UWEAIDirector",
+		"UWEAIDynamicEvents",
+		"UWEAIMovement",
+		"UWEAISpeaker",
+		"UWEAIWorld",
+		"UWEAbilitySystem",
+		"UWEAbilityTask",
+		"UWEActorUID",
+		"UWEAlerts",
+		"UWEAmbienceSound",
+		"UWEAnalytics",
+		"UWEAssetFilter",
+		"UWEAssetRegistry",
+		"UWEAudio",
+		"UWEAutomationTesting",
+		"UWEBioBed",
+		"UWEBiomods",
+		"UWEBiosampler",
+		"UWEBreakable",
+		"UWECamera",
+		"UWECameraFeed",
+		"UWECarryable",
+		"UWEChangelistValidators",
+		"UWECharacterTracker",
+		"UWEChildActor",
+		"UWECollision",
+		"UWECommonUI",
+		"UWEComputerTextInterface",
+		"UWEConsole",
+		"UWECrafting",
+		"UWECrashReporter",
+		"UWECuttable",
+		"UWEDatabank",
+		"UWEDialogue",
+		"UWEDoor",
+		"UWEDynamicEvents",
+		"UWEDynamicItems",
+		"UWEDynamicResources",
+		"UWEEdgeOfWorld",
+		"UWEEntitlements",
+		"UWEEquipment",
+		"UWEEventTracker",
+		"UWEFarming",
+		"UWEFeedback",
+		"UWEFeedbackSurvey",
+		"UWEFrontend",
+		"UWEGameCapture",
+		"UWEGameConfiguration",
+		"UWEGameModeTypes",
+		"UWEGameplay",
+		"UWEGameplayCues",
+		"UWEGameplayMessage",
+		"UWEGameplayTime",
+		"UWEGauntletTests",
+		"UWEGlobalActorData",
+		"UWEGlobalSimulation",
+		"UWEImGui",
+		"UWEInGameCurrency",
+		"UWEInputActions",
+		"UWEInteract",
+		"UWEInterchange",
+		"UWEInterfaces",
+		"UWEInventory",
+		"UWELadder",
+		"UWELeviathan",
+		"UWELighting",
+		"UWELoadingScreen",
+		"UWELobby",
+		"UWELock",
+		"UWELog",
+		"UWEMath",
+		"UWEMercuna",
+		"UWEMovement",
+		"UWEMusicVolumeManager",
+		"UWENetworking",
+		"UWENewsfeed",
+		"UWENotifications",
+		"UWEPCG",
+		"UWEPathLookup",
+		"UWEPawnAttachment",
+		"UWEPerfMon",
+		"UWEPhotoTours",
+		"UWEPhysics",
+		"UWEPingSystem",
+		"UWEPinnedRecipes",
+		"UWEPlayerCustomization",
+		"UWEPlayerReady",
+		"UWEPower",
+		"UWEPrototype",
+		"UWERangeTracker",
+		"UWERendering",
+		"UWES3Uploader",
+		"UWESaveSystem",
+		"UWEScanner",
+		"UWEScubaMask",
+		"UWESculpturalBase",
+		"UWESequence",
+		"UWESkeletalMeshScalability",
+		"UWESky",
+		"UWESkyEditor",
+		"UWESmoketest",
+		"UWESonar",
+		"UWESonarAPI",
+		"UWESpawnSystems",
+		"UWESpline",
+		"UWESplineEditor",
+		"UWESteamDeck",
+		"UWEStimulus",
+		"UWEStimulusSystem",
+		"UWEStoryEditor",
+		"UWEStoryEvents",
+		"UWEStoryGoals",
+		"UWEStringTableEditor",
+		"UWESubmarine",
+		"UWETemperatureRegions",
+		"UWETickAggregation",
+		"UWETimeOfDay",
+		"UWETrigger",
+		"UWETriggeredNotifications",
+		"UWEUnlockables",
+		"UWEUserGeneratedContent",
+		"UWEUtilities",
+		"UWEVehicle",
+		"UWEVolumeTracker",
+		"UWEWater",
+		"UWEWaterCurrents",
+		"UWEWeather",
+		"UWEWorldForces",
+		"UWEWorldPartitionTest",
+		"UWEWorldPopulation2",
+		"UWEXboxFSE",
 		"UbaController",
 		"UdpMessaging",
 		"VPxDecoderElectra",
@@ -33713,6 +34473,7 @@
 		"VariantManagerContent",
 		"VisualStudioCodeSourceCodeAccess",
 		"VisualStudioSourceCodeAccess",
+		"Water",
 		"WaveTable",
 		"WebMMedia",
 		"WebMMoviePlayer",
