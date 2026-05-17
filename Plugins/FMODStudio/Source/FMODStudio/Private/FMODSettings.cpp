@@ -142,52 +142,55 @@ UFMODSettings::EProblem UFMODSettings::Check() const
         return BankPathNotSet;
     }
 
-    // Check packaging settings to ensure that only the correct bank output directory for desktop (or forced platform) banks is set-up for staging
-    FString DesktopBankPath = GetDesktopBankPath();
-    UProjectPackagingSettings* PackagingSettings = Cast<UProjectPackagingSettings>(UProjectPackagingSettings::StaticClass()->GetDefaultObject());
-    bool bCorrectPathAdded = false;
-    bool bOtherPathsAdded = false;
-    bool bAssetsToCookAdded = false;
-
-    for (int i = 0; i < PackagingSettings->DirectoriesToAlwaysStageAsNonUFS.Num(); ++i)
-    {
-        if (PackagingSettings->DirectoriesToAlwaysStageAsNonUFS[i].Path.StartsWith(BankOutputDirectory.Path))
-        {
-            if (PackagingSettings->DirectoriesToAlwaysStageAsNonUFS[i].Path == DesktopBankPath)
-            {
-                bCorrectPathAdded = true;
-            }
-            else
-            {
-                bOtherPathsAdded = true;
-            }
-        }
-    }
-
-    for (int i = 0; i < PackagingSettings->DirectoriesToAlwaysStageAsUFS.Num(); ++i)
-    {
-        if (PackagingSettings->DirectoriesToAlwaysStageAsUFS[i].Path.StartsWith(BankOutputDirectory.Path))
-        {
-            bOtherPathsAdded = true;
-            break;
-        }
-    }
-
-    for (int i = 0; i < PackagingSettings->DirectoriesToAlwaysCook.Num(); ++i)
-    {
-        if (PackagingSettings->DirectoriesToAlwaysCook[i].Path.StartsWith(GetFullContentPath()))
-        {
-            bAssetsToCookAdded = true;
-            break;
-        }
-    }
-
-    if (!bCorrectPathAdded || bOtherPathsAdded || !bAssetsToCookAdded)
-    {
-        return PackagingSettingsBad;
-    }
-
+    // Packaging validation skipped — banks are not distributed with this mod project.
     return Okay;
+
+    // Check packaging settings to ensure that only the correct bank output directory for desktop (or forced platform) banks is set-up for staging
+    // FString DesktopBankPath = GetDesktopBankPath();
+    // UProjectPackagingSettings* PackagingSettings = Cast<UProjectPackagingSettings>(UProjectPackagingSettings::StaticClass()->GetDefaultObject());
+    // bool bCorrectPathAdded = false;
+    // bool bOtherPathsAdded = false;
+    // bool bAssetsToCookAdded = false;
+    //
+    // for (int i = 0; i < PackagingSettings->DirectoriesToAlwaysStageAsNonUFS.Num(); ++i)
+    // {
+    //     if (PackagingSettings->DirectoriesToAlwaysStageAsNonUFS[i].Path.StartsWith(BankOutputDirectory.Path))
+    //     {
+    //         if (PackagingSettings->DirectoriesToAlwaysStageAsNonUFS[i].Path == DesktopBankPath)
+    //         {
+    //             bCorrectPathAdded = true;
+    //         }
+    //         else
+    //         {
+    //             bOtherPathsAdded = true;
+    //         }
+    //     }
+    // }
+    //
+    // for (int i = 0; i < PackagingSettings->DirectoriesToAlwaysStageAsUFS.Num(); ++i)
+    // {
+    //     if (PackagingSettings->DirectoriesToAlwaysStageAsUFS[i].Path.StartsWith(BankOutputDirectory.Path))
+    //     {
+    //         bOtherPathsAdded = true;
+    //         break;
+    //     }
+    // }
+    //
+    // for (int i = 0; i < PackagingSettings->DirectoriesToAlwaysCook.Num(); ++i)
+    // {
+    //     if (PackagingSettings->DirectoriesToAlwaysCook[i].Path.StartsWith(GetFullContentPath()))
+    //     {
+    //         bAssetsToCookAdded = true;
+    //         break;
+    //     }
+    // }
+    //
+    // if (!bCorrectPathAdded || bOtherPathsAdded || !bAssetsToCookAdded)
+    // {
+    //     return PackagingSettingsBad;
+    // }
+    //
+    // return Okay;
 }
 
 void UFMODSettings::PostEditChangeProperty(FPropertyChangedEvent& e)

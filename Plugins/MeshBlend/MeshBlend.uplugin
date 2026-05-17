@@ -1,0 +1,16 @@
+{
+  "FileVersion": 3,
+  "Version": 8,
+  "VersionName": "2.0",
+  "FriendlyName": "MeshBlend",
+  "Description": "",
+  "Category": "FX",
+  "CreatedBy": "Tore Lervik",
+  "CreatedByURL": "",
+  "DocsURL": "",
+  "MarketplaceURL": "com.epicgames.launcher://ue/Fab/product/1f4abe73-4cda-42db-995a-c9f8ca4790e5",
+  "SupportURL": "",
+  "EngineVersion": "",
+  "CanContainContent": true,
+  "Installed": true
+}

@@ -1,0 +1,27 @@
+{
+	"FileVersion": 3,
+	"Version": 30502,
+	"VersionName": "3.5.2",
+	"FriendlyName": "Mercuna Water",
+	"Description": "Extends Mercuna Navigation to detect and mark Unreal water bodies within the nav mesh and nav octree.",
+	"Category": "AI",
+	"CreatedBy": "Mercuna Developments Limited",
+	"CreatedByURL": "mercuna.com",
+	"DocsURL": "https://mercuna.com/documentation/",
+	"MarketplaceURL": "",
+	"SupportURL": "mailto:support@mercuna.com",
+	"CanContainContent": false,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Plugins": [
+		{
+			"Name": "Mercuna",
+			"Enabled": true
+		},
+		{
+			"Name": "Water",
+			"Enabled": true
+		}
+	]
+}

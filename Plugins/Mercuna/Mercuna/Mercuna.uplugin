@@ -1,0 +1,27 @@
+{
+	"FileVersion": 3,
+	"Version": 30502,
+	"VersionName": "3.5.2",
+	"FriendlyName": "Mercuna Navigation",
+	"Description": "Ground, Any Surface and 3D navigation solution that enables characters, creatures and vehicles to find their way through complex environments.",
+	"Category": "AI",
+	"CreatedBy": "Mercuna Developments Limited",
+	"CreatedByURL": "mercuna.com",
+	"DocsURL": "https://mercuna.com/documentation/",
+	"MarketplaceURL": "",
+	"SupportURL": "mailto:support@mercuna.com",
+	"EnabledByDefault": true,
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"Installed": false,
+	"Plugins": [
+		{
+			"Name": "ChaosVehiclesPlugin",
+			"Enabled": true
+		},
+		{
+			"Name": "PoseSearch",
+			"Enabled": true
+		}
+	]
+}

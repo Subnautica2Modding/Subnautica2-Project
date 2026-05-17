@@ -1,0 +1,27 @@
+{
+	"FileVersion": 3,
+	"Version": 30502,
+	"VersionName": "3.5.2",
+	"FriendlyName": "Mercuna Mover",
+	"Description": "Extends Mercuna Navigation to work with the Mover movement component.",
+	"Category": "AI",
+	"CreatedBy": "Mercuna Developments Limited",
+	"CreatedByURL": "mercuna.com",
+	"DocsURL": "https://mercuna.com/documentation/",
+	"MarketplaceURL": "",
+	"SupportURL": "mailto:support@mercuna.com",
+	"CanContainContent": false,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": true,
+	"Installed": false,
+	"Plugins": [
+		{
+			"Name": "Mercuna",
+			"Enabled": true
+		},
+		{
+			"Name": "Mover",
+			"Enabled": true
+		}
+	]
+}

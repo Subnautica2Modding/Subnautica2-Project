@@ -405,6 +405,10 @@
 		{
 			"Name": "VPxDecoderElectra",
 			"Enabled": true
+		},
+		{
+			"Name": "MeshBlend",
+			"Enabled": true
 		}
 	]
 }
