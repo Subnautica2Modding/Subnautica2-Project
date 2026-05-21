@@ -6,14 +6,11 @@
 #include "IContentBrowserSingleton.h"
 #include "ContentBrowserDelegates.h"
 #include "Framework/MultiBox/MultiBoxBuilder.h"
-#include "Logging/LogMacros.h"
 #include "ISettingsModule.h"
 #include "Editor.h"
 
 #include "NewModDialog.h"
 #include "ModActions.h"
-
-DEFINE_LOG_CATEGORY_STATIC(LogSN2ModTools, Log, All);
 
 class FSN2ModToolsModule : public IModuleInterface
 {
