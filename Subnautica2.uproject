@@ -409,6 +409,11 @@
 		{
 			"Name": "MeshBlend",
 			"Enabled": true
+		},
+		{
+			"Name": "SN2ModTools",
+			"Enabled": true,
+			"TargetAllowList": [ "Editor" ]
 		}
 	]
 }
