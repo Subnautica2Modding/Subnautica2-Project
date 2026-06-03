@@ -1,0 +1,13 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "SN2 Mod Tools",
+	"Description": "Editor automation for creating, cooking, and installing Subnautica 2 mods.",
+	"Category": "Modding",
+	"EnabledByDefault": true,
+	"CanContainContent": false,
+	"Modules": [
+		{ "Name": "SN2ModTools", "Type": "Editor", "LoadingPhase": "PostEngineInit" }
+	]
+}
