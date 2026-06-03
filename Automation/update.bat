@@ -32,10 +32,14 @@ echo Game version detected: %GAME_VERSION%
 set "OUTPUT_JMAP_PATH=../Content/DynamicClasses/Subnautica2-%GAME_VERSION%.jmap.gz"
 set "OUTPUT_USMAP_PATH=Subnautica2-%GAME_VERSION%.usmap"
 set "OUTPUT_DIFF_JMAP_PATH=diff.hpp"
+set "INDEX_PATH=DataIndex.json"
+set "ASSET_SNAPSHOT_PATH=%~dp0AssetSnapshot.txt"
 echo Output files will be: 
 echo   - %OUTPUT_JMAP_PATH%
 echo   - %OUTPUT_USMAP_PATH%
 echo   - %OUTPUT_DIFF_JMAP_PATH%
+echo   - %INDEX_PATH%
+echo   - %ASSET_SNAPSHOT_PATH%
 
 echo Checking for UE4SS proxy DLL at: "%UE4SS_PROXY_PATH%"
 if exist "%UE4SS_PROXY_PATH%" (
@@ -192,36 +196,50 @@ if "%UE4SS_DISABLED%"=="1" (
 )
 echo.
 
-set "INDEXPATH=DataIndex.json"
 set "TABLE_DUMPER_PATH=TableGraph/TableGraph.exe"
 echo Running TableGraph.exe for DataTable/DataAsset dumps...
-echo Command: "%TABLE_DUMPER_PATH%" --pak-dir "%INSTALL_DIR%\Subnautica2\Content\Paks" --mappings "%OUTPUT_USMAP_PATH%" --version GAME_UE5_6 --export "%INDEXPATH%"
-"%TABLE_DUMPER_PATH%" --pak-dir "%INSTALL_DIR%\Subnautica2\Content\Paks" --mappings "%OUTPUT_USMAP_PATH%" --version GAME_UE5_6 --export "%INDEXPATH%"
+echo Command: "%TABLE_DUMPER_PATH%" --pak-dir "%INSTALL_DIR%\Subnautica2\Content\Paks" --mappings "%OUTPUT_USMAP_PATH%" --version GAME_UE5_6 --export "%INDEX_PATH%"
+"%TABLE_DUMPER_PATH%" --pak-dir "%INSTALL_DIR%\Subnautica2\Content\Paks" --mappings "%OUTPUT_USMAP_PATH%" --version GAME_UE5_6 --export "%INDEX_PATH%"
 if errorlevel 1 (
     echo WARNING: TableGraph.exe failed or returned an error
 ) else (
     echo SUCCESS: TableGraph.exe completed successfully
-    if exist "%INDEXPATH%" (
-        echo File created: "%INDEXPATH%"
+    if exist "%INDEX_PATH%" (
+        echo File created: "%INDEX_PATH%"
     ) else (
-        echo ERROR: "%INDEXPATH%" file not found after export!
+        echo ERROR: "%INDEX_PATH%" file not found after export!
     )
 )
 echo.
 
-set "ASSETSNAPSHOTPATH=%~dp0AssetSnapshot.txt"
 set "COOKED_EXPORT_PATH=CookedExport/CookedExport.exe"
 echo Running CookedExport.exe for asset list snapshot...
-echo Command: "%COOKED_EXPORT_PATH%" -p "%INSTALL_DIR%\Subnautica2\Content\Paks" -m "%OUTPUT_USMAP_PATH%" -dra -ipp "Engine/" -ipp "Subnautica2/Content/Maps/Main/L_Main/_Generated_/"  -ro "%ASSETSNAPSHOTPATH%"
-"%COOKED_EXPORT_PATH%" -p "%INSTALL_DIR%\Subnautica2\Content\Paks" -m "%OUTPUT_USMAP_PATH%" -dra -ipp "Engine/" -ipp "Subnautica2/Content/Maps/Main/L_Main/_Generated_/" -ro "%ASSETSNAPSHOTPATH%"
+echo Command: "%COOKED_EXPORT_PATH%" -p "%INSTALL_DIR%\Subnautica2\Content\Paks" -m "%OUTPUT_USMAP_PATH%" -dra -ipp "Engine/" -ipp "Subnautica2/Content/Maps/Main/L_Main/_Generated_/"  -ro "%ASSET_SNAPSHOT_PATH%"
+"%COOKED_EXPORT_PATH%" -p "%INSTALL_DIR%\Subnautica2\Content\Paks" -m "%OUTPUT_USMAP_PATH%" -dra -ipp "Engine/" -ipp "Subnautica2/Content/Maps/Main/L_Main/_Generated_/" -ro "%ASSET_SNAPSHOT_PATH%"
 if errorlevel 1 (
     echo WARNING: CookedExport.exe failed or returned an error
 ) else (
     echo SUCCESS: CookedExport.exe completed successfully
-    if exist "%ASSETSNAPSHOTPATH%" (
-        echo File created: "%ASSETSNAPSHOTPATH%"
+    if exist "%ASSET_SNAPSHOT_PATH%" (
+        echo File created: "%ASSET_SNAPSHOT_PATH%"
     ) else (
-        echo ERROR: "%ASSETSNAPSHOTPATH%" file not found after export!
+        echo ERROR: "%ASSET_SNAPSHOT_PATH%" file not found after export!
+    )
+)
+echo.
+
+set "AR_PATH=%~dp0../AssetRegistry.bin"
+echo Running CookedExport.exe for asset registry...
+echo Command: "%COOKED_EXPORT_PATH%" -p "%INSTALL_DIR%\Subnautica2\Content\Paks" -erb -arbo "%AR_PATH%"
+"%COOKED_EXPORT_PATH%" -p "%INSTALL_DIR%\Subnautica2\Content\Paks" -erb -arbo "%AR_PATH%"
+if errorlevel 1 (
+    echo WARNING: CookedExport.exe failed or returned an error
+) else (
+    echo SUCCESS: CookedExport.exe completed successfully
+    if exist "%AR_PATH%" (
+        echo File created: "%AR_PATH%"
+    ) else (
+        echo ERROR: "%AR_PATH%" file not found after export!
     )
 )
 echo.

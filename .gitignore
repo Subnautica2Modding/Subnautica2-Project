@@ -17,6 +17,9 @@
 *.pdb
 *.exe
 !Automation/**/*.exe
+Automation/**/*.dll
+Automation/copy.bat
+Automation/Cooked/*
 
 # Builds
 Build/*
@@ -62,5 +65,3 @@ Plugins/FMODStudio/Binaries/Win64/fmod*.lib
 Plugins/FMODStudio/Binaries/Win64/resonanceaudio.dll
 Plugins/FMODStudio/Binaries/Android/
 Plugins/Developer/*
-
-Automation/copy.bat
