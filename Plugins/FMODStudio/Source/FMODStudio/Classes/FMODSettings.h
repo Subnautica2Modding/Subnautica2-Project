@@ -10,6 +10,7 @@
 #include "FMODSettings.generated.h"
 
 class Paths;
+class UFMODAudioComponent;
 
 UENUM()
 enum EFMODLogging
@@ -453,6 +454,9 @@ public:
     */
     UPROPERTY(config, EditAnywhere, Category = Advanced, meta = (ConfigRestartRequired=true))
     bool bFMODAudioLinkEnabled;
+    
+    UPROPERTY(config, EditAnywhere, NoClear, Category = Advanced)
+    TSoftClassPtr<UFMODAudioComponent> AudioComponentClass;
 
     /*
     * Used to specify platform specific settings.

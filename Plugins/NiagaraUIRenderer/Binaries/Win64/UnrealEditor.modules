@@ -1,0 +1,8 @@
+{
+	"BuildId": "295416fb-ec7a-4c70-aa05-eafdc216457c",
+	"Modules": 
+	{
+		"NiagaraUIRenderer": "UnrealEditor-NiagaraUIRenderer.dll",
+		"NiagaraUIRendererEditor": "UnrealEditor-NiagaraUIRendererEditor.dll"
+	}
+}

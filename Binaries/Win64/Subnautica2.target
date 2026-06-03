@@ -12,12 +12,12 @@
 		"MajorVersion": 5,
 		"MinorVersion": 6,
 		"PatchVersion": 1,
-		"Changelist": 44394996,
+		"Changelist": 0,
 		"CompatibleChangelist": 43139311,
 		"IsLicenseeVersion": 0,
 		"IsPromotedBuild": 0,
-		"BranchName": "++UE5+Release-5.6",
-		"BuildId": "43139311"
+		"BranchName": "UE5",
+		"BuildId": "a6a8e7cf-bc35-43eb-884f-0894872e247c"
 	},
 	"BuildProducts": [
 		{
@@ -75,6 +75,10 @@
 			"Type": "NonUFS"
 		},
 		{
+			"Path": "$(ProjectDir)/Plugins/FMODStudioNiagara/FMODStudioNiagara.uplugin",
+			"Type": "UFS"
+		},
+		{
 			"Path": "$(ProjectDir)/Plugins/FMODStudio/Binaries/Win64/fmodL.dll",
 			"Type": "NonUFS"
 		},
@@ -84,6 +88,26 @@
 		},
 		{
 			"Path": "$(ProjectDir)/Plugins/FMODStudio/FMODStudio.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/Mercuna/MercunaMover/MercunaMover.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/Mercuna/MercunaWater/MercunaWater.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/Mercuna/Mercuna/Mercuna.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/MeshBlend/MeshBlend.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/NiagaraUIRenderer/NiagaraUIRenderer.uplugin",
 			"Type": "UFS"
 		},
 		{
@@ -3767,6 +3791,10 @@
 			"Type": "UFS"
 		},
 		{
+			"Path": "$(EngineDir)/Plugins/Animation/MotionWarping/MotionWarping.uplugin",
+			"Type": "UFS"
+		},
+		{
 			"Path": "$(EngineDir)/Plugins/Animation/PoseSearch/PoseSearch.uplugin",
 			"Type": "UFS"
 		},
@@ -4011,6 +4039,10 @@
 			"Type": "UFS"
 		},
 		{
+			"Path": "$(EngineDir)/Plugins/Experimental/ChaosVehiclesPlugin/ChaosVehiclesPlugin.uplugin",
+			"Type": "UFS"
+		},
+		{
 			"Path": "$(EngineDir)/Plugins/Experimental/CharacterAI/CharacterAI.uplugin",
 			"Type": "UFS"
 		},
@@ -4040,10 +4072,6 @@
 		},
 		{
 			"Path": "$(EngineDir)/Plugins/Experimental/FullBodyIK/FullBodyIK.uplugin",
-			"Type": "UFS"
-		},
-		{
-			"Path": "$(EngineDir)/Plugins/Experimental/GameInputWindows/GameInputWindows.uplugin",
 			"Type": "UFS"
 		},
 		{
@@ -4080,6 +4108,10 @@
 		},
 		{
 			"Path": "$(EngineDir)/Plugins/Experimental/MeshModelingToolsetExp/MeshModelingToolsetExp.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Experimental/Mover/Mover.uplugin",
 			"Type": "UFS"
 		},
 		{
@@ -4403,10 +4435,6 @@
 			"Type": "UFS"
 		},
 		{
-			"Path": "$(EngineDir)/Plugins/Runtime/GameInput/GameInput.uplugin",
-			"Type": "UFS"
-		},
-		{
 			"Path": "$(EngineDir)/Plugins/Runtime/GameplayAbilities/GameplayAbilities.uplugin",
 			"Type": "UFS"
 		},
@@ -4464,6 +4492,10 @@
 		},
 		{
 			"Path": "$(EngineDir)/Plugins/Runtime/MsQuic/MsQuic.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Runtime/NetworkPrediction/NetworkPrediction.uplugin",
 			"Type": "UFS"
 		},
 		{
@@ -4624,6 +4656,7 @@
 		"ChaosSolverPlugin",
 		"ChaosUserDataPT",
 		"ChaosVD",
+		"ChaosVehiclesPlugin",
 		"CharacterAI",
 		"Chooser",
 		"ChunkDownloader",
@@ -4674,13 +4707,12 @@
 		"EnvironmentQueryEditor",
 		"ExampleDeviceProfileSelector",
 		"FMODStudio",
+		"FMODStudioNiagara",
 		"FacialAnimation",
 		"FastBuildController",
 		"Fracture",
 		"FullBodyIK",
 		"GLTFExporter",
-		"GameInput",
-		"GameInputWindows",
 		"GameplayAbilities",
 		"GameplayBehaviorSmartObjects",
 		"GameplayBehaviors",
@@ -4725,6 +4757,10 @@
 		"MediaCompositing",
 		"MediaPlate",
 		"MediaPlayerEditor",
+		"Mercuna",
+		"MercunaMover",
+		"MercunaWater",
+		"MeshBlend",
 		"MeshModelingToolset",
 		"MeshModelingToolsetExp",
 		"MeshPainting",
@@ -4735,6 +4771,8 @@
 		"ModelViewViewModel",
 		"ModularGameplay",
 		"MotionTrajectory",
+		"MotionWarping",
+		"Mover",
 		"MovieRenderPipeline",
 		"MsQuic",
 		"N10XSourceCodeAccess",
@@ -4742,10 +4780,12 @@
 		"NNEDenoiser",
 		"NNERuntimeORT",
 		"NamingTokens",
+		"NetworkPrediction",
 		"Niagara",
 		"NiagaraFluids",
 		"NiagaraMRQ",
 		"NiagaraSimCaching",
+		"NiagaraUIRenderer",
 		"NullSourceCodeAccess",
 		"ObjectMixer",
 		"OnlineBase",

@@ -21809,38 +21809,47 @@ struct FCustomMeshTriangle {
 
 // Size: 0x30
 class UDLSSOverrideSettings : public UObject {
-    /* 0x0028 */ EDLSSSettingOverride EnableDLSSInEditorViewportsOverride;
-    /* 0x0029 */ EDLSSSettingOverride EnableDLSSInPlayInEditorViewportsOverride;
-    /* 0x002a */ bool bShowDLSSIncompatiblePluginsToolsWarnings;
-    /* 0x002b */ EDLSSSettingOverride ShowDLSSSDebugOnScreenMessages;
+    /* 0x0028 */ bool bShowDLSSIncompatiblePluginsToolsWarnings;
+    /* 0x0029 */ EDLSSSettingOverride ShowDLSSSDebugOnScreenMessages;
+    /* 0x002a */ EDLSSSettingOverride EnableDLSSInEditorViewportsOverride;
+    /* 0x002b */ EDLSSSettingOverride EnableDLSSInPlayInEditorViewportsOverride;
 };
 
-// Size: 0x68
+// Size: 0x98
 class UDLSSSettings : public UObject {
-    /* 0x0028 */ bool bEnableDLSSD3D12;
-    /* 0x0029 */ bool bEnableDLSSD3D11;
-    /* 0x002a */ bool bEnableDLSSVulkan;
-    /* 0x002b */ bool bEnableDLSSInEditorViewports;
-    /* 0x002c */ bool bEnableDLSSInPlayInEditorViewports;
-    /* 0x002d */ bool bShowDLSSSDebugOnScreenMessages;
-    /* 0x0030 */ FString GenericDLSSBinaryPath;
-    /* 0x0040 */ bool bGenericDLSSBinaryExists;
-    /* 0x0044 */ uint32_t NVIDIANGXApplicationId;
-    /* 0x0048 */ FString CustomDLSSBinaryPath;
-    /* 0x0058 */ bool bCustomDLSSBinaryExists;
-    /* 0x0059 */ bool bAllowOTAUpdate;
-    /* 0x005a */ uint8_t BiasCurrentColorStencilValue;
-    /* 0x005b */ bool bShowDLSSIncompatiblePluginsToolsWarnings;
-    /* 0x005c */ EDLSSPreset DLAAPreset;
-    /* 0x005e */ EDLSSPreset DLSSQualityPreset;
-    /* 0x005f */ EDLSSPreset DLSSBalancedPreset;
-    /* 0x0060 */ EDLSSPreset DLSSPerformancePreset;
-    /* 0x0061 */ EDLSSPreset DLSSUltraPerformancePreset;
-    /* 0x0062 */ EDLSSRRPreset DLAARRPreset;
-    /* 0x0064 */ EDLSSRRPreset DLSSRRQualityPreset;
-    /* 0x0065 */ EDLSSRRPreset DLSSRRBalancedPreset;
-    /* 0x0066 */ EDLSSRRPreset DLSSRRPerformancePreset;
-    /* 0x0067 */ EDLSSRRPreset DLSSRRUltraPerformancePreset;
+    /* 0x0028 */ bool bAllowOTAUpdate;
+    /* 0x002c */ uint32_t NVIDIANGXApplicationId;
+    /* 0x0030 */ uint8_t BiasCurrentColorStencilValue;
+    /* 0x0031 */ bool bEnableDLSSD3D12;
+    /* 0x0032 */ bool bEnableDLSSD3D11;
+    /* 0x0033 */ bool bEnableDLSSVulkan;
+    /* 0x0034 */ bool bShowDLSSIncompatiblePluginsToolsWarnings;
+    /* 0x0035 */ bool bEnableDLSSInEditorViewports;
+    /* 0x0036 */ bool bEnableDLSSInPlayInEditorViewports;
+    /* 0x0037 */ bool bShowDLSSSDebugOnScreenMessages;
+    /* 0x0038 */ FString GenericDLSSSRBinaryPath;
+    /* 0x0048 */ bool bGenericDLSSSRBinaryExists;
+    /* 0x0050 */ FString CustomDLSSSRBinaryPath;
+    /* 0x0060 */ bool bCustomDLSSSRBinaryExists;
+    /* 0x0061 */ EDLSSPreset DLAAPreset;
+    /* 0x0063 */ EDLSSPreset DLSSQualityPreset;
+    /* 0x0064 */ EDLSSPreset DLSSBalancedPreset;
+    /* 0x0065 */ EDLSSPreset DLSSPerformancePreset;
+    /* 0x0066 */ EDLSSPreset DLSSUltraPerformancePreset;
+    /* 0x0068 */ FString GenericDLSSRRBinaryPath;
+    /* 0x0078 */ bool bGenericDLSSRRBinaryExists;
+    /* 0x0080 */ FString CustomDLSSRRBinaryPath;
+    /* 0x0090 */ bool bCustomDLSSRRBinaryExists;
+    /* 0x0091 */ EDLSSRRPreset DLAARRPreset;
+    /* 0x0093 */ EDLSSRRPreset DLSSRRQualityPreset;
+    /* 0x0094 */ EDLSSRRPreset DLSSRRBalancedPreset;
+    /* 0x0095 */ EDLSSRRPreset DLSSRRPerformancePreset;
+    /* 0x0096 */ EDLSSRRPreset DLSSRRUltraPerformancePreset;
+};
+
+// Size: 0x1
+struct FDLSSUpscalerModularFeatureSettings {
+    /* 0x0000 */ EDLSSUpscalerModularFeatureQuality Quality;
 };
 
 enum class EDLSSPreset {
@@ -21890,6 +21899,18 @@ enum class EDLSSSettingOverride {
     EDLSSSettingOverride_MAX = 3,
 };
 
+enum class EDLSSUpscalerModularFeatureQuality {
+    Auto = 0,
+    UltraQuality = 1,
+    Quality = 2,
+    Balanced = 3,
+    Performance = 4,
+    UltraPerformance = 5,
+    DLAA = 6,
+    Count = 7,
+    EDLSSUpscalerModularFeatureQuality_MAX = 8,
+};
+
 // Size: 0x28
 class UDLSSLibrary : public UBlueprintFunctionLibrary {
 
@@ -21901,7 +21922,6 @@ class UDLSSLibrary : public UBlueprintFunctionLibrary {
     static void GetDLSSModeInformation(UDLSSMode DLSSMode, FVector2D ScreenResolution, bool& bIsSupported, float& OptimalScreenPercentage, bool& bIsFixedScreenPercentage, float& MinScreenPercentage, float& MaxScreenPercentage, float& OptimalSharpness);
     static void GetDLSSRRMinimumDriverVersion(int32_t& MinDriverVersionMajor, int32_t& MinDriverVersionMinor);
     static void GetDLSSScreenPercentageRange(float& MinScreenPercentage, float& MaxScreenPercentage);
-    static float GetDLSSSharpness();
     static UDLSSMode GetDefaultDLSSMode();
     static TArray<UDLSSMode> GetSupportedDLSSModes();
     static bool IsDLAAEnabled();
@@ -21914,7 +21934,6 @@ class UDLSSLibrary : public UBlueprintFunctionLibrary {
     static UDLSSSupport QueryDLSSRRSupport();
     static UDLSSSupport QueryDLSSSupport();
     static void SetDLSSMode(UObject* WorldContextObject, UDLSSMode DLSSMode);
-    static void SetDLSSSharpness(float Sharpness);
 };
 
 enum class UDLSSMode {
@@ -97996,6 +98015,36 @@ struct FVectorParameterNameAndCurves : public FBaseParameterNameAndValue {
 class UWeightAndEasingEvaluatorSystem : public UMovieSceneEntitySystem {
 };
 
+// Size: 0x28
+class UNISLibrary : public UBlueprintFunctionLibrary {
+
+    static UNISMode GetDefaultNISMode();
+    static float GetNISRecommendedScreenPercentage(UNISMode NISMode);
+    static void GetNISScreenPercentageRange(float& MinScreenPercentage, float& MaxScreenPercentage);
+    static TArray<UNISMode> GetSupportedNISModes();
+    static bool IsNISModeSupported(UNISMode NISMode);
+    static bool IsNISSupported();
+    static void SetNISCustomScreenPercentage(float CustomScreenPercentage);
+    static void SetNISMode(UNISMode NISMode);
+    static void SetNISSharpness(float Sharpness);
+};
+
+enum class UNISMode {
+    Off = 0,
+    UltraQuality = 1,
+    Quality = 2,
+    Balanced = 3,
+    Performance = 4,
+    Custom = 5,
+    UNISMode_MAX = 6,
+};
+
+enum class UNISSupport {
+    Supported = 0,
+    NotSupported = 1,
+    UNISSupport_MAX = 2,
+};
+
 enum class ENNETensorDataType {
     None = 0,
     Char = 1,
@@ -125752,6 +125801,28 @@ class UStreamlineLibraryDLSSG : public UBlueprintFunctionLibrary {
     static void SetDLSSGMode(EStreamlineDLSSGMode DLSSGMode);
 };
 
+enum class EStreamlineDeepDVCMode {
+    Off = 0,
+    On = 1,
+    EStreamlineDeepDVCMode_MAX = 2,
+};
+
+// Size: 0x28
+class UStreamlineLibraryDeepDVC : public UBlueprintFunctionLibrary {
+
+    static float GetDeepDVCIntensity();
+    static EStreamlineDeepDVCMode GetDeepDVCMode();
+    static float GetDeepDVCSaturationBoost();
+    static EStreamlineDeepDVCMode GetDefaultDeepDVCMode();
+    static TArray<EStreamlineDeepDVCMode> GetSupportedDeepDVCModes();
+    static bool IsDeepDVCModeSupported(EStreamlineDeepDVCMode DeepDVCMode);
+    static bool IsDeepDVCSupported();
+    static EStreamlineFeatureSupport QueryDeepDVCSupport();
+    static void SetDeepDVCIntensity(float Intensity);
+    static void SetDeepDVCMode(EStreamlineDeepDVCMode DeepDVCMode);
+    static void SetDeepDVCSaturationBoost(float Intensity);
+};
+
 enum class EStreamlineSettingOverride {
     Enabled = 0,
     Disabled = 1,
@@ -125761,18 +125832,21 @@ enum class EStreamlineSettingOverride {
 
 // Size: 0x30
 class UStreamlineOverrideSettings : public UObject {
-    /* 0x0028 */ EStreamlineSettingOverride EnableDLSSFGInPlayInEditorViewportsOverride;
-    /* 0x0029 */ EStreamlineSettingOverride LoadDebugOverlayOverride;
+    /* 0x0028 */ EStreamlineSettingOverride LoadDebugOverlayOverride;
+    /* 0x0029 */ EStreamlineSettingOverride AllowOTAUpdateOverride;
+    /* 0x002a */ EStreamlineSettingOverride EnableDLSSFGInPlayInEditorViewportsOverride;
+    /* 0x002b */ EStreamlineSettingOverride UseSlSetTagOverride;
 };
 
 // Size: 0x38
 class UStreamlineSettings : public UObject {
-    /* 0x0028 */ bool bEnableStreamlineD3D12;
-    /* 0x0029 */ bool bEnableStreamlineD3D11;
-    /* 0x002a */ bool bEnableDLSSFGInPlayInEditorViewports;
-    /* 0x002b */ bool bLoadDebugOverlay;
-    /* 0x002c */ bool bAllowOTAUpdate;
-    /* 0x0030 */ int32_t NVIDIANGXApplicationId;
+    /* 0x0028 */ bool bLoadDebugOverlay;
+    /* 0x0029 */ bool bAllowOTAUpdate;
+    /* 0x002c */ int32_t NVIDIANGXApplicationId;
+    /* 0x0030 */ bool bEnableStreamlineD3D12;
+    /* 0x0031 */ bool bEnableStreamlineD3D11;
+    /* 0x0032 */ bool bEnableDLSSFGInPlayInEditorViewports;
+    /* 0x0033 */ bool bUseSlSetTag;
 };
 
 enum class EStreamlineReflexMode {
@@ -126941,18 +127015,18 @@ struct FSN2BaseCellInfo {
 
 // Size: 0x7c0
 class ASN2BaseCharacter : public ACharacter {
-    /* 0x0698 */ UUWEPawnAttachmentOwner* AttachedToOwner;
-    /* 0x06a0 */ UUWECollisionImpactComponent* CollisionImpactComponent;
-    /* 0x06a8 */ UAIPerceptionStimuliSourceComponent* AIPerceptionStimuliSourceComponent;
-    /* 0x06b0 */ UInputMappingContext* DefaultInputMappingContext;
-    /* 0x06b8 */ UInputMappingContext* ClassicInputMappingContext;
-    /* 0x06c0 */ UInputMappingContext* AlternateInputMappingContext;
-    /* 0x06c8 */ int32_t InputMappingPriority;
-    /* 0x06d0 */ UUWESaveComponent* SaveComponent;
-    /* 0x06d8 */ TArray<AUWEOverlapWaterCurrent*> EnteredWaterCurrents;
-    /* 0x06f0 */ FMulticastInlineDelegate OnPossessedChanged;
-    /* 0x0700 */ UInputMappingContext* CurrentMappingContext;
-    /* 0x0708 */ TArray<UInputMappingContext*> AddedMappingContexts;
+    /* 0x06a0 */ UUWEPawnAttachmentOwner* AttachedToOwner;
+    /* 0x06a8 */ UUWECollisionImpactComponent* CollisionImpactComponent;
+    /* 0x06b0 */ UAIPerceptionStimuliSourceComponent* AIPerceptionStimuliSourceComponent;
+    /* 0x06b8 */ UInputMappingContext* DefaultInputMappingContext;
+    /* 0x06c0 */ UInputMappingContext* ClassicInputMappingContext;
+    /* 0x06c8 */ UInputMappingContext* AlternateInputMappingContext;
+    /* 0x06d0 */ int32_t InputMappingPriority;
+    /* 0x06d8 */ UUWESaveComponent* SaveComponent;
+    /* 0x06e0 */ TArray<AUWEOverlapWaterCurrent*> EnteredWaterCurrents;
+    /* 0x06f8 */ FMulticastInlineDelegate OnPossessedChanged;
+    /* 0x0708 */ UInputMappingContext* CurrentMappingContext;
+    /* 0x0710 */ TArray<UInputMappingContext*> AddedMappingContexts;
     /* 0x0720 */ FSN2BaseCharacterSaveData SaveData;
     /* 0x07a0 */ UUWEAbilitySystemComponent* UWEAbilitySystemComponent;
     /* 0x07a8 */ bool bPossessed;
@@ -131711,35 +131785,35 @@ class USN2TabListWidgetBase : public UCommonTabListWidgetBase {
 
 // Size: 0xbc0
 class ASN2Tadpole : public ASN2Submersible {
-    /* 0x0970 */ float DefaultBankingModifier;
-    /* 0x0974 */ float DefaultStrafeSpeedModifier;
-    /* 0x0978 */ float DefaultSwimmingFriction;
-    /* 0x0980 */ TSoftObjectPtr<UUWEItemType> PowerCellItemType;
-    /* 0x09a8 */ UUWELocalVelocitySampler* LeftExhaust;
-    /* 0x09b0 */ UUWELocalVelocitySampler* RightExhaust;
-    /* 0x09b8 */ UUWELocalVelocitySampler* BottomExhaust;
-    /* 0x09c0 */ UUWELocalVelocitySampler* RearExhaust;
-    /* 0x09c8 */ USN2CollisionDamageComponent* CollisionDamageComponent;
-    /* 0x09d0 */ UClass* SignalActorClass;
-    /* 0x09d8 */ USN2TadpoleInventoryRouterComponent* InventoryRouterComponent;
-    /* 0x09e0 */ UUWEInventoryComponent* PowerInventoryComponent;
-    /* 0x09e8 */ UUWEInventoryComponent* UpgradeInventoryComponent;
-    /* 0x09f0 */ UUWEInventoryInteractionComponent* PowerInventoryInteraction;
-    /* 0x09f8 */ UUWEInventoryInteractionComponent* UpgradeInventoryInteraction;
-    /* 0x0a00 */ FMulticastInlineDelegate OnChassisOverlapBegin;
-    /* 0x0a10 */ FMulticastInlineDelegate OnChassisOverlapEnd;
-    /* 0x0a20 */ FMulticastInlineDelegate OnChassisAttach;
-    /* 0x0a30 */ FMulticastInlineDelegate OnChassisDetach;
-    /* 0x0a40 */ FMulticastInlineDelegate OnChassisFullyAttached;
-    /* 0x0a50 */ FMulticastInlineDelegate OnMovementTypeChanged;
-    /* 0x0a60 */ AActor* CurrentChassis;
-    /* 0x0a68 */ TSoftClassPtr<AActor> CurrentChassisClass;
-    /* 0x0a90 */ FGuid ChassisSaveGuid;
-    /* 0x0aa0 */ float ChassisDepenetrationAcceleration;
-    /* 0x0aa4 */ EUWEVehicleMovementType MovementType;
-    /* 0x0ab0 */ AActor* SignalActor;
-    /* 0x0ae8 */ AActor* OverlappingChassis;
-    /* 0x0af0 */ FTimerHandle DetachTimerHandle;
+    /* 0x0968 */ float DefaultBankingModifier;
+    /* 0x096c */ float DefaultStrafeSpeedModifier;
+    /* 0x0970 */ float DefaultSwimmingFriction;
+    /* 0x0978 */ TSoftObjectPtr<UUWEItemType> PowerCellItemType;
+    /* 0x09a0 */ UUWELocalVelocitySampler* LeftExhaust;
+    /* 0x09a8 */ UUWELocalVelocitySampler* RightExhaust;
+    /* 0x09b0 */ UUWELocalVelocitySampler* BottomExhaust;
+    /* 0x09b8 */ UUWELocalVelocitySampler* RearExhaust;
+    /* 0x09c0 */ USN2CollisionDamageComponent* CollisionDamageComponent;
+    /* 0x09c8 */ UClass* SignalActorClass;
+    /* 0x09d0 */ USN2TadpoleInventoryRouterComponent* InventoryRouterComponent;
+    /* 0x09d8 */ UUWEInventoryComponent* PowerInventoryComponent;
+    /* 0x09e0 */ UUWEInventoryComponent* UpgradeInventoryComponent;
+    /* 0x09e8 */ UUWEInventoryInteractionComponent* PowerInventoryInteraction;
+    /* 0x09f0 */ UUWEInventoryInteractionComponent* UpgradeInventoryInteraction;
+    /* 0x09f8 */ FMulticastInlineDelegate OnChassisOverlapBegin;
+    /* 0x0a08 */ FMulticastInlineDelegate OnChassisOverlapEnd;
+    /* 0x0a18 */ FMulticastInlineDelegate OnChassisAttach;
+    /* 0x0a28 */ FMulticastInlineDelegate OnChassisDetach;
+    /* 0x0a38 */ FMulticastInlineDelegate OnChassisFullyAttached;
+    /* 0x0a48 */ FMulticastInlineDelegate OnMovementTypeChanged;
+    /* 0x0a58 */ AActor* CurrentChassis;
+    /* 0x0a60 */ TSoftClassPtr<AActor> CurrentChassisClass;
+    /* 0x0a88 */ FGuid ChassisSaveGuid;
+    /* 0x0a98 */ float ChassisDepenetrationAcceleration;
+    /* 0x0a9c */ EUWEVehicleMovementType MovementType;
+    /* 0x0aa8 */ AActor* SignalActor;
+    /* 0x0ae0 */ AActor* OverlappingChassis;
+    /* 0x0ae8 */ FTimerHandle DetachTimerHandle;
     /* 0x0bb0 */ AActor* AttachChassisAtBeginPlay;
 
     void AddInputRotator(const FRotator& InRotator);
@@ -140323,6 +140397,7 @@ class UUWEActorUIDAttachment : public UActorComponent {
 // Size: 0x50
 struct FUWEActorUIDCallbackWrapper {
     /* 0x0040 */ bool bExecuteOnce;
+    /* 0x0041 */ bool bExecuteIfAlreadySet;
 };
 
 // Size: 0xf0
@@ -140419,15 +140494,13 @@ class UUWEEventRecorderComponent : public UActorComponent {
 class UUWEEventRecorderDiagnostic : public UUWEImGuiComponent {
 };
 
-// Size: 0x80
+// Size: 0x60
 class UUWEEventSubsystem : public UGameInstanceSubsystem {
     /* 0x0030 */ int32_t EventHistoryLen;
     /* 0x0034 */ bool bEnabled;
-    /* 0x0068 */ int32_t MaxAlternativeEvents;
-    /* 0x006c */ bool bGPPDisabled;
+    /* 0x0058 */ bool bGPPDisabled;
 
     void BPRecordEvent(FString EventName, AActor* Player, const bool bVerbose, const TArray<FAnalyticsEventAttr>& Attributes);
-    void FlushEventsAlternative();
     void Init();
     bool IsEnabled();
     void SetEnabled(bool InbEnabled);
@@ -144790,6 +144863,7 @@ class UUWEInteractableItemType : public UUWEItemType {
 // Size: 0x1b8
 class UUWEInventoryComponent : public UActorComponent {
     /* 0x00d8 */ bool bDespawned;
+    /* 0x00d9 */ bool bAllowMultipleUnique;
     /* 0x00e0 */ FGameplayTagContainer AllowedTags;
     /* 0x0100 */ int32_t InventoryId;
     /* 0x0104 */ bool AllowAddingAnyItems;
@@ -145041,6 +145115,7 @@ class UUWEItemType : public UUWEActorDataAsset {
     /* 0x00f0 */ TSoftObjectPtr<UMaterialInstance> FabricationPreviewMaterialInstance;
     /* 0x0118 */ EPickupDestination PickupDestination;
     /* 0x0119 */ bool bReequipSameTypeOnRemove;
+    /* 0x011a */ bool bUnique;
     /* 0x011c */ FGameplayTag EquipmentSlot;
     /* 0x0124 */ FUWEEquipmentAttachmentRules AttachmentRules;
     /* 0x0130 */ TArray<TSoftClassPtr<UGameplayAbility>> Abilities;
@@ -146404,23 +146479,23 @@ class AUWEPawnAttachmentOverlapTrigger : public AActor {
     /* 0x02c0 */ USphereComponent* Trigger;
 };
 
-// Size: 0x318
+// Size: 0x320
 class UUWEPawnAttachmentOwner : public UActorComponent {
-    /* 0x00c8 */ TMap<FName, FUWEENetworkedAttachmentConfig> Configs;
-    /* 0x0118 */ TArray<FUWEAttachmentState> States;
-    /* 0x0128 */ FUWEAttachmentReplicationStateArray ReplicationStates;
-    /* 0x0260 */ TArray<FUWEAttachmentStateSaveData> StateSaveData;
-    /* 0x0270 */ TArray<FUWEAttachmentState> BackupStates;
-    /* 0x0280 */ TArray<USceneComponent*> AttachmentComponentsCache;
-    /* 0x0290 */ UUWESaveHandle* SaveHandle;
-    /* 0x0298 */ bool DisableServerConfirmation;
-    /* 0x02a0 */ FMulticastInlineDelegate OnAttachStarted;
-    /* 0x02b0 */ FMulticastInlineDelegate OnAttachInterpolationToSocketIsDone;
-    /* 0x02c0 */ FMulticastInlineDelegate OnAttachAnimationIsDone;
-    /* 0x02d0 */ FMulticastInlineDelegate OnAttachFinished;
-    /* 0x02e0 */ FMulticastInlineDelegate OnDetachStarted;
-    /* 0x02f0 */ FMulticastInlineDelegate OnDetachAnimationIsDone;
-    /* 0x0300 */ FMulticastInlineDelegate OnDetachFinished;
+    /* 0x00d0 */ TMap<FName, FUWEENetworkedAttachmentConfig> Configs;
+    /* 0x0120 */ TArray<FUWEAttachmentState> States;
+    /* 0x0130 */ FUWEAttachmentReplicationStateArray ReplicationStates;
+    /* 0x0268 */ TArray<FUWEAttachmentStateSaveData> StateSaveData;
+    /* 0x0278 */ TArray<FUWEAttachmentState> BackupStates;
+    /* 0x0288 */ TArray<USceneComponent*> AttachmentComponentsCache;
+    /* 0x0298 */ UUWESaveHandle* SaveHandle;
+    /* 0x02a0 */ bool DisableServerConfirmation;
+    /* 0x02a8 */ FMulticastInlineDelegate OnAttachStarted;
+    /* 0x02b8 */ FMulticastInlineDelegate OnAttachInterpolationToSocketIsDone;
+    /* 0x02c8 */ FMulticastInlineDelegate OnAttachAnimationIsDone;
+    /* 0x02d8 */ FMulticastInlineDelegate OnAttachFinished;
+    /* 0x02e8 */ FMulticastInlineDelegate OnDetachStarted;
+    /* 0x02f8 */ FMulticastInlineDelegate OnDetachAnimationIsDone;
+    /* 0x0308 */ FMulticastInlineDelegate OnDetachFinished;
 
     bool CanAttachAnywhere_BP(AActor* Attachment);
     bool CanAttach_BP(AActor* Attachment, const FName& SlotName);
@@ -150417,13 +150492,11 @@ struct FSonarUploadSaveRequest {
     /* 0x0010 */ FSonarSaveUploadMetadata save_metadata;
 };
 
-// Size: 0x198
+// Size: 0x180
 class UUWESonarAPISubsystem : public UGameInstanceSubsystem {
     /* 0x0030 */ FString UWESonarAPIUrl;
-    /* 0x0040 */ FString UWEAlternativeEventsUrl;
-    /* 0x0050 */ bool bDisableGPP;
-    /* 0x0058 */ FString UWESonarLoginXSTSEndpoint;
-    /* 0x0168 */ FString BearerToken;
+    /* 0x0040 */ FString UWESonarLoginXSTSEndpoint;
+    /* 0x0150 */ FString BearerToken;
 };
 
 enum class EUWESpawnSystem {

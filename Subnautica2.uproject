@@ -1,6 +1,6 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "5.6",
+	"EngineAssociation": "",
 	"Category": "",
 	"Description": "",
 	"Modules": [
@@ -115,6 +115,10 @@
 		},
 		{
 			"Name": "FMODStudio",
+			"Enabled": true
+		},
+		{
+			"Name": "FMODStudioNiagara",
 			"Enabled": true
 		},
 		{
@@ -320,6 +324,10 @@
 		},
 		{
 			"Name": "UWEAIDirector",
+			"Enabled": true
+		},
+		{
+			"Name": "NiagaraUIRenderer",
 			"Enabled": true
 		},
 		{

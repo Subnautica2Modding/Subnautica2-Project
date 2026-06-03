@@ -15,8 +15,7 @@
 
 *.pdb
 *.exe
-!Automation/jmap_dumper.exe
-!Automation/DTDumps/*.exe
+!Automation/**/*.exe
 
 # Builds
 Build/*
@@ -42,15 +41,25 @@ Plugins/**/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
-# FMOD bank files contain SN2 audio (Unknown Worlds copyright). Copy from your local install via setup-fmod.ps1.
-Content/FMOD/Desktop/*.bank
+
+# Ignore all content except for mods and splash screen
+Content/*
+!Content/_EditorScripts/
+!Content/DynamicClasses/
+!Content/Mods/*
+!Content/Splash/
+!Content/Splash/EdSplash.png
+
+# Ignore all plugin content except for those added in from the marketplace
+Plugins/**/Content/*
+!Plugins/FMODStudioNiagara/Content/*
+!Plugins/NiagaraUIRenderer/Content/*
 
 # Native FMOD DLLs are Firelight copyright. Copy from the official FMOD download via setup-fmod.ps1.
 Plugins/FMODStudio/Binaries/Win64/fmod*.dll
 Plugins/FMODStudio/Binaries/Win64/fmod*.lib
 Plugins/FMODStudio/Binaries/Win64/resonanceaudio.dll
 Plugins/FMODStudio/Binaries/Android/
-
-Content/FMOD/*
+Plugins/Developer/*
 
 Automation/copy.bat

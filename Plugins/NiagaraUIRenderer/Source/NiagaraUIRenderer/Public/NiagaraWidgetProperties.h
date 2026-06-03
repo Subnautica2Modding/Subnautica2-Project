@@ -1,0 +1,21 @@
+﻿// Copyright 2024 - Michal Smoleň
+
+#pragma once
+
+#include "CoreMinimal.h"
+
+class UMaterialInterface;
+
+struct FNiagaraWidgetProperties
+{
+	FNiagaraWidgetProperties();
+	FNiagaraWidgetProperties(TMap<TObjectPtr<UMaterialInterface>, TObjectPtr<UMaterialInterface>>* inRemapList, bool inAutoActivate, bool inShowDebugSystem, bool inPassDynamicParametersFromRibbon, bool inFakeDepthScale, float inFakeDepthDistance)
+        : MaterialRemapList(inRemapList), AutoActivate(inAutoActivate), ShowDebugSystemInWorld(inShowDebugSystem), PassDynamicParametersFromRibbon(inPassDynamicParametersFromRibbon), FakeDepthScale(inFakeDepthScale), FakeDepthScaleDistance(inFakeDepthDistance) {}
+	
+	TMap<TObjectPtr<UMaterialInterface>, TObjectPtr<UMaterialInterface>>* MaterialRemapList = nullptr;
+	bool AutoActivate = true;
+	bool ShowDebugSystemInWorld = false;
+	bool PassDynamicParametersFromRibbon = false;
+	bool FakeDepthScale = false;
+	float FakeDepthScaleDistance = 1000.f;
+};

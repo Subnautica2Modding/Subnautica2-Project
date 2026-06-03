@@ -4,7 +4,7 @@ setlocal enabledelayedexpansion
 set "INSTALL_DIR=C:\Program Files (x86)\Steam\steamapps\common\Subnautica2"
 set "GAME_ID=1962700"
 set "PROCESS_NAME=Subnautica2-Win64-Shipping"
-set "JMAP_DUMPER_PATH=jmap_dumper.exe"
+set "JMAP_DUMPER_PATH=jmap_dumper\jmap_dumper.exe"
 set "WAIT_TIME=30"
 set "UE4SS_PROXY_NAME=dwmapi.dll"
 set "UE4SS_PROXY_PATH=%INSTALL_DIR%\Subnautica2\Binaries\Win64\%UE4SS_PROXY_NAME%"
@@ -153,34 +153,20 @@ if errorlevel 1 (
 )
 echo.
 
-echo Running jmap_dumper for diff.jmap.gz output...
+echo Running jmap_dumper for diff.hpp output...
 echo Command: %JMAP_DUMPER_PATH% --pid %PID% "%OUTPUT_DIFF_JMAP_PATH%"
 %JMAP_DUMPER_PATH% --pid %PID% "%OUTPUT_DIFF_JMAP_PATH%"
 if errorlevel 1 (
-    echo WARNING: jmap_dumper for diff.jmap.gz file failed or returned an error
+    echo WARNING: jmap_dumper for diff.hpp file failed or returned an error
 ) else (
-    echo SUCCESS: diff.jmap.gz dump completed successfully
+    echo SUCCESS: diff.hpp dump completed successfully
     if exist "%OUTPUT_DIFF_JMAP_PATH%" (
         echo File created: "%OUTPUT_DIFF_JMAP_PATH%"
     ) else (
-        echo ERROR: diff.jmap.gz file not found after dump!
+        echo ERROR: diff.hpp file not found after dump!
     )
 )
 echo.
-
-echo Running TableGraph.exe for DataTable dumps...
-echo Command: DTDumps/TableGraph.exe --pak-dir "%INSTALL_DIR%\Subnautica2\Content\Paks" --mappings "%OUTPUT_USMAP_PATH%" --version GAME_UE5_6 --export "DataIndex.json"
-DTDumps\TableGraph.exe --pak-dir "%INSTALL_DIR%\Subnautica2\Content\Paks" --mappings "%OUTPUT_USMAP_PATH%" --version GAME_UE5_6 --export "DataIndex.json"
-if errorlevel 1 (
-    echo WARNING: TableGraph.exe failed or returned an error
-) else (
-    echo SUCCESS: TableGraph.exe completed successfully
-    if exist "DataIndex.json" (
-        echo File created: "DataIndex.json"
-    ) else (
-        echo ERROR: DataIndex.json file not found after export!
-    )
-)
 
 echo Closing game process (PID: %PID%)...
 taskkill /pid %PID% /f >nul 2>&1
@@ -204,6 +190,41 @@ if "%UE4SS_DISABLED%"=="1" (
     )
     echo.
 )
+echo.
+
+set "INDEXPATH=DataIndex.json"
+set "TABLE_DUMPER_PATH=TableGraph/TableGraph.exe"
+echo Running TableGraph.exe for DataTable/DataAsset dumps...
+echo Command: "%TABLE_DUMPER_PATH%" --pak-dir "%INSTALL_DIR%\Subnautica2\Content\Paks" --mappings "%OUTPUT_USMAP_PATH%" --version GAME_UE5_6 --export "%INDEXPATH%"
+"%TABLE_DUMPER_PATH%" --pak-dir "%INSTALL_DIR%\Subnautica2\Content\Paks" --mappings "%OUTPUT_USMAP_PATH%" --version GAME_UE5_6 --export "%INDEXPATH%"
+if errorlevel 1 (
+    echo WARNING: TableGraph.exe failed or returned an error
+) else (
+    echo SUCCESS: TableGraph.exe completed successfully
+    if exist "%INDEXPATH%" (
+        echo File created: "%INDEXPATH%"
+    ) else (
+        echo ERROR: "%INDEXPATH%" file not found after export!
+    )
+)
+echo.
+
+set "ASSETSNAPSHOTPATH=%~dp0AssetSnapshot.txt"
+set "COOKED_EXPORT_PATH=CookedExport/CookedExport.exe"
+echo Running CookedExport.exe for asset list snapshot...
+echo Command: "%COOKED_EXPORT_PATH%" -p "%INSTALL_DIR%\Subnautica2\Content\Paks" -m "%OUTPUT_USMAP_PATH%" -dra -ipp "Engine/" -ipp "Subnautica2/Content/Maps/Main/L_Main/_Generated_/"  -ro "%ASSETSNAPSHOTPATH%"
+"%COOKED_EXPORT_PATH%" -p "%INSTALL_DIR%\Subnautica2\Content\Paks" -m "%OUTPUT_USMAP_PATH%" -dra -ipp "Engine/" -ipp "Subnautica2/Content/Maps/Main/L_Main/_Generated_/" -ro "%ASSETSNAPSHOTPATH%"
+if errorlevel 1 (
+    echo WARNING: CookedExport.exe failed or returned an error
+) else (
+    echo SUCCESS: CookedExport.exe completed successfully
+    if exist "%ASSETSNAPSHOTPATH%" (
+        echo File created: "%ASSETSNAPSHOTPATH%"
+    ) else (
+        echo ERROR: "%ASSETSNAPSHOTPATH%" file not found after export!
+    )
+)
+echo.
 
 echo Done
 pause
