@@ -112,18 +112,6 @@ bool ModActions::CreateMod(const FString& ModName)
 	}
 
 	{
-		UWidgetBlueprintFactory* Factory = NewObject<UWidgetBlueprintFactory>();
-		const FString WBPName = FString::Printf(TEXT("WBP_%s"), *ModName);
-		UObject* Asset = AssetTools.CreateAsset(
-			WBPName, PackageBase, Factory->GetSupportedClass(), Factory);
-		if (!Asset)
-		{
-			UE_LOG(LogSN2ModTools, Warning, TEXT("Failed to create WBP_%s"), *ModName);
-			bAllOk = false;
-		}
-	}
-
-	{
 		UDataAssetFactory* Factory = NewObject<UDataAssetFactory>();
 		Factory->DataAssetClass = UPrimaryAssetLabel::StaticClass();
 		const FString PALName = FString::Printf(TEXT("PAL_%s"), *ModName);
@@ -330,6 +318,57 @@ static bool EnsureUE4SSReady(const FString& GameDir)
 	return bOk;
 }
 
+static bool CopyInstalledFile(const FString& Src, const FString& Dest, FString& OutError)
+{
+	IFileManager& FM = IFileManager::Get();
+	FString NormalizedSrc = FPaths::ConvertRelativePathToFull(Src);
+	FString NormalizedDest = FPaths::ConvertRelativePathToFull(Dest);
+	FPaths::MakePlatformFilename(NormalizedSrc);
+	FPaths::MakePlatformFilename(NormalizedDest);
+
+	if (!FPaths::FileExists(NormalizedSrc))
+	{
+		OutError = FString::Printf(TEXT("Source file not found: %s"), *NormalizedSrc);
+		return false;
+	}
+
+	const FString DestDir = FPaths::GetPath(NormalizedDest);
+	FM.MakeDirectory(*DestDir, true);
+
+	const uint32 CopyResult = FM.Copy(*NormalizedDest, *NormalizedSrc, true, true, false);
+	if (CopyResult == COPY_OK)
+	{
+		return true;
+	}
+
+	// Fallback to cmd copy /Y
+	// bit nasty but does the job if fm can't do it
+	const FString CopyArgs = FString::Printf(
+		TEXT("/C copy /Y \"%s\" \"%s\" >nul"),
+		*NormalizedSrc, *NormalizedDest);
+
+	int32 ExitCode = -1;
+	FString StdOut;
+	FString StdErr;
+	const bool bRan = FPlatformProcess::ExecProcess(
+		TEXT("cmd.exe"), *CopyArgs, &ExitCode, &StdOut, &StdErr);
+
+	if (bRan && ExitCode == 0)
+	{
+		return true;
+	}
+
+	OutError = FString::Printf(
+		TEXT("Copy failed (IFileManager=%u, cmd exit=%d)."),
+		CopyResult, ExitCode);
+	if (!StdErr.IsEmpty())
+	{
+		OutError += TEXT(" ") + StdErr.TrimStartAndEnd();
+	}
+
+	return false;
+}
+
 void ModActions::CookAndInstallMod(const FString& ModName)
 {
 	const FString RunUAT = GetRunUATPath();
@@ -365,19 +404,21 @@ void ModActions::CookAndInstallMod(const FString& ModName)
 	const FString ProjectPath =
 		FPaths::ConvertRelativePathToFull(FPaths::GetProjectFilePath());
 	const FString OutputDir =
-		FPaths::ConvertRelativePathToFull(FPaths::ProjectSavedDir() / TEXT("SN2Cook"));
+		FPaths::ConvertRelativePathToFull(FPaths::ProjectDir());
 
-	// -build compiles the Shipping target; staging needs its .target receipt.
 	const FString Args = FString::Printf(
 		TEXT("BuildCookRun"
 			" -project=\"%s\""
 			" -platform=Win64"
-			" -clientconfig=Shipping"
+			" -clientconfig=Development"
 			" -build -cook -stage -pak -iostore"
 			" -archive -archivedirectory=\"%s\""
-			" -nocompileeditor -installed"
+			" -nocompileeditor -installed -iterativecooking -cookincremental"
 			" -nop4 -utf8output -unattended"),
 		*ProjectPath, *OutputDir);
+
+	const TSharedRef<TAtomic<bool>, ESPMode::ThreadSafe> bCancelRequested =
+		MakeShared<TAtomic<bool>, ESPMode::ThreadSafe>(false);
 
 	FNotificationInfo Info(
 		FText::FromString(FString::Printf(TEXT("Cooking '%s'"), *ModName)));
@@ -386,6 +427,14 @@ void ModActions::CookAndInstallMod(const FString& ModName)
 	Info.bUseSuccessFailIcons = true;
 	Info.FadeOutDuration = 3.f;
 	Info.ExpireDuration = 6.f;
+	Info.ButtonDetails.Add(FNotificationButtonInfo(
+		FText::FromString(TEXT("Cancel")),
+		FText::FromString(TEXT("Cancel cooking and installation.")),
+		FSimpleDelegate::CreateLambda([bCancelRequested]()
+		{
+			bCancelRequested->Store(true);
+		}),
+		SNotificationItem::CS_Pending));
 
 	TSharedPtr<SNotificationItem> Notification =
 		FSlateNotificationManager::Get().AddNotification(Info);
@@ -438,7 +487,7 @@ void ModActions::CookAndInstallMod(const FString& ModName)
 
 	AsyncTask(ENamedThreads::AnyBackgroundThreadNormalTask,
 		[RunUAT, Args, OutputDir, ModName, ChunkId, GameDir = Settings->GameDir.Path,
-		 WeakNotif, ParseUATLine]()
+		 WeakNotif, ParseUATLine, bCancelRequested]()
 	{
 		auto UpdateNotif = [&WeakNotif](const FString& Text)
 		{
@@ -484,6 +533,12 @@ void ModActions::CookAndInstallMod(const FString& ModName)
 		FString LastStatus;
 		while (FPlatformProcess::IsProcRunning(Proc))
 		{
+			if (bCancelRequested->Load())
+			{
+				FPlatformProcess::TerminateProc(Proc, true);
+				break;
+			}
+
 			const FString Chunk = FPlatformProcess::ReadPipe(PipeRead);
 			if (!Chunk.IsEmpty())
 			{
@@ -509,6 +564,13 @@ void ModActions::CookAndInstallMod(const FString& ModName)
 		FPlatformProcess::GetProcReturnCode(Proc, &ExitCode);
 		FPlatformProcess::ClosePipe(PipeRead, PipeWrite);
 		FPlatformProcess::CloseProc(Proc);
+
+		if (bCancelRequested->Load())
+		{
+			FinishNotif(FString::Printf(TEXT("Cancelled '%s'."), *ModName), false);
+			UE_LOG(LogSN2ModTools, Warning, TEXT("Cook cancelled by user."));
+			return;
+		}
 
 		if (ExitCode != 0)
 		{
@@ -537,20 +599,35 @@ void ModActions::CookAndInstallMod(const FString& ModName)
 		IFileManager::Get().MakeDirectory(*ModInstallDir, true);
 
 		int32 Installed = 0;
+		int32 Failed = 0;
 		for (const FString& File : PakFiles)
 		{
 			const FString Src  = PaksDir / File;
 			const FString Dest =
 				ModInstallDir / (ModName + TEXT(".") + FPaths::GetExtension(File));
-			if (IFileManager::Get().Copy(*Dest, *Src) == COPY_OK)
+
+			FString CopyError;
+			if (CopyInstalledFile(Src, Dest, CopyError))
 			{
 				++Installed;
 				UE_LOG(LogSN2ModTools, Display, TEXT("Installed: %s"), *Dest);
 			}
 			else
 			{
-				UE_LOG(LogSN2ModTools, Warning, TEXT("Failed to copy: %s -> %s"), *Src, *Dest);
+				++Failed;
+				UE_LOG(LogSN2ModTools, Warning,
+					TEXT("Failed to copy: %s -> %s (%s)"),
+					*Src, *Dest, *CopyError);
 			}
+		}
+
+		if (Failed > 0)
+		{
+			FinishNotif(
+				FString::Printf(TEXT("'%s' install incomplete (%d copied, %d failed)."),
+					*ModName, Installed, Failed),
+				false);
+			return;
 		}
 
 		FinishNotif(

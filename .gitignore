@@ -6,6 +6,7 @@
 *.xcodeproj
 *.xcworkspace
 *.sln
+*.DotSettings.user
 *.suo
 *.opensdf
 *.sdf

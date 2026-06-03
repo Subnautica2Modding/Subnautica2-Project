@@ -421,7 +421,9 @@
 		{
 			"Name": "SN2ModTools",
 			"Enabled": true,
-			"TargetAllowList": [ "Editor" ]
+			"TargetAllowList": [
+				"Editor"
+			]
 		}
 	]
 }
