@@ -8,7 +8,7 @@ Please get familiar with the basics of modding with this excellent set of guides
 
 https://github.com/Dmgvol/UE_Modding/
 
-Also start with a basic mod idea, such as changing a data asset value (e.g. those that start with `DA_` in `Content/Data`)
+Also start with a basic mod idea, such as changing a property on a blueprint.
 
 ## Tools
 
@@ -16,33 +16,57 @@ Get started with [basic mod tooling](./Docs/Tools.md) as outlined in the above U
 
 ## Prerequisites
 
-If you haven't already, install Unreal Engine 5.6.1.
+The maximum disk space that will be used - including custom engine and any intermediate folders created while using the project - is **80GB**. It should be around 60GB-70GB with all optional requirements but just to be on the safe side make sure you have at least 80GB space available.
+
+You need to install a [custom build of Unreal Engine 5.6](https://github.com/Buckminsterfullerene02/UnrealEngine/releases) (don't worry, you don't need to build or compile anything!). This build is approximately 10GB smaller than the vanilla build from Epic Games Store and is necessary to enable:
+- Adding custom materials into the game (without the custom engine, custom materials cause the game to crash or just don't work)
+- Working with and being able to open, reference, and use (most) game content in the project
+
+It is best to install the engine:
+- Closer to the root of the drive (if file paths get too long, things break)
+- On a file path containing no spaces (some issues occur from not quoting paths correctly)
+- Onto an SSD or NVMe
+
+> [!WARNING]
+> **If you cannot access the above link, [follow these instructions on linking your Epic Games and GitHub accounts](https://www.epicgames.com/help/en-US/c-Category_EpicAccount/c-ConnectedAccounts/how-do-i-link-my-unreal-engine-account-with-my-github-account-a000084938?sessionInvalidated=true).**
 
 You also need to install Visual Studio 2022 and select the MSVC `v14.38` toolchain to be able to open the project.
-
-[Helpful guide](https://dev.epicgames.com/documentation/unreal-engine/setting-up-visual-studio-development-environment-for-cplusplus-projects-in-unreal-engine?application_version=5.6)
-
-[Reddit post in case you get stuck](https://www.reddit.com/r/unrealengine/comments/1i0bopv/detected_compiler_newer_than_visual_studio_2022/)
+- [Helpful guide](https://dev.epicgames.com/documentation/unreal-engine/setting-up-visual-studio-development-environment-for-cplusplus-projects-in-unreal-engine?application_version=5.6)
+- [Reddit post in case you get stuck](https://www.reddit.com/r/unrealengine/comments/1i0bopv/detected_compiler_newer_than_visual_studio_2022/)
 
 ## Setting up and opening the project
 
 1. [Clone](https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/adding-and-cloning-repositories/cloning-and-forking-repositories-from-github-desktop), fork, or download the repository as `.zip`.
-2. Download FMOD for Unreal from https://www.fmod.com/download (you have to sign up first)
+
+2. Download FMOD for Unreal from https://www.fmod.com/download (you have to sign up first). The plugin cannot be distributed in the project as the FMOD `.dll` files are copyrighted and require an FMOD account to aquire.
 
 ![FMOD-Download](Docs/Images/FMOD-Download.png)
 
-3. Run this command to copy banks and extract native DLLs 
+3. Run this command in powershell to copy banks and extract FMOD DLLs 
 ```ps1
-powershell -ExecutionPolicy Bypass -File setup-fmod.ps1 -FMODPluginZip "<downloads>\fmodstudio20309ue5.6win64.zip"
+powershell -ExecutionPolicy Bypass -File setup-fmod.ps1 -FMODPluginZip "<your downloads>\fmodstudio20309ue5.6win64.zip"
 ``` 
 
-4. Open `Subnautica2.uproject`. It may spend some time compiling first (2-10 mins depending on your hardware)
+4. Now right click on `Subnautica2.uproject`, select **Switch Unreal Engine version**, then select to the folder containing the `Engine` folder from the custom engine.
 
-This setup must be done for legal reasons:
-- Raw FMOD bank files are not included (Unknown Worlds copyright). Copy from your local SN2 install via `setup-fmod.ps1`.
-- Native FMOD DLLs are not included (Firelight copyright). Extract from the official FMOD download via `setup-fmod.ps1`.
+![Switch engine ver](Docs/Images/Switch-Version.png)
 
-**(Optional):** If you want to generate a `.sln` file to build the project from its source, right click the `Subnautica2.uproject` file and click `Generate Visual Studio project files` (requires the correct build tools, there are plenty of docs online on how to build UE projects).
+For example mine is here (obviously pick the path where you installed the engine to):
+
+![Select engine ver](Docs/Images/Select-Version.png)
+
+5. Open `Subnautica2.uproject`. It may spend some time compiling some plugins first (2-10 mins depending on your hardware).
+
+## (Optional) Getting game content into the project
+
+For the project to be most useful, consider getting most of the content from the game install files into it so you can use it for your mod references, easier research into files etc. All asset types are included except blueprints, widgets, level sequences and maps (I am working on the engine/editor stability of having these as well - some basic ones work but most don't due to various issues). Niagara effects, certain auto-generated data assets and a couple behaviour tree assets will crash the editor if you try to open them, but aside from those everything else is openable. Material shaders are also not merged into the project so everything will look black. Cooked content also is "read-only" in that any changes you make (if it allows you to) to the assets in the editor will not be saved when you close it. It is not recommended to modify game content in this project - modifications in the project should be done via blueprint modding only.
+
+> [!NOTE]
+> The game content will add ~25GB onto your project size.
+
+To get the game content into your project, double click/run `Automation/move_cooked.ps1` (you shouldn't need to run this one as admin). Make sure you read any messages it writes and agree to the steps as it goes, as it is generating and moving a lot of files so you should check everything is in order first.
+
+Once it is done, you can open `Subnautica2.uproject` once more. 
 
 ## Making your first mod
 
@@ -50,7 +74,7 @@ Follow the guide on setting up a simple blueprint mod with UE4SS: https://docs.u
 
 So, you should have a blueprint actor called `ModActor` in `Content/Mods/<yourmodname>/`.
 
-This project contains `DemoMod` to start with which you can use to follow along with this guide and check that everything is setup correctly. You should see this when you enter the main menu:
+This project contains `DemoMod` to start with which you can use to follow along with this guide and check that everything is setup correctly. You should see this when you enter the in-game main menu after packaging:
 
 ![Demo mod in-game](Docs/Images/DemoMod-ingame.png)
 
@@ -112,32 +136,24 @@ Rename the pakchunk files to the same name as the mod folder in the project, kee
 > [!IMPORTANT]
 > The files must be the same name as the mod folder in the unreal engine project! If you change the mod folder name in the project later, make sure the update the file names to match it! E.g. if the mod folder in the project is `MyMod`, the files must be called `MyMod.pak`, `MyMod.ucas`, `MyMod.utoc`.
 
-## Automating the installation
+## SN2 Mod Tools
 
-The above steps are too manual, so let's make a windows `.bat` script to automate the above (ish - an editor plugin to automate packaging and install of mod will be made eventually so you can do it all from inside the editor). Obviously feel free to automate it your own way, this is just a way you can do it.
+The above steps are too manual to repeat over and over, but I explained them first so that you understand what the automation is actually doing (in case something breaks and you need to look at why).
 
-Let's say your mod is `pakchunk-14` and your mod name is `DemoMod`. 
+So this is where the SN2 Mod Tools plugin, primary developed by `bmartin127`, comes in to help reduce the load.
 
-Replace `%steaminstalldir%` and `%pathtoyourtemplateproject%` with the your full paths.
+In the editor, in the play in editor toolbar, you will notice the button for Mod Tools:
 
-```bat
-@echo off
-mkdir "%steaminstalldir%\Subnautica2\Subnautica2\Content\Paks\LogicMods\DemoMod" 2>nul
+![alt text](Docs/Images/Mod-Tools-Menu.png)
 
-copy /Y "%pathtoyourtemplateproject%\Subnautica2\Windows\Subnautica2\Content\Paks\pakchunk14-Windows.pak" "%steaminstalldir%\Subnautica2\Subnautica2\Content\Paks\LogicMods\DemoMod\DemoMod.pak"
-copy /Y "%pathtoyourtemplateproject%\Projects\Subnautica2\Windows\Subnautica2\Content\Paks\pakchunk14-Windows.ucas" "%steaminstalldir%\Subnautica2\Subnautica2\Content\Paks\LogicMods\DemoMod\DemoMod.ucas"
-copy /Y "%pathtoyourtemplateproject%\Projects\Subnautica2\Windows\Subnautica2\Content\Paks\pakchunk14-Windows.utoc" "%steaminstalldir%\Subnautica2\Subnautica2\Content\Paks\LogicMods\DemoMod\DemoMod.utoc"
+First open `Plugin settings...` and check that the game directory install path is correct, or change it if it isn't.
 
+If you want to make a new mod with the `ModActor` and `PAL` settings, click `New mod...` and type in mod name, and it will create the mod folder, the assets, and assign an unused chunkid to it.
 
-echo Copy completed.
-start "" "steam://rungameid/1962700"
-```
+Then to cook the project and install a mod, right click on the mod folder and select `Cook & Install`. 
 
-To explain:
-1. It makes the directory if it doesn't exist yet
-2. It copies the pakchunk files to the mods folder while simultaneously renaming it to the mod name
-3. It loads the game from steam (if you don't have the game on steam remove this part)
+![alt text](Docs/Images/Right-click-menu.png)
 
-You can add as many as you like here, though if you don't want to run the game with certain mods, you might want to comment out those lines temporarily.
+If you have multiple mods that you want to install after a single cook, you may also click on `Install` and that will install that mod's packaged files without having to recook again. And to uninstall the mod, just `Uninstall` button.
 
-So when packaging the mod is done, I run the bat and the game launches with all the mod paks installed!
+Finally, you can quickly launch SN2 by clicking the Mod Tools button and clicking `Launch Subnautica 2`. **Note:** it only works when the game is installed through steam.

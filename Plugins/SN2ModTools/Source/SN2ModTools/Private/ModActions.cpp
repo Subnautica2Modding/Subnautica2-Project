@@ -369,6 +369,72 @@ static bool CopyInstalledFile(const FString& Src, const FString& Dest, FString& 
 	return false;
 }
 
+static bool InstallCookedChunkFiles(
+	const FString& ModName,
+	const FString& PaksDir,
+	int32 ChunkId,
+	const FString& GameDir,
+	int32& OutInstalled,
+	int32& OutFailed,
+	FString& OutError)
+{
+	OutInstalled = 0;
+	OutFailed = 0;
+	OutError.Reset();
+
+	if (!IFileManager::Get().DirectoryExists(*PaksDir))
+	{
+		OutError = FString::Printf(TEXT("Cooked pak directory not found: %s"), *PaksDir);
+		return false;
+	}
+
+	const FString Pattern = FString::Printf(TEXT("pakchunk%d-*"), ChunkId);
+	TArray<FString> PakFiles;
+	IFileManager::Get().FindFiles(PakFiles, *(PaksDir / Pattern), true, false);
+
+	if (PakFiles.IsEmpty())
+	{
+		OutError = FString::Printf(
+			TEXT("No cooked pakchunk found for '%s' in %s (pattern: %s)"),
+			*ModName, *PaksDir, *Pattern);
+		return false;
+	}
+
+	const FString ModInstallDir =
+		GameDir / TEXT("Subnautica2/Content/Paks/LogicMods") / ModName;
+	IFileManager::Get().MakeDirectory(*ModInstallDir, true);
+
+	for (const FString& File : PakFiles)
+	{
+		const FString Src = PaksDir / File;
+		const FString Dest =
+			ModInstallDir / (ModName + TEXT(".") + FPaths::GetExtension(File));
+
+		FString CopyError;
+		if (CopyInstalledFile(Src, Dest, CopyError))
+		{
+			++OutInstalled;
+			UE_LOG(LogSN2ModTools, Display, TEXT("Installed: %s"), *Dest);
+		}
+		else
+		{
+			++OutFailed;
+			UE_LOG(LogSN2ModTools, Warning,
+				TEXT("Failed to copy: %s -> %s (%s)"),
+				*Src, *Dest, *CopyError);
+		}
+	}
+
+	if (OutFailed > 0)
+	{
+		OutError = FString::Printf(
+			TEXT("Install incomplete (%d copied, %d failed)."), OutInstalled, OutFailed);
+		return false;
+	}
+
+	return true;
+}
+
 void ModActions::CookAndInstallMod(const FString& ModName)
 {
 	const FString RunUAT = GetRunUATPath();
@@ -386,12 +452,14 @@ void ModActions::CookAndInstallMod(const FString& ModName)
 		return;
 	}
 
-	if (!EnsureUE4SSReady(Settings->GameDir.Path))
-	{
-		ShowNotification(
-			TEXT("Cook cancelled. UE4SS is required for SN2 mods to load."), false);
-		return;
-	}
+	// temporarily remove as this is not technically a necessity as other bp mod loaders exist
+	// and we should allow users to choose. improve this in the future
+	// if (!EnsureUE4SSReady(Settings->GameDir.Path))
+	// {
+	// 	ShowNotification(
+	// 		TEXT("Cook cancelled. UE4SS is required for SN2 mods to load."), false);
+	// 	return;
+	// }
 
 	const int32 ChunkId = GetChunkIdForMod(ModName);
 	if (ChunkId < 0)
@@ -582,57 +650,77 @@ void ModActions::CookAndInstallMod(const FString& ModName)
 		UpdateNotif(FString::Printf(TEXT("Cooking '%s'\nInstalling..."), *ModName));
 
 		const FString PaksDir = OutputDir / TEXT("Windows/Subnautica2/Content/Paks");
-		const FString Pattern = FString::Printf(TEXT("pakchunk%d-*"), ChunkId);
-
-		TArray<FString> PakFiles;
-		IFileManager::Get().FindFiles(PakFiles, *(PaksDir / Pattern), true, false);
-
-		if (PakFiles.IsEmpty())
-		{
-			FinishNotif(FString::Printf(
-				TEXT("Cook succeeded but no pakchunk found for '%s'."), *ModName), false);
-			return;
-		}
-
-		const FString ModInstallDir =
-			GameDir / TEXT("Subnautica2/Content/Paks/LogicMods") / ModName;
-		IFileManager::Get().MakeDirectory(*ModInstallDir, true);
 
 		int32 Installed = 0;
 		int32 Failed = 0;
-		for (const FString& File : PakFiles)
-		{
-			const FString Src  = PaksDir / File;
-			const FString Dest =
-				ModInstallDir / (ModName + TEXT(".") + FPaths::GetExtension(File));
-
-			FString CopyError;
-			if (CopyInstalledFile(Src, Dest, CopyError))
-			{
-				++Installed;
-				UE_LOG(LogSN2ModTools, Display, TEXT("Installed: %s"), *Dest);
-			}
-			else
-			{
-				++Failed;
-				UE_LOG(LogSN2ModTools, Warning,
-					TEXT("Failed to copy: %s -> %s (%s)"),
-					*Src, *Dest, *CopyError);
-			}
-		}
-
-		if (Failed > 0)
+		FString InstallError;
+		if (!InstallCookedChunkFiles(
+				ModName,
+				PaksDir,
+				ChunkId,
+				GameDir,
+				Installed,
+				Failed,
+				InstallError))
 		{
 			FinishNotif(
-				FString::Printf(TEXT("'%s' install incomplete (%d copied, %d failed)."),
-					*ModName, Installed, Failed),
+				FString::Printf(TEXT("'%s' install failed: %s"), *ModName, *InstallError),
 				false);
 			return;
 		}
 
-		FinishNotif(
-			FString::Printf(TEXT("'%s' installed (%d file(s))"), *ModName, Installed), true);
+		FinishNotif(FString::Printf(TEXT("'%s' installed (%d file(s))"), *ModName, Installed), true);
 	});
+}
+
+void ModActions::InstallMod(const FString& ModName)
+{
+	const USN2ModToolsSettings* Settings = GetDefault<USN2ModToolsSettings>();
+	if (Settings->GameDir.Path.IsEmpty())
+	{
+		ShowNotification(
+			TEXT("Game directory not set. Open Project Settings > SN2 Mod Tools."), false);
+		return;
+	}
+
+	// temporarily remove as this is not technically a necessity as other bp mod loaders exist
+	// and we should allow users to choose. improve this in the future
+	// if (!EnsureUE4SSReady(Settings->GameDir.Path))
+	// {
+	// 	ShowNotification(TEXT("Install cancelled. UE4SS is required for SN2 mods to load."), false);
+	// 	return;
+	// }
+
+	const int32 ChunkId = GetChunkIdForMod(ModName);
+	if (ChunkId < 0)
+	{
+		ShowNotification(
+			FString::Printf(TEXT("Cannot find PAL_%s or its ChunkID."), *ModName), false);
+		return;
+	}
+
+	const FString OutputDir = FPaths::ConvertRelativePathToFull(FPaths::ProjectDir());
+	const FString PaksDir = OutputDir / TEXT("Windows/Subnautica2/Content/Paks");
+
+	int32 Installed = 0;
+	int32 Failed = 0;
+	FString InstallError;
+	if (!InstallCookedChunkFiles(
+			ModName,
+			PaksDir,
+			ChunkId,
+			Settings->GameDir.Path,
+			Installed,
+			Failed,
+			InstallError))
+	{
+		ShowNotification(
+			FString::Printf(TEXT("Install failed for '%s': %s"), *ModName, *InstallError), false);
+		return;
+	}
+
+	ShowNotification(
+		FString::Printf(TEXT("'%s' installed (%d file(s))"), *ModName, Installed), true);
 }
 
 void ModActions::UninstallMod(const FString& ModName)

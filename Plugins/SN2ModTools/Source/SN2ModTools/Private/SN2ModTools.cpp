@@ -197,6 +197,16 @@ private:
 				Builder.BeginSection(TEXT("SN2ModActions"), FText::FromString(TEXT("SN2 Mod Tools")));
 
 				Builder.AddMenuEntry(
+					FText::FromString(TEXT("Install")),
+					FText::FromString(FString::Printf(
+						TEXT("Install '%s' from existing cooked output (no cook)"), *ModName)),
+					FSlateIcon(FAppStyle::GetAppStyleSetName(), TEXT("MainFrame.PackageProject")),
+					FUIAction(FExecuteAction::CreateLambda([ModName]()
+					{
+						ModActions::InstallMod(ModName);
+					})));
+
+				Builder.AddMenuEntry(
 					FText::FromString(TEXT("Cook & Install")),
 					FText::FromString(FString::Printf(
 						TEXT("Package '%s' and copy to your SN2 install"), *ModName)),

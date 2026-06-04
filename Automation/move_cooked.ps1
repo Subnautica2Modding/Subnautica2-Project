@@ -4,7 +4,6 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$StubRoot = $PSScriptRoot
 
 # Locate SN2 install
 if (-not $InstallDir) {
@@ -19,7 +18,7 @@ if (-not $InstallDir) {
 }
 
 if (-not $InstallDir -or -not (Test-Path $InstallDir)) {
-    Write-Error "Could not find Subnautica 2 install. Pass -SN2Path 'C:\...\Subnautica2'"
+    Write-Error "Could not find Subnautica 2 install. Pass -InstallDir 'C:\...\Subnautica2'"
 }
 
 if (-not $LegacyOutputDir) {
