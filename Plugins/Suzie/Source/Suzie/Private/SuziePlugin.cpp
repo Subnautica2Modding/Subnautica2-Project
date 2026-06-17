@@ -1,4 +1,6 @@
 #include "SuziePlugin.h"
+#include "SuzieGameplayTags.h"
+#include "SuzieSchemaOverride.h"
 #include "Misc/FileHelper.h"
 #include "Serialization/JsonReader.h"
 #include "Serialization/JsonSerializer.h"
@@ -17,6 +19,7 @@
 #include "SuzieDecompressionHelper.h"
 #include "Widgets/Docking/SDockTab.h"
 #include "UObject/UObjectAllocator.h"
+#include "UObject/SparseDelegate.h"
 #include "Misc/ScopedSlowTask.h"
 #include "Engine/NetConnection.h"
 #if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 3
@@ -32,11 +35,20 @@ void FSuziePluginModule::StartupModule()
     UE_LOG(LogSuzie, Display, TEXT("Suzie plugin starting"));
 
     ProcessAllJsonClassDefinitions();
+
+    // Must run while native tag registration is still open: DoneAddingNativeTags is bound to the
+    // OnPostEngineInit broadcast, which fires after PostEngineInit plugin modules load
+    FSuzieGameplayTags::Get().RegisterCollectedTags();
+
+    // Activate game-accurate unversioned schemas for cooked content (no-op if nothing diverges)
+    FSuzieSchemaOverrides::Get().RegisterProvider();
 }
 
 void FSuziePluginModule::ShutdownModule()
 {
     UE_LOG(LogSuzie, Display, TEXT("Suzie plugin shutting down"));
+
+    FSuzieSchemaOverrides::Get().UnregisterProvider();
 }
 
 void FSuziePluginModule::ProcessAllJsonClassDefinitions()
@@ -156,6 +168,13 @@ void FSuziePluginModule::CreateDynamicClassesForJsonObject(const TSharedPtr<FJso
     for (auto It = (*Objects)->Values.CreateConstIterator(); It; ++It)
     {
         FString ObjectPath = It.Key();
+        // Full (--all) dumps also contain game content: BlueprintGeneratedClasses show up as
+        // "Class" entries but must be loaded from their cooked packages, not generated as native
+        // classes. Only /Script/ objects describe native types.
+        if (!ObjectPath.StartsWith(TEXT("/Script/")))
+        {
+            continue;
+        }
         FString Type = It.Value()->AsObject()->GetStringField(TEXT("type"));
         if (Type == TEXT("Class"))
         {
@@ -206,6 +225,19 @@ void FSuziePluginModule::CreateDynamicClassesForJsonObject(const TSharedPtr<FJso
     {
         FinalizeClass(ClassGenerationContext, ClassPendingFinalization);
     }
+
+    // Harvest the game's per-class property order for unversioned schema overrides. This must
+    // happen after class generation so jmap property descriptors of native classes resolve their
+    // type references against already-created dynamic types.
+    FSuzieSchemaOverrides::Get().BuildFromJmap(*Objects,
+        [this, &ClassGenerationContext](FFieldVariant Owner, const TSharedPtr<FJsonObject>& PropertyJson) -> FProperty*
+        {
+            return BuildProperty(ClassGenerationContext, Owner, PropertyJson);
+        });
+
+    // Collect the game's gameplay tags from dumped GameplayTagsList instances (full dumps only);
+    // registration happens once after all files are processed
+    FSuzieGameplayTags::Get().CollectFromJmap(*Objects);
 }
 
 UPackage* FSuziePluginModule::FindOrCreatePackage(FDynamicClassGenerationContext& Context, const FString& PackageName)
@@ -1283,6 +1315,22 @@ FProperty* FSuziePluginModule::BuildProperty(FDynamicClassGenerationContext& Con
         UFunction* SignatureFunction = FindOrCreateFunction(Context, PropertyJson->GetStringField(TEXT("signature_function")));
         // Fall back to FOnTimelineEvent delegate signature in the engine if real delegate signature could not be found
         MulticastDelegateProperty->SignatureFunction = SignatureFunction ? SignatureFunction : FindObject<UFunction>(nullptr, TEXT("/Script/Engine.OnTimelineEvent__DelegateSignature"));
+
+        // Sparse delegate serialization resolves the delegate's owner through the signature
+        // function's OwningClassName/DelegateName pair (see FMulticastSparseDelegateProperty::
+        // SerializeItemInternal). UHT fills these for native classes; do the same for dynamic
+        // classes. The matching member offset is registered in FinalizeClass once the CDO exists.
+        if (NewProperty->IsA<FMulticastSparseDelegateProperty>())
+        {
+            if (USparseDelegateFunction* SparseSignature = Cast<USparseDelegateFunction>(MulticastDelegateProperty->SignatureFunction))
+            {
+                if (const UClass* OwningClass = Cast<UClass>(Owner.ToUObject()); OwningClass && SparseSignature->OwningClassName.IsNone())
+                {
+                    SparseSignature->OwningClassName = OwningClass->GetFName();
+                    SparseSignature->DelegateName = NewProperty->GetFName();
+                }
+            }
+        }
     }
     else if (FFieldPathProperty* FieldPathProperty = CastField<FFieldPathProperty>(NewProperty))
     {
@@ -1836,6 +1884,17 @@ void FSuziePluginModule::FinalizeClass(FDynamicClassGenerationContext& Context, 
     Class->AssembleReferenceTokenStream(true);
     // Create class default object now that we have class object construction data
     UObject* ClassDefaultObject = Class->GetDefaultObject(true);
+
+    // Register sparse delegate member offsets for this class. UHT-generated code does this for
+    // native classes; without it FSparseDelegateStorage::ResolveSparseOwner check-fails when a
+    // cooked asset deserializes a bound sparse delegate of a dynamic class.
+    for (FField* Field = Class->ChildProperties; Field; Field = Field->Next)
+    {
+        if (const FMulticastSparseDelegateProperty* SparseDelegateProperty = CastField<FMulticastSparseDelegateProperty>(Field))
+        {
+            FSparseDelegateStorage::RegisterDelegateOffset(ClassDefaultObject, SparseDelegateProperty->GetFName(), SparseDelegateProperty->GetOffset_ForInternal());
+        }
+    }
 
     // Recursively deserialize property values for the default object and its subobjects (and their nested subobjects)
     DeserializeObjectAndSubobjectPropertyValuesRecursive(Context, ClassDefaultObject, ClassDefaultObjectDefinition);
