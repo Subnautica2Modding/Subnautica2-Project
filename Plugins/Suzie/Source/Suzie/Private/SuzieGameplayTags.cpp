@@ -3,6 +3,9 @@
 #include "Dom/JsonObject.h"
 #include "Dom/JsonValue.h"
 #include "GameplayTagsManager.h"
+#include "GameplayTagContainer.h"
+#include "Misc/FileHelper.h"
+#include "Misc/Paths.h"
 
 FSuzieGameplayTags& FSuzieGameplayTags::Get()
 {
@@ -73,7 +76,63 @@ void FSuzieGameplayTags::RegisterCollectedTags()
     // Native registration was sealed during the OnPostEngineInit broadcast (before this editor
     // module loads), so the legacy FName path and FNativeGameplayTag both fail here. The editor-only
     // injection path stores the tags so they survive every later tag tree reconstruction.
-    UGameplayTagsManager::Get().AddEditorOnlyNativeGameplayTags(CollectedTagNames);
+    UGameplayTagsManager& Manager = UGameplayTagsManager::Get();
+    Manager.AddEditorOnlyNativeGameplayTags(CollectedTagNames);
 
     UE_LOG(LogSuzie, Display, TEXT("Registered %d native gameplay tags from jmap"), CollectedTagNames.Num());
+
+    WriteRegisteredTagsReport(Manager);
+}
+
+void FSuzieGameplayTags::WriteRegisteredTagsReport(const UGameplayTagsManager& Manager) const
+{
+    // Written at StartupModule (before cooked content loads), so the report survives even when the
+    // editor later crashes on a cooked asset. Lets the tags be cross-checked without opening
+    // Project Settings - which may be unreachable if the editor cannot finish loading.
+    const FString OutputDir = FPaths::ProjectSavedDir() / TEXT("Suzie");
+
+    // Tags Suzie harvested from the jmap and asked the manager to register
+    {
+        TArray<FString> Lines;
+        Lines.Reserve(CollectedTagNames.Num());
+        for (const FName& TagName : CollectedTagNames)
+        {
+            Lines.Add(TagName.ToString());
+        }
+        Lines.Sort();
+        Lines.Insert(FString::Printf(TEXT("# %d gameplay tags harvested from jmap by Suzie"), Lines.Num()), 0);
+        const FString Path = OutputDir / TEXT("SuzieHarvestedGameplayTags.txt");
+        if (FFileHelper::SaveStringArrayToFile(Lines, *Path))
+        {
+            UE_LOG(LogSuzie, Display, TEXT("Wrote harvested gameplay tag list to %s"), *Path);
+        }
+        else
+        {
+            UE_LOG(LogSuzie, Warning, TEXT("Failed to write harvested gameplay tag list to %s"), *Path);
+        }
+    }
+
+    // Every tag actually registered in the project after our injection (Suzie's + the project's own
+    // ini/native tags). This is the authoritative "what resolves in this editor" list.
+    {
+        FGameplayTagContainer AllTags;
+        Manager.RequestAllGameplayTags(AllTags, /*OnlyIncludeDictionaryTags*/ false);
+
+        TArray<FString> Lines;
+        Lines.Reserve(AllTags.Num());
+        for (const FGameplayTag& Tag : AllTags)
+        {
+            Lines.Add(Tag.GetTagName().ToString());
+        }
+        Lines.Sort();
+        const FString Path = OutputDir / TEXT("ProjectRegisteredGameplayTags.txt");
+        if (FFileHelper::SaveStringArrayToFile(Lines, *Path))
+        {
+            UE_LOG(LogSuzie, Display, TEXT("Wrote full registered gameplay tag list (%d tags) to %s"), AllTags.Num(), *Path);
+        }
+        else
+        {
+            UE_LOG(LogSuzie, Warning, TEXT("Failed to write registered gameplay tag list to %s"), *Path);
+        }
+    }
 }

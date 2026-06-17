@@ -1,0 +1,2 @@
+; Full path to your Subnautica 2 game install Paks folder
+C:\Program Files (x86)\Steam\steamapps\common\Subnautica2\Subnautica2\Content\Paks

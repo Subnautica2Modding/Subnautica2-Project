@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 
 class FJsonObject;
+class UGameplayTagsManager;
 
 // Imports the game's gameplay tags from a jmap dump into the editor's gameplay tags manager.
 //
@@ -27,6 +28,10 @@ public:
     void RegisterCollectedTags();
 
 private:
+    // Writes the harvested tag list and the full project-registered tag list to
+    // {ProjectSaved}/Suzie/*.txt for cross-checking (works even if the editor later fails to load)
+    void WriteRegisteredTagsReport(const UGameplayTagsManager& Manager) const;
+
     TArray<FName> CollectedTagNames;
     TSet<FName> CollectedTagNameSet;
 };
