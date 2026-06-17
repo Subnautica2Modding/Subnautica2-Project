@@ -20,6 +20,7 @@
 #include "Widgets/Docking/SDockTab.h"
 #include "UObject/UObjectAllocator.h"
 #include "UObject/SparseDelegate.h"
+#include "Serialization/AsyncLoadingEvents.h"
 #include "Misc/ScopedSlowTask.h"
 #include "Engine/NetConnection.h"
 #if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 3
@@ -35,6 +36,14 @@ void FSuziePluginModule::StartupModule()
     UE_LOG(LogSuzie, Display, TEXT("Suzie plugin starting"));
 
     ProcessAllJsonClassDefinitions();
+
+    // Register our freshly generated /Script/ classes with the IoStore loader's global import store.
+    // The loader registered all script objects early in startup (before this PostEngineInit module
+    // ran), so cooked game packages reference our classes by a script-import hash the loader cannot
+    // yet resolve - opening such an asset fails with "Could not find class object". Re-running the
+    // registration is idempotent and additive (it only adds the new /Script/UWE* objects), and makes
+    // those hashes resolve so cooked content whose class is Suzie-generated can load.
+    NotifyRegistrationComplete();
 
     // Must run while native tag registration is still open: DoneAddingNativeTags is bound to the
     // OnPostEngineInit broadcast, which fires after PostEngineInit plugin modules load
