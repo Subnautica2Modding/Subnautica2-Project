@@ -22,7 +22,6 @@ if (-not $InstallDir -or -not (Test-Path $InstallDir)) {
 }
 
 if (-not $LegacyOutputDir) {
-    # $LegacyOutputDir = Join-Path $InstallDir 'Subnautica2\Content\Paks\Cooked'
     $LegacyOutputDir = Join-Path $PSScriptRoot 'Cooked'
 }
 
@@ -55,30 +54,13 @@ function Pause-AndExit {
 }
 
 try {
-	$freeSpace = Get-FreeSpaceBytes -Path $InstallDir
+	$freeSpace = Get-FreeSpaceBytes -Path $ProjectDir
 	if ($freeSpace -lt $SpaceRequired) {
 		Write-Host "ERROR: Not enough free space on drive. At least $SpaceRequiredText of free space is required to export all cooked content. Detected free space: $freeSpace bytes"
 		Pause-AndExit -Code 1
 	}
 	else {
 		Write-Host "Detected free space on drive: $freeSpace bytes - sufficient to proceed with exporting cooked content"
-	}
-
-	$projectRoot = [System.IO.Path]::GetPathRoot((Resolve-Path $ProjectDir).Path)
-	$installRoot = [System.IO.Path]::GetPathRoot((Resolve-Path $InstallDir).Path)
-
-	if ($projectRoot -ine $installRoot) {
-		$projectFreeSpace = Get-FreeSpaceBytes -Path $ProjectDir
-		if ($projectFreeSpace -lt $SpaceRequired) {
-			Write-Host "ERROR: Not enough free space on project drive. At least $SpaceRequiredText of free space is required to export all cooked content. Detected free space: $projectFreeSpace bytes"
-			Pause-AndExit -Code 1
-		}
-		else {
-			Write-Host "Detected free space on project drive: $projectFreeSpace bytes - sufficient to proceed with exporting cooked content"
-		}
-	}
-	else {
-		Write-Host 'Install directory and project directory are on the same drive, no need to check project drive for free space.'
 	}
 
 	Write-Host ''
@@ -100,6 +82,15 @@ try {
 
 	$usmapPath = "Subnautica2-$gameVersion.usmap"
 	Write-Host "Game version detected: $gameVersion"
+
+	if (-not (Test-Path $usmapPath)) {
+		Write-Host "ERROR: usmap file not found at: $usmapPath"
+		Write-Host "You must have the same version of the usmap file as your game version, otherwise the project will fail to load the cooked content."
+		Write-Host "Make sure you have pulled the latest version of the usmap file from the GitHub repository."
+		Write-Host "If it is not updated there yet, you may run update.bat to generate it."
+		Pause-AndExit -Code 1
+	}
+
 	Write-Host "Cooked content will first be exported to '$LegacyOutputDir' and then moved from '$CookedSourceDir' to project folder '$ProjectDir'"
 	Write-Host "Make sure that you do not have any mods directly within the $PaksDir folder, otherwise it will incorrectly pick up mod files."
 	$confirm = Read-Host 'Have you checked the above information and are happy to continue? (y/n)'
@@ -141,8 +132,8 @@ try {
 		Pause-AndExit -Code 1
 	}
 
-	Write-Host "Command: $cookedExportExe -p '$PaksDir' -m '$usmapPath' -mb -dr -s '$CookedSourceDir' -c '$ProjectDir' -bat '$BlacklistFile' --print-skipped"
-	& $cookedExportExe -p $PaksDir -m $usmapPath -mb -dr -s $CookedSourceDir -c $ProjectDir -bat $BlacklistFile
+	Write-Host "Command: $cookedExportExe -p '$PaksDir' -m '$usmapPath' -mb -s '$CookedSourceDir' -c '$ProjectDir' -bat '$BlacklistFile' --print-skipped"
+	& $cookedExportExe -p $PaksDir -m $usmapPath -mb -s $CookedSourceDir -c $ProjectDir -bat $BlacklistFile
 
 	Write-Host ''
 	if ($LASTEXITCODE -ne 0) {
@@ -150,7 +141,7 @@ try {
 		Pause-AndExit -Code $LASTEXITCODE
 	}
 
-    Write-Host "Cooked content has been exported to project folder. The temporary cooked export folder at '$LegacyOutputDir' can now be deleted to free up space (approx $SpaceRequiredText)."
+    Write-Host "Cooked content has been exported to project folder. The temporary cooked export folder at '$LegacyOutputDir' can now be deleted to free up space (approx 4GB)."
     $confirmDelete = Read-Host 'Do you want to delete the temporary cooked export folder now? (y/n)'
     if ($confirmDelete -notmatch '^(?i:y)$') {
         Write-Host "You chose not to delete the temporary cooked export folder. Please remember to check and delete the folder at '$LegacyOutputDir' manually when you have time, to free up space."
