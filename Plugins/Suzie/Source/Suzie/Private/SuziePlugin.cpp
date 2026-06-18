@@ -1690,7 +1690,17 @@ void FSuziePluginModule::PolymorphicClassConstructorInvocationHelper(const FObje
         // If no explicit archetype has been provided for this object construction, or archetype is a CDO of the current class, set it to the default object archetype instead
         // This will ensure that correct property values are copied from the CDO for all object properties and subobjects are created using correct templates and not their CDO values
         // This has to be done before we call the parent constructor and create any default subobjects
-        if ((ObjectInitializer.GetArchetype() == nullptr || ObjectInitializer.GetArchetype() == ObjectInitializer.GetClass()->ClassDefaultObject) && TopLevelClassConstructionData->DefaultObjectArchetype)
+        //
+        // Only redirect when the object being constructed is exactly the top level dynamic class. 
+        // The DefaultObjectArchetype is an instance sized to TopLevelDynamicClass; if the object is a more-derived class
+        // FObjectInitializer::InitProperties walks the derived class's property list and copies each property out of this smaller parent-sized archetype. 
+        // Properties the subclass adds live past the end of the archetype's allocation, so the engine reads out of bounds - which
+        // corrupts non-trivially-constructed values and crashes. 
+        // For derived classes we leave the engine's natural archetype (the derived class's own CDO) in place,
+        // which is full-sized and already carries the correct inherited + Blueprint-added defaults.
+        if ((ObjectInitializer.GetArchetype() == nullptr || ObjectInitializer.GetArchetype() == ObjectInitializer.GetClass()->ClassDefaultObject)
+            && TopLevelClassConstructionData->DefaultObjectArchetype
+            && TopLevelDynamicClass == ObjectInitializer.GetClass())
         {
             FObjectInitializerAccessStub* ObjectInitializerAccess = reinterpret_cast<FObjectInitializerAccessStub*>(&ObjectInitializer.Get());
             ObjectInitializerAccess->ObjectArchetype = TopLevelClassConstructionData->DefaultObjectArchetype;
