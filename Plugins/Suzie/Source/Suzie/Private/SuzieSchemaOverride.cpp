@@ -347,8 +347,17 @@ void FSuzieSchemaOverrides::BuildLevelOverride(UStruct* Level, const TSharedPtr<
         (JmapSuperPath.IsEmpty() && EditorSuperPath == TEXT("/Script/CoreUObject.Class"));
     if (!bSuperMatches)
     {
-        UE_LOG(LogSuzie, Warning, TEXT("Schema override: %s is parented differently in the game ('%s') than in the editor ('%s'); structs in this chain keep the editor schema"),
-            *Level->GetPathName(), *JmapSuperPath, *EditorSuperPath);
+        // An empty game super_struct means the dump has no parent for this level
+        if (JmapSuperPath.IsEmpty())
+        {
+            UE_LOG(LogSuzie, Verbose, TEXT("Schema override: %s has no resolved game parent (editor parent '%s'); keeping editor schema"),
+                *Level->GetPathName(), *EditorSuperPath);
+        }
+        else
+        {
+            UE_LOG(LogSuzie, Warning, TEXT("Schema override: %s is parented differently in the game ('%s') than in the editor ('%s'); structs in this chain keep the editor schema"),
+                *Level->GetPathName(), *JmapSuperPath, *EditorSuperPath);
+        }
         LevelOverride.bReparented = true;
         ++NumReparentedLevels;
         LevelOverrides.Add(Level, MoveTemp(LevelOverride));

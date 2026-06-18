@@ -1,6 +1,7 @@
 #include "SuziePlugin.h"
 #include "SuzieGameplayTags.h"
 #include "SuzieSchemaOverride.h"
+#include "SuzieCustomSerializers.h"
 #include "Misc/FileHelper.h"
 #include "Serialization/JsonReader.h"
 #include "Serialization/JsonSerializer.h"
@@ -446,14 +447,20 @@ class FDynamicStructCppStructOps : public UScriptStruct::ICppStructOps
     UScriptStruct* DynamicStruct;
     int32 ParentInitializedSize;
     bool bHasDestructor;
+    // Optional hand-written binary serializer for game structs serialized natively in the cooked data
+    // (STRUCT_SerializeNative). When set, GetCapabilities reports HasSerializer so PrepareCppStructOps
+    // flags the struct STRUCT_SerializeNative and SerializeItem routes through this instead of the
+    // tagged/unversioned property path. See SuzieCustomSerializers.
+    SuzieCustomSerializers::FStructSerializeFn CustomSerializeFn;
 
 public:
-    FDynamicStructCppStructOps(int32 InSize, int32 InAlignment, UScriptStruct::ICppStructOps* InParentOps, UScriptStruct* InStruct)
+    FDynamicStructCppStructOps(int32 InSize, int32 InAlignment, UScriptStruct::ICppStructOps* InParentOps, UScriptStruct* InStruct, SuzieCustomSerializers::FStructSerializeFn InSerializeFn = nullptr)
         : ICppStructOps(InSize, InAlignment)
         , ParentCppStructOps(InParentOps)
         , DynamicStruct(InStruct)
         , ParentInitializedSize(InParentOps ? InParentOps->GetSize() : 0)
         , bHasDestructor(false)
+        , CustomSerializeFn(InSerializeFn)
     {
         // Destructor is needed if the parent needs destruction or if any child properties need destruction
         if (InParentOps && InParentOps->HasDestructor())
@@ -480,6 +487,7 @@ public:
         Caps.HasDestructor = bHasDestructor;
         Caps.IsPlainOldData = false;
         Caps.HasNoopConstructor = false;
+        Caps.HasSerializer = (CustomSerializeFn != nullptr);
         return Caps;
     }
 
@@ -532,12 +540,20 @@ public:
         }
     }
 
-    // No-op / false-returning implementations for remaining pure virtual methods
+    // Route through the hand-written binary serializer when one is registered for this struct.
+    // We only implement the FArchive form (HasStructuredSerializer stays false), so SerializeItem
+    // adapts structured archives to an FArchive for us. Returning false falls back to default.
 #if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 6
-    virtual bool Serialize(FArchive& Ar, void* Data, UStruct* DefaultsStruct, const void* Defaults) override { return false; }
+    virtual bool Serialize(FArchive& Ar, void* Data, UStruct* DefaultsStruct, const void* Defaults) override
+    {
+        return CustomSerializeFn ? CustomSerializeFn(Ar, Data, DynamicStruct) : false;
+    }
     virtual bool Serialize(FStructuredArchive::FSlot Slot, void* Data, UStruct* DefaultsStruct, const void* Defaults) override { return false; }
 #else
-    virtual bool Serialize(FArchive& Ar, void* Data) override { return false; }
+    virtual bool Serialize(FArchive& Ar, void* Data) override
+    {
+        return CustomSerializeFn ? CustomSerializeFn(Ar, Data, DynamicStruct) : false;
+    }
     virtual bool Serialize(FStructuredArchive::FSlot Slot, void* Data) override { return false; }
 #endif
     virtual void PostSerialize(const FArchive& Ar, void* Data) override {}
@@ -845,7 +861,8 @@ UScriptStruct* FSuziePluginModule::FindOrCreateScriptStruct(FDynamicClassGenerat
     // we need to create synthetic CppStructOps for this dynamic struct. Without this, the vtable pointer at offset 0
     // would never be initialized, causing crashes when the engine calls virtual methods like OnDataTableChanged().
     UScriptStruct::ICppStructOps* AncestorCppStructOps = FindNearestAncestorCppStructOps(NewStruct);
-    if (AncestorCppStructOps)
+    SuzieCustomSerializers::FStructSerializeFn CustomSerializeFn = SuzieCustomSerializers::FindStructSerializer(StructPath);
+    if (AncestorCppStructOps || CustomSerializeFn)
     {
         // Ensure PropertiesSize is aligned so that GetStructureSize() == PropertiesSize
         // This is required because InitializeStruct checks: Stride == CppStructOps.GetSize() && PropertiesSize == CppStructOps.GetSize()
@@ -861,15 +878,26 @@ UScriptStruct* FSuziePluginModule::FindOrCreateScriptStruct(FDynamicClassGenerat
                 NewStruct->GetPropertiesSize(),
                 NewStruct->GetMinAlignment(),
                 AncestorCppStructOps,
-                NewStruct
+                NewStruct,
+                CustomSerializeFn
             ));
 
         // Reset and re-prepare so PrepareCppStructOps picks up our deferred synthetic CppStructOps
+        // (and, when CustomSerializeFn is set, flags the struct STRUCT_SerializeNative so the engine
+        // routes its cooked bytes through the hand-written serializer instead of the reflected path)
         NewStruct->ClearCppStructOps();
         NewStruct->PrepareCppStructOps();
 
-        UE_LOG(LogSuzie, Verbose, TEXT("Installed synthetic CppStructOps for struct '%s' (ancestor has vtable, size=%d)"),
-            *ObjectName, NewStruct->GetPropertiesSize());
+        if (CustomSerializeFn)
+        {
+            UE_LOG(LogSuzie, Log, TEXT("Installed hand-written binary serializer for natively-serialized struct '%s' (size=%d)"),
+                *StructPath, NewStruct->GetPropertiesSize());
+        }
+        else
+        {
+            UE_LOG(LogSuzie, Verbose, TEXT("Installed synthetic CppStructOps for struct '%s' (ancestor has vtable, size=%d)"),
+                *ObjectName, NewStruct->GetPropertiesSize());
+        }
     }
     
     UE_LOG(LogSuzie, Verbose, TEXT("Created struct: %s"), *ObjectName);

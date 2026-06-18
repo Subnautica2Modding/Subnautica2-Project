@@ -59,8 +59,8 @@ private:
 
     // Records game structs the game serialized natively/binary (STRUCT_SerializeNative / Immutable)
     // but which Suzie generated as plain tagged-property structs. These cannot be fixed by schema
-    // overrides - any cooked asset containing one corrupts from that point, exactly like the
-    // bespoke handlers FModel/CUE4Parse needs. The scan lists them so a handler can be written.
+    // overrides - any cooked asset containing one corrupts from that point.
+    // The scan lists them so a handler can be written.
     void CheckNativeSerializedStruct(const UStruct* Level, const TSharedPtr<FJsonObject>& StructDefinition);
 
     // True when the jmap property descriptor and the editor property produce identical serialized
