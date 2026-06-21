@@ -86,34 +86,28 @@ void FSuzieGameplayTags::RegisterCollectedTags()
 
 void FSuzieGameplayTags::WriteRegisteredTagsReport(const UGameplayTagsManager& Manager) const
 {
-    // Written at StartupModule (before cooked content loads), so the report survives even when the
-    // editor later crashes on a cooked asset. Lets the tags be cross-checked without opening
-    // Project Settings - which may be unreachable if the editor cannot finish loading.
-    const FString OutputDir = FPaths::ProjectSavedDir() / TEXT("Suzie");
+    const FString OutputDir = FPaths::ProjectDir() / TEXT("Automation");
 
-    // Tags Suzie harvested from the jmap and asked the manager to register
-    {
-        TArray<FString> Lines;
-        Lines.Reserve(CollectedTagNames.Num());
-        for (const FName& TagName : CollectedTagNames)
-        {
-            Lines.Add(TagName.ToString());
-        }
-        Lines.Sort();
-        Lines.Insert(FString::Printf(TEXT("# %d gameplay tags harvested from jmap by Suzie"), Lines.Num()), 0);
-        const FString Path = OutputDir / TEXT("SuzieHarvestedGameplayTags.txt");
-        if (FFileHelper::SaveStringArrayToFile(Lines, *Path))
-        {
-            UE_LOG(LogSuzie, Display, TEXT("Wrote harvested gameplay tag list to %s"), *Path);
-        }
-        else
-        {
-            UE_LOG(LogSuzie, Warning, TEXT("Failed to write harvested gameplay tag list to %s"), *Path);
-        }
-    }
+    // {
+    //     TArray<FString> Lines;
+    //     Lines.Reserve(CollectedTagNames.Num());
+    //     for (const FName& TagName : CollectedTagNames)
+    //     {
+    //         Lines.Add(TagName.ToString());
+    //     }
+    //     Lines.Sort();
+    //     Lines.Insert(FString::Printf(TEXT("# %d gameplay tags harvested from jmap by Suzie"), Lines.Num()), 0);
+    //     const FString Path = OutputDir / TEXT("GameplayTags.txt");
+    //     if (FFileHelper::SaveStringArrayToFile(Lines, *Path))
+    //     {
+    //         UE_LOG(LogSuzie, Display, TEXT("Wrote harvested gameplay tag list to %s"), *Path);
+    //     }
+    //     else
+    //     {
+    //         UE_LOG(LogSuzie, Warning, TEXT("Failed to write harvested gameplay tag list to %s"), *Path);
+    //     }
+    // }
 
-    // Every tag actually registered in the project after our injection (Suzie's + the project's own
-    // ini/native tags). This is the authoritative "what resolves in this editor" list.
     {
         FGameplayTagContainer AllTags;
         Manager.RequestAllGameplayTags(AllTags, /*OnlyIncludeDictionaryTags*/ false);
@@ -125,7 +119,7 @@ void FSuzieGameplayTags::WriteRegisteredTagsReport(const UGameplayTagsManager& M
             Lines.Add(Tag.GetTagName().ToString());
         }
         Lines.Sort();
-        const FString Path = OutputDir / TEXT("ProjectRegisteredGameplayTags.txt");
+        const FString Path = OutputDir / TEXT("GameplayTags.txt");
         if (FFileHelper::SaveStringArrayToFile(Lines, *Path))
         {
             UE_LOG(LogSuzie, Display, TEXT("Wrote full registered gameplay tag list (%d tags) to %s"), AllTags.Num(), *Path);
