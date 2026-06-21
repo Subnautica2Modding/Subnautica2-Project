@@ -2,6 +2,6 @@
 	"BuildId": "196cdfec-29e9-4ce9-ba07-086ed0cf5881",
 	"Modules": 
 	{
-		"Suzie": "UnrealEditor-Suzie.dll"
+		"UWEAudio": "UnrealEditor-UWEAudio.dll"
 	}
 }
