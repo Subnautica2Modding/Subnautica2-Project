@@ -478,7 +478,7 @@ void ModActions::CookAndInstallMod(const FString& ModName)
 		TEXT("BuildCookRun"
 			" -project=\"%s\""
 			" -platform=Win64"
-			" -clientconfig=Development"
+			" -clientconfig=Shipping"
 			" -build -cook -stage -pak -iostore"
 			" -archive -archivedirectory=\"%s\""
 			" -nocompileeditor -installed -iterativecooking -cookincremental"
