@@ -50,12 +50,14 @@ DerivedDataCache/*
 Content/*
 !Content/_EditorScripts/
 !Content/DynamicClasses/
+!Content/Fonts/
 !Content/Mods/*
 !Content/Splash/
 !Content/Splash/EdSplash.png
 
 # Ignore all plugin content except for those added in from the marketplace
 Plugins/**/Content/*
+!Plugins/FMODStudio/Content/*
 !Plugins/FMODStudioNiagara/Content/*
 !Plugins/NiagaraUIRenderer/Content/*
 

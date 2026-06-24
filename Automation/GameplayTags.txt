@@ -2435,6 +2435,7 @@ Pawn.InTrigger
 PendingDestruction
 PermanentUpgrades
 PermanentUpgrades.Inventory
+PermanentUpgrades.Toolbar
 Ping
 Ping.Alert
 Ping.Base
