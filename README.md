@@ -71,6 +71,15 @@ Now when you open the editor, the game content should all be visible!
 > [!NOTE]
 > Content in the editor is read-only, meaning that even if it allows you to edit the asset, the package cannot be saved and the value will be lost the next time you open the editor. Later on, I will show you how to create uncooked copies of some assets which you can use in your mods.
 
+## Navigating the project
+
+Once the project is open and you can see all the content, there are some additional tips you need to know to use it properly (aside from common UE editor actions):
+- When opening levels, you need to search for `BP_Ocean` in the details panel and click the eye icon to hide it, so everything is no longer black
+- When opening blueprints and widgets, you will just see a properties view. To see more info about the asset:
+    - Right click on blueprints and click "Create Child Blueprint Class", this then allows you to open the child to see the component tree
+    - Right click on widgets and click "Make Uncooked Widget Copy", this makes a copy of the cooked widget into an uncooked one with the full widget tree and animations
+    - Right click on FMOD events and click "Play" or "Stop" to play or stop the audio
+
 ## Making your first mod
 
 Follow the guide on setting up a simple blueprint mod with UE4SS: https://docs.ue4ss.com/dev/feature-overview/blueprint-modloader.html
