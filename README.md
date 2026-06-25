@@ -1,6 +1,6 @@
 # Subnautica 2 Project
 
-A template UE 5.6 project for creating SN2 mods.
+A template Unreal Engine editor project for creating SN2 content mods. 
 
 ## If you are brand new to modding
 
@@ -16,19 +16,20 @@ Get started with [basic mod tooling](./Docs/Tools.md) as outlined in the above U
 
 ## Prerequisites
 
-The maximum disk space that will be used - including custom engine and any intermediate folders created while using the project - is **80GB**. It should be around 60GB-70GB with all optional requirements but just to be on the safe side make sure you have at least 80GB space available.
+You need to own Subnautica 2 and have the game installed.
+
+The disk space that will be used - including custom engine and any intermediate folders created while using the project - is **60GB**. 
+
+If you haven't done so already, [follow these instructions on linking your Epic Games and GitHub accounts](https://www.epicgames.com/help/en-US/c-Category_EpicAccount/c-ConnectedAccounts/how-do-i-link-my-unreal-engine-account-with-my-github-account-a000084938?sessionInvalidated=true). If you don't do this, the below custom engine link will return a 404 not found.
 
 You need to install a [custom build of Unreal Engine 5.6](https://github.com/Buckminsterfullerene02/UnrealEngine/releases) (don't worry, you don't need to build or compile anything!). This build is approximately 10GB smaller than the vanilla build from Epic Games Store and is necessary to enable:
-- Adding custom materials into the game (without the custom engine, custom materials cause the game to crash or just don't work)
-- Working with and being able to open, reference, and use (most) game content in the project
+- Adding custom materials into the game (this is still WIP unfortunately)
+- Working with and being able to open, reference, and use all game content in the project
 
 It is best to install the engine:
 - Closer to the root of the drive (if file paths get too long, things break)
 - On a file path containing no spaces (some issues occur from not quoting paths correctly)
 - Onto an SSD or NVMe
-
-> [!WARNING]
-> **If you cannot access the above link, [follow these instructions on linking your Epic Games and GitHub accounts](https://www.epicgames.com/help/en-US/c-Category_EpicAccount/c-ConnectedAccounts/how-do-i-link-my-unreal-engine-account-with-my-github-account-a000084938?sessionInvalidated=true).**
 
 You also need to install Visual Studio 2022 and select the MSVC `v14.38` toolchain to be able to open the project.
 - [Helpful guide](https://dev.epicgames.com/documentation/unreal-engine/setting-up-visual-studio-development-environment-for-cplusplus-projects-in-unreal-engine?application_version=5.6)
@@ -36,18 +37,20 @@ You also need to install Visual Studio 2022 and select the MSVC `v14.38` toolcha
 
 ## Setting up and opening the project
 
-1. [Clone](https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/adding-and-cloning-repositories/cloning-and-forking-repositories-from-github-desktop), fork, or download the repository as `.zip`.
+1. [Clone](https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/adding-and-cloning-repositories/cloning-and-forking-repositories-from-github-desktop) or fork this repository. You may choose to download as `.zip`, but it will be much harder to get updates to the project if you do not clone it using `git` directly.
 
-2. Download FMOD for Unreal from https://www.fmod.com/download (you have to sign up first). The plugin cannot be distributed in the project as the FMOD `.dll` files are copyrighted and require an FMOD account to aquire.
+2. Open `GameInstallDirectory.txt` and paste in the location of your game install files like the example path. This should be the folder containing the `Subnautica2.exe` file.
+
+3. Download FMOD for Unreal from https://www.fmod.com/download (you have to sign up first). The plugin cannot be distributed in the project as the FMOD `.dll` files are copyrighted and require an FMOD account to aquire.
 
 ![FMOD-Download](Docs/Images/FMOD-Download.png)
 
-3. Run this command in powershell to copy banks and extract FMOD DLLs 
+4. Run this command in powershell to copy banks and extract FMOD DLLs 
 ```ps1
 powershell -ExecutionPolicy Bypass -File setup-fmod.ps1 -FMODPluginZip "<your downloads>\fmodstudio20309ue5.6win64.zip"
 ``` 
 
-4. Now right click on `Subnautica2.uproject`, select **Switch Unreal Engine version**, then select to the folder containing the `Engine` folder from the custom engine.
+5. Now right click on `Subnautica2.uproject`, select **Switch Unreal Engine version**, then select to the folder containing the `Engine` folder from the custom engine.
 
 ![Switch engine ver](Docs/Images/Switch-Version.png)
 
@@ -55,18 +58,18 @@ For example mine is here (obviously pick the path where you installed the engine
 
 ![Select engine ver](Docs/Images/Select-Version.png)
 
-5. Open `Subnautica2.uproject`. It may spend some time compiling some plugins first (2-10 mins depending on your hardware).
+6. Open `Subnautica2.uproject`. It may spend some time compiling some plugins first (2-10 mins depending on your hardware).
 
-## (Optional) Getting game content into the project
+## Getting game content into the project
 
-For the project to be most useful, consider getting most of the content from the game install files into it so you can use it for your mod references, easier research into files etc. All asset types are included except blueprints, widgets, level sequences and maps (I am working on the engine/editor stability of having these as well - some basic ones work but most don't due to various issues). Niagara effects, certain auto-generated data assets and a couple behaviour tree assets will crash the editor if you try to open them, but aside from those everything else is openable. Material shaders are also not merged into the project so everything will look black. Cooked content also is "read-only" in that any changes you make (if it allows you to) to the assets in the editor will not be saved when you close it. It is not recommended to modify game content in this project - modifications in the project should be done via blueprint modding only.
+The custom engine is configured to mount the cooked game content directly from your game install files.
+
+All you need to do, is open `GameInstallDirectory.txt` and paste in the location of your game install files like the example path. 
+
+Now when you open the editor, the game content should all be visible!
 
 > [!NOTE]
-> The game content will add ~25GB onto your project size.
-
-To get the game content into your project, double click/run `Automation/move_cooked.ps1` (you shouldn't need to run this one as admin). Make sure you read any messages it writes and agree to the steps as it goes, as it is generating and moving a lot of files so you should check everything is in order first.
-
-Once it is done, you can open `Subnautica2.uproject` once more. 
+> Content in the editor is read-only, meaning that even if it allows you to edit the asset, the package cannot be saved and the value will be lost the next time you open the editor. Later on, I will show you how to create uncooked copies of some assets which you can use in your mods.
 
 ## Making your first mod
 
@@ -136,7 +139,7 @@ Rename the pakchunk files to the same name as the mod folder in the project, kee
 > [!IMPORTANT]
 > The files must be the same name as the mod folder in the unreal engine project! If you change the mod folder name in the project later, make sure the update the file names to match it! E.g. if the mod folder in the project is `MyMod`, the files must be called `MyMod.pak`, `MyMod.ucas`, `MyMod.utoc`.
 
-## SN2 Mod Tools
+## Automating the above: SN2 Mod Tools
 
 The above steps are too manual to repeat over and over, but I explained them first so that you understand what the automation is actually doing (in case something breaks and you need to look at why).
 

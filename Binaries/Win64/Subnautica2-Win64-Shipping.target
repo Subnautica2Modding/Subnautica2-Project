@@ -17,7 +17,7 @@
 		"IsLicenseeVersion": 0,
 		"IsPromotedBuild": 0,
 		"BranchName": "UE5",
-		"BuildId": "907e0ec1-2a7d-4b5d-b726-1b226aa8825a"
+		"BuildId": "1decc24f-8913-4d56-b8a7-df4beb57e997"
 	},
 	"BuildProducts": [
 		{
@@ -3799,10 +3799,6 @@
 			"Type": "UFS"
 		},
 		{
-			"Path": "$(EngineDir)/Plugins/Bridge/Bridge.uplugin",
-			"Type": "UFS"
-		},
-		{
 			"Path": "$(EngineDir)/Plugins/Cameras/CameraShakePreviewer/CameraShakePreviewer.uplugin",
 			"Type": "UFS"
 		},
@@ -4140,10 +4136,6 @@
 		},
 		{
 			"Path": "$(EngineDir)/Plugins/FX/Niagara/Niagara.uplugin",
-			"Type": "UFS"
-		},
-		{
-			"Path": "$(EngineDir)/Plugins/Fab/Fab.uplugin",
 			"Type": "UFS"
 		},
 		{
@@ -4617,7 +4609,6 @@
 		"BlendStack",
 		"BlueprintHeaderView",
 		"BlueprintMaterialTextureNodes",
-		"Bridge",
 		"CLionSourceCodeAccess",
 		"CableComponent",
 		"CameraCalibrationCore",
@@ -4685,7 +4676,6 @@
 		"ExampleDeviceProfileSelector",
 		"FMODStudio",
 		"FMODStudioNiagara",
-		"Fab",
 		"FacialAnimation",
 		"FastBuildController",
 		"Fracture",

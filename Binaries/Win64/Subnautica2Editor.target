@@ -18,7 +18,7 @@
 		"IsLicenseeVersion": 0,
 		"IsPromotedBuild": 0,
 		"BranchName": "UE5",
-		"BuildId": "295416fb-ec7a-4c70-aa05-eafdc216457c"
+		"BuildId": "5fbf435e-46ca-44c1-a431-199a0b415257"
 	},
 	"BuildProducts": [
 		{
@@ -175,6 +175,18 @@
 		},
 		{
 			"Path": "$(ProjectDir)/Plugins/Suzie/Binaries/Win64/UnrealEditor.modules",
+			"Type": "RequiredResource"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEAudio/Binaries/Win64/UnrealEditor-UWEAudio.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEAudio/Binaries/Win64/UnrealEditor-UWEAudio.pdb",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UWEAudio/Binaries/Win64/UnrealEditor.modules",
 			"Type": "RequiredResource"
 		},
 		{
