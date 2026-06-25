@@ -18,7 +18,7 @@ if (-not $SN2Path -or -not (Test-Path $SN2Path)) {
 }
 
 # Copy FMOD banks
-$bankSrc = Join-Path $SN2Path "Subnautica2\Content\FMOD\Desktop"
+$bankSrc = Join-Path $SN2Path "Content\FMOD\Desktop"
 $bankDst = Join-Path $StubRoot "Content\FMOD\Desktop"
 
 if (-not (Test-Path $bankSrc)) {
