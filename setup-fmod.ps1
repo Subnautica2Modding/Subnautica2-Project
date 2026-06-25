@@ -23,6 +23,7 @@ $bankDst = Join-Path $StubRoot "Content\FMOD\Desktop"
 
 if (-not (Test-Path $bankSrc)) {
     Write-Error "FMOD banks not found at: $bankSrc. Is SN2 fully installed?"
+    exit 0
 }
 
 New-Item -ItemType Directory -Force $bankDst | Out-Null
