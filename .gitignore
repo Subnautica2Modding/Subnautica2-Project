@@ -57,9 +57,11 @@ Content/*
 
 # Ignore all plugin content except for those added in from the marketplace
 Plugins/**/Content/*
+Plugins/**/Saved/*
 !Plugins/FMODStudio/Content/*
 !Plugins/FMODStudioNiagara/Content/*
 !Plugins/NiagaraUIRenderer/Content/*
+!Plugins/TestPluginMod/Content/*
 
 # Native FMOD DLLs are Firelight copyright. Copy from the official FMOD download via setup-fmod.ps1.
 Plugins/FMODStudio/Binaries/Win64/fmod*.dll
