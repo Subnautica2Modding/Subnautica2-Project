@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="Alpakit.Automation.csproj.props" Condition="Exists('Alpakit.Automation.csproj.props')" />
+    <Import Project="$(EngineDir)\Source\Programs\Shared\UnrealEngine.csproj.props" />
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <OutputType>Library</OutputType>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+        <Configurations>Debug;Release;Development</Configurations>
+        <RootNamespace>Alpakit.Automation</RootNamespace>
+        <AssemblyName>Alpakit.Automation</AssemblyName>
+        <OutputPath>..\..\Binaries\DotNET\</OutputPath>
+        <DebugType>pdbonly</DebugType>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="$(EngineDir)\Source\Programs\AutomationTool\AutomationUtils\AutomationUtils.Automation.csproj" />
+        <ProjectReference Include="$(EngineDir)\Source\Programs\AutomationTool\Scripts\AutomationScripts.Automation.csproj" />
+        <ProjectReference Include="$(EngineDir)\Source\Programs\Shared\EpicGames.Build\EpicGames.Build.csproj" />
+        <ProjectReference Include="$(EngineDir)\Source\Programs\Shared\EpicGames.Core\EpicGames.Core.csproj" />
+        <ProjectReference Include="$(EngineDir)\Source\Programs\UnrealBuildTool\UnrealBuildTool.csproj" />
+    </ItemGroup>
+</Project>

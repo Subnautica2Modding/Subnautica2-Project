@@ -34,6 +34,18 @@
 			"Type": "RequiredResource"
 		},
 		{
+			"Path": "$(ProjectDir)/Plugins/Alpakit/Binaries/Win64/UnrealEditor-Alpakit.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/Alpakit/Binaries/Win64/UnrealEditor-Alpakit.pdb",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/Alpakit/Binaries/Win64/UnrealEditor.modules",
+			"Type": "RequiredResource"
+		},
+		{
 			"Path": "$(ProjectDir)/Plugins/Developer/RiderLink/Binaries/Win64/UnrealEditor-RD.dll",
 			"Type": "DynamicLibrary"
 		},
@@ -5088,6 +5100,10 @@
 	],
 	"RuntimeDependencies": [
 		{
+			"Path": "$(ProjectDir)/Plugins/Alpakit/Alpakit.uplugin",
+			"Type": "UFS"
+		},
+		{
 			"Path": "$(ProjectDir)/Plugins/Developer/RiderLink/RiderLink.uplugin",
 			"Type": "UFS"
 		},
@@ -5133,6 +5149,10 @@
 		},
 		{
 			"Path": "$(ProjectDir)/Plugins/Suzie/Suzie.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/TestPluginMod/TestPluginMod.uplugin",
 			"Type": "UFS"
 		},
 		{
@@ -29584,6 +29604,7 @@
 		"ActorSequence",
 		"AdvancedRenamer",
 		"AlembicImporter",
+		"Alpakit",
 		"AnalyticsBlueprintLibrary",
 		"AnalyticsMulticast",
 		"AndroidDeviceProfileSelector",
@@ -29832,6 +29853,7 @@
 		"TargetingSystem",
 		"TcpMessaging",
 		"TemplateSequence",
+		"TestPluginMod",
 		"TextureFormatOodle",
 		"ToolPresets",
 		"TraceUtilities",

@@ -17,7 +17,7 @@
 		"IsLicenseeVersion": 0,
 		"IsPromotedBuild": 0,
 		"BranchName": "UE5",
-		"BuildId": "1decc24f-8913-4d56-b8a7-df4beb57e997"
+		"BuildId": "e47bea4b-3a15-4326-a35e-8253023b9904"
 	},
 	"BuildProducts": [
 		{
@@ -112,6 +112,10 @@
 		},
 		{
 			"Path": "$(ProjectDir)/Plugins/Suzie/Suzie.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/TestPluginMod/TestPluginMod.uplugin",
 			"Type": "UFS"
 		},
 		{
@@ -4579,6 +4583,7 @@
 		"ActorSequence",
 		"AdvancedRenamer",
 		"AlembicImporter",
+		"Alpakit",
 		"AnalyticsBlueprintLibrary",
 		"AnalyticsMulticast",
 		"AndroidDeviceProfileSelector",
@@ -4818,6 +4823,7 @@
 		"TargetingSystem",
 		"TcpMessaging",
 		"TemplateSequence",
+		"TestPluginMod",
 		"TextureFormatOodle",
 		"ToolPresets",
 		"TraceUtilities",
