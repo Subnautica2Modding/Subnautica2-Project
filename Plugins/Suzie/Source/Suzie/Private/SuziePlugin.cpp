@@ -20,6 +20,7 @@
 #include "SuzieDecompressionHelper.h"
 #include "Widgets/Docking/SDockTab.h"
 #include "UObject/UObjectAllocator.h"
+#include "UObject/UObjectHash.h"
 #include "UObject/SparseDelegate.h"
 #include "Serialization/AsyncLoadingEvents.h"
 #include "Misc/ScopedSlowTask.h"
@@ -1950,15 +1951,12 @@ void FSuziePluginModule::FinalizeClass(FDynamicClassGenerationContext& Context, 
     // Do not create archetypes for NetConnection-derived classes, they have faulty shutdown logic leading to a crash on exit
     // Do not create archetypes for GameInstance-derived classes, EndPlayMap iterates all UGameInstance objects and calls
     // MarkAsGarbage on them which asserts !IsRooted(), but our archetypes are rooted via AddToRoot to prevent GC
-    // Do not create archetypes when running as a commandlet (e.g. packaging): Slate is not initialized in that context,
-    // so native constructors that call FSlateApplication::Get() (e.g. UGameViewportClient) will crash inside DuplicateObject
-    // because the duplicated object does not yet have RF_ArchetypeObject when its constructor runs.
     // Do not create archetypes for WaterBody-derived classes: PostDuplicate on UWaterBodyComponent calls UpdateWaterBody->OnUpdateBody
     // which calls RegisterComponent on dynamically-created collision components. RegisterComponent requires a valid world,
     // but the archetype actor is not part of any world, triggering an ensure failure.
     static const UClass* WaterBodyClass = FindObject<UClass>(nullptr, TEXT("/Script/Water.WaterBody"));
     const bool bIsWaterBodyClass = WaterBodyClass && Class->IsChildOf(WaterBodyClass);
-    if (!Class->IsChildOf<UNetConnection>() && !Class->IsChildOf<UGameInstance>() && !IsRunningCommandlet() && !bIsWaterBodyClass)
+    if (!Class->IsChildOf<UNetConnection>() && !Class->IsChildOf<UGameInstance>() && !bIsWaterBodyClass)
     {
         const FString ArchetypeObjectName = TEXT("InitializationArchetype__") + Class->GetName();
         {
