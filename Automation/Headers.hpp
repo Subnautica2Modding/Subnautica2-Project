@@ -2852,7 +2852,7 @@ class UAnimationStateMachineLibrary : public UBlueprintFunctionLibrary {
     static FName GetState(const FAnimUpdateContext& UpdateContext, const FAnimationStateMachineReference& node);
     static bool IsStateBlendingIn(const FAnimUpdateContext& UpdateContext, const FAnimationStateResultReference& node);
     static bool IsStateBlendingOut(const FAnimUpdateContext& UpdateContext, const FAnimationStateResultReference& node);
-    static void SetState(const FAnimUpdateContext& UpdateContext, const FAnimationStateMachineReference& node, FName TargetState, float duration, uint8_t BlendType, UBlendProfile* BlendProfile, EAlphaBlendOption AlphaBlendOption, UCurveFloat* CustomBlendCurve);
+    static void SetState(const FAnimUpdateContext& UpdateContext, const FAnimationStateMachineReference& node, FName TargetState, float Duration, uint8_t BlendType, UBlendProfile* BlendProfile, EAlphaBlendOption AlphaBlendOption, UCurveFloat* CustomBlendCurve);
 };
 
 struct FAnimationStateMachineReference : public FAnimNodeReference {
@@ -3363,7 +3363,7 @@ struct FSequenceEvaluatorReference : public FAnimNodeReference {
 
 class USequencePlayerLibrary : public UBlueprintFunctionLibrary {
 
-    static float ComputePlayRateFromDuration(const FSequencePlayerReference& SequencePlayer, float duration);
+    static float ComputePlayRateFromDuration(const FSequencePlayerReference& SequencePlayer, float Duration);
     static FSequencePlayerReference ConvertToSequencePlayer(const FAnimNodeReference& node, EAnimNodeReferenceConversionResult& Result);
     static void ConvertToSequencePlayerPure(const FAnimNodeReference& node, FSequencePlayerReference& SequencePlayer, bool& Result);
     static float GetAccumulatedTime(const FSequencePlayerReference& SequencePlayer);
@@ -4873,7 +4873,7 @@ class UAudioModulationStatics : public UBlueprintFunctionLibrary {
     static void ClearGlobalBusMixValue(const UObject* WorldContextObject, USoundControlBus* Bus, float FadeTime);
     static USoundModulationGeneratorADEnvelope* CreateADEnvelopeGenerator(UObject* WorldContextObject, FName Name, const FSoundModulationADEnvelopeParams& Params);
     static USoundControlBus* CreateBus(UObject* WorldContextObject, FName Name, USoundModulationParameter* Parameter, bool Activate);
-    static USoundControlBusMix* CreateBusMix(UObject* WorldContextObject, FName Name, TArray<FSoundControlBusMixStage> Stages, bool Activate, double duration, bool bRetriggerOnActivation);
+    static USoundControlBusMix* CreateBusMix(UObject* WorldContextObject, FName Name, TArray<FSoundControlBusMixStage> Stages, bool Activate, double Duration, bool bRetriggerOnActivation);
     static USoundControlBusMix* CreateBusMixFromValue(const UObject* WorldContextObject, FName Name, const TArray<USoundControlBus*>& Buses, float Value, float AttackTime, float ReleaseTime, bool bActivate);
     static FSoundControlBusMixStage CreateBusMixStage(const UObject* WorldContextObject, USoundControlBus* Bus, float Value, float AttackTime, float ReleaseTime);
     static USoundModulationGeneratorEnvelopeFollower* CreateEnvelopeFollowerGenerator(UObject* WorldContextObject, FName Name, FEnvelopeFollowerGeneratorParams Params);
@@ -4890,7 +4890,7 @@ class UAudioModulationStatics : public UBlueprintFunctionLibrary {
     static TArray<FSoundControlBusMixStage> LoadMixFromProfile(const UObject* WorldContextObject, USoundControlBusMix* Mix, bool bActivate, int32_t ProfileIndex);
     static void SaveMixToProfile(const UObject* WorldContextObject, USoundControlBusMix* Mix, int32_t ProfileIndex);
     static void SetGlobalBusMixValue(const UObject* WorldContextObject, USoundControlBus* Bus, float Value, float FadeTime);
-    static void UpdateMix(const UObject* WorldContextObject, USoundControlBusMix* Mix, TArray<FSoundControlBusMixStage> Stages, float FadeTime, double duration, bool bRetriggerOnActivation);
+    static void UpdateMix(const UObject* WorldContextObject, USoundControlBusMix* Mix, TArray<FSoundControlBusMixStage> Stages, float FadeTime, double Duration, bool bRetriggerOnActivation);
     static void UpdateMixByFilter(const UObject* WorldContextObject, USoundControlBusMix* Mix, FString AddressFilter, UClass* ParamClassFilter, USoundModulationParameter* ParamFilter, float Value, float FadeTime);
     static void UpdateMixFromObject(const UObject* WorldContextObject, USoundControlBusMix* Mix, float FadeTime);
     static void UpdateModulator(const UObject* WorldContextObject, USoundModulatorBase* Modulator);
@@ -4928,14 +4928,14 @@ struct FEnvelopeFollowerGeneratorParams {
 
 class USoundControlBus : public USoundModulatorBase {
     bool bBypass;
-    FString address;
+    FString Address;
     TArray<USoundModulationGenerator*> Generators;
     USoundModulationParameter* Parameter;
 };
 
 class USoundControlBusMix : public UObject {
     uint32_t ProfileIndex;
-    double duration;
+    double Duration;
     bool bRetriggerOnActivation;
     TArray<FSoundControlBusMixStage> MixStages;
 
@@ -5378,7 +5378,7 @@ class UAudioMaterialKnobWidgetStyle : public USlateWidgetStyleContainerBase {
 
 class UAudioMaterialMeter : public UWidget {
     FAudioMaterialMeterStyle WidgetStyle;
-    uint8_t orientation;
+    uint8_t Orientation;
     FDelegate MeterChannelInfoDelegate;
     TArray<FMeterChannelInfo> MeterChannelInfo;
 
@@ -5411,7 +5411,7 @@ class UAudioMaterialSlider : public UWidget {
     FAudioMaterialSliderStyle WidgetStyle;
     FMulticastInlineDelegate OnValueChanged;
     float Value;
-    uint8_t orientation;
+    uint8_t Orientation;
     float TuneSpeed;
     float FineTuneSpeed;
     bool bLocked;
@@ -5454,7 +5454,7 @@ class UAudioMeter : public UWidget {
     TArray<FMeterChannelInfo> MeterChannelInfo;
     FDelegate MeterChannelInfoDelegate;
     FAudioMeterStyle WidgetStyle;
-    uint8_t orientation;
+    uint8_t Orientation;
     FLinearColor BackgroundColor;
     FLinearColor MeterBackgroundColor;
     FLinearColor MeterValueColor;
@@ -5600,7 +5600,7 @@ class UAudioSliderBase : public UWidget {
     FDelegate SliderThumbColorDelegate;
     FLinearColor WidgetBackgroundColor;
     FDelegate WidgetBackgroundColorDelegate;
-    uint8_t orientation;
+    uint8_t Orientation;
     FMulticastInlineDelegate OnValueChanged;
 
     float GetLinValue(const float OutputValue);
@@ -5833,7 +5833,7 @@ struct FSpectrogramRackUnitSettings {
     EAudioSpectrogramFrequencyAxisPixelBucketMode PixelPlotMode;
     EAudioSpectrogramFrequencyAxisScale FrequencyScale;
     EAudioColorGradient ColorMap;
-    uint8_t orientation;
+    uint8_t Orientation;
 };
 
 struct FSpectrumAnalyzerRackUnitSettings {
@@ -5983,7 +5983,7 @@ struct FAutomationWorkerRunTestsReply : public FAutomationWorkerMessageBase {
     TArray<FAutomationExecutionEntry> Entries;
     int32_t WarningTotal;
     int32_t ErrorTotal;
-    float duration;
+    float Duration;
     uint32_t ExecutionCount;
     EAutomationState State;
 };
@@ -6109,6 +6109,126 @@ enum class ETEST_RHI_Options {
 class UAutomationUtilsBlueprintLibrary : public UBlueprintFunctionLibrary {
 
     static void TakeGameplayAutomationScreenshot(const FString ScreenShotName, float MaxGlobalError, float MaxLocalError, FString MapNameOverride);
+};
+
+class UBinkFunctionLibrary : public UBlueprintFunctionLibrary {
+
+    static FTimespan BinkLoadingMovie_GetDuration();
+    static FTimespan BinkLoadingMovie_GetTime();
+    static void Bink_DrawOverlays();
+};
+
+class UBinkMediaPlayer : public UObject {
+    FMulticastInlineDelegate OnMediaClosed;
+    FMulticastInlineDelegate OnMediaOpened;
+    FMulticastInlineDelegate OnMediaReachedEnd;
+    FMulticastInlineDelegate OnPlaybackSuspended;
+    bool Looping;
+    bool StartImmediately;
+    bool DelayedOpen;
+    FVector2D BinkDestinationUpperLeft;
+    FVector2D BinkDestinationLowerRight;
+    FString URL;
+    uint8_t BinkBufferMode;
+    uint8_t BinkSoundTrack;
+    int32_t BinkSoundTrackStart;
+    uint8_t BinkDrawStyle;
+    int32_t BinkLayerDepth;
+
+    bool CanPause() const;
+    bool CanPlay() const;
+    void CloseUrl();
+    void Draw(UTexture* Texture, bool tonemap, int32_t out_nits, float alpha, bool srgb_decode, bool hdr);
+    FTimespan GetDuration() const;
+    float GetRate() const;
+    FTimespan GetTime() const;
+    FString GetUrl() const;
+    bool IsGotoing() const;
+    bool IsInitialized() const;
+    bool IsLooping() const;
+    bool IsPaused() const;
+    bool IsPlaying() const;
+    bool IsStopped() const;
+    bool OpenUrl(FString NewUrl);
+    bool Pause();
+    bool Play();
+    bool Rewind();
+    bool Seek(const FTimespan& InTime);
+    bool SetLooping(bool InLooping);
+    bool SetRate(float Rate);
+    void SetVolume(float Rate);
+    void Stop();
+    bool SupportsRate(float Rate, bool Unthinned) const;
+    bool SupportsScrubbing() const;
+    bool SupportsSeeking() const;
+};
+
+class UBinkMediaTexture : public UTexture {
+    uint8_t AddressX;
+    uint8_t AddressY;
+    UBinkMediaPlayer* MediaPlayer;
+    uint8_t PixelFormat;
+    bool tonemap;
+    float OutputNits;
+    float alpha;
+    bool DecodeSRGB;
+
+    void Clear();
+    void SetMediaPlayer(UBinkMediaPlayer* InMediaPlayer);
+};
+
+class UBinkMoviePlayerSettings : public UObject {
+    uint8_t BinkBufferMode;
+    uint8_t BinkSoundTrack;
+    int32_t BinkSoundTrackStart;
+    FVector2D BinkDestinationUpperLeft;
+    FVector2D BinkDestinationLowerRight;
+    uint8_t BinkPixelFormat;
+};
+
+enum class EBinkMediaPlayerBinkBufferModes {
+    BMASM_Bink_Stream = 0,
+    BMASM_Bink_PreloadAll = 1,
+    BMASM_Bink_StreamUntilResident = 2,
+    BMASM_Bink_MAX = 3,
+};
+
+enum class EBinkMediaPlayerBinkDrawStyle {
+    BMASM_Bink_DS_RenderToTexture = 0,
+    BMASM_Bink_DS_OverlayFillScreenWithAspectRatio = 1,
+    BMASM_Bink_DS_OverlayOriginalMovieSize = 2,
+    BMASM_Bink_DS_OverlayFillScreen = 3,
+    BMASM_Bink_DS_OverlaySpecificDestinationRectangle = 4,
+    BMASM_Bink_DS_MAX = 5,
+};
+
+enum class EBinkMediaPlayerBinkSoundTrack {
+    BMASM_Bink_Sound_None = 0,
+    BMASM_Bink_Sound_Simple = 1,
+    BMASM_Bink_Sound_LanguageOverride = 2,
+    BMASM_Bink_Sound_51 = 3,
+    BMASM_Bink_Sound_51LanguageOverride = 4,
+    BMASM_Bink_Sound_71 = 5,
+    BMASM_Bink_Sound_71LanguageOverride = 6,
+    BMASM_Bink_Sound_MAX = 7,
+};
+
+enum class EBinkMoviePlayerBinkBufferModes {
+    MP_Bink_Stream = 0,
+    MP_Bink_PreloadAll = 1,
+    MP_Bink_StreamUntilResident = 2,
+    MP_Bink_MAX = 3,
+};
+
+enum class EBinkMoviePlayerBinkSoundTrack {
+    MP_Bink_Sound_None = 0,
+    MP_Bink_Sound_Simple = 1,
+    MP_Bink_Sound_LanguageOverride = 2,
+    MP_Bink_Sound_51 = 3,
+    MP_Bink_Sound_51LanguageOverride = 4,
+    MP_Bink_Sound_71 = 5,
+    MP_Bink_Sound_71LanguageOverride = 6,
+    MP_Bink_Sound_MAX = 7,
 };
 
 struct FAnimNode_BlendStack : public FAnimNode_BlendStack_Standalone {
@@ -7203,7 +7323,7 @@ struct FSolverTrailingFilterSettings {
 struct FBreakingEvent : public FCacheEventBase {
     int32_t Index;
     FVector Location;
-    FQuat orientation;
+    FQuat Orientation;
     FVector Velocity;
     FVector AngularVelocity;
     float Mass;
@@ -7372,7 +7492,7 @@ struct FRichCurves {
 struct FTrailingEvent : public FCacheEventBase {
     int32_t Index;
     FVector Location;
-    FQuat orientation;
+    FQuat Orientation;
     FVector Velocity;
     FVector AngularVelocity;
     FVector BoundingBoxMin;
@@ -10529,7 +10649,7 @@ class UCommonActivatableWidgetContainerBase : public UWidget {
     UCommonActivatableWidget* GetActiveWidget() const;
     float GetTransitionDuration() const;
     void RemoveWidget(UCommonActivatableWidget* WidgetToRemove);
-    void SetTransitionDuration(float duration);
+    void SetTransitionDuration(float Duration);
 };
 
 class UCommonActivatableWidgetQueue : public UCommonActivatableWidgetContainerBase {
@@ -21570,7 +21690,7 @@ class UDaySequencePlayer : public UObject {
     void Scrub();
     void SetCompletionModeOverride(EMovieSceneCompletionModeOverride CompletionModeOverride);
     void SetDisableCameraCuts(bool bInDisableCameraCuts);
-    void SetFrameRange(int32_t StartFrame, int32_t duration, float SubFrames);
+    void SetFrameRange(int32_t StartFrame, int32_t Duration, float SubFrames);
     void SetFrameRate(FFrameRate FrameRate);
     void SetPlayRate(float PlayRate);
     void SetWeight(double InWeight);
@@ -21736,11 +21856,6 @@ struct FPlatformSettingsInstances {
 
 class UPlatformSettingsManager : public UObject {
     TMap<UClass*, FPlatformSettingsInstances> SettingsMap;
-};
-
-class UElectraProtronFactorySettings : public UObject {
-    bool bPreferProtronInEditor;
-    bool bPreferProtronInGame;
 };
 
 struct FA2CSPose : public FA2Pose {
@@ -22567,7 +22682,7 @@ class UAnimInstance : public UObject {
     bool QueryAndMarkTransitionEvent(int32_t MachineIndex, int32_t TransitionIndex, FName EventName);
     bool QueryTransitionEvent(int32_t MachineIndex, int32_t TransitionIndex, FName EventName);
     void RemovePoseSnapshot(FName SnapshotName);
-    void RequestSlotGroupInertialization(FName InSlotGroupName, float duration, const UBlendProfile* BlendProfile);
+    void RequestSlotGroupInertialization(FName InSlotGroupName, float Duration, const UBlendProfile* BlendProfile);
     bool RequestTransitionEvent(const FName EventName, const double RequestTimeout, const ETransitionRequestQueueMode QueueMode, const ETransitionRequestOverwriteMode OverwriteMode);
     void ResetDynamics(ETeleportType InTeleportType);
     void SavePoseSnapshot(FName SnapshotName);
@@ -22892,7 +23007,7 @@ struct FAnimNotifyEvent : public FAnimLinkableElement {
     FName NotifyName;
     UAnimNotify* Notify;
     UAnimNotifyState* NotifyStateClass;
-    float duration;
+    float Duration;
     FAnimLinkableElement EndLink;
     bool bConvertedFromBranchingPoint;
     uint8_t MontageTickType;
@@ -25105,12 +25220,12 @@ class UCameraShakeBase : public UObject {
 };
 
 struct FCameraShakeDuration {
-    float duration;
+    float Duration;
     ECameraShakeDurationType Type;
 };
 
 struct FCameraShakeInfo {
-    FCameraShakeDuration duration;
+    FCameraShakeDuration Duration;
     float BlendIn;
     float BlendOut;
 };
@@ -25278,7 +25393,7 @@ class UChaosBlueprintLibrary : public UBlueprintFunctionLibrary {
 struct FChaosBreakEvent {
     UPrimitiveComponent* Component;
     FVector Location;
-    FQuat orientation;
+    FQuat Orientation;
     FVector Velocity;
     FVector AngularVelocity;
     FVector Extents;
@@ -25290,7 +25405,7 @@ struct FChaosBreakEvent {
 struct FChaosCrumblingEvent {
     UPrimitiveComponent* Component;
     FVector Location;
-    FQuat orientation;
+    FQuat Orientation;
     FVector LinearVelocity;
     FVector AngularVelocity;
     float Mass;
@@ -25381,7 +25496,6 @@ class ACharacter : public APawn {
     bool IsJumpProvidingForce() const;
     bool IsPlayingNetworkedRootMotionMontage() const;
     bool IsPlayingRootMotion() const;
-    void Jump();
     void K2_OnEndCrouch(float HalfHeightAdjust, float ScaledHalfHeightAdjust);
     void K2_OnMovementModeChanged(uint8_t PrevMovementMode, uint8_t NewMovementMode, uint8_t PrevCustomMode, uint8_t NewCustomMode);
     void K2_OnStartCrouch(float HalfHeightAdjust, float ScaledHalfHeightAdjust);
@@ -25407,6 +25521,7 @@ class ACharacter : public APawn {
     void StopAnimMontage(UAnimMontage* AnimMontage);
     void StopJumping();
     void UnCrouch(bool bClientSimulation);
+    void jump();
 };
 
 struct FCharacterMoveResponsePackedBits : public FCharacterNetworkSerializationPackedBits {
@@ -26849,7 +26964,7 @@ struct FDebugTextInfo {
     FVector SrcActorDesiredOffset;
     FString DebugText;
     float TimeRemaining;
-    float duration;
+    float Duration;
     FColor TextColor;
     bool bAbsoluteLocation;
     bool bKeepAttachedToActor;
@@ -26890,8 +27005,8 @@ class UDecalComponent : public USceneComponent {
     float GetFadeStartDelay() const;
     void SetDecalColor(const FLinearColor& Color);
     void SetDecalMaterial(UMaterialInterface* NewDecalMaterial);
-    void SetFadeIn(float StartDelay, float duration);
-    void SetFadeOut(float StartDelay, float duration, bool DestroyOwnerAfterFade);
+    void SetFadeIn(float StartDelay, float Duration);
+    void SetFadeOut(float StartDelay, float Duration, bool DestroyOwnerAfterFade);
     void SetFadeScreenSize(float NewFadeScreenSize);
     void SetSortOrder(int32_t Value);
 };
@@ -27173,7 +27288,7 @@ class UDistributionFloatUniformCurve : public UDistributionFloat {
 };
 
 struct FDistributionLookupTable {
-    float timescale;
+    float TimeScale;
     float TimeBias;
     TArray<float> Values;
     uint8_t Op;
@@ -33288,7 +33403,7 @@ class UForceFeedbackEffect : public UObject {
     TArray<FForceFeedbackChannelDetails> ChannelDetails;
     TMap<FName, FForceFeedbackEffectOverridenChannelDetails> PerDeviceOverrides;
     TArray<UInputDeviceProperty*> DeviceProperties;
-    float duration;
+    float Duration;
 };
 
 struct FForceFeedbackEffectOverridenChannelDetails {
@@ -34066,7 +34181,7 @@ class AHUD : public AActor {
     UClass* ShowDebugTargetDesiredClass;
     AActor* ShowDebugTargetActor;
 
-    void AddDebugText(FString DebugText, AActor* SrcActor, float duration, FVector Offset, FVector DesiredOffset, FColor TextColor, bool bSkipOverwriteCheck, bool bAbsoluteLocation, bool bKeepAttachedToActor, UFont* InFont, float FontScale, bool bDrawShadow);
+    void AddDebugText(FString DebugText, AActor* SrcActor, float Duration, FVector Offset, FVector DesiredOffset, FColor TextColor, bool bSkipOverwriteCheck, bool bAbsoluteLocation, bool bKeepAttachedToActor, UFont* InFont, float FontScale, bool bDrawShadow);
     void AddHitBox(FVector2D position, FVector2D Size, FName InName, bool bConsumesInput, int32_t Priority);
     void Deproject(float ScreenX, float ScreenY, FVector& WorldPosition, FVector& WorldDirection) const;
     void DrawLine(float StartScreenX, float StartScreenY, float EndScreenX, float EndScreenY, FLinearColor LineColor, float LineThickness);
@@ -34388,7 +34503,7 @@ struct FInertializationPoseDiff {
 };
 
 struct FInertializationRequest {
-    float duration;
+    float Duration;
     UBlendProfile* BlendProfile;
     bool bUseBlendMode;
     EAlphaBlendOption BlendMode;
@@ -34535,7 +34650,7 @@ class UInputDeviceProperty : public UObject {
     float PropertyDuration;
 
     void ApplyDeviceProperty(const FPlatformUserId UserId, const FInputDeviceId DeviceID);
-    void EvaluateDeviceProperty(const FPlatformUserId PlatformUser, const FInputDeviceId DeviceID, const float DeltaTime, const float duration);
+    void EvaluateDeviceProperty(const FPlatformUserId PlatformUser, const FInputDeviceId DeviceID, const float DeltaTime, const float Duration);
     void ResetDeviceProperty(const FPlatformUserId PlatformUser, const FInputDeviceId DeviceID, bool bForceReset);
 };
 
@@ -34879,7 +34994,7 @@ class UInterpCurveEdSetup : public UObject {
 };
 
 class UInterpToMovementComponent : public UMovementComponent {
-    float duration;
+    float Duration;
     bool bPauseOnImpact;
     bool bSweep;
     ETeleportType TeleportType;
@@ -35641,8 +35756,8 @@ class UKismetMathLibrary : public UBlueprintFunctionLibrary {
     static float PerlinNoise1D(const float Value);
     static bool PointsAreCoplanar(const TArray<FVector>& Points, float Tolerance);
     static FVector ProjectPointOnToPlane(FVector Point, FVector PlaneBase, FVector PlaneNormal);
-    static FVector ProjectVectorOnToPlane(FVector V, FVector PlaneNormal);
     static FVector ProjectVectorOnToVector(FVector V, FVector Target);
+    static FVector ProjectVectorOntoPlane(FVector V, FVector PlaneNormal);
     static float Quat_AngularDistance(const FQuat& A, const FQuat& B);
     static void Quat_EnforceShortestArcWith(FQuat& A, const FQuat& B);
     static FVector Quat_Euler(const FQuat& Q);
@@ -36042,15 +36157,15 @@ class UKismetSystemLibrary : public UBlueprintFunctionLibrary {
     static FDebugFloatHistory AddFloatHistorySample(float Value, const FDebugFloatHistory& FloatHistory);
     static int32_t BeginTransaction(FString Context, FText Description, UObject* PrimaryObject);
     static bool BoxOverlapActors(const UObject* WorldContextObject, const FVector BoxPos, FVector BoxExtent, const TArray<uint8_t>& ObjectTypes, UClass* ActorClassFilter, const TArray<AActor*>& ActorsToIgnore, TArray<AActor*>& OutActors);
-    static bool BoxOverlapActorsWithOrientation(const UObject* WorldContextObject, const FVector BoxPos, FVector BoxExtent, FRotator orientation, const TArray<uint8_t>& ObjectTypes, UClass* ActorClassFilter, const TArray<AActor*>& ActorsToIgnore, TArray<AActor*>& OutActors);
+    static bool BoxOverlapActorsWithOrientation(const UObject* WorldContextObject, const FVector BoxPos, FVector BoxExtent, FRotator Orientation, const TArray<uint8_t>& ObjectTypes, UClass* ActorClassFilter, const TArray<AActor*>& ActorsToIgnore, TArray<AActor*>& OutActors);
     static bool BoxOverlapComponents(const UObject* WorldContextObject, const FVector BoxPos, FVector Extent, const TArray<uint8_t>& ObjectTypes, UClass* ComponentClassFilter, const TArray<AActor*>& ActorsToIgnore, TArray<UPrimitiveComponent*>& OutComponents);
-    static bool BoxOverlapComponentsWithOrientation(const UObject* WorldContextObject, const FVector BoxPos, FVector Extent, FRotator orientation, const TArray<uint8_t>& ObjectTypes, UClass* ComponentClassFilter, const TArray<AActor*>& ActorsToIgnore, TArray<UPrimitiveComponent*>& OutComponents);
-    static bool BoxTraceMulti(const UObject* WorldContextObject, const FVector Start, const FVector End, FVector HalfSize, const FRotator orientation, uint8_t TraceChannel, bool bTraceComplex, const TArray<AActor*>& ActorsToIgnore, uint8_t DrawDebugType, TArray<FHitResult>& OutHits, bool bIgnoreSelf, FLinearColor TraceColor, FLinearColor TraceHitColor, float DrawTime);
-    static bool BoxTraceMultiByProfile(const UObject* WorldContextObject, const FVector Start, const FVector End, FVector HalfSize, const FRotator orientation, FName ProfileName, bool bTraceComplex, const TArray<AActor*>& ActorsToIgnore, uint8_t DrawDebugType, TArray<FHitResult>& OutHits, bool bIgnoreSelf, FLinearColor TraceColor, FLinearColor TraceHitColor, float DrawTime);
-    static bool BoxTraceMultiForObjects(const UObject* WorldContextObject, const FVector Start, const FVector End, const FVector HalfSize, const FRotator orientation, const TArray<uint8_t>& ObjectTypes, bool bTraceComplex, const TArray<AActor*>& ActorsToIgnore, uint8_t DrawDebugType, TArray<FHitResult>& OutHits, bool bIgnoreSelf, FLinearColor TraceColor, FLinearColor TraceHitColor, float DrawTime);
-    static bool BoxTraceSingle(const UObject* WorldContextObject, const FVector Start, const FVector End, const FVector HalfSize, const FRotator orientation, uint8_t TraceChannel, bool bTraceComplex, const TArray<AActor*>& ActorsToIgnore, uint8_t DrawDebugType, FHitResult& OutHit, bool bIgnoreSelf, FLinearColor TraceColor, FLinearColor TraceHitColor, float DrawTime);
-    static bool BoxTraceSingleByProfile(const UObject* WorldContextObject, const FVector Start, const FVector End, const FVector HalfSize, const FRotator orientation, FName ProfileName, bool bTraceComplex, const TArray<AActor*>& ActorsToIgnore, uint8_t DrawDebugType, FHitResult& OutHit, bool bIgnoreSelf, FLinearColor TraceColor, FLinearColor TraceHitColor, float DrawTime);
-    static bool BoxTraceSingleForObjects(const UObject* WorldContextObject, const FVector Start, const FVector End, const FVector HalfSize, const FRotator orientation, const TArray<uint8_t>& ObjectTypes, bool bTraceComplex, const TArray<AActor*>& ActorsToIgnore, uint8_t DrawDebugType, FHitResult& OutHit, bool bIgnoreSelf, FLinearColor TraceColor, FLinearColor TraceHitColor, float DrawTime);
+    static bool BoxOverlapComponentsWithOrientation(const UObject* WorldContextObject, const FVector BoxPos, FVector Extent, FRotator Orientation, const TArray<uint8_t>& ObjectTypes, UClass* ComponentClassFilter, const TArray<AActor*>& ActorsToIgnore, TArray<UPrimitiveComponent*>& OutComponents);
+    static bool BoxTraceMulti(const UObject* WorldContextObject, const FVector Start, const FVector End, FVector HalfSize, const FRotator Orientation, uint8_t TraceChannel, bool bTraceComplex, const TArray<AActor*>& ActorsToIgnore, uint8_t DrawDebugType, TArray<FHitResult>& OutHits, bool bIgnoreSelf, FLinearColor TraceColor, FLinearColor TraceHitColor, float DrawTime);
+    static bool BoxTraceMultiByProfile(const UObject* WorldContextObject, const FVector Start, const FVector End, FVector HalfSize, const FRotator Orientation, FName ProfileName, bool bTraceComplex, const TArray<AActor*>& ActorsToIgnore, uint8_t DrawDebugType, TArray<FHitResult>& OutHits, bool bIgnoreSelf, FLinearColor TraceColor, FLinearColor TraceHitColor, float DrawTime);
+    static bool BoxTraceMultiForObjects(const UObject* WorldContextObject, const FVector Start, const FVector End, const FVector HalfSize, const FRotator Orientation, const TArray<uint8_t>& ObjectTypes, bool bTraceComplex, const TArray<AActor*>& ActorsToIgnore, uint8_t DrawDebugType, TArray<FHitResult>& OutHits, bool bIgnoreSelf, FLinearColor TraceColor, FLinearColor TraceHitColor, float DrawTime);
+    static bool BoxTraceSingle(const UObject* WorldContextObject, const FVector Start, const FVector End, const FVector HalfSize, const FRotator Orientation, uint8_t TraceChannel, bool bTraceComplex, const TArray<AActor*>& ActorsToIgnore, uint8_t DrawDebugType, FHitResult& OutHit, bool bIgnoreSelf, FLinearColor TraceColor, FLinearColor TraceHitColor, float DrawTime);
+    static bool BoxTraceSingleByProfile(const UObject* WorldContextObject, const FVector Start, const FVector End, const FVector HalfSize, const FRotator Orientation, FName ProfileName, bool bTraceComplex, const TArray<AActor*>& ActorsToIgnore, uint8_t DrawDebugType, FHitResult& OutHit, bool bIgnoreSelf, FLinearColor TraceColor, FLinearColor TraceHitColor, float DrawTime);
+    static bool BoxTraceSingleForObjects(const UObject* WorldContextObject, const FVector Start, const FVector End, const FVector HalfSize, const FRotator Orientation, const TArray<uint8_t>& ObjectTypes, bool bTraceComplex, const TArray<AActor*>& ActorsToIgnore, uint8_t DrawDebugType, FHitResult& OutHit, bool bIgnoreSelf, FLinearColor TraceColor, FLinearColor TraceHitColor, float DrawTime);
     static void BreakARFilter(FARFilter InARFilter, TArray<FName>& PackageNames, TArray<FName>& PackagePaths, TArray<FSoftObjectPath>& SoftObjectPaths, TArray<FTopLevelAssetPath>& ClassPaths, TSet<FTopLevelAssetPath>& RecursiveClassPathsExclusionSet, TArray<FName>& ClassNames, TSet<FName>& RecursiveClassesExclusionSet, bool& bRecursivePaths, bool& bRecursiveClasses, bool& bIncludeOnlyOnDiskAssets);
     static void BreakSoftClassPath(FSoftClassPath InSoftClassPath, FString& PathString);
     static void BreakSoftObjectPath(FSoftObjectPath InSoftObjectPath, FString& PathString);
@@ -36058,9 +36173,9 @@ class UKismetSystemLibrary : public UBlueprintFunctionLibrary {
     static bool CanLaunchURL(FString URL);
     static void CancelTransaction(const int32_t Index);
     static bool CapsuleOverlapActors(const UObject* WorldContextObject, const FVector CapsulePos, float Radius, float HalfHeight, const TArray<uint8_t>& ObjectTypes, UClass* ActorClassFilter, const TArray<AActor*>& ActorsToIgnore, TArray<AActor*>& OutActors);
-    static bool CapsuleOverlapActorsWithOrientation(const UObject* WorldContextObject, const FVector CapsulePos, float Radius, float HalfHeight, FRotator orientation, const TArray<uint8_t>& ObjectTypes, UClass* ActorClassFilter, const TArray<AActor*>& ActorsToIgnore, TArray<AActor*>& OutActors);
+    static bool CapsuleOverlapActorsWithOrientation(const UObject* WorldContextObject, const FVector CapsulePos, float Radius, float HalfHeight, FRotator Orientation, const TArray<uint8_t>& ObjectTypes, UClass* ActorClassFilter, const TArray<AActor*>& ActorsToIgnore, TArray<AActor*>& OutActors);
     static bool CapsuleOverlapComponents(const UObject* WorldContextObject, const FVector CapsulePos, float Radius, float HalfHeight, const TArray<uint8_t>& ObjectTypes, UClass* ComponentClassFilter, const TArray<AActor*>& ActorsToIgnore, TArray<UPrimitiveComponent*>& OutComponents);
-    static bool CapsuleOverlapComponentsWithOrientation(const UObject* WorldContextObject, const FVector CapsulePos, float Radius, float HalfHeight, FRotator orientation, const TArray<uint8_t>& ObjectTypes, UClass* ComponentClassFilter, const TArray<AActor*>& ActorsToIgnore, TArray<UPrimitiveComponent*>& OutComponents);
+    static bool CapsuleOverlapComponentsWithOrientation(const UObject* WorldContextObject, const FVector CapsulePos, float Radius, float HalfHeight, FRotator Orientation, const TArray<uint8_t>& ObjectTypes, UClass* ComponentClassFilter, const TArray<AActor*>& ActorsToIgnore, TArray<UPrimitiveComponent*>& OutComponents);
     static bool CapsuleTraceMulti(const UObject* WorldContextObject, const FVector Start, const FVector End, float Radius, float HalfHeight, uint8_t TraceChannel, bool bTraceComplex, const TArray<AActor*>& ActorsToIgnore, uint8_t DrawDebugType, TArray<FHitResult>& OutHits, bool bIgnoreSelf, FLinearColor TraceColor, FLinearColor TraceHitColor, float DrawTime);
     static bool CapsuleTraceMultiByProfile(const UObject* WorldContextObject, const FVector Start, const FVector End, float Radius, float HalfHeight, FName ProfileName, bool bTraceComplex, const TArray<AActor*>& ActorsToIgnore, uint8_t DrawDebugType, TArray<FHitResult>& OutHits, bool bIgnoreSelf, FLinearColor TraceColor, FLinearColor TraceHitColor, float DrawTime);
     static bool CapsuleTraceMultiForObjects(const UObject* WorldContextObject, const FVector Start, const FVector End, float Radius, float HalfHeight, const TArray<uint8_t>& ObjectTypes, bool bTraceComplex, const TArray<AActor*>& ActorsToIgnore, uint8_t DrawDebugType, TArray<FHitResult>& OutHits, bool bIgnoreSelf, FLinearColor TraceColor, FLinearColor TraceHitColor, float DrawTime);
@@ -36089,27 +36204,27 @@ class UKismetSystemLibrary : public UBlueprintFunctionLibrary {
     static FString ConvertToAbsolutePath(FString Filename);
     static FString ConvertToRelativePath(FString Filename);
     static void CreateCopyForUndoBuffer(UObject* ObjectToModify);
-    static void Delay(const UObject* WorldContextObject, float duration, FLatentActionInfo LatentInfo);
+    static void Delay(const UObject* WorldContextObject, float Duration, FLatentActionInfo LatentInfo);
     static void DelayUntilNextTick(const UObject* WorldContextObject, FLatentActionInfo LatentInfo);
     static bool DoesClassImplementInterface(const UClass* TestClass, UClass* Interface);
     static bool DoesImplementInterface(const UObject* TestObject, UClass* Interface);
-    static void DrawDebugArrow(const UObject* WorldContextObject, const FVector LineStart, const FVector LineEnd, float ArrowSize, FLinearColor LineColor, float duration, float Thickness);
-    static void DrawDebugBox(const UObject* WorldContextObject, const FVector Center, FVector Extent, FLinearColor LineColor, const FRotator Rotation, float duration, float Thickness);
-    static void DrawDebugCamera(const ACameraActor* CameraActor, FLinearColor CameraColor, float duration);
-    static void DrawDebugCapsule(const UObject* WorldContextObject, const FVector Center, float HalfHeight, float Radius, const FRotator Rotation, FLinearColor LineColor, float duration, float Thickness);
-    static void DrawDebugCircle(const UObject* WorldContextObject, FVector Center, float Radius, int32_t NumSegments, FLinearColor LineColor, float duration, float Thickness, FVector YAxis, FVector ZAxis, bool bDrawAxis);
-    static void DrawDebugCone(const UObject* WorldContextObject, const FVector Origin, const FVector Direction, float Length, float AngleWidth, float AngleHeight, int32_t NumSides, FLinearColor LineColor, float duration, float Thickness);
-    static void DrawDebugConeInDegrees(const UObject* WorldContextObject, const FVector Origin, const FVector Direction, float Length, float AngleWidth, float AngleHeight, int32_t NumSides, FLinearColor LineColor, float duration, float Thickness);
-    static void DrawDebugCoordinateSystem(const UObject* WorldContextObject, const FVector AxisLoc, const FRotator AxisRot, float Scale, float duration, float Thickness);
-    static void DrawDebugCylinder(const UObject* WorldContextObject, const FVector Start, const FVector End, float Radius, int32_t Segments, FLinearColor LineColor, float duration, float Thickness);
-    static void DrawDebugFloatHistoryLocation(const UObject* WorldContextObject, const FDebugFloatHistory& FloatHistory, FVector DrawLocation, FVector2D DrawSize, FLinearColor DrawColor, float duration);
-    static void DrawDebugFloatHistoryTransform(const UObject* WorldContextObject, const FDebugFloatHistory& FloatHistory, const FTransform& DrawTransform, FVector2D DrawSize, FLinearColor DrawColor, float duration);
-    static void DrawDebugFrustum(const UObject* WorldContextObject, const FTransform& FrustumTransform, FLinearColor FrustumColor, float duration, float Thickness);
-    static void DrawDebugLine(const UObject* WorldContextObject, const FVector LineStart, const FVector LineEnd, FLinearColor LineColor, float duration, float Thickness);
-    static void DrawDebugPlane(const UObject* WorldContextObject, const FPlane& PlaneCoordinates, const FVector Location, float Size, FLinearColor PlaneColor, float duration);
-    static void DrawDebugPoint(const UObject* WorldContextObject, const FVector position, float Size, FLinearColor PointColor, float duration);
-    static void DrawDebugSphere(const UObject* WorldContextObject, const FVector Center, float Radius, int32_t Segments, FLinearColor LineColor, float duration, float Thickness);
-    static void DrawDebugString(const UObject* WorldContextObject, const FVector TextLocation, FString Text, AActor* TestBaseActor, FLinearColor TextColor, float duration);
+    static void DrawDebugArrow(const UObject* WorldContextObject, const FVector LineStart, const FVector LineEnd, float ArrowSize, FLinearColor LineColor, float Duration, float Thickness);
+    static void DrawDebugBox(const UObject* WorldContextObject, const FVector Center, FVector Extent, FLinearColor LineColor, const FRotator Rotation, float Duration, float Thickness);
+    static void DrawDebugCamera(const ACameraActor* CameraActor, FLinearColor CameraColor, float Duration);
+    static void DrawDebugCapsule(const UObject* WorldContextObject, const FVector Center, float HalfHeight, float Radius, const FRotator Rotation, FLinearColor LineColor, float Duration, float Thickness);
+    static void DrawDebugCircle(const UObject* WorldContextObject, FVector Center, float Radius, int32_t NumSegments, FLinearColor LineColor, float Duration, float Thickness, FVector YAxis, FVector ZAxis, bool bDrawAxis);
+    static void DrawDebugCone(const UObject* WorldContextObject, const FVector Origin, const FVector Direction, float Length, float AngleWidth, float AngleHeight, int32_t NumSides, FLinearColor LineColor, float Duration, float Thickness);
+    static void DrawDebugConeInDegrees(const UObject* WorldContextObject, const FVector Origin, const FVector Direction, float Length, float AngleWidth, float AngleHeight, int32_t NumSides, FLinearColor LineColor, float Duration, float Thickness);
+    static void DrawDebugCoordinateSystem(const UObject* WorldContextObject, const FVector AxisLoc, const FRotator AxisRot, float Scale, float Duration, float Thickness);
+    static void DrawDebugCylinder(const UObject* WorldContextObject, const FVector Start, const FVector End, float Radius, int32_t Segments, FLinearColor LineColor, float Duration, float Thickness);
+    static void DrawDebugFloatHistoryLocation(const UObject* WorldContextObject, const FDebugFloatHistory& FloatHistory, FVector DrawLocation, FVector2D DrawSize, FLinearColor DrawColor, float Duration);
+    static void DrawDebugFloatHistoryTransform(const UObject* WorldContextObject, const FDebugFloatHistory& FloatHistory, const FTransform& DrawTransform, FVector2D DrawSize, FLinearColor DrawColor, float Duration);
+    static void DrawDebugFrustum(const UObject* WorldContextObject, const FTransform& FrustumTransform, FLinearColor FrustumColor, float Duration, float Thickness);
+    static void DrawDebugLine(const UObject* WorldContextObject, const FVector LineStart, const FVector LineEnd, FLinearColor LineColor, float Duration, float Thickness);
+    static void DrawDebugPlane(const UObject* WorldContextObject, const FPlane& PlaneCoordinates, const FVector Location, float Size, FLinearColor PlaneColor, float Duration);
+    static void DrawDebugPoint(const UObject* WorldContextObject, const FVector position, float Size, FLinearColor PointColor, float Duration);
+    static void DrawDebugSphere(const UObject* WorldContextObject, const FVector Center, float Radius, int32_t Segments, FLinearColor LineColor, float Duration, float Thickness);
+    static void DrawDebugString(const UObject* WorldContextObject, const FVector TextLocation, FString Text, AActor* TestBaseActor, FLinearColor TextColor, float Duration);
     static int32_t EndTransaction();
     static bool EqualEqual_PrimaryAssetId(FPrimaryAssetId A, FPrimaryAssetId B);
     static bool EqualEqual_PrimaryAssetType(FPrimaryAssetType A, FPrimaryAssetType B);
@@ -36268,15 +36383,15 @@ class UKismetSystemLibrary : public UBlueprintFunctionLibrary {
     static void ParseCommandLine(FString InCmdLine, TArray<FString>& OutTokens, TArray<FString>& OutSwitches, TMap<FString, FString>& OutParams);
     static bool ParseParam(FString InString, FString InParam);
     static bool ParseParamValue(FString InString, FString InParam, FString& OutValue);
-    static void PrintString(const UObject* WorldContextObject, FString InString, bool bPrintToScreen, bool bPrintToLog, FLinearColor TextColor, float duration, const FName Key);
-    static void PrintText(const UObject* WorldContextObject, const FText InText, bool bPrintToScreen, bool bPrintToLog, FLinearColor TextColor, float duration, const FName Key);
+    static void PrintString(const UObject* WorldContextObject, FString InString, bool bPrintToScreen, bool bPrintToLog, FLinearColor TextColor, float Duration, const FName Key);
+    static void PrintText(const UObject* WorldContextObject, const FText InText, bool bPrintToScreen, bool bPrintToLog, FLinearColor TextColor, float Duration, const FName Key);
     static void PrintWarning(FString InString);
     static void QuitGame(const UObject* WorldContextObject, APlayerController* SpecificPlayer, uint8_t QuitPreference, bool bIgnorePlatformRestrictions);
     static void RaiseScriptError(FString ErrorMessage);
     static void RegisterForRemoteNotifications();
     static void ResetGamepadAssignmentToController(int32_t ControllerId);
     static void ResetGamepadAssignments();
-    static void RetriggerableDelay(const UObject* WorldContextObject, float duration, FLatentActionInfo LatentInfo);
+    static void RetriggerableDelay(const UObject* WorldContextObject, float Duration, FLatentActionInfo LatentInfo);
     static void SetBoolPropertyByName(UObject* Object, FName PropertyName, bool Value);
     static void SetBytePropertyByName(UObject* Object, FName PropertyName, uint8_t Value);
     static void SetClassPropertyByName(UObject* Object, FName PropertyName, UClass* Value);
@@ -42443,7 +42558,7 @@ class APlayerCameraManager : public AActor {
     void RemoveGenericCameraLensEffect(TScriptInterface<ICameraLensEffectInterface> Emitter);
     void SetGameCameraCutThisFrame();
     void SetManualCameraFade(float InFadeAmount, FLinearColor Color, bool bInFadeAudio);
-    void StartCameraFade(float FromAlpha, float ToAlpha, float duration, FLinearColor Color, bool bShouldFadeAudio, bool bHoldWhenFinished);
+    void StartCameraFade(float FromAlpha, float ToAlpha, float Duration, FLinearColor Color, bool bShouldFadeAudio, bool bHoldWhenFinished);
     UCameraShakeBase* StartCameraShake(UClass* ShakeClass, float Scale, ECameraShakePlaySpace PlaySpace, FRotator UserPlaySpaceRot);
     UCameraShakeBase* StartCameraShakeFromSource(UClass* ShakeClass, UCameraShakeSourceComponent* SourceComponent, float Scale, ECameraShakePlaySpace PlaySpace, FRotator UserPlaySpaceRot);
     void StopAllCameraShakes(bool bImmediately);
@@ -42523,7 +42638,7 @@ class APlayerController : public AController {
     void ClearAudioListenerOverride();
     void ClientAckTimeDilation(float TimeDilation, int32_t ServerStep);
     void ClientAckUpdateLevelVisibility(FName PackageName, FNetLevelVisibilityTransactionId TransactionId, bool bClientAckCanMakeVisible);
-    void ClientAddTextureStreamingLoc(FVector InLoc, float duration, bool bOverrideLocation);
+    void ClientAddTextureStreamingLoc(FVector InLoc, float Duration, bool bOverrideLocation);
     void ClientCancelPendingMapChange();
     void ClientCapBandwidth(int32_t Cap);
     void ClientClearCameraLensEffects();
@@ -42613,7 +42728,7 @@ class APlayerController : public AController {
     void LocalTravel(FString URL);
     void OnServerStartedVisualLogger(bool bIsLogging);
     void Pause();
-    void PlayDynamicForceFeedback(float Intensity, float duration, bool bAffectsLeftLarge, bool bAffectsLeftSmall, bool bAffectsRightLarge, bool bAffectsRightSmall, uint8_t Action, FLatentActionInfo LatentInfo);
+    void PlayDynamicForceFeedback(float Intensity, float Duration, bool bAffectsLeftLarge, bool bAffectsLeftSmall, bool bAffectsRightLarge, bool bAffectsRightSmall, uint8_t Action, FLatentActionInfo LatentInfo);
     void PlayHapticEffect(UHapticFeedbackEffect_Base* HapticEffect, EControllerHand Hand, float Scale, bool bLoop);
     bool ProjectWorldLocationToScreen(FVector WorldLocation, FVector2D& ScreenLocation, bool bPlayerViewportRelative) const;
     void ResetControllerDeadZones();
@@ -44522,7 +44637,7 @@ struct FRootMotionSource {
     float StartTime;
     float CurrentTime;
     float PreviousTime;
-    float duration;
+    float Duration;
     FRootMotionSourceStatus Status;
     FRootMotionSourceSettings Settings;
     ERootMotionAccumulateMode AccumulateMode;
@@ -44960,6 +45075,7 @@ class USceneComponent : public UActorComponent {
     uint8_t DetailMode;
     uint8_t CastShadowDetailMode;
     FMulticastSparseDelegate PhysicsVolumeChangedDelegate;
+    FMulticastSparseDelegate OnComponentAttachmentChanged;
 
     void DetachFromParent(bool bMaintainWorldPosition, bool bCallModify);
     bool DoesSocketExist(FName InSocketName) const;
@@ -46274,7 +46390,7 @@ class USoundBase : public UObject {
     EVirtualizationMode VirtualizationMode;
     TSet<USoundConcurrency*> ConcurrencySet;
     FSoundConcurrencySettings ConcurrencyOverrides;
-    float duration;
+    float Duration;
     float MaxDistance;
     float TotalSamples;
     float Priority;
@@ -46407,7 +46523,7 @@ class USoundMix : public UObject {
     TArray<FSoundClassAdjuster> SoundClassEffects;
     float InitialDelay;
     float FadeInTime;
-    float duration;
+    float Duration;
     float FadeOutTime;
 };
 
@@ -46877,7 +46993,7 @@ class USplineComponent : public UPrimitiveComponent {
     FSpline Spline;
     FSplineCurves SplineCurves;
     int32_t ReparamStepsPerSegment;
-    float duration;
+    float Duration;
     bool bStationaryEndpoints;
     bool bSplineHasBeenEdited;
     bool bModifiedByConstructionScript;
@@ -47730,7 +47846,7 @@ class USubsystemBlueprintLibrary : public UBlueprintFunctionLibrary {
 
 class USubtitleAssetUserData : public UAssetUserData {
     FText Text;
-    float duration;
+    float Duration;
     float StartOffset;
     float Priority;
     ESRB ESRB;
@@ -48827,7 +48943,7 @@ class IViewportSelectableObject : public UInterface {
 class UViewportStatsSubsystem : public UWorldSubsystem {
 
     int32_t AddDisplayDelegate(const FDelegate& Delegate);
-    void AddTimedDisplay(FText Text, FLinearColor Color, float duration, const FVector2D& DisplayOffset);
+    void AddTimedDisplay(FText Text, FLinearColor Color, float Duration, const FVector2D& DisplayOffset);
     void RemoveDisplayDelegate(const int32_t IndexToRemove);
 };
 
@@ -49730,7 +49846,7 @@ struct FROscillator {
 };
 
 class USimpleCameraShakePattern : public UCameraShakePattern {
-    float duration;
+    float Duration;
     float BlendInTime;
     float BlendOutTime;
 };
@@ -53575,7 +53691,7 @@ class UAbilitySystemBlueprintLibrary : public UBlueprintFunctionLibrary {
     static bool NotEqual_GameplayAttributeGameplayAttribute(FGameplayAttribute AttributeA, FGameplayAttribute AttributeB);
     static bool RemoveLooseGameplayTags(AActor* Actor, const FGameplayTagContainer& GameplayTags, bool bShouldReplicate);
     static void SendGameplayEventToActor(AActor* Actor, FGameplayTag EventTag, FGameplayEventData Payload);
-    static FGameplayEffectSpecHandle SetDuration(FGameplayEffectSpecHandle SpecHandle, float duration);
+    static FGameplayEffectSpecHandle SetDuration(FGameplayEffectSpecHandle SpecHandle, float Duration);
     static FGameplayEffectSpecHandle SetStackCount(FGameplayEffectSpecHandle SpecHandle, int32_t StackCount);
     static FGameplayEffectSpecHandle SetStackCountToMax(FGameplayEffectSpecHandle SpecHandle);
     static bool TargetDataHasActor(const FGameplayAbilityTargetDataHandle& TargetData, int32_t Index);
@@ -53815,12 +53931,12 @@ class UAbilityTask_ApplyRootMotionConstantForce : public UAbilityTask_ApplyRootM
     FMulticastInlineDelegate OnFinish;
     FVector WorldDirection;
     float Strength;
-    float duration;
+    float Duration;
     bool bIsAdditive;
     UCurveFloat* StrengthOverTime;
     bool bEnableGravity;
 
-    static UAbilityTask_ApplyRootMotionConstantForce* ApplyRootMotionConstantForce(UGameplayAbility* OwningAbility, FName TaskInstanceName, FVector WorldDirection, float Strength, float duration, bool bIsAdditive, UCurveFloat* StrengthOverTime, ERootMotionFinishVelocityMode VelocityOnFinishMode, FVector SetVelocityOnFinish, float ClampVelocityOnFinish, bool bEnableGravity);
+    static UAbilityTask_ApplyRootMotionConstantForce* ApplyRootMotionConstantForce(UGameplayAbility* OwningAbility, FName TaskInstanceName, FVector WorldDirection, float Strength, float Duration, bool bIsAdditive, UCurveFloat* StrengthOverTime, ERootMotionFinishVelocityMode VelocityOnFinishMode, FVector SetVelocityOnFinish, float ClampVelocityOnFinish, bool bEnableGravity);
 };
 
 class UAbilityTask_ApplyRootMotionJumpForce : public UAbilityTask_ApplyRootMotion_Base {
@@ -53829,13 +53945,13 @@ class UAbilityTask_ApplyRootMotionJumpForce : public UAbilityTask_ApplyRootMotio
     FRotator Rotation;
     float Distance;
     float Height;
-    float duration;
+    float Duration;
     float MinimumLandedTriggerTime;
     bool bFinishOnLanded;
     UCurveVector* PathOffsetCurve;
     UCurveFloat* TimeMappingCurve;
 
-    static UAbilityTask_ApplyRootMotionJumpForce* ApplyRootMotionJumpForce(UGameplayAbility* OwningAbility, FName TaskInstanceName, FRotator Rotation, float Distance, float Height, float duration, float MinimumLandedTriggerTime, bool bFinishOnLanded, ERootMotionFinishVelocityMode VelocityOnFinishMode, FVector SetVelocityOnFinish, float ClampVelocityOnFinish, UCurveVector* PathOffsetCurve, UCurveFloat* TimeMappingCurve);
+    static UAbilityTask_ApplyRootMotionJumpForce* ApplyRootMotionJumpForce(UGameplayAbility* OwningAbility, FName TaskInstanceName, FRotator Rotation, float Distance, float Height, float Duration, float MinimumLandedTriggerTime, bool bFinishOnLanded, ERootMotionFinishVelocityMode VelocityOnFinishMode, FVector SetVelocityOnFinish, float ClampVelocityOnFinish, UCurveVector* PathOffsetCurve, UCurveFloat* TimeMappingCurve);
     void Finish();
     void OnLandedCallback(const FHitResult& Hit);
 };
@@ -53849,7 +53965,7 @@ class UAbilityTask_ApplyRootMotionMoveToActorForce : public UAbilityTask_ApplyRo
     FVector TargetComponentRelativeLocation;
     FVector TargetLocationOffset;
     ERootMotionMoveToActorTargetOffsetType OffsetAlignment;
-    float duration;
+    float Duration;
     bool bDisableDestinationReachedInterrupt;
     float ReachedDestinationDistance;
     bool bSetNewMovementMode;
@@ -53860,9 +53976,9 @@ class UAbilityTask_ApplyRootMotionMoveToActorForce : public UAbilityTask_ApplyRo
     UCurveFloat* TargetLerpSpeedHorizontalCurve;
     UCurveFloat* TargetLerpSpeedVerticalCurve;
 
-    static UAbilityTask_ApplyRootMotionMoveToActorForce* ApplyRootMotionMoveToActorForce(UGameplayAbility* OwningAbility, FName TaskInstanceName, AActor* TargetActor, FVector TargetLocationOffset, ERootMotionMoveToActorTargetOffsetType OffsetAlignment, float duration, UCurveFloat* TargetLerpSpeedHorizontal, UCurveFloat* TargetLerpSpeedVertical, bool bSetNewMovementMode, uint8_t MovementMode, bool bRestrictSpeedToExpected, UCurveVector* PathOffsetCurve, UCurveFloat* TimeMappingCurve, ERootMotionFinishVelocityMode VelocityOnFinishMode, FVector SetVelocityOnFinish, float ClampVelocityOnFinish, bool bDisableDestinationReachedInterrupt, float ReachedDestinationDistance);
-    static UAbilityTask_ApplyRootMotionMoveToActorForce* ApplyRootMotionMoveToComponentForce(UGameplayAbility* OwningAbility, FName TaskInstanceName, USceneComponent* TargetComponent, FVector TargetComponentRelativeLocation, FVector TargetLocationOffset, ERootMotionMoveToActorTargetOffsetType OffsetAlignment, float duration, UCurveFloat* TargetLerpSpeedHorizontal, UCurveFloat* TargetLerpSpeedVertical, bool bSetNewMovementMode, uint8_t MovementMode, bool bRestrictSpeedToExpected, UCurveVector* PathOffsetCurve, UCurveFloat* TimeMappingCurve, ERootMotionFinishVelocityMode VelocityOnFinishMode, FVector SetVelocityOnFinish, float ClampVelocityOnFinish, bool bDisableDestinationReachedInterrupt, float ReachedDestinationDistance);
-    static UAbilityTask_ApplyRootMotionMoveToActorForce* ApplyRootMotionMoveToTargetDataActorForce(UGameplayAbility* OwningAbility, FName TaskInstanceName, FGameplayAbilityTargetDataHandle TargetDataHandle, int32_t TargetDataIndex, int32_t TargetActorIndex, FVector TargetLocationOffset, ERootMotionMoveToActorTargetOffsetType OffsetAlignment, float duration, UCurveFloat* TargetLerpSpeedHorizontal, UCurveFloat* TargetLerpSpeedVertical, bool bSetNewMovementMode, uint8_t MovementMode, bool bRestrictSpeedToExpected, UCurveVector* PathOffsetCurve, UCurveFloat* TimeMappingCurve, ERootMotionFinishVelocityMode VelocityOnFinishMode, FVector SetVelocityOnFinish, float ClampVelocityOnFinish, bool bDisableDestinationReachedInterrupt, float ReachedDestinationDistance);
+    static UAbilityTask_ApplyRootMotionMoveToActorForce* ApplyRootMotionMoveToActorForce(UGameplayAbility* OwningAbility, FName TaskInstanceName, AActor* TargetActor, FVector TargetLocationOffset, ERootMotionMoveToActorTargetOffsetType OffsetAlignment, float Duration, UCurveFloat* TargetLerpSpeedHorizontal, UCurveFloat* TargetLerpSpeedVertical, bool bSetNewMovementMode, uint8_t MovementMode, bool bRestrictSpeedToExpected, UCurveVector* PathOffsetCurve, UCurveFloat* TimeMappingCurve, ERootMotionFinishVelocityMode VelocityOnFinishMode, FVector SetVelocityOnFinish, float ClampVelocityOnFinish, bool bDisableDestinationReachedInterrupt, float ReachedDestinationDistance);
+    static UAbilityTask_ApplyRootMotionMoveToActorForce* ApplyRootMotionMoveToComponentForce(UGameplayAbility* OwningAbility, FName TaskInstanceName, USceneComponent* TargetComponent, FVector TargetComponentRelativeLocation, FVector TargetLocationOffset, ERootMotionMoveToActorTargetOffsetType OffsetAlignment, float Duration, UCurveFloat* TargetLerpSpeedHorizontal, UCurveFloat* TargetLerpSpeedVertical, bool bSetNewMovementMode, uint8_t MovementMode, bool bRestrictSpeedToExpected, UCurveVector* PathOffsetCurve, UCurveFloat* TimeMappingCurve, ERootMotionFinishVelocityMode VelocityOnFinishMode, FVector SetVelocityOnFinish, float ClampVelocityOnFinish, bool bDisableDestinationReachedInterrupt, float ReachedDestinationDistance);
+    static UAbilityTask_ApplyRootMotionMoveToActorForce* ApplyRootMotionMoveToTargetDataActorForce(UGameplayAbility* OwningAbility, FName TaskInstanceName, FGameplayAbilityTargetDataHandle TargetDataHandle, int32_t TargetDataIndex, int32_t TargetActorIndex, FVector TargetLocationOffset, ERootMotionMoveToActorTargetOffsetType OffsetAlignment, float Duration, UCurveFloat* TargetLerpSpeedHorizontal, UCurveFloat* TargetLerpSpeedVertical, bool bSetNewMovementMode, uint8_t MovementMode, bool bRestrictSpeedToExpected, UCurveVector* PathOffsetCurve, UCurveFloat* TimeMappingCurve, ERootMotionFinishVelocityMode VelocityOnFinishMode, FVector SetVelocityOnFinish, float ClampVelocityOnFinish, bool bDisableDestinationReachedInterrupt, float ReachedDestinationDistance);
     void OnRep_TargetLocation();
     void OnTargetActorSwapped(AActor* OriginalTarget, AActor* NewTarget);
 };
@@ -53872,13 +53988,13 @@ class UAbilityTask_ApplyRootMotionMoveToForce : public UAbilityTask_ApplyRootMot
     FMulticastInlineDelegate OnTimedOutAndDestinationReached;
     FVector StartLocation;
     FVector TargetLocation;
-    float duration;
+    float Duration;
     bool bSetNewMovementMode;
     uint8_t NewMovementMode;
     bool bRestrictSpeedToExpected;
     UCurveVector* PathOffsetCurve;
 
-    static UAbilityTask_ApplyRootMotionMoveToForce* ApplyRootMotionMoveToForce(UGameplayAbility* OwningAbility, FName TaskInstanceName, FVector TargetLocation, float duration, bool bSetNewMovementMode, uint8_t MovementMode, bool bRestrictSpeedToExpected, UCurveVector* PathOffsetCurve, ERootMotionFinishVelocityMode VelocityOnFinishMode, FVector SetVelocityOnFinish, float ClampVelocityOnFinish);
+    static UAbilityTask_ApplyRootMotionMoveToForce* ApplyRootMotionMoveToForce(UGameplayAbility* OwningAbility, FName TaskInstanceName, FVector TargetLocation, float Duration, bool bSetNewMovementMode, uint8_t MovementMode, bool bRestrictSpeedToExpected, UCurveVector* PathOffsetCurve, ERootMotionFinishVelocityMode VelocityOnFinishMode, FVector SetVelocityOnFinish, float ClampVelocityOnFinish);
 };
 
 class UAbilityTask_ApplyRootMotionRadialForce : public UAbilityTask_ApplyRootMotion_Base {
@@ -53886,7 +54002,7 @@ class UAbilityTask_ApplyRootMotionRadialForce : public UAbilityTask_ApplyRootMot
     FVector Location;
     AActor* LocationActor;
     float Strength;
-    float duration;
+    float Duration;
     float Radius;
     bool bIsPush;
     bool bIsAdditive;
@@ -53896,7 +54012,7 @@ class UAbilityTask_ApplyRootMotionRadialForce : public UAbilityTask_ApplyRootMot
     bool bUseFixedWorldDirection;
     FRotator FixedWorldDirection;
 
-    static UAbilityTask_ApplyRootMotionRadialForce* ApplyRootMotionRadialForce(UGameplayAbility* OwningAbility, FName TaskInstanceName, FVector Location, AActor* LocationActor, float Strength, float duration, float Radius, bool bIsPush, bool bIsAdditive, bool bNoZForce, UCurveFloat* StrengthDistanceFalloff, UCurveFloat* StrengthOverTime, bool bUseFixedWorldDirection, FRotator FixedWorldDirection, ERootMotionFinishVelocityMode VelocityOnFinishMode, FVector SetVelocityOnFinish, float ClampVelocityOnFinish);
+    static UAbilityTask_ApplyRootMotionRadialForce* ApplyRootMotionRadialForce(UGameplayAbility* OwningAbility, FName TaskInstanceName, FVector Location, AActor* LocationActor, float Strength, float Duration, float Radius, bool bIsPush, bool bIsAdditive, bool bNoZForce, UCurveFloat* StrengthDistanceFalloff, UCurveFloat* StrengthOverTime, bool bUseFixedWorldDirection, FRotator FixedWorldDirection, ERootMotionFinishVelocityMode VelocityOnFinishMode, FVector SetVelocityOnFinish, float ClampVelocityOnFinish);
 };
 
 class UAbilityTask_ApplyRootMotion_Base : public UAbilityTask {
@@ -53915,7 +54031,7 @@ class UAbilityTask_MoveToLocation : public UAbilityTask {
     UCurveFloat* LerpCurve;
     UCurveVector* LerpCurveVector;
 
-    static UAbilityTask_MoveToLocation* MoveToLocation(UGameplayAbility* OwningAbility, FName TaskInstanceName, FVector Location, float duration, UCurveFloat* OptionalInterpolationCurve, UCurveVector* OptionalVectorInterpolationCurve);
+    static UAbilityTask_MoveToLocation* MoveToLocation(UGameplayAbility* OwningAbility, FName TaskInstanceName, FVector Location, float Duration, UCurveFloat* OptionalInterpolationCurve, UCurveVector* OptionalVectorInterpolationCurve);
 };
 
 class UAbilityTask_NetworkSyncPoint : public UAbilityTask {
@@ -53990,8 +54106,8 @@ class UAbilityTask_VisualizeTargeting : public UAbilityTask {
 
     bool BeginSpawningActor(UGameplayAbility* OwningAbility, UClass* Class, AGameplayAbilityTargetActor*& SpawnedActor);
     void FinishSpawningActor(UGameplayAbility* OwningAbility, AGameplayAbilityTargetActor* SpawnedActor);
-    static UAbilityTask_VisualizeTargeting* VisualizeTargeting(UGameplayAbility* OwningAbility, UClass* Class, FName TaskInstanceName, float duration);
-    static UAbilityTask_VisualizeTargeting* VisualizeTargetingUsingActor(UGameplayAbility* OwningAbility, AGameplayAbilityTargetActor* TargetActor, FName TaskInstanceName, float duration);
+    static UAbilityTask_VisualizeTargeting* VisualizeTargeting(UGameplayAbility* OwningAbility, UClass* Class, FName TaskInstanceName, float Duration);
+    static UAbilityTask_VisualizeTargeting* VisualizeTargetingUsingActor(UGameplayAbility* OwningAbility, AGameplayAbilityTargetActor* TargetActor, FName TaskInstanceName, float Duration);
 };
 
 class UAbilityTask_WaitAbilityActivate : public UAbilityTask {
@@ -55439,7 +55555,7 @@ struct FGameplayEffectSpec {
     UGameplayEffect* Def;
     TArray<FGameplayEffectModifiedAttribute> ModifiedAttributes;
     FGameplayEffectAttributeCaptureSpecContainer CapturedRelevantAttributes;
-    float duration;
+    float Duration;
     float Period;
     float ChanceToApplyToTarget;
     FTagContainerAggregator CapturedSourceTags;
@@ -57940,7 +58056,7 @@ class UGeometryCacheComponent : public UMeshComponent {
     float MotionVectorScale;
     int32_t NumTracks;
     float ElapsedTime;
-    float duration;
+    float Duration;
     bool bManualTick;
     bool bOverrideWireframeColor;
     FLinearColor WireframeOverrideColor;
@@ -57984,7 +58100,7 @@ struct FGeometryCacheMeshData {
 };
 
 class UGeometryCacheTrack : public UObject {
-    float duration;
+    float Duration;
 };
 
 class UGeometryCacheTrackStreamable : public UGeometryCacheTrack {
@@ -60986,7 +61102,7 @@ struct FPrintStringDataflowNode : public FDataflowNode {
     bool bPrintToScreen;
     bool bPrintToLog;
     FColor Color;
-    float duration;
+    float Duration;
     FString String;
 };
 
@@ -64535,7 +64651,7 @@ class AGroomActor : public AActor {
 struct FGroomAnimationInfo {
     uint32_t NumFrames;
     float SecondsPerFrame;
-    float duration;
+    float Duration;
     float StartTime;
     float EndTime;
     int32_t StartFrame;
@@ -72512,7 +72628,7 @@ struct FLandscapeSplineMeshEntry {
     bool bScaleToWidth;
     bool bNoZScaling;
     FVector Scale;
-    uint8_t orientation;
+    uint8_t Orientation;
     uint8_t ForwardAxis;
     uint8_t UpAxis;
 };
@@ -72660,6 +72776,196 @@ struct FWeightmapLayerAllocationInfo {
     ULandscapeLayerInfoObject* LayerInfo;
     uint8_t WeightmapTextureIndex;
     uint8_t WeightmapTextureChannel;
+};
+
+enum class ELandscapePatchPriorityInitialization {
+    AcquireHighest = 0,
+    KeepOriginal = 1,
+    SmallIncrement = 2,
+    ELandscapePatchPriorityInitialization_MAX = 3,
+};
+
+enum class ELandscapeTextureHeightPatchEncoding {
+    ZeroToOne = 0,
+    WorldUnits = 1,
+    NativePackedHeight = 2,
+    ELandscapeTextureHeightPatchEncoding_MAX = 3,
+};
+
+enum class ELandscapeTextureHeightPatchZeroHeightMeaning {
+    PatchZ = 0,
+    LandscapeZ = 1,
+    WorldZero = 2,
+    ELandscapeTextureHeightPatchZeroHeightMeaning_MAX = 3,
+};
+
+enum class ELandscapeTexturePatchBlendMode {
+    AlphaBlend = 0,
+    Additive = 1,
+    Min = 2,
+    Max = 3,
+};
+
+enum class ELandscapeTexturePatchFalloffMode {
+    Circle = 0,
+    RoundedRectangle = 1,
+    ELandscapeTexturePatchFalloffMode_MAX = 2,
+};
+
+enum class ELandscapeTexturePatchSourceMode {
+    None = 0,
+    InternalTexture = 1,
+    TextureBackedRenderTarget = 2,
+    TextureAsset = 3,
+    ELandscapeTexturePatchSourceMode_MAX = 4,
+};
+
+class ULandscapeCircleHeightPatch : public ULandscapePatchComponent {
+    float Radius;
+    float Falloff;
+    bool bEditVisibility;
+    bool bExclusiveRadius;
+};
+
+struct FLandscapeHeightPatchConvertToNativeParams {
+    float ZeroInEncoding;
+    float HeightScale;
+    float HeightOffset;
+};
+
+class ULandscapeHeightTextureBackedRenderTarget : public ULandscapeTextureBackedRenderTargetBase {
+    FLandscapeHeightPatchConvertToNativeParams ConversionParams;
+    uint8_t RenderTargetFormat;
+};
+
+class ULandscapePatchComponent : public USceneComponent {
+    FGuid EditLayerGuid;
+    ELandscapePatchPriorityInitialization PriorityInitialization;
+    double Priority;
+    TSoftObjectPtr<ALandscape> Landscape;
+    TSoftObjectPtr<ALandscapePatchManager> PatchManager;
+    bool bIsEnabled;
+
+    FTransform GetLandscapeHeightmapCoordsToWorld() const;
+    TArray<FString> GetLayerOptions();
+    ALandscapePatchManager* GetPatchManager() const;
+    double GetPriority() const;
+    bool IsEnabled() const;
+    void RequestLandscapeUpdate(bool bInUserTriggeredUpdate);
+    void SetIsEnabled(bool bEnabledIn);
+    void SetLandscape(ALandscape* NewLandscape);
+    void SetPatchManager(ALandscapePatchManager* NewPatchManager);
+    void SetPriority(double PriorityIn);
+};
+
+struct FLandscapePatchComponentInstanceData : public FSceneComponentInstanceData {
+};
+
+class ULandscapePatchEditLayer : public ULandscapeEditLayerProcedural {
+};
+
+class ALandscapePatchManager : public ALandscapeBlueprintBrushBase {
+    TArray<TSoftObjectPtr<ULandscapePatchComponent>> PatchComponents;
+    FTransform HeightmapCoordsToWorld;
+    TMap<TSoftObjectPtr<ULandscapePatchComponent>, int32_t> PatchToIndex;
+
+    void AddPatch(ULandscapePatchComponent* Patch);
+    bool ContainsPatch(ULandscapePatchComponent* Patch) const;
+    int32_t GetIndexOfPatch(const ULandscapePatchComponent* Patch) const;
+    void MovePatchToIndex(ULandscapePatchComponent* Patch, int32_t Index);
+    bool RemovePatch(ULandscapePatchComponent* Patch);
+    void SetTargetLandscape(ALandscape* InOwningLandscape);
+};
+
+class ULandscapeTextureBackedRenderTargetBase : public UObject {
+    UTexture2D* InternalTexture;
+    UTextureRenderTarget2D* RenderTarget;
+    int32_t SizeX;
+    int32_t SizeY;
+    bool bUseInternalTextureOnly;
+};
+
+class ULandscapeTexturePatch : public ULandscapePatchComponent {
+    int32_t ResolutionX;
+    int32_t ResolutionY;
+    FVector2D UnscaledPatchCoverage;
+    ELandscapeTexturePatchBlendMode BlendMode;
+    ELandscapeTexturePatchFalloffMode FalloffMode;
+    float Falloff;
+    ELandscapeTexturePatchSourceMode HeightSourceMode;
+    ELandscapeTexturePatchSourceMode DetailPanelHeightSourceMode;
+    ULandscapeHeightTextureBackedRenderTarget* HeightInternalData;
+    UTexture* HeightTextureAsset;
+    bool bUseTextureAlphaForHeight;
+    ELandscapeTextureHeightPatchEncoding HeightEncoding;
+    FLandscapeTexturePatchEncodingSettings HeightEncodingSettings;
+    ELandscapeTextureHeightPatchZeroHeightMeaning ZeroHeightMeaning;
+    bool bApplyComponentZScale;
+    TArray<ULandscapeWeightPatchTextureInfo*> WeightPatches;
+    bool bBaseResolutionOffLandscape;
+    float ResolutionMultiplier;
+    int32_t InitTextureSizeX;
+    int32_t InitTextureSizeY;
+    uint8_t HeightRenderTargetFormat;
+
+    void AddWeightPatch(const FName& InWeightmapLayerName, ELandscapeTexturePatchSourceMode SourceMode, bool bUseAlphaChannel);
+    void ClearWeightPatchBlendModeOverride(const FName& InWeightmapLayerName);
+    void DisableAllWeightPatches();
+    TArray<FName> GetAllWeightPatchLayerNames();
+    FVector2D GetFullUnscaledWorldSize() const;
+    UTextureRenderTarget2D* GetHeightRenderTarget(bool bMarkDirty);
+    ELandscapeTexturePatchSourceMode GetHeightSourceMode() const;
+    bool GetInitResolutionFromLandscape(float ResolutionMultiplier, FVector2D& ResolutionOut) const;
+    FTransform GetPatchToWorldTransform() const;
+    FVector2D GetResolution() const;
+    FVector2D GetUnscaledCoverage() const;
+    UTextureRenderTarget2D* GetWeightPatchRenderTarget(const FName& InWeightmapLayerName, bool bMarkDirty);
+    ELandscapeTexturePatchSourceMode GetWeightPatchSourceMode(const FName& InWeightmapLayerName);
+    UTexture* GetWeightPatchTextureAsset(const FName& InWeightmapLayerName);
+    void RemoveAllWeightPatches();
+    void RemoveWeightPatch(const FName& InWeightmapLayerName);
+    void RequestReinitializeHeight();
+    void RequestReinitializeWeights();
+    void ResetHeightEncodingMode(ELandscapeTextureHeightPatchEncoding EncodingMode);
+    void SetBlendMode(ELandscapeTexturePatchBlendMode BlendModeIn);
+    void SetEditVisibilityLayer(const FName& InWeightmapLayerName, const bool bEditVisibilityLayer);
+    void SetFalloff(float FalloffIn);
+    void SetFalloffMode(ELandscapeTexturePatchFalloffMode FalloffModeIn);
+    void SetHeightEncodingMode(ELandscapeTextureHeightPatchEncoding EncodingMode);
+    void SetHeightEncodingSettings(const FLandscapeTexturePatchEncodingSettings& Settings);
+    void SetHeightRenderTargetFormat(uint8_t Format);
+    void SetHeightSourceMode(ELandscapeTexturePatchSourceMode NewMode);
+    void SetHeightTextureAsset(UTexture* TextureIn);
+    void SetResolution(FVector2D ResolutionIn);
+    void SetUnscaledCoverage(FVector2D Coverage);
+    void SetUseAlphaChannelForHeight(bool bUse);
+    void SetUseAlphaChannelForWeightPatch(const FName& InWeightmapLayerName, bool bUseAlphaChannel);
+    void SetWeightPatchBlendModeOverride(const FName& InWeightmapLayerName, ELandscapeTexturePatchBlendMode BlendMode);
+    void SetWeightPatchSourceMode(const FName& InWeightmapLayerName, ELandscapeTexturePatchSourceMode NewMode);
+    void SetWeightPatchTextureAsset(const FName& InWeightmapLayerName, UTexture* TextureIn);
+    void SetZeroHeightMeaning(ELandscapeTextureHeightPatchZeroHeightMeaning ZeroHeightMeaningIn);
+    void SnapToLandscape();
+};
+
+struct FLandscapeTexturePatchEncodingSettings {
+    double ZeroInEncoding;
+    double WorldSpaceEncodingScale;
+};
+
+class ULandscapeWeightPatchTextureInfo : public UObject {
+    FName WeightmapLayerName;
+    bool bEditVisibilityLayer;
+    UTexture* TextureAsset;
+    ULandscapeWeightTextureBackedRenderTarget* InternalData;
+    ELandscapeTexturePatchSourceMode SourceMode;
+    ELandscapeTexturePatchSourceMode DetailPanelSourceMode;
+    bool bUseAlphaChannel;
+    bool bOverrideBlendMode;
+    ELandscapeTexturePatchBlendMode OverrideBlendMode;
+};
+
+class ULandscapeWeightTextureBackedRenderTarget : public ULandscapeTextureBackedRenderTargetBase {
+    bool bUseAlphaChannel;
 };
 
 class UAnimSequenceLevelSequenceLink : public UAssetUserData {
@@ -73778,7 +74084,7 @@ class UMediaComponent : public UActorComponent {
 
 struct FMediaMetadataItemBPT {
     FString LanguageCode;
-    FString mimetype;
+    FString MimeType;
     FString StringData;
     TArray<uint8_t> BinaryData;
 };
@@ -77837,7 +78143,7 @@ class UPolyEditCutFacesActivity : public UInteractiveToolActivity {
 };
 
 class UPolyEditCutProperties : public UInteractiveToolPropertySet {
-    EPolyEditCutPlaneOrientation orientation;
+    EPolyEditCutPlaneOrientation Orientation;
     bool bSnapToVertices;
 };
 
@@ -82715,11 +83021,11 @@ class UCharacterMoverComponent : public UMoverComponent {
     bool IsOnGround() const;
     bool IsSlopeSliding() const;
     bool IsSwimming() const;
-    bool Jump();
     void OnMoverPreSimulationTick(const FMoverTimeStep& TimeStep, const FMoverInputCmdContext& InputCmd);
     void SetHandleJump(bool bInHandleJump);
     void SetHandleStanceChanges(bool bInHandleStanceChanges);
     void UnCrouch();
+    bool jump();
 };
 
 class UCommonLegacyMovementSettings : public UObject {
@@ -83310,7 +83616,7 @@ class UMoverDebugComponent : public UActorComponent {
 
 struct FMoverDefaultSyncState : public FMoverDataStructBase {
     FVector Location;
-    FRotator orientation;
+    FRotator Orientation;
     FVector Velocity;
     FVector MoveDirectionIntent;
     TWeakObjectPtr<UPrimitiveComponent> MovementBase;
@@ -86677,7 +86983,7 @@ struct FMovieSceneIntegerChannel : public FMovieSceneChannel {
 };
 
 struct FMovieSceneInverseNestedSequenceTransform {
-    FMovieSceneTimeWarpVariant timescale;
+    FMovieSceneTimeWarpVariant TimeScale;
     FFrameTime Offset;
 };
 
@@ -86733,7 +87039,7 @@ class UMovieSceneNameableTrack : public UMovieSceneTrack {
 };
 
 struct FMovieSceneNestedSequenceTransform {
-    FMovieSceneTimeWarpVariant timescale;
+    FMovieSceneTimeWarpVariant TimeScale;
     FFrameTime Offset;
 };
 
@@ -86830,7 +87136,7 @@ class UMovieSceneRootInstantiatorSystem : public UMovieSceneEntityInstantiatorSy
 
 struct FMovieSceneScalingAnchor {
     FFrameNumber position;
-    int32_t duration;
+    int32_t Duration;
 };
 
 class UMovieSceneScalingAnchors : public UMovieScenePlayRateCurve {
@@ -86906,7 +87212,7 @@ struct FMovieSceneSectionParameters {
     bool bCanLoop;
     FFrameNumber EndFrameOffset;
     FFrameNumber FirstLoopStartFrameOffset;
-    FMovieSceneTimeWarpVariant timescale;
+    FMovieSceneTimeWarpVariant TimeScale;
     int32_t HierarchicalBias;
     EMovieSceneSubSectionFlags Flags;
     float StartOffset;
@@ -87067,12 +87373,12 @@ class UMovieSceneSequencePlayer : public UObject {
     void Scrub();
     void SetCompletionModeOverride(EMovieSceneCompletionModeOverride CompletionModeOverride);
     void SetDisableCameraCuts(bool bInDisableCameraCuts);
-    void SetFrameRange(int32_t StartFrame, int32_t duration, float SubFrames);
+    void SetFrameRange(int32_t StartFrame, int32_t Duration, float SubFrames);
     void SetFrameRate(FFrameRate FrameRate);
     void SetHideHud(bool HideHud);
     void SetPlayRate(float PlayRate);
     void SetPlaybackPosition(FMovieSceneSequencePlaybackParams PlaybackParams);
-    void SetTimeRange(float StartTime, float duration);
+    void SetTimeRange(float StartTime, float Duration);
     void SetWeight(double InWeight);
     void Stop();
     void StopAtCurrentTime();
@@ -87151,7 +87457,7 @@ class UMovieSceneSpawnablesSystem : public UMovieSceneEntitySystem {
 class UMovieSceneSubSection : public UMovieSceneSection {
     FMovieSceneSectionParameters Parameters;
     float StartOffset;
-    float timescale;
+    float TimeScale;
     float PrerollTime;
     uint8_t NetworkMask;
     FMovieSceneSubSectionOriginOverrideMask OriginOverrideMask;
@@ -87217,7 +87523,7 @@ struct FMovieSceneTemplateGenerationLedger {
 };
 
 struct FMovieSceneTimeTransform {
-    float timescale;
+    float TimeScale;
     FFrameTime Offset;
 };
 
@@ -87255,11 +87561,11 @@ class UMovieSceneTimeWarpGetter : public UMovieSceneNumericVariantGetter {
 };
 
 struct FMovieSceneTimeWarpLoop {
-    FFrameNumber duration;
+    FFrameNumber Duration;
 };
 
 struct FMovieSceneTimeWarpLoopFloat {
-    float duration;
+    float Duration;
 };
 
 class UMovieSceneTimeWarpSection : public UMovieSceneSection {
@@ -94087,7 +94393,7 @@ class UNiagaraStatelessModule_DecalAttributes : public UNiagaraStatelessModule {
     bool bApplyOrientation;
     bool bApplySize;
     bool bApplyFade;
-    FNiagaraDistributionVector3 orientation;
+    FNiagaraDistributionVector3 Orientation;
     ENiagaraCoordinateSpace OrientationCoordinateSpace;
     FNiagaraDistributionVector3 Size;
     FNiagaraDistributionFloat Fade;
@@ -102731,7 +103037,7 @@ class UPCGVisualizeAttributeSettings : public UPCGSettings {
     bool bPrefixWithAttributeName;
     FVector LocalOffset;
     FColor Color;
-    double duration;
+    double Duration;
     int32_t PointLimit;
     bool bVisualizeEnabled;
 };
@@ -103720,17 +104026,17 @@ class UPhysicsControlComponent : public USceneComponent {
     void SetControlSparseMultipliers(const TArray<FName>& Names, const FPhysicsControlSparseMultiplier ControlMultiplier, const bool bEnableControl);
     void SetControlSparseMultipliersInSet(const FName Set, const FPhysicsControlSparseMultiplier ControlMultiplier, const bool bEnableControl);
     bool SetControlTarget(const FName Name, const FPhysicsControlTarget ControlTarget, const bool bEnableControl);
-    bool SetControlTargetOrientation(const FName Name, const FRotator orientation, const float AngularVelocityDeltaTime, const bool bEnableControl, const bool bApplyControlPointToTarget);
-    void SetControlTargetOrientations(const TArray<FName>& Names, const FRotator orientation, const float AngularVelocityDeltaTime, const bool bEnableControl, const bool bApplyControlPointToTarget);
+    bool SetControlTargetOrientation(const FName Name, const FRotator Orientation, const float AngularVelocityDeltaTime, const bool bEnableControl, const bool bApplyControlPointToTarget);
+    void SetControlTargetOrientations(const TArray<FName>& Names, const FRotator Orientation, const float AngularVelocityDeltaTime, const bool bEnableControl, const bool bApplyControlPointToTarget);
     bool SetControlTargetOrientationsFromArray(const TArray<FName>& Names, const TArray<FRotator>& Orientations, const float VelocityDeltaTime, const bool bEnableControl, const bool bApplyControlPointToTarget);
-    void SetControlTargetOrientationsInSet(const FName SetName, const FRotator orientation, const float AngularVelocityDeltaTime, const bool bEnableControl, const bool bApplyControlPointToTarget);
+    void SetControlTargetOrientationsInSet(const FName SetName, const FRotator Orientation, const float AngularVelocityDeltaTime, const bool bEnableControl, const bool bApplyControlPointToTarget);
     bool SetControlTargetPoses(const FName Name, const FVector ParentPosition, const FRotator ParentOrientation, const FVector ChildPosition, const FRotator ChildOrientation, const float VelocityDeltaTime, const bool bEnableControl);
     bool SetControlTargetPosition(const FName Name, const FVector position, const float VelocityDeltaTime, const bool bEnableControl, const bool bApplyControlPointToTarget);
-    bool SetControlTargetPositionAndOrientation(const FName Name, const FVector position, const FRotator orientation, const float VelocityDeltaTime, const bool bEnableControl, const bool bApplyControlPointToTarget);
+    bool SetControlTargetPositionAndOrientation(const FName Name, const FVector position, const FRotator Orientation, const float VelocityDeltaTime, const bool bEnableControl, const bool bApplyControlPointToTarget);
     void SetControlTargetPositions(const TArray<FName>& Names, const FVector position, const float VelocityDeltaTime, const bool bEnableControl, const bool bApplyControlPointToTarget);
-    void SetControlTargetPositionsAndOrientations(const TArray<FName>& Names, const FVector position, const FRotator orientation, const float VelocityDeltaTime, const bool bEnableControl, const bool bApplyControlPointToTarget);
+    void SetControlTargetPositionsAndOrientations(const TArray<FName>& Names, const FVector position, const FRotator Orientation, const float VelocityDeltaTime, const bool bEnableControl, const bool bApplyControlPointToTarget);
     bool SetControlTargetPositionsAndOrientationsFromArray(const TArray<FName>& Names, const TArray<FVector>& Positions, const TArray<FRotator>& Orientations, const float VelocityDeltaTime, const bool bEnableControl, const bool bApplyControlPointToTarget);
-    void SetControlTargetPositionsAndOrientationsInSet(const FName SetName, const FVector position, const FRotator orientation, const float VelocityDeltaTime, const bool bEnableControl, const bool bApplyControlPointToTarget);
+    void SetControlTargetPositionsAndOrientationsInSet(const FName SetName, const FVector position, const FRotator Orientation, const float VelocityDeltaTime, const bool bEnableControl, const bool bApplyControlPointToTarget);
     bool SetControlTargetPositionsFromArray(const TArray<FName>& Names, const TArray<FVector>& Positions, const float VelocityDeltaTime, const bool bEnableControl, const bool bApplyControlPointToTarget);
     void SetControlTargetPositionsInSet(const FName SetName, const FVector position, const float VelocityDeltaTime, const bool bEnableControl, const bool bApplyControlPointToTarget);
     void SetControlTargets(const TArray<FName>& Names, const FPhysicsControlTarget ControlTarget, const bool bEnableControl);
@@ -106944,7 +107250,7 @@ struct FRigVMFunction_MathBoolEquals : public FRigVMFunction_MathBoolBase {
 
 struct FRigVMFunction_MathBoolFlipFlop : public FRigVMFunction_MathBoolBase {
     bool StartValue;
-    float duration;
+    float Duration;
     bool Result;
     bool LastValue;
     float TimeLeft;
@@ -106970,7 +107276,7 @@ struct FRigVMFunction_MathBoolNotEquals : public FRigVMFunction_MathBoolBase {
 };
 
 struct FRigVMFunction_MathBoolOnce : public FRigVMFunction_MathBoolBase {
-    float duration;
+    float Duration;
     bool Result;
     bool LastValue;
     float TimeLeft;
@@ -107022,6 +107328,12 @@ struct FRigVMFunction_MathBoxFromArray : public FRigVMFunction_MathBoxBase {
 struct FRigVMFunction_MathBoxGetCenter : public FRigVMFunction_MathBoxBase {
     FBox Box;
     FVector Center;
+};
+
+struct FRigVMFunction_MathBoxGetClosestPointTo : public FRigVMFunction_MathBoxBase {
+    FBox Box;
+    FVector position;
+    FVector Result;
 };
 
 struct FRigVMFunction_MathBoxGetDistance : public FRigVMFunction_MathBoxBase {
@@ -108548,7 +108860,7 @@ struct FRigVMFunction_RandomFloat : public FRigVMFunction_MathBase {
     int32_t Seed;
     float Minimum;
     float Maximum;
-    float duration;
+    float Duration;
     float Result;
     float LastResult;
     int32_t LastSeed;
@@ -108560,7 +108872,7 @@ struct FRigVMFunction_RandomVector : public FRigVMFunction_MathBase {
     int32_t Seed;
     float Minimum;
     float Maximum;
-    float duration;
+    float Duration;
     FVector Result;
     FVector LastResult;
     int32_t LastSeed;
@@ -108704,7 +109016,7 @@ struct FRigVMFunction_StringTruncate : public FRigVMFunction_StringBase {
 
 struct FRigVMFunction_TimeLoop : public FRigVMFunction_SimBase {
     float Speed;
-    float duration;
+    float Duration;
     bool Normalize;
     float Absolute;
     float Relative;
@@ -109724,6 +110036,13 @@ struct FAutomaticBreadcrumbsForLogs {
     bool bOnDebugLog;
 };
 
+enum class ESentryAndroidCrashBackend {
+    NdkSignalHandler = 0,
+    TombstoneOnly = 1,
+    TombstoneMergedWithNdk = 2,
+    ESentryAndroidCrashBackend_MAX = 3,
+};
+
 enum class ESentryCliLogLevel {
     Trace = 0,
     Debug = 1,
@@ -109755,10 +110074,47 @@ enum class ESentryLevel {
     ESentryLevel_MAX = 5,
 };
 
+enum class ESentryMetricType {
+    Unknown = 0,
+    Counter = 1,
+    Gauge = 2,
+    Distribution = 3,
+    ESentryMetricType_MAX = 4,
+};
+
 enum class ESentryTracesSamplingType {
     UniformSampleRate = 0,
     TracesSampler = 1,
     ESentryTracesSamplingType_MAX = 2,
+};
+
+enum class ESentryUnit {
+    None = 0,
+    Nanosecond = 1,
+    Microsecond = 2,
+    Millisecond = 3,
+    Second = 4,
+    Minute = 5,
+    Hour = 6,
+    Day = 7,
+    Week = 8,
+    Bit = 9,
+    Byte = 10,
+    Kilobyte = 11,
+    Kibibyte = 12,
+    Megabyte = 13,
+    Mebibyte = 14,
+    Gigabyte = 15,
+    Gibibyte = 16,
+    Terabyte = 17,
+    Tebibyte = 18,
+    Petabyte = 19,
+    Pebibyte = 20,
+    Exabyte = 21,
+    Exbibyte = 22,
+    Ratio = 23,
+    Percent = 24,
+    ESentryUnit_MAX = 25,
 };
 
 enum class ESentryVariantType {
@@ -109795,9 +110151,6 @@ struct FEnableBuildTargets {
     bool bEnableProgram;
 };
 
-class UScopeTestBeforeSendHandler : public USentryBeforeSendHandler {
-};
-
 class USentryAttachment : public UObject {
 
     FString GetContentType() const;
@@ -109811,6 +110164,16 @@ class USentryAttachment : public UObject {
 class USentryBeforeBreadcrumbHandler : public UObject {
 
     USentryBreadcrumb* HandleBeforeBreadcrumb(USentryBreadcrumb* Breadcrumb, USentryHint* Hint);
+};
+
+class USentryBeforeLogHandler : public UObject {
+
+    USentryLog* HandleBeforeLog(USentryLog* LogData);
+};
+
+class USentryBeforeMetricHandler : public UObject {
+
+    USentryMetric* HandleBeforeMetric(USentryMetric* Metric);
 };
 
 class USentryBeforeSendHandler : public UObject {
@@ -109865,6 +110228,7 @@ class USentryEvent : public UObject {
 
 class USentryFeedback : public UObject {
 
+    void AddAttachment(USentryAttachment* Attachment);
     FString GetAssociatedEvent() const;
     FString GetContactEmail() const;
     FString GetMessage() const;
@@ -109890,6 +110254,40 @@ class USentryLibrary : public UBlueprintFunctionLibrary {
     static USentryFeedback* CreateSentryFeedback(FString Message, FString Name, FString Email, FString EventID);
     static USentryTransactionContext* CreateSentryTransactionContext(FString Name, FString Operation);
     static USentryUser* CreateSentryUser(FString Email, FString ID, FString UserName, FString IpAddress, const TMap<FString, FString>& Data);
+};
+
+class USentryLog : public UObject {
+    FString Body;
+    ESentryLevel Level;
+
+    void AddAttributes(const TMap<FString, FSentryVariant>& Attributes);
+    FSentryVariant GetAttribute(FString Key) const;
+    FString GetBody() const;
+    ESentryLevel GetLevel() const;
+    void Initialize();
+    void RemoveAttribute(FString Key);
+    void SetAttribute(FString Key, const FSentryVariant& Value);
+    void SetBody(FString Body);
+    void SetLevel(ESentryLevel Level);
+    bool TryGetAttribute(FString Key, FSentryVariant& Value) const;
+};
+
+class USentryMetric : public UObject {
+
+    void AddAttributes(const TMap<FString, FSentryVariant>& Attributes);
+    FSentryVariant GetAttribute(FString Key) const;
+    FString GetName() const;
+    ESentryMetricType GetType() const;
+    FSentryUnit GetUnit() const;
+    float GetValue() const;
+    void Initialize();
+    void RemoveAttribute(FString Key);
+    void SetAttribute(FString Key, const FSentryVariant& Value);
+    void SetName(FString Name);
+    void SetType(ESentryMetricType Type);
+    void SetUnit(const FSentryUnit& Unit);
+    void SetValue(float Value);
+    bool TryGetAttribute(FString Key, FSentryVariant& Value) const;
 };
 
 class USentrySamplingContext : public UObject {
@@ -109941,6 +110339,11 @@ class USentrySettings : public UObject {
     bool AttachScreenshot;
     bool AttachGpuDump;
     int32_t MaxAttachmentSize;
+    bool EnableStructuredLogging;
+    TArray<FString> StructuredLoggingCategories;
+    FStructuredLoggingLevels StructuredLoggingLevels;
+    bool bSendBreadcrumbsWithStructuredLogging;
+    bool EnableMetrics;
     int32_t MaxBreadcrumbs;
     FAutomaticBreadcrumbs AutomaticBreadcrumbs;
     FAutomaticBreadcrumbsForLogs AutomaticBreadcrumbsForLogs;
@@ -109952,12 +110355,21 @@ class USentrySettings : public UObject {
     FString ProxyUrl;
     UClass* BeforeSendHandler;
     UClass* BeforeBreadcrumbHandler;
+    UClass* BeforeLogHandler;
+    UClass* BeforeMetricHandler;
     bool EnableAutoCrashCapturing;
     ESentryDatabaseLocation DatabaseLocation;
     bool CrashpadWaitForUpload;
+    bool EnableOnCrashLogging;
+    bool EnableExternalCrashReporter;
+    bool EnableOfflineCaching;
+    int32_t CacheMaxItems;
+    int32_t CacheMaxSize;
+    int32_t CacheMaxAge;
     TArray<FString> InAppInclude;
     TArray<FString> InAppExclude;
     bool EnableAppNotRespondingTracking;
+    ESentryAndroidCrashBackend AndroidCrashBackend;
     bool EnableTracing;
     ESentryTracesSamplingType SamplingType;
     float TracesSampleRate;
@@ -109975,6 +110387,7 @@ class USentrySettings : public UObject {
     ESentryCliLogLevel DiagnosticLevel;
     bool UseLegacyGradlePlugin;
     FString CrashReporterUrl;
+    bool EnableCrashReporterContextPropagation;
     bool bRequireUserConsent;
     bool bDefaultUserConsentGiven;
 };
@@ -109996,11 +110409,19 @@ class USentrySpan : public UObject {
 class USentrySubsystem : public UEngineSubsystem {
     USentryBeforeSendHandler* BeforeSendHandler;
     USentryBeforeBreadcrumbHandler* BeforeBreadcrumbHandler;
+    USentryBeforeLogHandler* BeforeLogHandler;
+    USentryBeforeMetricHandler* BeforeMetricHandler;
     USentryTraceSampler* TraceSampler;
 
     void AddAttachment(USentryAttachment* Attachment);
     void AddBreadcrumb(USentryBreadcrumb* Breadcrumb);
     void AddBreadcrumbWithParams(FString Message, FString Category, FString Type, const TMap<FString, FSentryVariant>& Data, ESentryLevel Level);
+    void AddCount(FString Key, int32_t Value);
+    void AddCountWithAttributes(FString Key, int32_t Value, const TMap<FString, FSentryVariant>& Attributes);
+    void AddDistribution(FString Key, float Value, const FSentryUnit& Unit);
+    void AddDistributionWithAttributes(FString Key, float Value, const FSentryUnit& Unit, const TMap<FString, FSentryVariant>& Attributes);
+    void AddGauge(FString Key, float Value, const FSentryUnit& Unit);
+    void AddGaugeWithAttributes(FString Key, float Value, const FSentryUnit& Unit, const TMap<FString, FSentryVariant>& Attributes);
     FString CaptureEvent(USentryEvent* Event);
     FString CaptureEventWithScope(USentryEvent* Event, const FDelegate& OnConfigureScope);
     void CaptureFeedback(USentryFeedback* Feedback);
@@ -110019,9 +110440,22 @@ class USentrySubsystem : public UEngineSubsystem {
     ESentryCrashedLastRun IsCrashedLastRun() const;
     bool IsEnabled() const;
     bool IsSupportedForCurrentSettings() const;
+    bool IsUserConsentRequired() const;
+    void LogDebug(FString Message, FString Category);
+    void LogDebugWithAttributes(FString Message, const TMap<FString, FSentryVariant>& Attributes, FString Category);
+    void LogError(FString Message, FString Category);
+    void LogErrorWithAttributes(FString Message, const TMap<FString, FSentryVariant>& Attributes, FString Category);
+    void LogFatal(FString Message, FString Category);
+    void LogFatalWithAttributes(FString Message, const TMap<FString, FSentryVariant>& Attributes, FString Category);
+    void LogInfo(FString Message, FString Category);
+    void LogInfoWithAttributes(FString Message, const TMap<FString, FSentryVariant>& Attributes, FString Category);
+    void LogWarning(FString Message, FString Category);
+    void LogWarningWithAttributes(FString Message, const TMap<FString, FSentryVariant>& Attributes, FString Category);
+    void RemoveAttribute(FString Key);
     void RemoveTag(FString Key);
     void RemoveUser();
     void RevokeUserConsent();
+    void SetAttribute(FString Key, const FSentryVariant& Value);
     void SetContext(FString Key, const TMap<FString, FSentryVariant>& Values);
     void SetLevel(ESentryLevel Level);
     void SetTag(FString Key, FString Value);
@@ -110063,6 +110497,16 @@ class USentryTransactionContext : public UObject {
 struct FSentryTransactionOptions {
     TMap<FString, FSentryVariant> CustomSamplingContext;
     bool BindToScope;
+};
+
+struct FSentryUnit {
+};
+
+class USentryUnitHelper : public UBlueprintFunctionLibrary {
+
+    static FSentryUnit MakeSentryCustomUnit(FString Unit);
+    static FSentryUnit MakeSentryUnit(ESentryUnit Unit);
+    static FString ToString(const FSentryUnit& Unit);
 };
 
 class USentryUser : public UObject {
@@ -110111,6 +110555,14 @@ class USentryVariantHelper : public UBlueprintFunctionLibrary {
     static bool TryGetString(const FSentryVariant& Variant, FString& Value);
 };
 
+struct FStructuredLoggingLevels {
+    bool bOnFatalLog;
+    bool bOnErrorLog;
+    bool bOnWarningLog;
+    bool bOnInfoLog;
+    bool bOnDebugLog;
+};
+
 struct FTagsPromotion {
     bool bPromoteBuildConfiguration;
     bool bPromoteTargetType;
@@ -110118,9 +110570,6 @@ struct FTagsPromotion {
     bool bPromoteIsGame;
     bool bPromoteIsStandalone;
     bool bPromoteIsUnattended;
-};
-
-class UTraceSamplingTestHandler : public USentryTraceSampler {
 };
 
 enum class ESequenceTimeUnit {
@@ -110566,8 +111015,8 @@ class UMovieSceneSequenceExtensions : public UBlueprintFunctionLibrary {
     static bool IsPlaybackRangeLocked(UMovieSceneSequence* sequence);
     static bool IsReadOnly(UMovieSceneSequence* sequence);
     static TArray<UObject*> LocateBoundObjects(UMovieSceneSequence* sequence, const FMovieSceneBindingProxy& InBinding, UObject* Context);
-    static FSequencerScriptingRange MakeRange(UMovieSceneSequence* sequence, int32_t StartFrame, int32_t duration);
-    static FSequencerScriptingRange MakeRangeSeconds(UMovieSceneSequence* sequence, float StartTime, float duration);
+    static FSequencerScriptingRange MakeRange(UMovieSceneSequence* sequence, int32_t StartFrame, int32_t Duration);
+    static FSequencerScriptingRange MakeRangeSeconds(UMovieSceneSequence* sequence, float StartTime, float Duration);
     static void RemoveRootFolderFromSequence(UMovieSceneSequence* sequence, UMovieSceneFolder* Folder);
     static bool RemoveTrack(UMovieSceneSequence* sequence, UMovieSceneTrack* Track);
     static FMovieSceneBindingProxy ResolveBindingID(UMovieSceneSequence* RootSequence, FMovieSceneObjectBindingID InObjectBindingID);
@@ -113383,7 +113832,7 @@ struct FStateTreeDelayTask : public FStateTreeTaskCommonBase {
 };
 
 struct FStateTreeDelayTaskInstanceData {
-    float duration;
+    float Duration;
     float RandomDeviation;
     bool bRunForever;
 };
@@ -113651,7 +114100,7 @@ struct FStateTreeRandomConditionInstanceData {
 };
 
 struct FStateTreeRandomTimeDuration {
-    uint16_t duration;
+    uint16_t Duration;
     uint16_t RandomVariance;
 };
 
@@ -113982,6 +114431,7 @@ class UAutoSN2Settings : public UDeveloperSettings {
     TSoftObjectPtr<UWorld> DefaultWorldLevel;
     UClass* MainScreenClass;
     TSoftClassPtr<UModalActivatableWidget> PDAScreenClass;
+    TSoftClassPtr<UModalActivatableWidget> EmoteMenuClass;
     TSoftClassPtr<UModalActivatableWidget> RespawnWidgetClass;
     TSoftClassPtr<UCommonUserWidget> RythmGameClass;
     TSoftClassPtr<UCommonUserWidget> CompilingShadersWidgetClass;
@@ -114093,6 +114543,12 @@ enum class EBlightNodeState {
     EBlightNodeState_MAX = 3,
 };
 
+enum class EBlightVoiceType {
+    Anita = 0,
+    Wander = 1,
+    EBlightVoiceType_MAX = 2,
+};
+
 enum class EBuilderMenuCategory {
     Sculpt = 0,
     BaseObject = 1,
@@ -114155,6 +114611,20 @@ enum class EGhostPrimitiveType {
     Sphere = 4,
     Capsule = 5,
     EGhostPrimitiveType_MAX = 6,
+};
+
+enum class EInstablePlantState {
+    Idle = 0,
+    Folding = 1,
+    Folded = 2,
+    Recovering = 3,
+    EInstablePlantState_MAX = 4,
+};
+
+enum class EInstablePlantTriggerPolicy {
+    Always = 0,
+    Once = 1,
+    EInstablePlantTriggerPolicy_MAX = 2,
 };
 
 struct FEMTTorsionComponentExtraInfo {
@@ -114282,6 +114752,14 @@ enum class ESN2FramePacingMode {
     ConsoleStyle = 1,
     MobileStyle = 2,
     ESN2FramePacingMode_MAX = 3,
+};
+
+enum class ESN2MoonpoolSizeResult {
+    None = 0,
+    TooNarrow = 1,
+    TooShort = 2,
+    Success = 3,
+    ESN2MoonpoolSizeResult_MAX = 4,
 };
 
 enum class ESN2PiecePlacementMode {
@@ -115008,7 +115486,19 @@ class USN2AxumVisibilityComponent : public UActorComponent {
 
 class USN2BaseAnimInstance : public UAnimInstance {
     FGameplayTagBlueprintPropertyMap GameplayTagPropertyMap;
+    bool bReceiveAnimationLimits;
+    bool bReceiveAnimationWorldData;
+    bool bReceiveAnimationLocalData;
+    bool bReceiveAnimationRelativeData;
+    FUWEAIMovementAnimationLimits CachedAnimationLimits;
+    FUWEAIMovementAnimationWorldData CachedAnimationWorldData;
+    FUWEAIMovementAnimationLocalData CachedAnimationLocalData;
+    FUWEAIMovementAnimationRelativeData CachedAnimationRelativeData;
 
+    void HandleAnimationLimitsUpdated(const FUWEAIMovementAnimationLimits& Limits);
+    void HandleAnimationLocalDataUpdated(const FUWEAIMovementAnimationLocalData& LocalData);
+    void HandleAnimationRelativeDataUpdated(const FUWEAIMovementAnimationRelativeData& RelativeData);
+    void HandleAnimationWorldDataUpdated(const FUWEAIMovementAnimationWorldData& WorldData);
     void OnAscReady();
 };
 
@@ -115029,6 +115519,9 @@ class ASN2BaseCharacter : public ACharacter {
     UUWESaveComponent* SaveComponent;
     TArray<AUWEOverlapWaterCurrent*> EnteredWaterCurrents;
     FMulticastInlineDelegate OnPossessedChanged;
+    FRotator CameraBaseAimRotation;
+    uint16_t UWERemoteViewYaw;
+    uint16_t UWERemoteViewPitch;
     UInputMappingContext* CurrentMappingContext;
     TArray<UInputMappingContext*> AddedMappingContexts;
     FSN2BaseCharacterSaveData SaveData;
@@ -115040,6 +115533,7 @@ class ASN2BaseCharacter : public ACharacter {
     void BP_OnGlobalTagAdded(const FGameplayTag& GameplayTag);
     void BP_OnGlobalTagRemoved(const FGameplayTag& GameplayTag);
     void EnableDefaultUseControllerRotation(bool Enable);
+    FRotator GetBaseAimRotationNormalized();
     ESN2PlayerPerspective GetCurrentPlayerPerspective() const;
     uint8_t GetFloorSurfaceType() const;
     FTransform GetInteractTransform();
@@ -115050,6 +115544,7 @@ class ASN2BaseCharacter : public ACharacter {
     void PossessedChanged__DelegateSignature(bool bNewPossessed);
     void RemoveInputMappingContext(UInputMappingContext* InInputMappingContext);
     void ServerAcknowledgeAutonomousProxyReady();
+    void Server_SyncBaseAimRotation(uint16_t Yaw, uint16_t Pitch);
     void SetDefaultInputMappingContext();
     void SetInputMappingContext(UInputMappingContext* InInputMappingContext);
     void UnlockStoryGoalOnServer(UUWEStoryGoal* StoryGoal);
@@ -115252,7 +115747,7 @@ class ASN2Bioreactor : public AActor {
     ESN2BioreactorPowerConsumptionState CurrentState;
     FSN2BioreactorPowerConsumptionConfig PowerConsumptionNormal;
     FSN2BioreactorPowerConsumptionConfig PowerConsumptionOverdrive;
-    USN2BioreactorInteractBoxComponent* InteractBoxComponent;
+    USN2InteractWidgetBoxComponent* InteractBoxComponent;
     FTimerHandle NextDepletionTimer;
     FTimerHandle LoadOnNextTickTimer;
     USN2BioreactorViewModel* WorldViewModel;
@@ -115273,17 +115768,6 @@ class ASN2Bioreactor : public AActor {
     void OnRep_CurrentItemType() const;
     void OnRep_CurrentState();
     void SetCurrentState(ESN2BioreactorPowerConsumptionState NewState);
-};
-
-class USN2BioreactorInteractBoxComponent : public UBoxComponent {
-    FString InteractionTextId;
-    FGameplayTag InteractionTag;
-    UClass* BioreactorWidgetClass;
-    UCommonActivatableWidget* Widget;
-    UUWEWaitDistanceExceeded* DistanceTask;
-
-    void CloseUI();
-    void OnWidgetPopped(uint8_t LayerId, bool bIsLast, UClass* Class);
 };
 
 class USN2BioreactorInteractionComponent : public UActorComponent {
@@ -115350,6 +115834,7 @@ class ASN2BlightNode : public AUWESerializedLevelSequenceActor {
     USceneComponent* InfectionCenterPoint;
     EBlightNodeState NodeState;
     UUWEAbilitySystemComponent* ASC;
+    EBlightVoiceType BlightVoiceType;
     USN2BlightNodeDataAsset* DataAsset;
     TSet<AUWEPlaceableProxy*> DamagePoints;
     FGameplayTag StateRemediatedCue;
@@ -115362,8 +115847,10 @@ class ASN2BlightNode : public AUWESerializedLevelSequenceActor {
     int32_t MaxCreaturesToSpawn;
     int32_t MaxCreaturesPerSpawn;
     bool bDestroyActiveParasitesOnRemediate;
+    bool bLoopSpawning;
     float LastSpawnTime;
     bool bFirstSpawn;
+    int32_t TotalCreaturesSpawned;
     TArray<FGuid> SpawnedCreatureDynamicItemIDs;
     TArray<FUWEActorUID> DestroyedPoints;
 
@@ -115485,10 +115972,14 @@ struct FSN2BuilderBlockingShape {
     FQuat Rotation;
     FVector BoxExtent;
     int32_t ObjectsBlockedBy;
+    bool bOverrideBlockedReason;
+    FGameplayTag BlockedReasonOverride;
 };
 
 class USN2BuilderBlueprintFunctionLibrary : public UBlueprintFunctionLibrary {
 
+    static ESN2MoonpoolSizeResult CheckMoonpoolDimensionsForBuildable(const AActor* Buildable, FGameplayTag MoonpoolBrushType, FIntVector MinMoonpoolSize);
+    static void DeconstructTarget(AActor* Target);
     static void PingBase(ASN2PlayerCharacter* RefundingPlayer, FGuid BaseGUID, uint8_t StructureId);
     static void RefundBase(ASN2PlayerCharacter* RefundingPlayer, FGuid BaseGUID, uint8_t StructureId);
     static bool TryGetActorConstructableParams(FSN2ConstructableParams& ConstructableParams, AActor* Actor);
@@ -115623,7 +116114,7 @@ class USN2BuilderMoveAbility : public USN2BuilderActionAbility {
     void ClientSetStartMoveState(const FStartMoveState MoveState);
     void OnRep_PlaceholderGhost();
     void ServerCancelMove();
-    void ServerMove(FTransform Transform, FRotator FRotator, FSN2GhostPlacement GhostPlacement);
+    void ServerMove(const FTransform Transform, const FRotator FRotator, const FSN2GhostPlacement GhostPlacement);
     void ServerStartMove(AActor* InMoveActor);
     void SpawnPlacementGhost(FSN2BuilderGhostParams GhostParams, FSN2ConstructableParams ConstructableParams);
 };
@@ -115694,6 +116185,14 @@ class USN2BuilderToolComponent : public UActorComponent {
     void OnSnappingChanged__DelegateSignature();
     void ServerPingBase(ASN2PlayerCharacter* Player, FGuid BaseGUID, uint8_t StructureId);
     void ServerRefundBase(ASN2PlayerCharacter* RefundingPlayer, FGuid BaseGUID, uint8_t StructureId);
+};
+
+struct FSN2CameraAndMovementVariables {
+    FRotator LocalCameraRotation;
+    FRotator LocalCameraRotationDamp;
+    FVector LocalCameraForwardVector;
+    FVector InputMovementVector;
+    FVector LocalAccelerationVector;
 };
 
 class USN2CameraDebugger : public UUWEImGuiComponent {
@@ -115872,7 +116371,6 @@ class USN2CheatManager : public USN2BaseCheatManager {
     void EditorCameraCoords(FString Coordinates);
     void EnableWeather(const bool bEnabled);
     void EnsureClient();
-    void Equip(FString TagName);
     void EquipAll();
     void EquipAll_EquipNext();
     void ExecuteCue(FString TagName);
@@ -115959,7 +116457,7 @@ class USN2CheatManager : public USN2BaseCheatManager {
     void ServerTraceStop();
     void SetAperture(float Aperture);
     void SetApplicationScale(float Scale);
-    void SetAutoSaveDuration(FString duration);
+    void SetAutoSaveDuration(FString Duration);
     void SetCurrentWeather(const FString WeatherName);
     void SetDayNumber(int32_t NewDayNumber);
     void SetFOV(float Angle);
@@ -115993,6 +116491,7 @@ class USN2CheatManager : public USN2BaseCheatManager {
     void Thirst();
     void ToggleAutoSave();
     void ToggleCameraAnimations();
+    void ToggleDebugInfoVisibility();
     void ToggleDebugUI();
     void ToggleFlashingLights();
     void ToggleFog();
@@ -116006,6 +116505,7 @@ class USN2CheatManager : public USN2BaseCheatManager {
     void ToggleSubRandomPilot();
     void ToggleTag(FString TagName);
     void ToggleTagInternal(const FGameplayTag& Tag, FGameplayTagTarget TargetToToggle);
+    void ToggleUnpublished();
     void Trigger(FString TriggerName);
     void UnfreezeTime();
     void UnlimitedBattery();
@@ -116013,6 +116513,7 @@ class USN2CheatManager : public USN2BaseCheatManager {
     void Unlock(FString UnlockableName);
     void UnlockAll();
     void UnlockAllBioAbilities();
+    void UnlockAllBiomodSlots();
     void UnlockAllDatabank();
     void UnlockAllRecipes();
     void UnlockStoryGoal(FString TagName);
@@ -116022,6 +116523,7 @@ class USN2CheatManager : public USN2BaseCheatManager {
     void Warp(float X, float Y, float Z);
     void WorldPopRemove(FString ResourceName);
     void WreckTrident();
+    void equip(FString TagName);
     void ffe(bool bAffectsLeftLarge, bool bAffectsLeftSmall, bool bAffectsRightLarge, bool bAffectsRightSmall, float Intensity);
     void surface();
 };
@@ -116087,7 +116589,6 @@ class USN2ComputerCoreTrackerComponent : public UActorComponent {
 };
 
 struct FSN2ConstructActorOverride {
-    TSoftClassPtr<AActor> ActorClass;
     FTransform PlacementOffset;
     TSoftObjectPtr<UStaticMesh> GhostMeshOverride;
     TSoftClassPtr<ASN2GhostCustomizer> CustomGhost;
@@ -116144,6 +116645,19 @@ struct FSN2ConstructableParams {
 };
 
 class USN2ContinuousAbility : public UUWEGameplayAbility {
+};
+
+struct FSN2ControlRigLimbAutoIKData {
+    FRigElementKey EffectorCtrl;
+    FBox BoxThreshold;
+    FTransform NextEffectorPoint;
+    FTransform CurrentEffectorPoint;
+    bool bUpdateEffectorPoint;
+    bool bIsPlanted;
+    float EffectorPhaseOffset;
+    FVector EffectorLiftAxis;
+    float CurrentBlendTime;
+    float BlendTime;
 };
 
 class USN2CoordsDiagnostic : public UUWEImGuiComponent {
@@ -116311,11 +116825,16 @@ class USN2DatabankEntryViewModel : public UMVVMViewModelBase {
     USN2UnreadBadgeViewModel* UnreadBadge;
     bool IsSelected;
     bool IsVisible;
+    bool IsPublished;
+    bool HasDialogue;
+    bool IsDialoguePlaying;
 
     TSoftObjectPtr<UTexture2D> GetEntryImage() const;
     FText GetEntryText() const;
     FText GetEntryTitle() const;
+    void PlayDialogue(APawn* Pawn);
     void SetIsSelected(bool NewValue);
+    void StopDialogue(APawn* Pawn);
 };
 
 class USN2DatabankViewModel : public UMVVMViewModelBase {
@@ -116395,6 +116914,9 @@ class ASN2DeployableElevator : public AActor {
     void OnRep_MaxDepth();
     void SetDestinationLocation(float NewLocation);
     void SetMaxDepth(float InMaxDepth);
+};
+
+class USN2DialogueDiagnostic : public UUWEImGuiComponent {
 };
 
 class USN2DialogueEntryLineViewModel : public UMVVMViewModelBase {
@@ -116605,6 +117127,7 @@ struct FSN2EmbeddedActorParams {
     bool UseSoftLock;
     FTransform Transform;
     ESN2EmbededActorPlacementMode PlacementMode;
+    FTransform ModuleAlignmentOffset;
     TSet<FUWEBaseModulePieceID> ModulesToAlignTo;
 };
 
@@ -116854,7 +117377,7 @@ class ASN2GhostCustomizer : public AActor {
     bool IsPlacementLegal;
     TArray<FGameplayTag> CannotActivateReasons;
 
-    void UpdateMeshes(const FSN2GhostPlacement& Placement);
+    void UpdateMeshes(const FSN2GhostPlacement& Placement, bool IsPersistent);
 };
 
 struct FSN2GhostMaterialKey {
@@ -116925,6 +117448,9 @@ class USN2HighlightComponent : public UActorComponent {
     TArray<FInteractHighlightComponentLink> InteractHighlightComponentLinks;
 };
 
+class USN2HoverTargetModifier : public UObject {
+};
+
 class USN2HoverTargetViewModel : public UMVVMViewModelBase {
     AActor* HoveredActor;
     float HoveredActorDistance;
@@ -116942,6 +117468,7 @@ class USN2HoverTargetViewModel : public UMVVMViewModelBase {
     bool ShouldReticleBeVisible;
     float MaxValidHoverPromptDistance;
     bool bIsConstructionProgressVisible;
+    TArray<USN2HoverTargetModifier*> HoverTargetModifiers;
     UObject* WorldContextObject;
     TArray<UUWEGameplayAbility*> AllAbilities;
     TArray<UInputAction*> PrimaryInputActions;
@@ -117008,7 +117535,45 @@ class USN2InputSymbolTextBlock : public UCommonUserWidget {
     void SetText(FString Text);
 };
 
+class ASN2InstablePlant : public AActor {
+    USphereComponent* TriggerSphere;
+    UStaticMeshComponent* PlantMesh;
+    UUWEActorSequenceComponent* SequenceComponent;
+    UUWESaveComponent* SaveComponent;
+    EInstablePlantTriggerPolicy TriggerPolicy;
+    float DelayBeforeFolding;
+    float FoldAnimationDuration;
+    float FoldedDuration;
+    float EarlyExitRecoveryDuration;
+    float AnimationPlayRate;
+    EInstablePlantState CurrentState;
+    bool bIsCollisionEnabled;
+    bool bHasTriggered;
+    bool bSeafrogInside;
+    FDateTime LastFoldTimestamp;
+    FDateTime RecoveryStartTimestamp;
+    UUWESaveHandle* SaveHandle;
+
+    void BeginFolding();
+    void OnEarlyRecoveryComplete();
+    void OnFoldAnimationComplete();
+    void OnRecoveryComplete();
+    void OnRecoveryStart();
+    void OnRep_CurrentState();
+};
+
 class USN2InteractAbility : public UUWEGameplayAbility {
+};
+
+class USN2InteractWidgetBoxComponent : public UBoxComponent {
+    FString InteractionTextId;
+    FGameplayTag InteractionTag;
+    UClass* WidgetClass;
+    UCommonActivatableWidget* Widget;
+    UUWEWaitDistanceExceeded* DistanceTask;
+
+    void CloseUI();
+    void OnWidgetPopped(uint8_t LayerId, bool bIsLast, UClass* Class);
 };
 
 class ASN2InventoryActor : public AActor {
@@ -117032,6 +117597,7 @@ class USN2InventoryItemViewModel : public UMVVMViewModelBase {
     FText ItemDescription;
     TSoftObjectPtr<UTexture2D> Thumbnail;
     bool bPublished;
+    bool bShowEnergyTooltip;
     bool bFilteredForOtherInventory;
     FText PrimaryActionDescription;
     FText SecondaryActionDescription;
@@ -117044,7 +117610,6 @@ class USN2InventoryItemViewModel : public UMVVMViewModelBase {
 
     bool CanItemGoInQuickSlot() const;
     void Drop();
-    void Equip();
     TArray<FText> GetActiveWarnings() const;
     TArray<FConsumableInfo> GetConsumableInfo() const;
     FUWEInventoryItem GetInventoryItem();
@@ -117068,9 +117633,11 @@ class USN2InventoryItemViewModel : public UMVVMViewModelBase {
     void SetQuaternaryActionWithModifierDescription(FText Desc);
     void SetSecondaryActionDescription(FText Desc);
     void SetSecondaryActionWithModifierDescription(FText Desc);
+    void SetShowEnergyTooltip(bool bShow);
     void SetTertiaryActionDescription(FText Desc);
     void SetTertiaryActionWithModifierDescription(FText Desc);
     void SetToolbarNumSlots(int32_t NewSize);
+    void equip();
 };
 
 class USN2InventoryScreenViewModel : public UMVVMViewModelBase {
@@ -117109,6 +117676,7 @@ class USN2InventoryViewModel : public UMVVMViewModelBase {
     int32_t InventorySize;
     int32_t Columns;
     bool bAllowedToDrop;
+    bool bShowEnergyTooltip;
 
     void ClearStacksAdded();
     void ClearStacksRemoved();
@@ -117118,6 +117686,7 @@ class USN2InventoryViewModel : public UMVVMViewModelBase {
     void OnItemAdded(const FUWEInventoryItem& InventoryItem);
     void OnItemRemoved(const FUWEInventoryItem& InventoryItem);
     void SetAllowedToDrop(bool bInAllowedToDrop);
+    void SetShowEnergyTooltip(bool bShow);
 };
 
 class USN2ItemBrushActionData : public USN2BuilderActionData {
@@ -117132,6 +117701,7 @@ class USN2LeviathanTemperDecreaseCalc : public UGameplayModMagnitudeCalculation 
 class ASN2LifepodManager : public AActor {
 
     void HideHud();
+    void LogLifepod(FString LogString, bool IsError);
     void ShowHUD();
 };
 
@@ -117199,19 +117769,51 @@ class USN2MapDebugger : public UUWEImGuiComponent {
 };
 
 class ASN2MetalFarm : public AActor {
+    FMulticastInlineDelegate OnProgressChanged;
+    FMulticastInlineDelegate OnGrowthStateChanged;
+    FMulticastInlineDelegate OnPoweredStateChanged;
     UStaticMeshComponent* Mesh;
-    UUWEInventoryInteractionComponent* InventoryInteraction;
+    USN2InteractWidgetBoxComponent* InventoryInteraction;
     UUWEInventoryComponent* InventoryComponent;
     UUWESaveComponent* SaveComponent;
     UUWEItemType* CurrentItemType;
-    TArray<UUWESeedGrowerComponent*> SeedGrowerComponents;
+    UUWESeedGrowerComponent* SeedGrowerComponent;
+    UUWESeedGrowerReplicatorComponent* SeedGrowerReplicator;
     FMulticastInlineDelegate OnSeedChanged;
     TMap<UUWEItemType*, FSN2MetalSeedData> ItemTypeToSeedClass;
     UClass* SeedClass;
 
+    void BP_OnMetalBroken();
+    float GetProgressPercent() const;
+    float GetRemainingPercent() const;
+    float GetTimeRemaining() const;
+    bool HasMetalSeedLoaded() const;
+    bool IsFullyGrown() const;
+    bool IsPowered() const;
+    void OnGrowthStateChanged__DelegateSignature(bool bIsFullyGrown, bool bHasMetalSeedLoaded);
+    void OnPoweredStateChanged__DelegateSignature(bool bIsPowered);
+    void OnProgressChanged__DelegateSignature(float RemainingTime, float ProgressPercent);
     void OnSeedAdded(const FUWEInventoryItem& InventoryItem);
     void OnSeedRemoved(const FUWEInventoryItem& InventoryItem);
     void OnSeedSpawned(AActor* Actor);
+    void SetPowered(bool NewIsPowered);
+};
+
+class USN2MetalFarmViewModel : public UMVVMViewModelBase {
+    USN2InventoryScreenViewModel* InventoryViewModel;
+    bool bHasMetalSeedLoaded;
+    bool bIsMetalFullyGrown;
+    float TimeRemaining;
+    float Progress;
+    bool bIsPowered;
+    ASN2MetalFarm* MetalFarm;
+    UUWEInventoryComponent* MetalFarmInventory;
+
+    void OnGrowthStateChanged(const bool bIsFullyGrown, const bool bHasSeedLoaded);
+    void OnPoweredStateChanged(const bool NewIsPowered);
+    void OnProgressChanged(const float NewTime, const float NewProgress);
+    void Setup(const APawn* InteractingPawn, ASN2MetalFarm* InMetalFarm);
+    void Teardown();
 };
 
 struct FSN2MetalSeedData {
@@ -117224,15 +117826,6 @@ class ASN2MockReviveTarget : public AStaticMeshActor {
     UUWEAbilitySystemComponent* AbilitySystemComponent;
     USN2ReviveableComponent* ReviveableComponent;
     UUWEHealthSetComponent* HealthSetComponent;
-};
-
-class ISN2Movable : public UInterface {
-
-    bool CanBeMoved();
-    void OnCancelMove();
-    void OnMove();
-    void OnPlacementChanged();
-    void OnStartMove();
 };
 
 class USN2MovableComponent : public UActorComponent {
@@ -117248,7 +117841,7 @@ class USN2MovableComponent : public UActorComponent {
     void CancelMove();
     static FSN2GhostPlacement GetPlacementForActor(AActor* Actor);
     bool IsMoving() const;
-    void Move(FTransform Transform, FRotator FRotator, FSN2GhostPlacement GhostPlacement);
+    void Move(const FTransform& Transform, const FRotator& Rotator, const FSN2GhostPlacement& GhostPlacement);
     void MulticaseUpdatePhysics(AActor* MovedActor);
     void MulticastNotifyMoveStarted();
     void OnRep_Placement();
@@ -117259,15 +117852,21 @@ class USN2MovableComponent : public UActorComponent {
 class USN2MoveModeAbility : public UUWEGameplayAbility {
 };
 
+class USN2MultitoolHoverTargetModifier : public USN2HoverTargetModifier {
+    UUWEItemType* MultitoolItemType;
+};
+
 class USN2NearbyDiagnostic : public UUWEImGuiComponent {
     UClass* ScannableClass;
     UClass* ClickableBlackBoxClass;
     UClass* RecipeButtonClass;
-    TArray<FUWENearbyActor> ScannableActors;
-    TArray<FUWENearbyActor> AllScannableActors;
-    TArray<FUWENearbyActor> ClickableActors;
-    TArray<FUWENearbyActor> RecipeActors;
-    TArray<FUWENearbyActor> ButtonActors;
+    UClass* AudioLogClass;
+    TMap<FString, FUWENearbyActor> ScannableActors;
+    TMap<FString, FUWENearbyActor> AllScannableActors;
+    TMap<FString, FUWENearbyActor> ClickableActors;
+    TMap<FString, FUWENearbyActor> RecipeActors;
+    TMap<FString, FUWENearbyActor> AudioLogActors;
+    TMap<FString, FUWENearbyActor> ButtonActors;
 };
 
 class ASN2ObserverPawn : public ADefaultPawn {
@@ -117278,6 +117877,24 @@ class USN2OutOfBoundsCheckComponent : public UUWEOutOfBoundsCheckComponent {
 
     void OnRespawned();
     void OnUnstuck();
+};
+
+class USN2OverheatingViewModel : public UMVVMViewModelBase {
+    float CurrentHeatPercent;
+    bool bIsOverheated;
+    bool bShowOverheatingUI;
+    UObject* WorldContextObject;
+    USN2SeafrogOverheatingComponent* CachedOverheatingComponent;
+    ASN2Tadpole* CachedTadpole;
+
+    void OnChassisAttached(AActor* Chassis);
+    void OnChassisDetached(AActor* Chassis);
+    void OnLocalClientReady();
+    void OnOverheatedChanged(bool IsOverheated);
+    void OnOverheatingChanged(float OverheatingPercent);
+    void OnPawnChanged(APawn* NewPawn);
+    void OnPossessedPawnChanged(APawn* OldPawn, APawn* NewPawn);
+    void TryCleanupDelegates();
 };
 
 class ASN2OxygenBubble : public AActor {
@@ -117311,12 +117928,15 @@ class ASN2OxygenTank : public ASN2BaseEquippable {
     void SetOxygenLevel(float NewLevel);
 };
 
-class USN2PIEUserSettings : public UObject {
+class USN2PIEUserSettings : public UDeveloperSettings {
     FString PIEGameModeOverride;
+    FString PIESaveGameOverride;
 
     static USN2PIEUserSettings* GetPIEUserSettings();
     void SetOverrideGameModeAlias(FString alias);
+    void SetOverrideSaveGameName(FString SaveGame);
     bool TryGetOverrideGameModeAlias(FString& alias) const;
+    bool TryGetOverrideSaveGameName(FString& SaveGame) const;
 };
 
 struct FSN2PartialResource {
@@ -117351,6 +117971,7 @@ class USN2PdaViewModel : public UMVVMViewModelBase {
     void SetIsActive(bool NewState);
     void SetIsModifierHeld(bool NewState);
     void ShowPDA();
+    void ShowPDAWithInventories(UUWEInventoryComponent* Inventory, UUWEInventoryComponent* OtherInventory, UUWEInventoryInteractionComponent* InventoryInteraction);
     static USN2PdaViewModel* TryGetPDAViewModel(UObject* WorldContext);
 };
 
@@ -117504,6 +118125,156 @@ class USN2PlayerAnimInstance : public USN2BaseAnimInstance {
 };
 
 class USN2PlayerAnimationComponent : public USN2AnimationComponent {
+    UCharacterMovementComponent* CharacterMovement;
+    UCapsuleComponent* CapsuleComponent;
+    USkeletalMeshComponent* CharacterSkeletalMesh;
+    UUWEEquipmentComponent* EquipmentComponent;
+    UUWEInventoryComponent* InventoryComponent;
+    UUWEToolbarComponent* ToolbarComponent;
+    UUWEAbilitySystemComponent* AbilitySystemComponent;
+    FGameplayTagContainer AbilitySystemGameplayTags;
+    bool bGAToolEquip;
+    bool bGAToolUnEquip;
+    bool bGAToolUsePrimary;
+    bool bGAToolUseSecondary;
+    bool bGAToolThrow;
+    bool bGAToolLightsOn;
+    bool bGAToolSuccess;
+    bool bGAToolReload;
+    bool bGAToolBreakNode;
+    bool bGAToolCancel;
+    bool bGADash;
+    bool bGAHolstering;
+    bool bGACarryPlace;
+    FRotator WorldRotation;
+    FRotator WorldRotationDamp;
+    FRotator LocalVelocityRotation;
+    FRotator LocalVelocityRotationDelta;
+    FVector WorldVelocity;
+    FVector WorldForwardVector;
+    FVector LocalVelocity;
+    FVector LocalVelocityDelta;
+    FVector LocalVelocityNormal;
+    FVector LocalVelocityNormalDelta;
+    FVector CurrentAcceleration;
+    uint8_t MovementMode;
+    bool HasAcceleration;
+    FVector WorldAcceleration;
+    FVector WorldAccelerationNormal;
+    FTransform CharacterTransform;
+    FVector LocalAcceleration;
+    FVector LocalAccelerationNormal;
+    FVector LocalAccelerationDamp;
+    FVector LocalAccelerationDelta;
+    FVector LocalAccelerationNormalDamp;
+    FVector LocalAccelerationNormalDelta;
+    bool HasVelocity;
+    FVector LocalVelocityNormalDamp;
+    FVector LocalVelocityNormalDeltaDamp;
+    double Speed2D;
+    double Speed3D;
+    FVector InputMovementCameraBased;
+    FVector InputMovementCameraBasedDamp;
+    FVector InputMovementBaseAimRotation;
+    FVector InputMovementBaseAimRotationDamp;
+    double Speed3DNormal;
+    double BodyPitchTarget;
+    double BodyPitchInterpSpeed;
+    FRotator CRPlayerBodyRotation;
+    FRotator BaseAimRotation;
+    FRotator LocalBaseAimRotation;
+    FRotator LocalBaseAimRotationDamp;
+    FRotator LocalBaseAimRotationNetSmooth;
+    FRotator LocalBaseAimRotationDampDelta;
+    FVector LocalCameraForwardVector;
+    FRotator LocalCameraRotation;
+    FRotator LocalCameraRotationDamp;
+    FTransform CameraWorldTransform;
+    float CameraFOV;
+    FRotator LocalBaseAimRotationDelta;
+    FVector LocalBaseAimRotationForwardVector;
+    FRotator BaseAimRotationDamp;
+    double CameraToBodyPitchDelta;
+    double TargetBodyPitchDelta;
+    float CameraRotationTargetDeltaPitch;
+    double CineCameraBodyOffset;
+    AActor* OwnerActor;
+    ASN2PlayerCharacter* SN2PlayerCharacter;
+    UAnimInstance* CharacterAnimInstance;
+    AActor* PlayerDriver;
+    bool bUpdatedCharacterLocation;
+    bool bIsJumping;
+    bool bEquippedFins;
+    UUWEEquippableItemType* EquippedItem;
+    AUWEBaseItem* CurrentTool;
+    AUWEBaseItem* NewTool;
+    AUWEBaseItem* OldTool;
+    UClass* NextAnimLayer;
+    UClass* CurrentAnimLayer;
+    UClass* LinkedLayerToolAnimBP;
+    bool bIsEquipped;
+    bool bIsHolstering;
+    bool bIsTwoHanded;
+    FTransform EquippableCameraOffset;
+    FTransform EquippableAttachmentOffset;
+    float EquippedHolsterTime;
+    FUWEItemAnimation EquippedAnimationData;
+    UAnimMontage* EquippedAnimMontage;
+    double CurrentToolEnergy;
+    bool bIsFirstEquipped;
+    UUWEItemType* EquippedItemData;
+    bool bIsSubmerged;
+    bool bIsOnWaterSurface;
+    float OceanDepth;
+    float VolumeDepth;
+    double SurfaceDepth;
+    double WaveHeightPlayerBody;
+    double WaveHeightPlayerLeftHand;
+    double WaveHeightPlayerRightHand;
+    double WaveHeightFollowBodyAlpha;
+    double WaveHeightFollowHandsAlpha;
+    FVector WaveNormalPlayerBody;
+    bool bHasSurfaced;
+    bool bIsSurfaceSwimState;
+    bool bEnableFirstPersonSurfaceWaveFollow;
+    double FirstPersonSurfaceWaveFollowAlpha;
+    USkeletalMeshComponent* MeshComponentDriver;
+    bool bAttached;
+    float MeshDriverBlendTime;
+    FPoseSnapshot PlayerPoseSnapshot;
+    FName AnimSyncBeginPoseSnapshot;
+    FName AnimSyncEndPoseSnapshot;
+    TMap<FGameplayTag, UClass*> VehicleAnimLayers;
+    FName VehicleAttachSlot;
+    bool bIsAttachedToHandle;
+    FVector TargetInterpLocation;
+    FVector CurrentInterpLocation;
+    bool bActorIsInterpolatingLocation;
+    double ActorInterpSpeed;
+    AActor* InterpActor;
+    AActor* CarryableActor;
+    bool bIsCarrying;
+    FUWECarryableAttachmentInfo CarryableAttachmentInfo;
+    FTransform CarryableLeftHandleSocketTransform;
+    FTransform CarryableRightHandleSocketTransform;
+    FTransform CarryableRootTransform;
+    FTransform CarryableAttachOffsetTransform;
+    bool bIsLanding;
+    bool bEnteredJumpState;
+    bool bWasDiving;
+    bool bIsDiving;
+    bool bVariablesInitialized;
+    float DampenInterpSpeed;
+    UClass* SN2PlayerABP;
+    bool bHasAuthority;
+    bool bIsLocallyControlled;
+    UUWEAnimSetupDataAsset* AnimSetupDataAsset;
+
+    FSN2CameraAndMovementVariables FGetUpdatedCameraAndMovement();
+    double GetPlayerSwimRotationFromCameraPitch();
+    void OnVolumeTypeChanged(EVolumeType NewVolumeType);
+    void UpdateCharacterMovementVariables(float DeltaTime);
+    void UpdateSwimmingAngleVariables(float DeltaTime);
 };
 
 class USN2PlayerArchetypeComponent : public UActorComponent {
@@ -117548,14 +118319,12 @@ class ASN2PlayerCharacter : public ASN2BaseCharacter {
     UClass* FastSwimCheatGE;
     UClass* RespawnAttributes;
     TArray<TSoftObjectPtr<UUWEStoryGoal>> RespawnPlayerStoryGoals;
-    UUWEOverlapExpellerComponent* OverlapExpellerComponent;
     FMulticastInlineDelegate OnBlackoutDied;
     FMulticastInlineDelegate OnAbilitySystemReady;
     USN2ReviveableComponent* ReviveableComponent;
     USN2PlayerArchetypeComponent* PlayerArchetypeComponent;
     TMap<EUWEPlayerCustomizationPartType, FGameplayTag> CustomizationTags;
     FText Name;
-    FRotator CameraBaseAimRotation;
     float MinSpeedForFootstepSounds;
     FText Description;
     UTexture2D* Thumbnail;
@@ -117580,8 +118349,6 @@ class ASN2PlayerCharacter : public ASN2BaseCharacter {
     int32_t SN2PlayerInventoryUpgradeIncrement;
     float CloseToGroundThreshold;
     bool bIsCloseToGround;
-    uint16_t UWERemoteViewYaw;
-    uint16_t UWERemoteViewPitch;
     UMaterialInstance* OutlineMaterial;
     UMaterialInstanceDynamic* DynamicOutlineMaterial;
     UUWEFirstPersonCamera* CameraComponent;
@@ -117621,7 +118388,6 @@ class ASN2PlayerCharacter : public ASN2BaseCharacter {
     void EquipLastToolImmediate();
     UUWEAbilitySystemComponent* GetASC() const;
     FRotator GetActorWorldRotationNormalized() const;
-    FRotator GetBaseAimRotationNormalized();
     int32_t GetBaseInventorySlotCount();
     AUWESculpturalBaseActor* GetBasePlayerIsIn(int32_t& StructureId) const;
     FGameplayTagContainer GetCosmeticTags() const;
@@ -117651,7 +118417,6 @@ class ASN2PlayerCharacter : public ASN2BaseCharacter {
     void RemoveCharacterPart(const FSN2CharacterPart& PartToRemove);
     void Respawn(TArray<UUWEItemType*> LostItems);
     void Server_InitiateDetachment(bool FastForward);
-    void Server_SyncBaseAimRotation(uint16_t Yaw, uint16_t Pitch);
     void SetLifepodRideCompleted();
     void SetPlayerCharacterSavedData();
     void SetPlayerDefaults();
@@ -117679,6 +118444,7 @@ class ASN2PlayerController : public AUWEGameplayPlayerController {
     UUWESonarCommunicationComponent* SonarCommunicationComponent;
     USN2PlayerCustomizationControllerComponent* PlayerCustomizationComponent;
     UUWEVideoTourComponent* VideoTourComponent;
+    UUWEEmoteComponent* EmoteComponent;
     UUWEInteractComponent* InteractComp;
     FMulticastInlineDelegate OnPlayerStateSet;
     FMulticastInlineDelegate OnGameStateSet;
@@ -117940,7 +118706,7 @@ class ASN2PossessableVehicle : public ASN2BaseCharacter {
     bool bIsAttaching;
     bool bBroken;
 
-    void BrokenChanged__DelegateSignature();
+    void BrokenChanged__DelegateSignature(ASN2PossessableVehicle* PossessableVehicle, bool Broken);
     void DebugStopPilotingAndDestroy();
     void DetachAllExceptPilot();
     bool GetIsPowered() const;
@@ -117959,7 +118725,7 @@ class ASN2PossessableVehicle : public ASN2BaseCharacter {
     void OnMaxSpeedChanged();
     void OnPilotEntered_BP(APawn* PilotActor);
     void OnPilotExited_BP(APawn* PilotActor);
-    void OnRep_Broken() const;
+    void OnRep_Broken();
     void OnRep_Pilot(APawn* OldPilot);
     void OnStopPilotingFailed__DelegateSignature();
     void RequestStopPiloting(const TArray<FVector> RequestedEjectLocations);
@@ -118474,6 +119240,10 @@ class USN2ReloadViewModel : public UMVVMViewModelBase {
     void UnloadBattery();
 };
 
+class USN2RepairToolHoverTargetModifier : public USN2HoverTargetModifier {
+    UUWEItemType* RepairToolItemType;
+};
+
 class ASN2ReplicatedBuilderGhost : public ASN2BuilderGhost {
 };
 
@@ -118483,6 +119253,11 @@ class USN2ResonatableForceFeedback : public UUWEDynamicForceFeedbackEffect {
 struct FSN2ResonatingCueHandle {
     TWeakObjectPtr<AActor> Actor;
     FGameplayTag CueTag;
+};
+
+class USN2ResonatorHoverTargetModifier : public USN2HoverTargetModifier {
+    UUWEItemType* FeedbackResonatorItemType;
+    UUWEItemType* SonicResonatorItemType;
 };
 
 class USN2RespawnAttributes : public UGameplayEffectExecutionCalculation {
@@ -118502,7 +119277,6 @@ class USN2RespawnViewModel : public UMVVMViewModelBase {
     FVector RespawnLocation;
     FGameplayTag DeathReason;
     FGameplayTag RespawnReason;
-    FText DeathDirectionAndDistance;
     UWorld* World;
 
     static USN2RespawnViewModel* GetViewModel(UObject* WorldContext);
@@ -118568,6 +119342,11 @@ struct FSN2ScalabilitySnapshot {
 class USN2ScanDebugger : public UUWEImGuiComponent {
 
     void IncrementScanProgress(UUWEScanData* ScanData, int32_t Amount);
+};
+
+class USN2ScannerHoverTargetModifier : public USN2HoverTargetModifier {
+    UUWEItemType* ScannerItemType;
+    UUWEItemType* BioScannerItemType;
 };
 
 class USN2ScannerPointCloud : public UInstancedStaticMeshComponent {
@@ -118664,6 +119443,42 @@ class USN2ScannerToolRadar : public USN2RadarDisplay {
 class USN2ScanningOrb : public UStaticMeshComponent {
 };
 
+class USN2SeafrogCameraMotion : public UCameraModifier {
+    TWeakObjectPtr<ASN2Tadpole> RegisteredToTadpole;
+
+    void OnCharacterLanded(const FHitResult& Hit);
+    void OnFootstepLeft(float Speed);
+    void OnFootstepRight(float Speed);
+};
+
+class USN2SeafrogOverheatingComponent : public UActorComponent {
+    FMulticastInlineDelegate OnOverheatingPercentChanged;
+    FMulticastInlineDelegate OnOverheatedChanged;
+    float MaximumHeat;
+    float BaseHeatGainRate;
+    float RecoveryRate;
+    float OverheatRecoveryDelay;
+    float ClientInterpSpeed;
+    TMap<FGameplayTag, float> HeatModifiers;
+    FGameplayTag OverheatingTag;
+    UClass* OverheatingEffect;
+    float CurrentHeat;
+    ASN2PossessableVehicle* CachedVehicle;
+
+    void AddHeatingSource(FName SourceName);
+    float GetCurrentHeat() const;
+    float GetCurrentHeatPercent() const;
+    float GetMaximumHeat() const;
+    bool IsHeatingActive() const;
+    bool IsOverheated() const;
+    void OnOverheatedChanged__DelegateSignature(bool bIsOverheated);
+    void OnOverheatingPercentChanged__DelegateSignature(float OverheatingPercent);
+    void OnPilotEntered(APawn* Pilot);
+    void OnPilotExited();
+    void OnRep_CurrentHeat();
+    void RemoveHeatingSource(FName SourceName);
+};
+
 class USN2SettingBasedControllerOrientation : public UInputModifier {
     FName ControllerOrientationSettingName;
     bool bIsLeftStick;
@@ -118726,7 +119541,8 @@ class USN2SettingsLocal : public UGameUserSettings {
     int32_t TSRQualityMode;
     int32_t DLSSQualityMode;
     float DynamicResFrameTime;
-    int32_t UpscalingFrameGeneration;
+    int32_t UpscalingFrameGenerationMode;
+    int32_t NvidiaReflexMode;
     float ResolutionScaleFixed;
     float ResolutionScaleDLSS;
     float ResolutionScaleMin;
@@ -118786,6 +119602,10 @@ class USN2SettingsShared : public USaveGame {
     ESN2EnableLensFlareSetting EnableLensFlare;
     ESN2EnableUnderwaterBlurSetting EnableUnderwaterBlur;
     FString UserChosenDeviceProfileSuffix;
+    float CameraShakesIntensity;
+    float FOV;
+    float CameraSpeedToFOV;
+    float CameraSway;
 };
 
 class USN2SettingsViewModel : public UMVVMViewModelBase {
@@ -118800,13 +119620,14 @@ class USN2SettingsViewModel : public UMVVMViewModelBase {
     FText CurrentSettingTitle;
     FText CurrentSettingDescription;
     EPlatform CurrentPlatform;
-    float CinematicsVolume;
     int32_t WindowModeUIIndex;
     TArray<uint8_t> AvailableWindowModes;
     TArray<FText> AvailableResolutionLabels;
     TArray<FText> AvailableFrameRates;
     int32_t FramerateIndex;
     bool VerticalSyncEnabled;
+    int32_t NvidiaReflexMode;
+    ESlateVisibility NvidiaReflexVisibility;
     bool VerticalSyncButtonEnabled;
     bool MotionBlurEnabled;
     bool ChromaticAberrationEnabled;
@@ -118822,10 +119643,9 @@ class USN2SettingsViewModel : public UMVVMViewModelBase {
     int32_t TSRFramerateIndex;
     int32_t DLSSQualityMode;
     int32_t FSRUpscalingQuality;
-    bool FrameGenerationEnabled;
-    ESlateVisibility FrameGenerationEnabledVisibility;
-    bool FrameGenerationModeAlwaysOn;
-    ESlateVisibility FrameGenerationModeVisibility;
+    int32_t FrameGenerationModeIndex;
+    TArray<FText> CompatibleFrameGenerationModes;
+    ESlateVisibility FrameGenerationVisibility;
     int32_t QualityModeEnabled;
     FString BaseProfileName;
     int32_t ROGAllyCustomModeEnabled;
@@ -118847,6 +119667,7 @@ class USN2SettingsViewModel : public UMVVMViewModelBase {
     float MusicVolume;
     float SoundFXVolume;
     float DialogueVolume;
+    float CinematicsVolume;
     bool AllowAudioInBackground;
     TArray<FAudioOutputDeviceInfo> AvailableAudioDevices;
     FString ActiveAudioDeviceId;
@@ -118867,11 +119688,22 @@ class USN2SettingsViewModel : public UMVVMViewModelBase {
     float NormalizedApplicationScale;
     int32_t ColorDeficiencyType;
     int32_t ControllerLayoutSetting;
+    bool bCameraSwimBobbing;
+    bool bShowOutlines;
+    float CameraShakesIntensity;
+    float FOV;
+    float CameraSpeedToFOV;
+    float CameraSway;
     USN2SettingsDebug* DebugSettings;
     USN2SettingsShared* SharedSettings;
     USN2SettingsLocal* LocalSettings;
     bool bIsGraphicsSettingsDirty;
     bool bIsVideoSettingsDirty;
+    bool bIsAudioSettingsDirty;
+    bool bIsControlsSettingsDirty;
+    bool bIsLanguageSettingsDirty;
+    bool bIsAccessibilitySettingsDirty;
+    bool bIsDebugSettingsDirty;
     bool bShouldNotifyRestartIsNeeded;
     bool IsCrashReportingEnabled;
     bool IsAnalyticsEnabled;
@@ -118880,9 +119712,11 @@ class USN2SettingsViewModel : public UMVVMViewModelBase {
     TArray<FText> InputPrompts;
     bool IsTwitchAccountLinked;
     bool IsSonarConnected;
-    bool bCameraSwimBobbing;
-    bool bShowOutlines;
 
+    void ApplyAccessibilitySettings();
+    void ApplyAudioSettings();
+    void ApplyControlsSettings();
+    void ApplyDebugInfoSettings();
     void ApplyGraphicsSettings();
     void ApplySettings();
     bool GetDidDefaultsChange(const ESettingsTab SettingsTab) const;
@@ -118898,12 +119732,17 @@ class USN2SettingsViewModel : public UMVVMViewModelBase {
     void InitializeRemappings();
     void KeepVideoSettings();
     int32_t RefreshWindowModeSelectionAndAvailableResolutions(bool bAllowCustomWindowSize, bool bCalledFromTimer);
-    void ResetControllerSettings();
+    void ResetControlsSettings();
     void ResetSettings(const ESettingsTab SettingsTab);
+    void RevertAccessibilitySettings();
+    void RevertAudioSettings();
+    void RevertControlSettings();
+    void RevertDebugInfoSettings();
     void RevertGraphicsSettings();
     void RevertToPriorVideoSettings();
     void RunHardwareBenchmark();
     void SetActiveAudioOutputDevice(const FString AudioDeviceId);
+    void SetFOV(float InValue);
     void SetSonarConnectionVisibility(bool InValue);
     void SetTwitchAccountStatus(bool InValue);
     void SetUpscalingMethod(int32_t InValue);
@@ -118923,7 +119762,9 @@ struct FSN2SnappingSocket {
 
 class ASN2SolarPanelBase : public AActor {
 
-    void BPAggregatedTick(float DeltaSeconds);
+    void BP_AggregatedTick(float DeltaSeconds);
+    void BP_BlockCheck();
+    void RegisterAggregatedTicker(const bool bRegister);
 };
 
 class USN2SolarPanelSimulation : public UUWEPowerGeneratorSimulation {
@@ -118993,12 +119834,19 @@ class USN2Statics : public UBlueprintFunctionLibrary {
     static UUWEInventoryComponent* FindInventoryFromActor(AActor* Actor);
     static APlayerController* FindLocalPlayerControllerFromActor(AActor* Actor);
     static void ForcePhysicsTransformUpdate(AActor* Actor);
+    static FText FormatCompactNumber(double Value, int32_t MaxFractionalDigits, bool bUseSuffixSpacing);
     static FGameplayTag GameplayTagFromString(FString String);
     static FQuat GetActorQuat(AActor* Actor);
     static FString GetActorTypeLink(AActor* Actor);
     static bool GetAnalyticsEnabled(UObject* WorldContextObject);
     static UUWEBreakableData* GetBreakableDataForActor(const AActor* Actor);
+    static bool GetCameraBobbingSetting(UObject* WorldContextObject);
+    static float GetCameraShakesIntensitySetting(UObject* WorldContextObject);
+    static float GetCameraSpeedToFOVSetting(UObject* WorldContextObject);
+    static float GetCameraSwaySetting(UObject* WorldContextObject);
     static UActorComponent* GetComponentFromReference(AActor* Owner, FComponentReference Reference);
+    static float GetCurrentFOV(UObject* WorldContextObject);
+    static ECommonInputType GetCurrentInputType(UObject* WorldContextObject);
     static UUWECuttableData* GetCuttableDataForActor(const AActor* Actor);
     static float GetDateTimeAlpha(FDateTime StartDateTime, FDateTime TargetDateTime, FDateTime CurrentDateTime);
     static bool GetFeatureFlag(FString Feature);
@@ -119009,7 +119857,6 @@ class USN2Statics : public UBlueprintFunctionLibrary {
     static FKey GetInvalidGamepadKeyInBlueprint();
     static FKey GetInvalidKeyInBlueprint();
     static bool GetLargeTextScalingEnabled(UObject* WorldContextObject);
-    static UFileMediaSource* GetLifepodVideoForPlatform(UObject* WorldContextObject);
     static UUWEEquipmentComponent* GetLocalEquipmentComponent(UObject* WorldContextObject);
     static AUWEBaseItem* GetLocalEquippedTool(UObject* WorldContextObject);
     static UUWEInventoryRouterComponent* GetLocalInventoryRouterComponent(UObject* WorldContextObject);
@@ -119022,6 +119869,7 @@ class USN2Statics : public UBlueprintFunctionLibrary {
     static UUWEInventoryComponent* GetLocalPlayerInventory(UObject* WorldContextObject);
     static UUWEInventoryRouterComponent* GetLocalPlayerInventoryRouter(UObject* WorldContextObject);
     static ASN2PlayerState* GetLocalPlayerState(UObject* WorldContextObject);
+    static UUWEScannedActorsComponent* GetLocalScannedActorsComponent(UObject* WorldContextObject);
     static UUWESubmarinePilotComponent* GetLocalSubmarinePilotComponent(UObject* WorldContextObject);
     static UUWEToolbarComponent* GetLocalToolbarComponent(UObject* WorldContextObject);
     static bool GetPickupForceFeedbackEnabled(UObject* WorldContextObject);
@@ -119036,6 +119884,7 @@ class USN2Statics : public UBlueprintFunctionLibrary {
     static UUWEItemType* GetTypeDataForSourceObject(const UObject* ContextObject);
     static FVector GetValidLocationForDroppedItem(ASN2PlayerCharacter* Player, const AActor* Item);
     static float GetValueFromRuntimeCurve(const FRuntimeFloatCurve Curve, float Time);
+    static float GetVolumeForBink();
     static UWindowManager* GetWindowManager(UObject* WorldContextObject);
     static bool IsActorBreakable(const AActor* Actor);
     static bool IsActorCuttable(const AActor* Actor);
@@ -119045,11 +119894,13 @@ class USN2Statics : public UBlueprintFunctionLibrary {
     static bool IsActorWeldable(const AActor* Actor);
     static bool IsClient(UObject* WorldContextObject);
     bool IsDedicatedServer(UObject* WorldContextObject);
+    static bool IsInAttachmentHierarchy(const AActor* Actor);
     static bool IsListenServer(UObject* WorldContextObject);
     static bool IsStandalone(UObject* WorldContextObject);
     static void LeaveMenu();
     static bool LocalPlayerHasTag(UObject* WorldContextObject, FGameplayTag Tag);
     static void LogToScreen(FString Message, bool LongLasting);
+    static void MinimizeGameWindow();
     static bool PlayerPickupActor(AActor* PlayerCharacter, AActor* Pickupable, const FHitResult& HitResult);
     static void RemoveGameplayCue_NonReplicated(AActor* Target, const FGameplayTag GameplayCueTag, const FGameplayCueParameters& Parameters);
     static void SetActorEnableCollisionInSeconds(UObject* WorldContextObject, AActor* Actor, float Time, bool bNewEnableCollision);
@@ -119371,6 +120222,7 @@ class ASN2Submersible : public ASN2PossessableVehicle {
     float AngularAcceleration;
     float AngularDrag;
     float RollCorrectionRate;
+    float PitchCorrectionRate;
 
     void ResetControllerRotation();
 };
@@ -119461,11 +120313,14 @@ class ASN2Tadpole : public ASN2Submersible {
     FMulticastInlineDelegate OnChassisDetach;
     FMulticastInlineDelegate OnChassisFullyAttached;
     FMulticastInlineDelegate OnMovementTypeChanged;
+    FMulticastInlineDelegate OnFootstepLeft;
+    FMulticastInlineDelegate OnFootstepRight;
     AActor* CurrentChassis;
     TSoftClassPtr<AActor> CurrentChassisClass;
     FGuid ChassisSaveGuid;
     float ChassisDepenetrationAcceleration;
     EUWEVehicleMovementType MovementType;
+    float MinSpeedForMotionSounds;
     AActor* SignalActor;
     AActor* OverlappingChassis;
     FTimerHandle DetachTimerHandle;
@@ -119478,6 +120333,7 @@ class ASN2Tadpole : public ASN2Submersible {
     float GetBankingModifier() const;
     AActor* GetCurrentChassis() const;
     EUWEVehicleMovementType GetMovementType() const;
+    void OnCapsuleHeightChanged(float HalfHeight);
     void OnChassisAttachmentProhibited(EChassisAttachmentProhibitedReason Reason);
     void OnPowerCellAdded(const FUWEInventoryItem& InventoryItem);
     void OnPowerCellRemoved(const FUWEInventoryItem& InventoryItem);
@@ -119488,6 +120344,7 @@ class ASN2Tadpole : public ASN2Submersible {
     void OnUpgradeRemoved(const FUWEInventoryItem& InventoryItem);
     void SetMovemenType(EUWEVehicleMovementType InMovementType);
     void SetSignalActive(bool bActive);
+    void TadpoleFootstep__DelegateSignature(float Speed);
     void TadpoleMovementTypeChanged__DelegateSignature(EUWEVehicleMovementType NewMovementType);
     void UpdateEnergy();
 };
@@ -119532,6 +120389,9 @@ class USN2TagChangeNotifier : public UActorComponent {
 
     void TagAdded(FGameplayTag Tag);
     void TagRemoved(FGameplayTag Tag);
+};
+
+class USN2TagsDebugger : public UUWEImGuiComponent {
 };
 
 class USN2TargetBasedInputDecelerate : public UInputModifier {
@@ -119714,16 +120574,18 @@ struct FSN2UseControllerRotationConfig {
 class ASN2VehicleCrafter : public AActor {
     UUWECrafterComponent* CrafterComponent;
     FGameplayTag CraftingVehicleCue;
+    FGameplayTag MoonpoolBrushType;
     USceneComponent* CraftingLocation;
     USN2CraftingMenu* Menu;
     UClass* VehicleCrafterWidgetClass;
     UClass* WidgetClass;
 
+    bool CanCraft(UUWECraftingRecipe* Recipe, FGameplayTag& ReasonOut);
     bool CanCraftCheck(UUWECraftingRecipe* Recipe) const;
-    bool CanCraftVehicle(UUWECraftingRecipe* Recipe, FGameplayTag& ReasonOut);
     void CraftItemFromClient(UUWECraftingRecipe* Recipe);
     bool EnoughSpaceForVehicle(UUWECraftingRecipe* Recipe) const;
     void HandleCraftingResult(const TArray<FCraftingRecipeOutput>& RecipeOutput, ECraftingResults Result, AActor* RecipientActor, const TScriptInterface<IUWEItemPickup>& OutputInventory);
+    bool MoonpoolIsBigEnoughForVehicle(UUWECraftingRecipe* Recipe, FGameplayTag& CannotActivateReasonOut) const;
     void MulticastHandleCraftingResult(const TArray<FCraftingRecipeOutput> RecipeOutput, ECraftingResults Result);
     void OnCraftingCompleted(const TArray<FCraftingRecipeOutput>& RecipeOutput, ECraftingResults Result, AActor* RecipientActor, const TScriptInterface<IUWEItemPickup>& OutputInventory);
     void OnCraftingError();
@@ -119780,7 +120642,7 @@ class USN2WaitForStoryGoal : public UBlueprintAsyncActionBase {
 
     void OnLocalPlayerReady();
     void OnUnlockedStoryGoal(UUWEStoryGoal* UnlockedStoryGoal, AActor* ReceivingActor);
-    void SN2WaitForStoryGoalEvent__DelegateSignature();
+    void SN2WaitForStoryGoalEvent__DelegateSignature(bool bUnlockedImmediate);
     static USN2WaitForStoryGoal* WaitForStoryGoal(UObject* WorldContextObject, UUWEStoryGoal* StoryGoal, bool bTriggerImmediateIfUnlocked);
 };
 
@@ -119827,6 +120689,7 @@ class ASN2WorldHUD : public AHUD {
     TMap<FString, USN2AttributeViewModel*> AttributeViewModels;
     USN2QuickSlotsBarViewModel* QuickSlotsBarViewModel;
     USN2PdaViewModel* PdaViewModel;
+    UUWEEmotesMenuViewModel* EmoteViewModel;
     USN2HUDViewModel* HUDViewModel;
     USN2DatabankViewModel* DatabankViewModel;
     USN2ReloadPromptsViewModel* ReloadPromptsViewModel;
@@ -119859,6 +120722,7 @@ class ASN2WorldHUD : public AHUD {
     USN2TimeOfDayViewModel* TimeOfDayViewModel;
     USN2TeamViewModel* TeamViewModel;
     USN2FeedbackViewModel* FeedbackViewModel;
+    USN2OverheatingViewModel* OverheatingViewModel;
 
     void DatabankShowAll(bool NewValue);
     void HandleNextDebugTargetKey();
@@ -119969,6 +120833,12 @@ struct FUWEAnimatingActorInfo {
 class UUWEAttributeConfigOverride : public UGameplayEffectExecutionCalculation {
 };
 
+class UUWEAxumFinaleDiagnostic : public UUWEImGuiComponent {
+    USN2CheatManager* CheatManager;
+    UUWEStoryGoal* RosettaStoneStoryGoal;
+    UUWEAbilitySystemComponent* ASC;
+};
+
 struct FUWEClientSessionInfo {
     FString InstallGUID;
     FString SonarUsername;
@@ -120012,14 +120882,16 @@ struct FUWEMapPoint {
 struct FUWENearbyActor {
     FString Name;
     FString Info;
-    float Distance;
+    FVector Location;
     bool bDone;
     FString CoordsString;
     AActor* Actor;
+    TArray<UUWEPrimaryDataAssetBase*> DataAssets;
+    TArray<FString> Names;
 };
 
 class UUWEPlacementAnchor : public USceneComponent {
-    EAnchorOrientation orientation;
+    EAnchorOrientation Orientation;
     bool UseForSamplePoints;
     float SampleRadius;
 };
@@ -120036,6 +120908,8 @@ struct FUWEPlacementVolumeData {
     FTransform Transform;
     int32_t ObjectsBlockedBy;
     bool bUseForSamplePoints;
+    bool bOverrideBlockedReason;
+    FGameplayTag BlockingReason;
 };
 
 struct FUWEPlayerAdaptation {
@@ -120485,7 +121359,7 @@ class UGranularSynth : public USynthComponent {
     float GetSampleDuration() const;
     bool IsLoaded() const;
     void NoteOff(const float Note, const bool bKill);
-    void NoteOn(const float Note, const int32_t Velocity, const float duration);
+    void NoteOn(const float Note, const int32_t Velocity, const float Duration);
     void SetAttackTime(const float AttackTimeMsec);
     void SetDecayTime(const float DecayTimeMsec);
     void SetGrainDuration(const float BaseDurationMsec, const FVector2D DurationRange);
@@ -120508,7 +121382,7 @@ class UModularSynthComponent : public USynthComponent {
 
     FPatchId CreatePatch(const ESynth1PatchSource PatchSource, const TArray<FSynth1PatchCable>& PatchCables, const bool bEnableByDefault);
     void NoteOff(const float Note, const bool bAllNotesOff, const bool bKillAllNotes);
-    void NoteOn(const float Note, const int32_t Velocity, const float duration);
+    void NoteOn(const float Note, const int32_t Velocity, const float Duration);
     void SetAttackTime(float AttackTimeMsec);
     void SetChorusDepth(float Depth);
     void SetChorusEnabled(bool EnableChorus);
@@ -122993,7 +123867,7 @@ class UInvalidationBox : public UContentWidget {
 class UListView : public UListViewBase {
     FTableViewStyle WidgetStyle;
     FScrollBarStyle ScrollBarStyle;
-    uint8_t orientation;
+    uint8_t Orientation;
     uint8_t SelectionMode;
     EConsumeMouseWheel ConsumeMouseWheel;
     bool bClearSelectionOnClick;
@@ -123412,7 +124286,7 @@ class UScrollBar : public UWidget {
     FScrollBarStyle WidgetStyle;
     bool bAlwaysShowScrollbar;
     bool bAlwaysShowScrollbarTrack;
-    uint8_t orientation;
+    uint8_t Orientation;
     FVector2D Thickness;
     FMargin Padding;
 
@@ -123427,7 +124301,7 @@ class UScrollBox : public UPanelWidget {
     bool bIsFocusable;
     FScrollBoxStyle WidgetStyle;
     FScrollBarStyle WidgetBarStyle;
-    uint8_t orientation;
+    uint8_t Orientation;
     ESlateVisibility ScrollBarVisibility;
     EConsumeMouseWheel ConsumeMouseWheel;
     FVector2D ScrollbarThickness;
@@ -123624,7 +124498,7 @@ class USlider : public UWidget {
     float MinValue;
     float MaxValue;
     FSliderStyle WidgetStyle;
-    uint8_t orientation;
+    uint8_t Orientation;
     FLinearColor SliderBarColor;
     FLinearColor SliderHandleColor;
     bool IndentHandle;
@@ -123717,7 +124591,7 @@ class USpinBox : public UWidget {
 };
 
 class UStackBox : public UPanelWidget {
-    uint8_t orientation;
+    uint8_t Orientation;
 
     UStackBoxSlot* AddChildToStackBox(UWidget* Content);
     bool ReplaceStackBoxChildAt(int32_t Index, UWidget* Content);
@@ -124574,7 +125448,7 @@ class UWrapBox : public UPanelWidget {
     float WrapSize;
     bool bExplicitWrapSize;
     uint8_t HorizontalAlignment;
-    uint8_t orientation;
+    uint8_t Orientation;
 
     UWrapBoxSlot* AddChildToWrapBox(UWidget* Content);
     void SetHorizontalAlignment(uint8_t InHorizontalAlignment);
@@ -124797,6 +125671,7 @@ class UUWEAIArchetypeDataAsset : public UUWEPrimaryDataAssetBase {
     bool BroadcastPerceivedTargetToGroup;
     bool BroadcastPerceivedTargetToLeader;
     FUWEAIMovementData MovementData;
+    UUWEAnimSetupDataAsset* AnimSetupDataAsset;
 };
 
 struct FUWEAIArchetypeProfile {
@@ -124994,10 +125869,12 @@ class UUWEAIGroupingComponent : public UActorComponent {
     TArray<FUWEAIGroupMember> GroupEntities;
     TWeakObjectPtr<AActor> Leader;
 
+    TArray<AUWEAIPawn*> GetAllInvolvedPawns();
     TArray<FUWEAIGroupMember> GetGroup();
     AActor* GetLeader() const;
     AUWEAIController* GetLeaderAIController() const;
     bool IsLeader() const;
+    bool IsPawnPartOfGroup();
     void SetLeader(AActor* InLeader);
     void TryDestroyGroup();
     void TryRearrangeGroup();
@@ -125439,7 +126316,7 @@ class UUWEBTSApplyDamage : public UBTService {
     bool bContinuous;
     bool bRemoveEffect;
     float Period;
-    float duration;
+    float Duration;
 
     bool IsAttackTagEmpty() const;
 };
@@ -125808,6 +126685,13 @@ enum class EUWEAIMovementOscillatoryMotionRotationAxis {
     EUWEAIMovementOscillatoryMotionRotationAxis_MAX = 3,
 };
 
+enum class EUWEAIMovementStaticObstacleAvoidanceModuleObstacleDistanceMode {
+    SetFromActorBounds = 0,
+    SetFromRootCollisionBounds = 1,
+    Manual = 2,
+    EUWEAIMovementStaticObstacleAvoidanceModuleObstacleDistanceMode_MAX = 3,
+};
+
 enum class EUWEAIMovementSurfaceType {
     None = 0,
     Ground = 1,
@@ -125839,6 +126723,33 @@ enum class EUWEStaticObstacleAvoidanceTraceDirection {
     SteeringDirection = 1,
     DesiredSteeringDirection = 2,
     EUWEStaticObstacleAvoidanceTraceDirection_MAX = 3,
+};
+
+struct FUWEAIMovementAnimationLimits {
+    float CurrentMaxSpeed;
+    float OverallMaxSpeed;
+    float CurrentMaxSteeringAcceleration;
+    float OverallMaxSteeringAcceleration;
+    float CurrentAchievableAngularSpeed;
+};
+
+struct FUWEAIMovementAnimationLocalData {
+    FVector Velocity;
+    FVector SteeringAcceleration;
+};
+
+struct FUWEAIMovementAnimationRelativeData {
+    FVector VelocityCurrentMax;
+    FVector VelocityOverallMax;
+    FVector VelocityCurrentMaxLocal;
+    FVector VelocityOverallMaxLocal;
+    FVector AngularVelocity;
+};
+
+struct FUWEAIMovementAnimationWorldData {
+    FVector Velocity;
+    FVector SteeringAcceleration;
+    FVector AngularVelocity;
 };
 
 class UUWEAIMovementAuxiliaryModule : public UObject {
@@ -125920,6 +126831,10 @@ class UUWEAIMovementComponent : public UPawnMovementComponent {
     FVector_NetQuantize SteeringAcceleration;
     FVector_NetQuantize RawAngularVelocity;
     FVector_NetQuantize AngularVelocity;
+    FMulticastInlineDelegate OnAnimationLimitsUpdated;
+    FMulticastInlineDelegate OnAnimationWorldDataUpdated;
+    FMulticastInlineDelegate OnAnimationLocalDataUpdated;
+    FMulticastInlineDelegate OnAnimationRelativeDataUpdated;
 
     void AddExternalAcceleration(const FVector& Acceleration);
     void AddExternalForce(const FVector& Force);
@@ -126036,9 +126951,12 @@ class UUWEAIMovementCoreModuleSettings : public UUWEPrimaryDataAssetBase {
     float RotationRollRestoreSpeed;
     bool AllowLookRotation;
     float LookRotationAngle;
-    bool DropVelocityByTurningAngle;
-    float TurningAngleForVelocityDrop;
-    float TurningAngleVelocityDropProportion;
+    bool DropLinearVelocityByTurningAngle;
+    float TurningAngleForLinearVelocityDrop;
+    float TurningAngleLinearVelocityDropProportion;
+    bool DropAngularVelocityByDesiredDirection;
+    FVector2D ValidPitchAngleForAngularVelocity;
+    float MinAngularVelocityDropProportion;
     float StoppingVelocityProportion;
     float StoppingVelocityAlignmentCosEpsilon;
     float BuoyancyAccelerationMultiplier;
@@ -126205,7 +127123,7 @@ class UUWEAIMovementStaticObstacleAvoidanceModule : public UUWEAIMovementAuxilia
 };
 
 class UUWEAIMovementStaticObstacleAvoidanceModuleProfile : public UPrimaryDataAsset {
-    bool bAutoSetAvoidObstacleDistance;
+    EUWEAIMovementStaticObstacleAvoidanceModuleObstacleDistanceMode ObstacleDistanceMode;
     float AvoidObstacleDistance;
     float AvoidObstacleDistanceMultiplier;
     bool DoSliding;
@@ -126425,6 +127343,13 @@ enum class EUWEInputPromptTargetNameSource {
     EUWEInputPromptTargetNameSource_MAX = 3,
 };
 
+enum class EUWEOneShotAnimType {
+    Montage = 0,
+    Custom = 1,
+    Unsupported = 2,
+    EUWEOneShotAnimType_MAX = 3,
+};
+
 struct FSpeedBuff {
     FActiveGameplayEffectHandle Handle;
     FGameplayTag SpeedTag;
@@ -126546,6 +127471,7 @@ class UUWEAbilitySet : public UUWEPrimaryDataAssetBase {
     TArray<TSoftClassPtr<UGameplayEffect>> GrantedEffects;
     TArray<TSoftClassPtr<UGameplayAbility>> GrantedAbilities;
     UUWEGameplayTagResponseTable* TagResponseTable;
+    TArray<UClass*> EssentialAbilities;
 };
 
 class UUWEAbilitySystemComponent : public UAbilitySystemComponent {
@@ -126566,7 +127492,7 @@ class UUWEAbilitySystemComponent : public UAbilitySystemComponent {
     void AbilityAnimNotifyDelegate__DelegateSignature(FName NotifyName);
     FActiveGameplayEffectHandle AddDynamicTagGameplayEffect(const FGameplayTag& Tag);
     void AddGameplayCueLocal(const FGameplayTag GameplayCueTag, const FGameplayCueParameters& GameplayCueParameters);
-    FActiveGameplayEffectHandle AddReplicatedGameplayTagForDuration(const FGameplayTag& Tag, float duration, bool bPredict);
+    FActiveGameplayEffectHandle AddReplicatedGameplayTagForDuration(const FGameplayTag& Tag, float Duration, bool bPredict);
     void AddUniqueDynamicTagGameplayEffect(const FGameplayTag& Tag);
     bool AllAbilitySetAbilitiesGranted() const;
     void BP_AddLooseGameplayTag(FGameplayTag Tag, int32_t Count);
@@ -126574,6 +127500,7 @@ class UUWEAbilitySystemComponent : public UAbilitySystemComponent {
     void BP_RemoveLooseGameplayTag(FGameplayTag Tag, int32_t Count);
     void BP_SetLooseGameplayTagCount(FGameplayTag Tag, int32_t Count);
     void ExecuteGameplayCueLocal(const FGameplayTag GameplayCueTag, const FGameplayCueParameters& GameplayCueParameters);
+    UGameplayTask* GetAbilityTask(UClass* TaskClass);
     UGameplayTask* GetSimulatedTask(UClass* TaskClass);
     AActor* GetTargetActor();
     void InputComponentChangedDelegate__DelegateSignature(UEnhancedInputComponent* OldInputComponent, UEnhancedInputComponent* NewInputComponent);
@@ -126588,7 +127515,7 @@ class UUWEAbilitySystemComponent : public UAbilitySystemComponent {
     void UWEAbilityDelegate__DelegateSignature(const UUWEAbilitySystemComponent* ASC, const FGameplayAbilitySpecHandle& AbilitySpecHandle);
     void UWEApplyAOEDamage(float Damage, FGameplayTag DamageType, FVector Location, TArray<uint8_t> ObjectTypes, const FName& ObstacleCheckProfileName, float Radius, bool bIncludeSelf, bool bDoLOSCheck, FGameplayTagContainer ContextTags);
     FActiveGameplayEffectHandle UWEApplyDamage(float Damage, FGameplayTag DamageType, AActor* DamageReceiver, FHitResult HitResult, FGameplayTagContainer ContextTags);
-    FActiveGameplayEffectHandle UWEApplyDamageOverTime(float Damage, float Period, float duration, FGameplayTag DamageType, AActor* DamageReceiver, FHitResult HitResult, FGameplayTagContainer ContextTags);
+    FActiveGameplayEffectHandle UWEApplyDamageOverTime(float Damage, float Period, float Duration, FGameplayTag DamageType, AActor* DamageReceiver, FHitResult HitResult, FGameplayTagContainer ContextTags);
 };
 
 struct FUWEAbilitySystemComponentSaveData {
@@ -126602,6 +127529,7 @@ class UUWEAbilitySystemData : public UActorComponent {
 
 class UUWEAbilitySystemGlobals : public UAbilitySystemGlobals {
 
+    static bool CanActorActivateAbility(const AActor* Actor, TSoftClassPtr<UGameplayAbility> Ability);
     static void ExecuteGameplayCueUnpredicted(UAbilitySystemComponent* ASC, const FGameplayTag& CueTag, const FGameplayCueParameters& Parameters);
     static UAbilitySystemComponent* GetAnyAbilitySystemComponentFromActor(const AActor* Actor, bool LookForComponent);
     static UUWEAbilitySystemComponent* GetUWEAbilitySystemComponentFromActor(const AActor* Actor, bool LookForComponent);
@@ -126653,6 +127581,20 @@ class UUWEAbilityTask_PlayCharacterAnimationAndWait : public UAbilityTask {
 
     void CharacterAnimationDelegate__DelegateSignature();
     static UUWEAbilityTask_PlayCharacterAnimationAndWait* PlayCharacterAnimationAndWait(UGameplayAbility* OwningAbility, FName TaskInstanceName, FGameplayTag AnimationTag, float MaxDuration);
+};
+
+class UUWEAbilityTask_PlayOneShotAnim : public UAbilityTask {
+    FMulticastInlineDelegate OnFallbackNotifyFired;
+    FMulticastInlineDelegate OnAnimCompleted;
+    FMulticastInlineDelegate OnAnimBlendedIn;
+    FMulticastInlineDelegate OnAnimBlendOutBegin;
+    FMulticastInlineDelegate OnInterrupted;
+    FMulticastInlineDelegate OnCancelled;
+    FUWEOneShotAnimData AnimData;
+    FGameplayTag AnimTag;
+
+    void OnGameplayAbilityCancelled();
+    static UUWEAbilityTask_PlayOneShotAnim* PlayOneShotAnim(UGameplayAbility* OwningAbility, FName TaskInstanceName, FGameplayTag InAnimTag, const FUWEOneShotAnimData& InAnimData);
 };
 
 class UUWEAbilityTask_WaitAnimationNotify : public UAbilityTask {
@@ -127077,6 +128019,21 @@ class UUWEMovementSetComponent : public UUWEAttributeSetComponent {
     void SetRotationSpeedMultiplier(float NewValue);
 };
 
+struct FUWEOneShotAnimData {
+    float Rate;
+    float FallbackNotifyTime;
+    UUWEAnimSetupDataAsset* AnimSetupDataAsset;
+};
+
+class IUWEOneShotAnimInterface : public UInterface {
+
+    EUWEOneShotAnimType GetAnimTypeFromTag(const FGameplayTag& AnimationTag, const FUWEOneShotAnimData& AnimData);
+    TSoftObjectPtr<UAnimMontage> GetMontageFromTag(const FGameplayTag& AnimationTag, const FUWEOneShotAnimData& AnimData);
+    void PlayAnim(const FGameplayTag& AnimationTag, const FUWEOneShotAnimData& AnimData, UAbilitySystemComponent* ASC, UGameplayAbility* Ability);
+    void PlayMontageOnAnimInstance(const FGameplayTag& AnimationTag, const FUWEOneShotAnimData& AnimData, UAbilitySystemComponent* ASC, UGameplayAbility* Ability);
+    void StopAnim(const FGameplayTag& AnimationTag, const FUWEOneShotAnimData& AnimData, UAbilitySystemComponent* ASC);
+};
+
 class UUWEPhysicalAttributeSet : public UUWEBaseAttributeSet {
     FUWEGameplayAttributeData Bulk;
 
@@ -127179,6 +128136,10 @@ class AAUWEGameplayAbilityTargetActor_GenericValue : public AGameplayAbilityTarg
     FUWEGameplayAbilityTargetData_Generic CachedData;
 };
 
+class AAUWEGameplayAbilityTargetActor_InputAction : public AGameplayAbilityTargetActor {
+    FUWEGameplayAbilityTargetData_InputAction CachedInputData;
+};
+
 class UUWEAbilityTask_WaitActivateAbilityByClass : public UAbilityTask {
     FMulticastInlineDelegate OnCompleted;
     FMulticastInlineDelegate OnCancelled;
@@ -127222,6 +128183,17 @@ class UUWEAbilityTask_WaitGenericValue : public UUWEAbilityTask_WaitTargetDataBa
     static UUWEAbilityTask_WaitGenericValue* WaitGenericValueSynced(UGameplayAbility* OwningAbility, const FUWEGenericAbilityActorData& InGenericValue, FName TaskInstanceName);
 };
 
+class UUWEAbilityTask_WaitInputActionSynced : public UUWEAbilityTask_WaitTargetDataBase {
+    FMulticastInlineDelegate OnInputActionStarted;
+    FMulticastInlineDelegate OnInputActionTriggered;
+    FMulticastInlineDelegate OnInputActionEnded;
+    UInputAction* InputAction;
+
+    void InputActionDelegate__DelegateSignature(const FVector& InputValue);
+    void OnInputComponentChanged(UEnhancedInputComponent* OldInputComponent, UEnhancedInputComponent* NewInputComponent);
+    static UUWEAbilityTask_WaitInputActionSynced* WaitInputActionSynced(UGameplayAbility* OwningAbility, FName TaskInstanceName, UInputAction* InputAction);
+};
+
 class UUWEAbilityTask_WaitTargetDataBase : public UAbilityTask {
     AGameplayAbilityTargetActor* TargetActor;
 
@@ -127248,6 +128220,10 @@ struct FUWEGameplayAbilityTargetData_Generic : public FGameplayAbilityTargetData
     FUWEGenericAbilityActorData GenericValue;
 };
 
+struct FUWEGameplayAbilityTargetData_InputAction : public FGameplayAbilityTargetData {
+    FUWEInputActionActorData InputData;
+};
+
 struct FUWEGenericAbilityActorData {
     FString String;
     FGameplayTag GameplayTag;
@@ -127256,6 +128232,10 @@ struct FUWEGenericAbilityActorData {
     int32_t IntValue;
     FVector_NetQuantize Location;
     FVector_NetQuantizeNormal Rotation;
+};
+
+struct FUWEInputActionActorData {
+    UInputAction* InputAction;
 };
 
 enum class EUWEActorUIDInstanceState {
@@ -127305,7 +128285,7 @@ class IUWECustomActorUIDInterface : public UInterface {
 
 class UUWEAlertStatics : public UBlueprintFunctionLibrary {
 
-    static FGameplayEffectSpecHandle AddAlert(AActor* Target, FGameplayTag AlertTag, FGameplayTag SeverityTag, float duration);
+    static FGameplayEffectSpecHandle AddAlert(AActor* Target, FGameplayTag AlertTag, FGameplayTag SeverityTag, float Duration);
     static void RemoveAlert(AActor* Target, FGameplayTag AlertTag, FGameplayTag SeverityTag);
 };
 
@@ -127368,6 +128348,10 @@ class UUWEEventSubsystem : public UGameInstanceSubsystem {
     void Init();
     bool IsEnabled();
     void SetEnabled(bool InbEnabled);
+};
+
+class UUWEAnimSetupDataAsset : public UUWEPrimaryDataAssetBase {
+    TMap<FGameplayTag, TSoftObjectPtr<UAnimMontage>> OneShotAnimMontageMap;
 };
 
 enum class EUWEPublishedStatus {
@@ -127770,7 +128754,7 @@ class UUWEBioAbility : public UUWEGameplayAbility {
 };
 
 struct FUWEBioAbilityCooldownData {
-    float duration;
+    float Duration;
     float StartTime;
 };
 
@@ -127783,7 +128767,6 @@ class UUWEBioAbilityData : public UUWEPrimaryDataAssetBase {
     TSoftObjectPtr<UUWEDialogueStoryEvent> UnlockDialogue;
     EUWEBioAbilityType BioAbilityType;
     TArray<UUWEBioScanData*> RequiredBioScans;
-    FUWEBioAbilityDataUnlockCost UnlockCost;
 
     static TArray<UUWEBioAbilityData*> GetAllBioAbilityData(bool bOnlyUnlocked, UObject* WorldContextObject);
     static TArray<UGameplayAbility*> GetBioAbilitiesForActor(const AActor* Actor);
@@ -127793,13 +128776,7 @@ class UUWEBioAbilityData : public UUWEPrimaryDataAssetBase {
     EUnlockState GetUnlockState(APlayerState* PlayerState);
     TArray<UUWEBioScanData*> GetUnlockedRequiredBioScans(UObject* WorldContextObject);
     bool IsActiveBioAbility() const;
-    bool IsCrafted(UObject* WorldContextObject);
     bool IsUnlocked(UObject* WorldContextObject);
-};
-
-struct FUWEBioAbilityDataUnlockCost {
-    FGameplayTag CurrencyTag;
-    int32_t CurrencyCost;
 };
 
 class UUWEBioAbilityViewModel : public UMVVMViewModelBase {
@@ -127810,8 +128787,9 @@ class UUWEBioAbilityViewModel : public UMVVMViewModelBase {
     EUWEBioAbilityType BioAbilityType;
     TSoftClassPtr<UGameplayAbility> BioAbility;
     bool bIsInstalled;
-    bool bIsCrafted;
+    bool bIsUnlocked;
     bool bShowRequirements;
+    bool bSeen;
     FUWEBioAbilityCooldownData Cooldown;
     bool bIsActive;
     bool bIsPinned;
@@ -127820,6 +128798,8 @@ class UUWEBioAbilityViewModel : public UMVVMViewModelBase {
     float GetCooldownFraction(UObject* WorldContextObject) const;
     int32_t GetRemainingCooldownSeconds(UObject* WorldContextObject) const;
     void InstallBioAbility();
+    void MarkAsSeen();
+    void OnEventTrackerUpdateSeenStatus(FUWEEventKey EventKey, int32_t OldValue, int32_t NewValue);
     void OnRecipePinned(UUWEPrimaryDataAssetBase* Recipe);
     void OnRecipeUnpinned(UUWEPrimaryDataAssetBase* Recipe);
     void Setup(UUWEBioAbilityData* InAbilityData, AUWEBioLab* biolab, UUWEBiomodCrafterInteractionComponent* InteractionComponent, AActor* BioAbilityOwner, bool bInIsInstalled, bool bInAvailabilityOverriden);
@@ -127828,8 +128808,7 @@ class UUWEBioAbilityViewModel : public UMVVMViewModelBase {
 };
 
 class AUWEBioLab : public AUWEGameplayActor {
-    bool bOnlyShowAvailableBioModsOverride;
-    TMap<UUWEBioAbilityData*, bool> AvailableBioModsOverride;
+    TArray<UUWEBioAbilityData*> PreInstalledBioAbilities;
     FShowLockedBiomodsEventTrackerRequirement ShowLockedBiomodsEventTrackerRequirement;
     UUWEBiomodCrafterComponent* BiomodCrafterComponent;
     FString InteractionPrimaryTextString;
@@ -127852,14 +128831,25 @@ class UUWEBioLabViewModel : public UMVVMViewModelBase {
     TArray<UUWEBioAbilityViewModel*> InstalledActiveBioMods;
     TArray<UUWEBioAbilityViewModel*> InstalledPassiveBioMods;
     int32_t AvailablePassiveBiomodSlots;
+    int32_t TotalScanProgressForPassiveSlots;
+    TArray<int32_t> SeenPassiveSlots;
     TArray<UUWEBioAbilityData*> AvailabilityOverridenBioData;
     TWeakObjectPtr<UUWEBiomodCrafterComponent> CrafterComponent;
+    TWeakObjectPtr<UUWEBiomodSlotPlayerStateComponent> PassiveSlotComponent;
     TWeakObjectPtr<UUWEBiomodCrafterInteractionComponent> InteractorComponent;
     TWeakObjectPtr<UUWEAbilitySystemComponent> AbilitySystemComponent;
 
     void Disconnect();
+    int32_t GetPassiveSlotScanRequirement(int32_t SlotNumber) const;
+    bool HasSeenPassiveSlot(int32_t SlotIndex) const;
+    void MarkPassiveSlotAsSeen(int32_t SlotIndex);
     void OnAbilityGiven(const UUWEAbilitySystemComponent* ASC, const FGameplayAbilitySpecHandle& AbilitySpecHandle);
     void OnAbilityRemoved(const UUWEAbilitySystemComponent* ASC, const FGameplayAbilitySpecHandle& AbilitySpecHandle);
+    void OnScanAmountChanged(int32_t NewAmount);
+    void OnUnlockableUnlocked(FUWEEventKey EventKey, int32_t OldValue, int32_t NewValue);
+    void OnUnlockedSlotsChanged(int32_t NewAmount);
+    void OnUnlockedSlotsSeenChanged(const TArray<int32_t>& SlotsSeen);
+    bool ShouldShowPassivesTabByDefault() const;
 };
 
 class UUWEBioScanData : public UUWEPrimaryDataAssetBase {
@@ -127900,13 +128890,48 @@ class UUWEBiomodHUDViewModel : public UMVVMViewModelBase {
     static UUWEBiomodHUDViewModel* TryGetBiomodHUDViewModel(UObject* WorldContext);
 };
 
+struct FUWEBiomodSlotData {
+    bool UnlockedByDefault;
+    int32_t ScansRequired;
+};
+
+class UUWEBiomodSlotPlayerStateComponent : public UActorComponent {
+    FMulticastInlineDelegate OnScanAmountChanged;
+    FMulticastInlineDelegate OnUnlockedSlotsChanged;
+    FMulticastInlineDelegate OnUnlockedSlotsSeenChanged;
+    TArray<FUWEBiomodSlotData> Slots;
+    TArray<int32_t> UnlockedSlotsSeen;
+    UUWESaveHandle* SaveHandle;
+    int32_t ScanAmount;
+    int32_t UnlockedSlots;
+    TWeakObjectPtr<UUWEScannedActorsGameStateComponent> ScannedActorsComponent;
+
+    int32_t GetNumUnlockedPassiveSlots() const;
+    FUWEBiomodSlotData GetPassiveSlotData(int32_t SlotIndex) const;
+    int32_t GetTotalScanAmount() const;
+    bool HasSeenPassiveSlot(int32_t SlotIndex) const;
+    void MarkUnlockedSlotSeen(int32_t SlotIndex);
+    void OnActorInstanceScanned(APlayerState* PlayerState, AActor* Actor);
+    void OnRep_ScanAmount();
+    void OnRep_UnlockedSlots();
+    void OnRep_UnlocksSlotsSeen();
+    void OnScanAmountChanged__DelegateSignature(int32_t NewAmount);
+    void OnUnlockedSlotsChanged__DelegateSignature(int32_t NewAmount);
+    void OnUnlockedSlotsSeenChanged__DelegateSignature(const TArray<int32_t>& SlotsSeen);
+    void Save() const;
+};
+
 class UUWEBiomodStatics : public UBlueprintFunctionLibrary {
 
     static TArray<UUWEBioAbilityData*> GetInstalledAbilities(const AActor* Actor);
+    static TArray<UUWEBioAbilityData*> GetInstalledBioAbilities(const AActor* Actor);
     static TArray<UUWEBioAbilityData*> GetInstalledPassiveBioAbilities(const AActor* Actor);
+    static int32_t GetNumUnlockedPassiveBiomodSlots(const APlayerState* PlayerState);
     static bool HasActiveBioAbility(const AActor* Actor);
     static bool HasBioAbility(const UUWEBioAbilityData* BioAbilityData, const AActor* Actor);
     static bool HasBioScanCapability(APlayerState* PS);
+    static bool HasBioScanData(const UUWEScanData* ScanData);
+    static bool IsBioScannedForPlayer(const APlayerState* PlayerState, UUWEScanData* ScanData);
     static bool ShouldIgnoreUnlockBiomodRequirements(const UObject* WorldContextObject);
 };
 
@@ -127954,6 +128979,7 @@ class UUWEBreakableBase : public UUWEActorDataAsset {
 
     static UUWEBreakableBase* GetBreakableBaseDataForActor(const AActor* Actor);
     bool InstigatorSatisfiesTagRequirements(AActor* InstigatorActor) const;
+    bool TagContainerSatisfiesTagRequirements(const FGameplayTagContainer& TagContainer) const;
 };
 
 class UUWEBreakableData : public UUWEBreakableBase {
@@ -127979,12 +129005,24 @@ class UUWEBreakableStatics : public UBlueprintFunctionLibrary {
     static bool IsBreakingDisabled(AActor* FromActor, AActor* BreakableActor, const FHitResult& HitResult);
 };
 
+class UUWECrushableData : public UUWEBreakableBase {
+
+    static UUWECrushableData* GetCrushableDataForActor(const AActor* Actor);
+};
+
 class UUWEResonatableData : public UUWEBreakableBase {
     FFloatRange ResonateRange;
 
     bool CanResonate(AActor* InstigatorActor, float Frequency) const;
     static UUWEResonatableData* GetResonatableDataForActor(const AActor* Actor);
     bool IsInResonateRange(float Frequency) const;
+};
+
+struct FBudgetedCueRequest {
+    TWeakObjectPtr<AActor> Target;
+};
+
+class UUWEBudgetedGameplayCueManager : public UGameplayCueManager {
 };
 
 class UUWEAnimNotifyState_CinematicCamera : public UAnimNotifyState {
@@ -128000,6 +129038,9 @@ class UUWECameraAnimation : public UObject {
     void BPInitialize();
     ACharacter* GetCharacter() const;
     UUWEFirstPersonCamera* GetFirstPersonCamera() const;
+};
+
+class IUWECameraSettingsInterface : public UInterface {
 };
 
 class UUWEFirstPersonCamera : public UCameraComponent {
@@ -128027,6 +129068,8 @@ class UUWEFirstPersonCamera : public UCameraComponent {
 };
 
 class AUWEPlayerCameraManager : public APlayerCameraManager {
+
+    void ForceUpdateCamera(float DeltaTime);
 };
 
 struct FUWEPlayerCameraManagerSettings {
@@ -128070,46 +129113,54 @@ class UUWEAbilityTask_WaitAttachCarryable : public UAbilityTask {
     AActor* GetCarryableActor() const;
     void OnDied(AActor* SourceActor, AActor* TargetActor);
     void OnRep_AttachmentInfo();
+    void StopCarrying();
     void UWECarrytaskCancelled__DelegateSignature();
     static UUWEAbilityTask_WaitAttachCarryable* WaitAttachCarryable(UGameplayAbility* OwningAbility, AActor* InCarryableActor, USceneComponent* InParentComponent, FName InSocket, FName TaskInstanceName, bool UseTransition);
 };
 
-class AUWECarryableActorPowered : public AActor {
-    UUWECarryableRootComponent* CarryableRootComponent;
-    UUWEAbilitySystemComponent* AbilitySystemComponent;
-    UUWEMechanicalSetComponent* MechanicalSetComponent;
-    UUWEInventoryComponent* PowerInventoryComponent;
-    UUWEInventoryInteractionComponent* PowerInventoryInteractionComponent;
+class AUWECarryableActor : public AActor {
+    UStaticMeshComponent* StaticMeshComponent;
     UUWEChaosPhysicsController* PhysicsControllerComponent;
-    UUWERestoreRotationComponent* RestoreRotationComponent;
     UUWESaveComponent* SaveComponent;
     UVolumeTrackerComponent* VolumeTrackerComponent;
     UUWEAssetDataComponent* AssetDataComponent;
-    FGameplayTag PowerSourceTag;
-    TSoftObjectPtr<UUWEItemType> PowerSourceItemType;
-    FMulticastInlineDelegate OnInflate;
-    FMulticastInlineDelegate OnDeflate;
+    bool bShouldFloat;
     bool bReplicatedSimulatePhysics;
     bool bReplicatedCollisionEnabled;
 
-    bool GetIsPowered() const;
     void NetMulticast_SetCollisionResponse(uint8_t Channel, uint8_t NewResponse);
     void NetMulticast_SetPhysicsEnabled(bool Enabled, bool ForceToSleep);
-    void OnEnergyEmpty(AActor* Who);
-    void OnEnergyRefilled(AActor* Who);
     void OnPhysicsSleep(UPrimitiveComponent* SleepingComponent, FName BoneName);
     void OnPhysicsWake(UPrimitiveComponent* SleepingComponent, FName BoneName);
-    void OnPowerSourceAdded(const FUWEInventoryItem& InventoryItem);
-    void OnPowerSourceRemoved(const FUWEInventoryItem& InventoryItem);
     void OnRep_ReplicatedCollisionEnabled();
     void OnRep_ReplicatedSimlatePhysics();
     void OnRootAttachmentChanged();
     void SetReplicatedCollisionEnabled(bool bNewCollisionEnabled);
     void SetReplicatedSimulatePhysics(bool bNewSimulatePhysics);
+};
+
+class AUWECarryableActorPowered : public AUWECarryableActor {
+    UUWECarryableRootComponent* CarryableRootComponent;
+    UUWEAbilitySystemComponent* AbilitySystemComponent;
+    UUWEMechanicalSetComponent* MechanicalSetComponent;
+    UUWEInventoryComponent* PowerInventoryComponent;
+    UUWEInventoryInteractionComponent* PowerInventoryInteractionComponent;
+    UUWERestoreRotationComponent* RestoreRotationComponent;
+    FGameplayTag PowerSourceTag;
+    TSoftObjectPtr<UUWEItemType> PowerSourceItemType;
+    FMulticastInlineDelegate OnInflate;
+    FMulticastInlineDelegate OnDeflate;
+
+    bool GetIsPowered() const;
+    void OnEnergyEmpty(AActor* Who);
+    void OnEnergyRefilled(AActor* Who);
+    void OnPowerSourceAdded(const FUWEInventoryItem& InventoryItem);
+    void OnPowerSourceRemoved(const FUWEInventoryItem& InventoryItem);
     void UpdateEnergy();
 };
 
 class UUWECarryableAttachPointComponent : public USphereComponent {
+    bool bAcceptsHeavy;
     UUWESaveHandle* SaveHandle;
     TWeakObjectPtr<AActor> AttachedActor;
     TSoftClassPtr<AActor> CarryableActorClass;
@@ -128141,6 +129192,7 @@ class UUWECarryableData : public UUWEActorDataAsset {
     TArray<TSoftClassPtr<UGameplayAbility>> GrantedAbilities;
     FTransform CarryableAttachmentTransform;
     FTransform HeldCarryableAttachmentTransform;
+    bool bIsHeavy;
 
     static UUWECarryableData* GetCarryableDataForActor(const AActor* Actor);
 };
@@ -128152,9 +129204,10 @@ class IUWECarryableEventInterface : public UInterface {
 };
 
 class UUWECarryableRootComponent : public UBoxComponent {
-    FMulticastInlineDelegate AttachmentChanged;
     float InventoryUpdateRate;
     TArray<TWeakObjectPtr<UUWEInventoryComponent>> ParentInventories;
+
+    void OnRootAttachmentChanged();
 };
 
 class UUWECarryableStatics : public UBlueprintFunctionLibrary {
@@ -128175,10 +129228,16 @@ class UUWECharacterTrackerSettings : public UDeveloperSettings {
     FName LocalPlayerParamName;
     FName ProximityParamName;
     int32_t NumProximityParams;
+    float MaxDistanceSquared;
 };
 
 class UUWECharacterTrackerSubsystem : public UUWEClientWorldSubsystem {
     TArray<AActor*> RegisteredActors;
+    TMap<AActor*, float> FilteredActors;
+    UMaterialParameterCollectionInstance* ParameterCollectionInstance;
+    APlayerController* LocalPC;
+    AActor* PlayerCharacter;
+    APlayerCameraManager* CameraManager;
 };
 
 class AUWEChildActor : public AActor {
@@ -128296,6 +129355,28 @@ class UUWENavigationInputSubsystem : public UGameInstanceSubsystem {
     EUINavigation GetLastNavigationDirection() const;
 };
 
+class UUWERadialMenu : public UUserWidget {
+    UClass* TextStyle;
+    FSlateBrush Background;
+    FSlateBrush EntryBackground;
+    FSlateBrush EntryHighlight;
+    TArray<FUWERadialMenuEntry> MenuEntries;
+    float EntrySize;
+    float EntryBackgroundSize;
+    bool bIsInputHandledByWidget;
+    bool DrawDebug;
+
+    void CaptureInput();
+    int32_t GetSelectedIndex() const;
+    void ReleaseInput();
+    void SetInputVector(FVector2f InputVector);
+};
+
+struct FUWERadialMenuEntry {
+    FText Text;
+    UTexture2D* Icon;
+};
+
 class UUWERichTextBlockLinkDecorator : public URichTextBlockDecorator {
     FHyperlinkStyle Style;
 };
@@ -128380,6 +129461,7 @@ class UWindowManager : public UGameInstanceSubsystem {
     void RemoveWidgetFromLayer(uint8_t LayerId, UCommonActivatableWidget* Widget);
     UCommonActivatableWidget* SetWidgetOnLayer(uint8_t LayerId, UClass* ActivatableWidgetClass);
     void Show();
+    void ToggleLayerVisibilty(uint8_t LayerId);
 };
 
 struct FComputerTextInterfaceAudio {
@@ -128757,6 +129839,7 @@ class UUWEDatabankEntry : public UUWEPrimaryDataAssetBase {
     FText EntryTitle;
     FText EntryText;
     TSoftObjectPtr<UTexture2D> EntryImage;
+    UUWEDialogueNode* Dialogue;
     UUWEStoryGoalRule* UnlockingRequirements;
     UUWEStoryGoal* HideOnStoryGoal;
     bool bCompletesInvestigation;
@@ -128775,6 +129858,7 @@ class UUWEDatabankWorldSubsystem : public UWorldSubsystem {
 struct FDialogueInfo {
     UUWEDialogueSequence* Dialogue;
     TWeakObjectPtr<UUWEDialogueSpeakerComponent> Speaker;
+    double QueueEntryTime;
 };
 
 struct FDialogueLine {
@@ -128784,11 +129868,20 @@ struct FDialogueLine {
     FString EventKey;
     TSoftObjectPtr<USoundBase> Sound;
     FText SpokenText;
+    float PreDelayLength;
+    float PostDelayLength;
     float PlaybackLength;
+    float CachedEventLength;
     FString Comment;
 };
 
-struct FDialoguePlaybackInfo {
+enum class EDialoguePlaybackState {
+    Initialized = 0,
+    PreDelay = 1,
+    Playing = 2,
+    PostDelay = 3,
+    Finished = 4,
+    EDialoguePlaybackState_MAX = 5,
 };
 
 enum class EUWEDialoguePriorityType {
@@ -128800,16 +129893,20 @@ enum class EUWEDialoguePriorityType {
 
 class UUWEActiveDialogueComponent : public UActorComponent {
     FDialogueInfo DialogueInfo;
+    TArray<FUWEDialogueTimelineEntry> Timeline;
 };
 
 class UUWEAlertSequence : public UUWEDialogueSequence {
     FLinearColor AlertColorTint;
     TSoftObjectPtr<UTexture2D> AlertIcon;
-
-    bool IsCritical() const;
 };
 
 class UUWEAlertSpeakerComponent : public UUWEDialogueSpeakerComponent {
+};
+
+struct FUWEDialogueCooldownTracker {
+    double LastPlayedTime;
+    FPrimaryAssetId DialogueId;
 };
 
 class UUWEDialogueNode : public UUWEPrimaryDataAssetBase {
@@ -128829,8 +129926,12 @@ class UUWEDialogueRandomSelect : public UUWEDialogueNode {
 class UUWEDialogueSequence : public UUWEDialogueNode {
     TArray<FDialogueLine> Lines;
     UUWEStoryEvent* OnFinishedEvent;
-    EUWEDialoguePriorityType Priority;
-    bool Queueable;
+    int32_t PriorityValue;
+    float QueueLifespan;
+    bool IgnorePlayerSafetyCheck;
+    float Cooldown;
+
+    void ConstructSequence(TArray<FDialogueLine> InLines, UUWEStoryEvent* InOnFinishedEvent, int32_t InPriorityValue, float InQueueLifespan, bool InIgnorePlayerSafetyCheck);
 };
 
 class UUWEDialogueSettings : public UDeveloperSettings {
@@ -128857,12 +129958,20 @@ class UUWEDialogueSettings : public UDeveloperSettings {
 };
 
 class UUWEDialogueSpeakerComponent : public UUWEFMODAudioComponent {
-    FDialoguePlaybackInfo PlayingDialogue;
+    FDialogueLine PlayingDialogueLine;
     FTimerHandle LineTimerHandle;
     UAudioComponent* Current2DDialogue;
+    bool bDialogueEnabled;
 
+    float GetElapsedEventLength();
+    float GetElapsedPostDelay() const;
+    float GetElapsedPreDelay() const;
+    float GetEventLength() const;
+    float GetPostDelay() const;
+    float GetPreDelay() const;
     void OnPlayingLineCompleted();
-    void SkipCurrentLine();
+    void SetDialogueEnabled(bool bEnabled);
+    void SkipLine();
 };
 
 class UUWEDialogueSpeakingCharacter : public UUWEPrimaryDataAssetBase {
@@ -128873,6 +129982,8 @@ class UUWEDialogueSpeakingCharacter : public UUWEPrimaryDataAssetBase {
 class UUWEDialogueStatics : public UBlueprintFunctionLibrary {
 
     static bool ArePlayerAlertsSuppressed(APlayerState* Player);
+    static void EndCurrentDialogueForPlayer(AActor* Player);
+    static bool IsDialoguePlayingForPlayer(AActor* Player);
     static bool IsPlayerSafeForDialogue(APlayerState* Player);
     static bool PlayAlertForPlayer(UUWEDialogueNode* Dialogue, APlayerState* Player);
     static bool PlayDialogue(UObject* WorldContextObject, UUWEDialogueNode* Dialogue);
@@ -128886,11 +129997,18 @@ class UUWEDialogueStoryEvent : public UUWEStoryEvent {
     TSoftObjectPtr<UUWEDialogueNode> TriggeredDialogue;
 };
 
+struct FUWEDialogueTimelineEntry {
+    FDialogueLine DialogueLine;
+    float CalculatedPreDelay;
+    float CalculatedPostDelay;
+};
+
 class UUWEDialogueViewModel : public UMVVMViewModelBase {
     FText LineText;
     bool ShouldUseSimpleSubtitles;
     TWeakObjectPtr<UUWEDialogueSpeakingCharacter> Speaker;
     FText SpeakerName;
+    bool ShouldDisplay;
     TSoftObjectPtr<UTexture2D> SpeakerIcon;
 };
 
@@ -128903,12 +130021,17 @@ class UUWEPDAVOPlaybackPlayerStateComponent : public UActorComponent {
     TArray<FDialogueInfo> QueuedDialogues;
     TArray<UUWEActiveDialogueComponent*> LocalActiveAlerts;
     UUWEActiveDialogueComponent* LocalActiveDialogue;
+    UUWESaveHandle* SaveHandle;
+    TArray<FUWEDialogueCooldownTracker> CooldownTrackers;
 
     void ClearAllQueuedDialogue();
     void ClientQueueUpDialogue(FDialogueInfo Dialogue);
     void EndActiveDialogue();
     TArray<UUWEDialogueSequence*> GetActiveDialogueSequences();
     TArray<FDialogueInfo> GetDialogueQueue() const;
+    UUWEDialogueSpeakerComponent* GetDialogueSpeakerComponent() const;
+    bool IsDialoguePlaying() const;
+    void OnDialoguePlayed(UUWEDialogueSequence* Dialogue);
     void PlayAlert(FDialogueInfo Dialogue);
     void ServerTriggerEvent(const TSoftObjectPtr<UUWEStoryEvent> Event);
     void SkipCurrentDialogue();
@@ -128937,6 +130060,7 @@ class AUWEDoorBase : public AUWEGameplayActor {
     void CanUnlock(bool& Result, APawn* TriggeringActor);
     void Close();
     void CloseAndLock();
+    void ForceCloseAndLock();
     void Lock();
     void OnOpenedFractionChanged(float Fraction);
     void OnRep_IsOpen();
@@ -128983,6 +130107,7 @@ class UUWEDynamicEventDataAsset : public UUWEPrimaryDataAssetBase {
     bool Active;
     bool IsDevelopmentOnly;
     FString FeatureFlag;
+    FString DisabledByFeatureFlag;
     int32_t MaxActivations;
     float Cooldown;
     int32_t EvaluationIntervalBase;
@@ -129002,6 +130127,9 @@ struct FUWEDynamicEventGroup {
     bool Active;
     bool IsDevelopmentOnly;
     FString FeatureFlag;
+    bool bHasLoggedFeatureFlag;
+    FString DisabledByFeatureFlag;
+    bool bHasLoggedDisabledByFeatureFlag;
     TArray<UUWEBaseDynamicEvent*> ActiveInstances;
 };
 
@@ -129218,7 +130346,10 @@ class AUWEEdgeOfWorldSpline : public AActor {
     FMulticastInlineDelegate OnPlayerOverlapBegin;
     FMulticastInlineDelegate OnPlayerOverlapEnd;
     UUWESplineComponent* SplineComponent;
+    TArray<FString> BlockingFeatureFlags;
+    TArray<FString> RequiredFeatureFlags;
 
+    bool IsEnabled();
     bool IsPointInside(FVector LocationToCheck);
     void OnPlayerOverlapBegin__DelegateSignature(APawn* Player);
     void OnPlayerOverlapEnd__DelegateSignature(APawn* Player);
@@ -129228,6 +130359,7 @@ class UUWEEdgeOfWorldStatics : public UBlueprintFunctionLibrary {
 
     static bool IsActorOutOfBounds(const UObject* WorldContextObject, AActor* ActorToCheck);
     static bool IsActorWithinEdgeOfWorld(const UObject* WorldContextObject, AActor* ActorToCheck);
+    static bool IsEdgeOfWorldEnabled(const UObject* WorldContextObject);
     static bool IsPointOutOfBounds(const UObject* WorldContextObject, FVector Point);
     static bool IsPointWithinEdgeOfWorld(const UObject* WorldContextObject, FVector Point);
 };
@@ -129236,6 +130368,7 @@ class UUWEEdgeOfWorldSubsystem : public UGameInstanceSubsystem {
 
     AUWEEdgeOfWorldSpline* GetEdgeOfWorld() const;
     bool IsEdgeOfWorldCollisionEnabled() const;
+    bool IsEdgeOfWorldEnabled() const;
     bool IsPointOutOfBounds(FVector Point) const;
     bool IsPointWithinEdgeOfWorld(FVector Point) const;
 };
@@ -129251,7 +130384,81 @@ class UUWEOutOfBoundsCheckComponent : public UActorComponent {
     void OnPlayerOverlapBegin(APawn* Player);
     void OnPlayerOverlapEnd(APawn* Player);
     void OnVolumeChanged(EVolumeType VolumeType);
+    void ServerApplyOutOfBoundsEffect(UClass* EffectClass);
+    void ServerRemoveOutOfBoundsEffect(UClass* EffectClass);
     void TriggerEdgeOfWorldCollision(AActor* Instigator);
+};
+
+enum class EUWEEmoteContext {
+    Land = 0,
+    Water = 1,
+    Both = 2,
+    EUWEEmoteContext_MAX = 3,
+};
+
+enum class EUWEEmoteType {
+    FullBody = 0,
+    UpperBody = 1,
+    LowerBody = 2,
+    LeftArm = 3,
+    RightArm = 4,
+    EUWEEmoteType_MAX = 5,
+};
+
+class UUWEEmoteComponent : public UActorComponent {
+    UClass* EmoteAbilityClass;
+    UUWEAnimSetupDataAsset* AnimSetupDataAsset;
+    UUWEEmoteData* PendingEmoteData;
+    UAbilitySystemComponent* CachedASC;
+
+    void OnControllerPawnChanged(APawn* NewPawn);
+    void PlayEmote(UUWEEmoteData* EmoteData);
+    void ServerPlayEmote(UUWEEmoteData* EmoteData);
+};
+
+class UUWEEmoteData : public UUWEPrimaryDataAssetBase {
+    FGameplayTag EmoteAnimTag;
+    FUWEOneShotAnimData EmoteAnimData;
+    FText DisplayName;
+    TSoftObjectPtr<UTexture2D> RadialMenuImage;
+    EUWEEmoteType EmoteType;
+    EUWEEmoteContext EmoteContext;
+    int32_t DisplayOrder;
+
+    bool AffectsLowerBody() const;
+    bool AffectsUpperBody() const;
+    EUWEEmoteType GetEmoteType() const;
+    TSoftObjectPtr<UTexture2D> GetRadialMenuImage() const;
+};
+
+class UUWEEmoteGameplayAbility : public UUWEGameplayAbility {
+
+    void OnAnimFinished();
+};
+
+class UUWEEmoteViewModel : public UMVVMViewModelBase {
+    UUWEEmoteData* EmoteData;
+
+    UUWEEmoteData* GetEmoteData() const;
+    FUWERadialMenuEntry MakeRadialMenuEntry() const;
+};
+
+class UUWEEmotesBlueprintLibrary : public UBlueprintFunctionLibrary {
+
+    static void GetAllEmoteData(TArray<UUWEEmoteData*>& OutEmotes);
+};
+
+class UUWEEmotesMenuViewModel : public UMVVMViewModelBase {
+    FMulticastInlineDelegate OnEmoteSelected;
+    bool IsActive;
+    TArray<UUWEEmoteViewModel*> EmoteViewModels;
+    TArray<FUWERadialMenuEntry> MenuEntries;
+    UCommonUserWidget* Widget;
+
+    void HideEmoteMenu(UObject* WorldContext, int32_t SelectedIndex);
+    void SelectEmote(int32_t Index);
+    UCommonUserWidget* ShowEmoteMenu(UObject* WorldContext, UClass* MenuClass);
+    static UUWEEmotesMenuViewModel* TryGetEmoteMenuViewModel(UObject* WorldContext);
 };
 
 enum class EUWEEntitlementOnlinePlatform {
@@ -129479,7 +130686,7 @@ class UUWEEventTrackerComponent : public UActorComponent {
 class UUWEEventTrackerDiagnostic : public UUWEImGuiComponent {
 
     void OnEventTrackerNotify(UUWEEventTrackerComponent* Tracker, FUWEEventKey Key, int32_t Value, bool IsNewKey);
-    void OnEventTrackerSave(UUWEEventTrackerComponent* Tracker, float duration);
+    void OnEventTrackerSave(UUWEEventTrackerComponent* Tracker, float Duration);
 };
 
 class UUWEEventTrackerStatics : public UBlueprintFunctionLibrary {
@@ -129569,6 +130776,8 @@ class AUWEMetalFarmBreakableResource : public AActor {
     UCapsuleComponent* Collider;
     FText MetalName;
 
+    void OnRep_IsBreakingDisabled() const;
+    void SetIsBreakingDisabled(const bool bIsDisabled);
     void SetMetalData(UUWEResonatableData* ResonatableData, const FText& Name);
 };
 
@@ -129914,6 +131123,10 @@ class UUWEGameCaptureComponent : public UActorComponent {
     APlayerCameraManager* CameraManager;
 
     void ServerToggleFreeCam();
+    bool ShouldHideFirstPersonFaceMeshes() const;
+    bool ShouldHideInteractionHighlight() const;
+    bool ShouldHidePlayer() const;
+    bool ShouldHideUI() const;
     void UpdateCamera(APawn* OldPawn, APawn* NewPawn);
 };
 
@@ -129957,6 +131170,7 @@ struct FUWEBiomodSettings {
     bool bEnableNoCost;
     bool bUnlockAllBioAbilities;
     bool bUnlockAdaptations;
+    bool bUnlockAllBiomodSlots;
 };
 
 struct FUWECraftingSettings {
@@ -130186,6 +131400,7 @@ class UUWEGameplayStatics : public UBlueprintFunctionLibrary {
     static ACharacter* GetLocalGameplayPlayerCharacter(UObject* WorldContextObject);
     static AUWEGameplayPlayerController* GetLocalGameplayPlayerController(UObject* WorldContextObject);
     static void GetStaticGameplayTags(const AActor* Actor, FGameplayTagContainer& TagContainer);
+    static bool ShouldShowUnpublishedAssets(UObject* WorldContextObject);
 };
 
 struct FUWEPlayerSaveDataStub {
@@ -130386,7 +131601,7 @@ struct FUWEGameplayCueNotify_ForceFeedbackEventInfo {
     EUWEForceFeedbackCurve CurveType;
     uint8_t InterpMode;
     float Intensity;
-    float duration;
+    float Duration;
     bool bAffectsLeftSmall;
     bool bAffectsLeftLarge;
     bool bAffectsRightSmall;
@@ -130725,6 +131940,7 @@ class UUWEGlobalSimulationSubsystem : public UUWEServerWorldSubsystem {
     TMap<FGuid, UUWESimulationObject*> SimulationObjects;
     TArray<FUWESimulationTickEvent> SimulationTickEvents;
     FUWEGenericObjectSaveDataContainer SimulationObjectsSaveData;
+    UWorldPartitionSubsystem* CachedWorldPartitionSubsystem;
 };
 
 struct FUWEGlobalSimulationWorldState {
@@ -130740,6 +131956,30 @@ struct FUWESimulationTickEvent {
     FGuid SimulationId;
     double LastTickTime;
     double TickInterval;
+};
+
+class UUWEAbilityTask_UpdateGravitize : public UAbilityTask {
+    FMulticastInlineDelegate OnCancelled;
+    TWeakObjectPtr<AActor> GravitizeableActor;
+    FVector Offset;
+
+    AActor* GetGravitizeableActor() const;
+    UUWEChaosPhysicsController* GetGravitizeablePhysicsController() const;
+    void UWEGravitizetaskCancelled__DelegateSignature();
+    static UUWEAbilityTask_UpdateGravitize* UpdateGravitize(UGameplayAbility* OwningAbility, AActor* InGravitizeableActor, FVector InOffset, FGameplayTag InGravitizeCueTag, float InBreakLength, float InAttractionForce, float AngularDamping, float LinearDamping, FName TaskInstanceName);
+};
+
+class UUWEGravitizeableData : public UUWEActorDataAsset {
+    TArray<TSoftClassPtr<UGameplayEffect>> GrantedEffects;
+    TArray<TSoftClassPtr<UGameplayAbility>> GrantedAbilities;
+
+    static UUWEGravitizeableData* GetGravitizeableDataForActor(AActor* Actor);
+};
+
+class UUWEGravitizeableStatics : public UBlueprintFunctionLibrary {
+
+    static TArray<FGameplayAbilitySpecHandle> GrantGravitizeableAbilities(AActor* GravitizeableActor, AActor* TargetActor);
+    static TArray<FActiveGameplayEffectHandle> GrantGravitizeableEffects(AActor* GravitizeableActor, AActor* TargetActor);
 };
 
 class UUWEDiagnosticsDiagnostic : public UUWEImGuiComponent {
@@ -131061,6 +132301,15 @@ class IUWEInventoryItemInterface : public UInterface {
 class IUWEItemPickup : public UInterface {
 };
 
+class IUWEMovable : public UInterface {
+
+    bool CanBeMoved();
+    void OnCancelMove();
+    void OnMove();
+    void OnPlacementChanged();
+    void OnStartMove();
+};
+
 class IUWEMovementComponent : public UInterface {
 
     void AddExternalAcceleration(const FVector& Acceleration);
@@ -131226,6 +132475,7 @@ class AUWEBaseItem : public AActor {
     void OnRep_ReplicatedSimlatePhysics();
     void OnSetLifeSpan__DelegateSignature();
     void OnUnequipped__DelegateSignature();
+    void OnVolumeTypeChanged(EVolumeType VolumeType);
     void SetDropped();
     void SetReplicatedCollisionEnabled(bool bNewCollisionEnabled);
     void SetReplicatedSimulatePhysics(bool bNewSimulatePhysics);
@@ -131272,6 +132522,7 @@ class UUWEEquipmentComponent : public UActorComponent {
     UUWEToolbarComponent* GetOwnerToolbar() const;
     FName GetSocketName(FGameplayTag SlotTag);
     bool HasItemByType(UUWEItemType* ItemType);
+    bool HasItemEquipped(const AActor* Actor) const;
     static bool IsItemTypeTool(UUWEItemType* ItemType);
     void OnEquipToolDelegate__DelegateSignature(AUWEBaseItem* Tool, bool bIsFirstTimeEquipped);
     void OnEquipmentChanged__DelegateSignature();
@@ -131289,7 +132540,7 @@ class UUWEEquipmentComponent : public UActorComponent {
     void ServerUnequipToInventory(AUWEBaseItem* Equippable, bool bNotify);
     void ServerUnequipTool();
     void ServerUnloadTool(AUWEBaseEquippable* Tool);
-    void SetEquipmentHidden(bool bHidden);
+    void SetEquipmentHidden(bool bHidden, bool bFirstPersonPerspective);
     void UnequipAndDestroyAll();
 };
 
@@ -131381,7 +132632,6 @@ class UUWEInventoryComponent : public UActorComponent {
     void OnItemAddedToInventory(const int32_t& InInventoryId, const FUWEInventoryItem& Item);
     void OnItemRemovedFromInventory(const int32_t& InInventoryId, const FUWEInventoryItem& Item);
     void OnRep_MaxItems();
-    bool Pickup(AActor* ActorToPickup, bool bNotify);
     bool PickupAndGetID(AActor* ActorToPickup, FUWEInventoryItemId& OutItemID, bool bNotify);
     bool PickupItem(AActor* ActorToPickup, bool bCanOverflow);
     bool PickupItemAndGetID(AActor* ActorToPickup, FUWEInventoryItemId& OutItemID, bool bCanOverflow);
@@ -131394,6 +132644,7 @@ class UUWEInventoryComponent : public UActorComponent {
     void SetMaxItems(int32_t NewMaxItems);
     bool TryGetItemAtIndex(int32_t Index, FUWEInventoryItem& Item);
     bool UsesAFilter() const;
+    bool pickup(AActor* ActorToPickup, bool bNotify);
 };
 
 struct FUWEInventoryContainer : public FFastArraySerializer {
@@ -131415,6 +132666,7 @@ class UUWEInventoryInteractionComponent : public UBoxComponent {
     bool InventoryInteractionEnabled;
     UUWESaveHandle* SaveHandle;
 
+    UUWEInventoryComponent* GetInventoryComponent() const;
     void InteractWithInventoryInteractionComponent(AController* Controller, APawn* Pawn, const FHitResult& HitResult);
     void OnInventoryInteractionEnabledChanged__DelegateSignature(bool InteractionEnabled);
     void OnRep_InventoryInteractionEnabled();
@@ -131991,6 +133243,12 @@ class UUWEMercunaSubsystem : public UWorldSubsystem {
 class UUWEMercunaSurfaceNavigationComponent : public UMercunaSurfaceNavigationComponent {
 };
 
+enum class ECustomMovementMode {
+    CMOVE_None = 0,
+    CMOVE_Climbing = 1,
+    CMOVE_MAX = 2,
+};
+
 enum class EUWECharacterMovementComponentBasePhysicsInteractionMethod {
     ApplyForce = 0,
     ApplyVelocity = 1,
@@ -132014,6 +133272,12 @@ enum class EUWELerpMovementState {
     EUWELerpMovementState_MAX = 5,
 };
 
+struct FFindWallResult {
+    TWeakObjectPtr<UPhysicalMaterial> PhysMaterial;
+    FVector_NetQuantize Normal;
+    float Traction;
+};
+
 struct FSubmarineInput {
     FVector Acceleration;
     FVector AngularAcceleration;
@@ -132026,6 +133290,7 @@ class IUWECharacterMovementBase : public UInterface {
 class UUWECharacterMovementComponent : public UUWECharacterMovementComponentBase {
     TScriptInterface<IUWECharacterMovementBase> CurrentCharacterMovementBase;
     FMulticastSparseDelegate OnStepDelegate;
+    float ForwardAndStrafeAddWalkSpeed;
     float MaxWalkAcceleration;
     float MaxSwimAcceleration;
     float MaxFlyAcceleration;
@@ -132033,9 +133298,6 @@ class UUWECharacterMovementComponent : public UUWECharacterMovementComponentBase
     float BuoyancyForce;
     float SurfaceUpwardsFriction;
     bool PushImpactedObjectAlongFloor;
-    bool EnableStuckDetection;
-    int32_t UnstuckLocationHistoryCount;
-    float DistanceBetweenUnstuckLocations;
     UCapsuleComponent* CapsuleComponent;
 
     float GetDepth() const;
@@ -132046,6 +133308,10 @@ class UUWECharacterMovementComponent : public UUWECharacterMovementComponentBase
 class UUWECharacterMovementComponentBase : public UCharacterMovementComponent {
     FVector_NetQuantize ReplicatedAcceleration;
     UVolumeTrackerComponent* VolumeTracker;
+    bool EnableStuckDetection;
+    int32_t UnstuckLocationHistoryCount;
+    float DistanceBetweenUnstuckLocations;
+    FDelegate OnStuckInGeometry;
     bool EnableUWEClientMoveErrorHandling;
     float MAXPOSITIONERRORSQUARED;
     bool ClientAuthorativePosition;
@@ -132069,6 +133335,7 @@ class UUWECharacterMovementComponentBase : public UCharacterMovementComponent {
     FVector GetAcceleration() const;
     void OnRep_ReplicatedAcceleration();
     void OnTrackedVolumesChanged();
+    bool UWECharacterMovementComponentOnStuckInGeometry__DelegateSignature(UUWECharacterMovementComponentBase* CharacterMovementComponent, const FHitResult& Hit, const FVector& UnstuckLocationCandidate);
 };
 
 struct FUWECharacterMovementComponentBasePhysicsInteractionSettings {
@@ -132126,7 +133393,7 @@ class UUWELerpMovementComponent : public UActorComponent {
 };
 
 struct FUWELerpMovementExecutionSettings {
-    float duration;
+    float Duration;
     bool Loops;
     bool SetWorldTransform;
     EUWELerpMovementEaseType EaseType;
@@ -132196,10 +133463,19 @@ class UUWESubmarineMovementComponent : public UNavMovementComponent {
 class UUWESubmersibleMovementComponent : public UUWEVehicleMovementComponent {
     float StrafeMaxSpeedModifier;
     float SwimmingFriction;
+    float ClimbingFriction;
     float WaterGravityMultiplier;
+    bool bCanEverClimb;
+    float ClimbWallDistance;
     float MaxWalkAcceleration;
     float MaxSwimAcceleration;
+    float MaxClimbAcceleration;
     float MaxFlyAcceleration;
+    float ForwardAndStrafeAddWalkSpeed;
+    float MaxClimbSpeed;
+    FMulticastInlineDelegate OnCapsuleHeightChanged;
+
+    void CapsuleHeightChanged__DelegateSignature(float HalfHeight);
 };
 
 class UUWEVehicleMovementComponent : public UUWECharacterMovementComponentBase {
@@ -132231,7 +133507,7 @@ struct FUWEMusicManagerLayer {
 
 struct FUWEMusicState {
     TSoftObjectPtr<UFMODEvent> Event;
-    float duration;
+    float Duration;
     bool Loop;
 };
 
@@ -132258,7 +133534,7 @@ class UUWEMusicVolumeComponent : public UActorComponent {
 
 struct FUWEMusicVolumeEntry {
     TSoftObjectPtr<UFMODEvent> Event;
-    float duration;
+    float Duration;
     int32_t Weight;
     TArray<UUWEStoryGoal*> RequiredStoryGoals;
     TArray<UUWEStoryGoal*> BlockingStoryGoals;
@@ -132270,11 +133546,12 @@ class UUWEMusicVolumeManagerDiagnostic : public UUWEImGuiComponent {
 enum class EUWEClassRepNodeMapping {
     NotRouted = 0,
     RelevantAllConnections = 1,
-    Spatialize_Static = 2,
-    Spatialize_Dynamic = 3,
-    Spatialize_Dormancy = 4,
-    SimulatedDynamic = 5,
-    EUWEClassRepNodeMapping_MAX = 6,
+    RelevantOwnerOnly = 2,
+    Spatialize_Static = 3,
+    Spatialize_Dynamic = 4,
+    Spatialize_Dormancy = 5,
+    SimulatedDynamic = 6,
+    EUWEClassRepNodeMapping_MAX = 7,
 };
 
 enum class EUWENetworkSmoothingMode {
@@ -132291,7 +133568,7 @@ enum class EUWENetworkSmoothingTarget {
 
 struct FUWEConnectionAlwaysRelevantNodePair {
     UNetConnection* NetConnection;
-    UReplicationGraphNode_AlwaysRelevant_ForConnection* node;
+    UUWEReplicationGraphNode_AlwaysRelevant_ForConnection* node;
 };
 
 class UUWENetworkSmoothingComponent : public UActorComponent {
@@ -132333,6 +133610,7 @@ class UUWEReplicationGraph : public UReplicationGraph {
     UReplicationGraphNode_GridSpatialization2D* GridNode;
     UReplicationGraphNode_ActorListFrequencyBuckets* AlwaysRelevantNode;
     TArray<FUWEConnectionAlwaysRelevantNodePair> AlwaysRelevantForConnectionList;
+    TArray<AActor*> ActorsWithoutNetConnection;
 };
 
 class UUWEReplicationGraphDiagnostic : public UUWEImGuiComponent {
@@ -132677,6 +133955,10 @@ class UUWEAttachmentOwnerInteractableBoxComponent : public UBoxComponent {
     float InteractionDistance;
     FName PawnAttachmentSlotName;
     bool EnableClientLocalPrediction;
+    bool bInteractionEnabled;
+    UUWESaveHandle* SaveHandle;
+
+    void SetInteractionEnabled(bool bIsEnabled);
 };
 
 class UUWEAttachmentOwnerOverlapSphereComponent : public USphereComponent {
@@ -132730,6 +134012,7 @@ struct FUWEENetworkedAttachmentConfig {
     FUWENetworkedAttachmentSocketInterpolationConfig DetachmentSocketInterpolationConfig;
     bool FindProperDetachmentSpotAroundOwner;
     bool FindProperDetachmentSpotOnlyAroundOwnerRootCollision;
+    bool UseSocketOffsetProvidedByPawn;
     EUWEENetworkedAttachmentCameraControl CameraControl;
     FUWEPlayerCameraManagerSettings CameraManagerSettings;
     FUWENetworkedAttachmentAnimationConfig AttachAnimationConfig;
@@ -133012,6 +134295,7 @@ class UUUWEPhysicsBPLibrary : public UBlueprintFunctionLibrary {
     static bool FindTeleportSpotAroundObstacle(const UObject* WorldContextObject, AActor* Target, AActor* Obstacle, bool TestOnlyObstacleRootCollision, bool TestCurrentTargetLocation, FVector& OutTeleportLocation, bool Debug);
     static UUWEChaosPhysicsController* GetOrAddPhysicsController(AActor* Target, bool bAddVolumeTracker);
     static bool LineRetraceComplex(FHitResult InputHit, FHitResult& Hit, uint8_t TraceChannel);
+    static bool SphereOverlapBlockingTestByProfile(const UObject* WorldContextObject, FName ProfileName, const FVector& position, const float& SphereRadius, const TArray<AActor*>& IgnoreActors);
 };
 
 class UUWEChaosPhysicsController : public UActorComponent {
@@ -133033,8 +134317,10 @@ class UUWEChaosPhysicsController : public UActorComponent {
     void AddImpulseAtPosition(const FVector& Impulse, const FVector& position);
     void AddVelocity(const FVector& Velocity);
     void ForceToSleep();
+    void ForceToWake();
     FBox GetBodyBounds() const;
     FVector GetBodySize() const;
+    bool GetIsPhysicsEnabled() const;
     void OnVolumeTypeChanged(EVolumeType VolumeType);
     void SetEnvironmentSettings(const FUWEChaosPhysicsControllerEnvironmentSettings& EnvironmentSetting);
     void SetPhysicsEnabled(bool Enabled);
@@ -133082,6 +134368,17 @@ struct FUWEOverlapDetectorComponentOverlap {
     UPrimitiveComponent* OverlappedComponent;
     TWeakObjectPtr<AActor> Actor;
     bool IsOverlapped;
+};
+
+struct FUWEOverlapEjectorAffectedObject {
+    TWeakObjectPtr<AActor> Actor;
+    TScriptInterface<IUWEMovementComponent> MovementComponent;
+    UPrimitiveComponent* OverlappedComponent;
+};
+
+class UUWEOverlapEjectorComponent : public UUWEOverlapDetectorComponent {
+    float HitMultiplier;
+    FName AffectObjectActorTag;
 };
 
 struct FUWEOverlapExpellerAffectedObject {
@@ -133373,25 +134670,7 @@ class UUWEPowerGeneratorSimulation : public UUWEPowerNodeSimulation {
     void SetBasePowerGeneration(float NewBasePowerGen);
 };
 
-class UUWEPowerGridLimitModComponent : public UUWEPowerNodeComponent {
-    float PowerGridMod;
-
-    float GetPowerGridMod() const;
-};
-
-class UUWEPowerLinkOverlapComponent : public UActorComponent {
-    FMulticastInlineDelegate OnOverlapChanged;
-    UBoxComponent* BoxCollider;
-
-    void Initialize(UUWEPowerNodeComponent* node, FVector Start, FVector End, float Width);
-    bool IsOverlapped() const;
-    void OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32_t OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
-    void OnOverlapChanged__DelegateSignature(UUWEPowerNodeComponent* node, bool IsBlocked);
-    void OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32_t OtherBodyIndex);
-};
-
 class UUWEPowerNodeComponent : public UActorComponent {
-    FMulticastInlineDelegate OnNetworkChanged;
     FMulticastInlineDelegate OnDirectLinkAdded;
     FMulticastInlineDelegate OnDirectLinkRemoved;
     FMulticastInlineDelegate OnInitNewPowerSimulation;
@@ -133399,6 +134678,7 @@ class UUWEPowerNodeComponent : public UActorComponent {
     float TransmissionRadius;
     FVector TransmissionPointOffset;
     TSet<UUWEPowerNodeComponent*> DirectLinks;
+    TSet<UUWEPowerNodeComponent*> ProximityLinks;
     TArray<UUWEPowerNodeComponent*> DirectLinksArray;
     FGuid SimulationId;
     UUWESaveHandle* SaveHandle;
@@ -133420,20 +134700,19 @@ class UUWEPowerNodeComponent : public UActorComponent {
     FVector GetWorldTransmissionLocation() const;
     static void LinkAttachedActorPowerNodesToRoot(TArray<AActor*> AttachedActors, AActor* Root);
     static void LinkChildActorPowerNodesToRoot(TArray<UChildActorComponent*> ChildActors, AActor* Other);
-    void OnBlockedLinkChanged(UUWEPowerNodeComponent* node, bool IsBlocked);
     void OnInitNewPowerSimulation__DelegateSignature(UUWEPowerNodeSimulation* NewSim);
     void OnLinkCreated(const FGuid& ToLinkId);
     void OnLinkRemoved(const FGuid& FromLinkId);
+    void OnLinkedSimComponentAssigned(UUWEPowerNodeComponent* OtherNode);
     void OnNewPowerSystem(const FGuid& SystemId);
     void OnRep_DirectLinks();
+    void OnTickSimulation();
     void SetProximityTransmissionEnabled(bool Enabled);
-    void UpdateNetwork(TSet<UUWEPowerNodeComponent*>& Visited);
     void UpdatePowerSystem(int32_t NewStructureId);
 };
 
 class UUWEPowerNodeSimulation : public UUWESimulationObject {
     FString DebugOwnerActorName;
-    TWeakObjectPtr<UUWEPowerNodeComponent> ComponentInstance;
     FVector ActorLocation;
     FVector TransmissionLocation;
     float TransmissionRadius;
@@ -133441,10 +134720,15 @@ class UUWEPowerNodeSimulation : public UUWESimulationObject {
     bool bProximityTransmissionEnabled;
     FGuid PowerSystemId;
     TSet<FGuid> LinkIds;
+    FMulticastInlineDelegate OnTickSimulation;
     FMulticastInlineDelegate OnLinkRemoved;
     FMulticastInlineDelegate OnLinkAdded;
     FMulticastInlineDelegate OnNewPowerSystem;
+    FMulticastInlineDelegate OnComponentInstanceAssigned;
+    TWeakObjectPtr<UUWEPowerNodeComponent> ComponentInstance;
 
+    void UWEOnSimulationTick__DelegateSignature();
+    void UWEPowerNodeComponentInstanceAssigned__DelegateSignature(UUWEPowerNodeComponent* ComponentInstance);
     void UWEPowerNodeLinkDelegate__DelegateSignature(const FGuid& LinkId);
 };
 
@@ -133459,11 +134743,9 @@ struct FUWEPowerSimulationState {
     float StoredPower;
     float TotalPowerGeneration;
     float TotalContinuousPowerDrain;
-    float PowerGridLimit;
     float UsableStoredPower;
     float DisabledStoredPower;
     float MaxChargeableAmount;
-    float BasePowerGridLimit;
     float TotalPowerCapacity;
     float TotalDisabledStoredPower;
     bool bIsPowered;
@@ -133499,10 +134781,8 @@ class UUWEPowerSystemComponent : public UUWEPowerNodeComponent {
     float PowerGeneration;
     float PowerDrain;
     float StoredPower;
-    float HiddenPower;
     float DisabledReservePower;
     float PowerCapacity;
-    float HiddenPowerCapacity;
     float CorePowerRequirement;
     bool IsPowered;
     bool ShowPowerHUD;
@@ -133728,6 +135008,9 @@ class UMaterialExpressionVolumetricFogBlendOutput : public UMaterialExpressionCu
     FExpressionInput BlendAlpha;
 };
 
+class UMaterialExpressionWaterLODBlend : public UMaterialExpression {
+};
+
 class UUWENiagaraDataInterfaceMediaVolume : public UNiagaraDataInterface {
 };
 
@@ -133806,7 +135089,10 @@ enum class EUWESaveGameNetMode {
     Standalone = 0,
     ListenServer = 1,
     CloudHosted = 2,
-    EUWESaveGameNetMode_MAX = 3,
+    AnyNetMode = 3,
+    Singleplayer = 0,
+    Multiplayer = 3,
+    EUWESaveGameNetMode_MAX = 4,
 };
 
 enum class EUWESaveGameValidity {
@@ -133886,8 +135172,19 @@ struct FUWELoadMetaDataSaveGameWrapper {
     FUWESaveSlotMetaData MetaData;
 };
 
+struct FUWELoadSaveGameResult {
+    UUWESaveGame* DeserializedSaveGame;
+    UUWESaveGameCollection* SaveGameCollection;
+};
+
 class UUWEMetaDataSaveGame : public USaveGame {
     FUWESaveSlotMetaData MetaData;
+};
+
+struct FUWEPendingUploadInfo {
+    FString SlotName;
+    FGuid SaveId;
+    TArray<uint8_t> Data;
 };
 
 struct FUWEPlayerMetaData {
@@ -133979,8 +135276,10 @@ class UUWESaveGame : public USaveGame {
     TArray<FUWESaveRecord> Records;
     TArray<FUWEPlayerMetaData> PlayerMetaData;
 
+    static FString GetGameModeFromWorld(const UWorld* InWorld);
     bool GetIsMultiplayer() const;
     static int32_t GetLatestVersion();
+    static FString GetLevelNameFromWorld(const UWorld* InWorld);
     static int32_t GetMinSupportedVersion();
     FString GetSlotName() const;
     static FDateTime GetTimeStamp();
@@ -134014,6 +135313,9 @@ class UUWESaveGameCollection : public USaveGame {
     static EUWESaveGameValidity GetValidityFromVersion(const int32_t Version);
 };
 
+struct FUWESaveGameCollectionContextFilter {
+};
+
 struct FUWESaveGameCollectionInfo {
     int32_t Version;
     FGuid SaveId;
@@ -134033,6 +135335,10 @@ struct FUWESaveGameCollectionInfo {
     FUWESaveHandleUpgraderList UpgraderList;
     EUWESaveGameValidity Validity;
     TArray<FUWESaveSlotMetaData> CheckpointMetaData;
+};
+
+class UUWESaveGameCollectionInfoDeserializer : public UObject {
+    FUWESaveGameCollectionInfo ContainerInfo;
 };
 
 class UUWESaveGameCollectionInfoListViewModel : public UMVVMViewModelBase {
@@ -134183,6 +135489,11 @@ class UUWESaveGameInfoViewModel : public UMVVMViewModelBase {
     bool SetDisplayName(FString InDisplayName);
 };
 
+struct FUWESaveGameRawDataContext {
+    TArray<uint8_t> RawData;
+    FUWESaveGameCollectionInfo SaveGameCollectionInfo;
+};
+
 class UUWESaveGameSharingSettings : public UDeveloperSettings {
     TSoftClassPtr<AGameStateBase> GameStateClass;
     TSoftClassPtr<AGameModeBase> SurvivalGameModeClass;
@@ -134201,6 +135512,7 @@ class UUWESaveGameSharingSubsystem : public UGameInstanceSubsystem {
     void CancelOperation();
     FString DownloadSaveGameFromCloud(FSonarSaveGameResponse DownloadResponse);
     void InternalDownloadAndImportCompleted(bool bDownloadSucceeded, const FSonarSaveGameResponse& DownloadResponse, EUWEImportSaveGameResult ImportResult, FString SlotName, const FGuid& SaveId);
+    void InternalLoadSaveDataCompleted(FString SlotName, TArray<uint8_t>& Data, FUWESaveGameCollectionInfo& Info);
     bool IsOperationPending();
     void OnCancelSaveGameTransferCommand(const TArray<FString>& Args);
     void OnDownloadSaveGameCommand(const TArray<FString>& Args);
@@ -134219,7 +135531,6 @@ class UUWESaveGameStatics : public UBlueprintFunctionLibrary {
     static void EnableAutoSaveForTests(bool InValue);
     static void GetAllExistingSaveGames(TArray<FString>& SaveGames, const int32_t UserIndex);
     static FString GetCheckpointIndexAsString(const EUWESaveGameCollectionIndex Index);
-    static FString GetDisplayNameForSlot(FString InSlotName, EUWESaveSlotFilter Match);
     static int32_t GetMaxSaveSlots();
     static bool IsAutoSaveEnabled();
     static bool IsAutoSaveEnabledForTests();
@@ -134235,16 +135546,13 @@ class UUWESaveGameStatics : public UBlueprintFunctionLibrary {
 };
 
 class UUWESaveGameSubsystem : public UGameInstanceSubsystem {
-    TArray<FUWESaveGameCollectionInfo> SaveGameInfoCache;
     FUWESaveGameContext SaveContext;
     FUWEAwaitingSaveGameCollectionInfoRefresh AwaitingSaveInfoRefresh;
     TMap<AActor*, FGuid> PendingGuids;
 
-    TArray<FUWESaveGameCollectionInfo> GetAllSaveInfoForLevel(FString LevelName) const;
-    FString GetLastModifiedSaveForLevel(FString LevelName) const;
     static FDateTime GetLastSaveToDiscTimeStamp();
-    static bool GetSaveInfoForSlot(FString SlotName, FUWESaveSlotMetaData& OutSaveGameInfo);
     bool IsCurrentSaveDirty() const;
+    static TArray<FUWESaveGameCollectionInfo> ScanForExistingSaves(FString GameMode, FString LevelName, const EUWESaveGameNetMode NetMode);
 };
 
 struct FUWESaveGameThumbnail {
@@ -134273,12 +135581,12 @@ class UUWESaveGameUploadViewModel : public UMVVMViewModelBase {
 };
 
 class UUWESaveGamesTab : public UUWESaveGameDiagnosticTab {
-    UTexture2D* ThumbnailTexture;
     UUWEGameTimeCustomSaveInfoStub* GameTimeInfoObj;
 };
 
 class UUWESaveHandle : public UObject {
 
+    void DisableAutoSave();
     void EnableAutoSave();
     bool HasData() const;
     void Load() const;
@@ -134385,12 +135693,19 @@ class UUWESaveSystemSettings : public UDeveloperSettings {
     uint8_t AutoSaveRecordEventFrequency;
     uint8_t AutoSaveThumbnailFrequency;
     float SaveBackupPeriodInMinutes;
+    bool bSaveBackupsEnabled;
 
     static int32_t GetDurationInSecondsToWaitAfterLastSavePromptSaveOnExit();
 };
 
+class UUWESaveSystemTimersDiagnostic : public UUWEImGuiComponent {
+};
+
 class UUWESaveSystemUserSettings : public UObject {
     bool bAutoSaveEnabled;
+};
+
+struct FUWESaveTaskQueue {
 };
 
 struct FUWESaveUnblockedDelegateWrapper {
@@ -134418,7 +135733,8 @@ enum class EScanObjectType {
     Organic = 0,
     Tech = 1,
     Inorganic = 2,
-    EScanObjectType_MAX = 3,
+    None = 3,
+    EScanObjectType_MAX = 4,
 };
 
 enum class ESharedScanProgressOverrides {
@@ -134604,7 +135920,7 @@ enum class EUWEBaseLockFlags {
     UWEBaseLockFlags_ShouldHide = 1,
     UWEBaseLockFlags_Hard = 2,
     UWEBaseLockFlags_EmbeddedActor = 4,
-    UWEBaseLockFlags_ShowLockedDecoratorsAsGhost = 8,
+    UWEBaseLockFlags_LockedByGhost = 8,
     UWEBaseLockFlags_MAX = 9,
 };
 
@@ -134673,17 +135989,18 @@ enum class EUWEEditActionLegality {
     Illegal_BlockedByHardLock = 2,
     Illegal_BrushTypeMismatch = 3,
     Illegal_BlockedByCollision = 4,
-    Illegal_EmptySelection = 5,
-    Illegal_OversizedSelection = 6,
-    Illegal_ExceedsGlobalMaxCellCount = 7,
-    Illegal_BlockedByOccupancyChange = 8,
-    Illegal_BlockedByUnsupportedCells = 9,
-    Illegal_ModifyingArchivedCellsNoValidCells = 10,
-    Illegal_ModifyingArchivedCells = 11,
-    Illegal_InvalidSupports = 12,
-    Invalid_NotYetCalculated = 13,
-    Success = 14,
-    EUWEEditActionLegality_MAX = 15,
+    Illegal_BlockedByEditGhost = 5,
+    Illegal_EmptySelection = 6,
+    Illegal_OversizedSelection = 7,
+    Illegal_ExceedsGlobalMaxCellCount = 8,
+    Illegal_BlockedByOccupancyChange = 9,
+    Illegal_BlockedByUnsupportedCells = 10,
+    Illegal_ModifyingArchivedCellsNoValidCells = 11,
+    Illegal_ModifyingArchivedCells = 12,
+    Illegal_InvalidSupports = 13,
+    Invalid_NotYetCalculated = 14,
+    Success = 15,
+    EUWEEditActionLegality_MAX = 16,
 };
 
 enum class EUWEMeshType {
@@ -135122,7 +136439,7 @@ class IUWEDecorator : public UInterface {
 
     EUWEEditActionLegality GetLegality();
     int32_t GetMinDistance() const;
-    bool GetPlacementValidity(AUWESculpturalBaseActor* InBase, FIntVector Cell, const FTransform& Transform, const TArray<AActor*>& IgnoreActors, const bool IsDisconnectedStructure) const;
+    bool GetPlacementValidity(AUWESculpturalBaseActor* InBase, FIntVector Cell, const FTransform& Transform, const TArray<AActor*>& IgnoreActors, const bool IsDisconnectedStructure, const bool IsDirectlyEdited) const;
     bool ImplementsGetPlacementValidity() const;
     void InitializeOnBase(AUWESculpturalBaseActor* InBase, FIntVector Cell);
     void OnShowAsGhostChanged(bool bShowAsGhost);
@@ -135171,7 +136488,7 @@ class AUWEFloatingBaseSupport : public AUWEBaseSupportActor {
 
 struct FUWEGreedyMeshID {
     FTransform CellTransform;
-    UStaticMesh* StaticMesh;
+    TSoftObjectPtr<UStaticMesh> StaticMesh;
 };
 
 struct FUWEGreedyMeshPartition {
@@ -135524,6 +136841,7 @@ struct FUWESculpturalEditGhostMaterials {
 };
 
 class UUWESculpturalProxySubsystem : public UTickableWorldSubsystem {
+    TSet<UStaticMesh*> LoadedOverlapMeshes;
 };
 
 struct FUWESelectionBrush {
@@ -135693,6 +137011,46 @@ struct FUWEWaveCellPriority {
 };
 
 struct FUWEWaveSolver {
+};
+
+enum class EUWEActorSequenceReplicationMode {
+    None = 0,
+    TriggerOnly = 1,
+    FullPlayback = 2,
+    EUWEActorSequenceReplicationMode_MAX = 3,
+};
+
+enum class EUWEActorSequenceSaveMode {
+    None = 0,
+    TriggerOnly = 1,
+    PlaybackPosition = 2,
+    EUWEActorSequenceSaveMode_MAX = 3,
+};
+
+class UUWEActorSequenceComponent : public UActorSequenceComponent {
+    EUWEActorSequenceReplicationMode ReplicationMode;
+    EUWEActorSequenceSaveMode SaveMode;
+    float PlayRate;
+    float PlaybackResyncThreshold;
+    bool bSequenceActivated;
+    bool bSequenceFinished;
+    double ReplicatedPlaybackTime;
+    bool bSavedTriggered;
+    double SavedPlaybackTime;
+    UUWESaveHandle* SaveHandle;
+
+    void BeginSequence();
+    float GetPlayRate() const;
+    bool HasFinished() const;
+    bool IsActivated() const;
+    void OnLocalClientReady();
+    void OnRep_PlayRate();
+    void OnRep_ReplicatedPlaybackTime();
+    void OnRep_SequenceActivated();
+    void OnRep_SequenceFinished();
+    void OnSequenceFinished();
+    void ReverseSequence();
+    void SetPlayRate(float Rate);
 };
 
 class AUWESerializedLevelSequenceActor : public AReplicatedLevelSequenceActor {
@@ -135939,6 +137297,15 @@ enum class EOnlineSessionErrorCode {
     EOnlineSessionErrorCode_MAX = 10,
 };
 
+enum class EUWEDebugPrivilegePreset {
+    Default = 0,
+    NoOnline = 1,
+    NoCrossplay = 2,
+    NoUGC = 3,
+    NoMultiplayer = 4,
+    EUWEDebugPrivilegePreset_MAX = 5,
+};
+
 enum class EUWEFriendMode {
     Lobby = 0,
     Offline = 1,
@@ -136016,13 +137383,6 @@ enum class EUWEUserPrivilege {
     CanPlayCrossplay = 2,
     CanShareSaves = 3,
     EUWEUserPrivilege_MAX = 4,
-};
-
-enum class EUWEUserPrivilegeOverrideMode {
-    Default = 0,
-    Allow = 1,
-    Deny = 2,
-    EUWEUserPrivilegeOverrideMode_MAX = 3,
 };
 
 struct FSonarCreateAndStartGameRequest {
@@ -136221,8 +137581,8 @@ class UUWESonarSubsystem : public UGameInstanceSubsystem {
     void CheckTwitchAccountLink();
     void CheckTwitchEntitlements();
     void EndSonarSession(bool bShouldRestart);
-    EUWEPlayMode GetCurrentPlayMode();
-    FString GetCurrentPlayModeString();
+    EUWEPlayMode GetCurrentPlayMode() const;
+    FString GetCurrentPlayModeString() const;
     void HandleEffectiveUserPrivilegeChanged(const UCommonUserInfo* UserInfo, EUWEUserPrivilege Privilege, bool bHasPrivilege);
     void HandlerUserInitialized(const UCommonUserInfo* UserInfo, bool bSuccess, FText Error, ECommonUserPrivilege RequestedPrivilege, ECommonUserOnlineContext OnlineContext);
     void HandlerUserPrivileges(const UCommonUserInfo* UserInfo, ECommonUserPrivilege Privilege, ECommonUserAvailability OldAvailability, ECommonUserAvailability NewAvailability);
@@ -137399,7 +138759,7 @@ class UUWETriggeredNotificationData : public UUWEPrimaryDataAssetBase {
     FText TriggeredNotificationText;
     UInputAction* InputAction;
     FString InputActionString;
-    float duration;
+    float Duration;
     ETriggeredNotificationTriggerType TriggerType;
     ETriggeredNotificationDisplayType DisplayType;
     ETriggeredNotificationRemovalType RemovalType;
@@ -137636,6 +138996,7 @@ class UUWEUtilitiesBPLibrary : public UBlueprintFunctionLibrary {
     static float GetLocationInRangePercentage(FTransform ViewTransform, FVector TargetLocation, float MaxDistance);
     static float GetLocationInViewPercentage(FTransform ViewTransform, FVector TargetLocation, float FOV);
     static AActor* GetRootAttachActor(AActor* Actor);
+    static bool IsASoft(const UObject* Object, TSoftClassPtr<UObject> SoftClass);
     static bool IsActorPartOfLevel(const AActor* Actor, const ULevel* Level);
     static bool IsGraphicsDriverOutdated(FString& CurrentDriver, FString& RecommendedDriver);
     static bool IsLocationInTargetViewCone(const FVector& Location, const AActor* Target, float HalfAngleDeg, float MaxDistance);
@@ -137666,6 +139027,8 @@ class UUWEUtilitiesStatics : public UBlueprintFunctionLibrary {
     static void FlushNetDormancyIfNecessary(AActor* Actor);
     static UWorld* GetMainPlayWorld();
     static FText GetTextFromGameplayTag(const FGameplayTag& Tag);
+    static bool IsLobbyReached();
+    static void LobbyReached();
 };
 
 enum class EUWEVehicleMovementType {
@@ -137873,6 +139236,7 @@ class UVolumeTrackerComponent : public USceneComponent {
     EUWEVolumeTrackerUpdateVolumesMode UpdateVolumesMode;
     bool EmulateNativeOverlapEventsForRootComponent;
     float TrackerRadius;
+    bool bSkipGASLooseTags;
     FMulticastInlineDelegate OnVolumeTypeChanged;
     FMulticastInlineDelegate OnVolumeEnterEvent;
     FMulticastInlineDelegate OnVolumeExitEvent;
@@ -137973,8 +139337,10 @@ class UUWEWaterBlueprintLibrary : public UBlueprintFunctionLibrary {
 
 class AUWEWaterBodyOcean : public AWaterBodyOcean {
     UChildActorComponent* WaterVolumeComponent;
+    UPostProcessComponent* PPUnderwaterBlur;
     FUWEWaterLightSettings WaterLightingSettings;
     float WaterLinePPMThreshold;
+    float UnderwaterStateUpdateRate;
     FVector BodySize;
     bool bDirty;
 
@@ -138205,6 +139571,7 @@ class UUWEWeatherQualityMaterialExpression : public UMaterialExpression {
 
 class UUWEWeatherSyncComponent : public UActorComponent {
     bool bOnScreenDebug;
+    bool bWeatherWasLoaded;
     UUWEWeatherForecast* WeatherForecast;
     UMaterialInterface* CloudLayersMaterialBrush;
     UMaterialInterface* BlendMaterialBrush;
@@ -138420,13 +139787,6 @@ struct FUWERuntimeCreatureTypeInfo {
     UUWEWorldPopCreatureRuntimePopulation* Population;
 };
 
-struct FUWERuntimeResourceInfo {
-    FTransform Transform;
-    TSoftObjectPtr<AActor> SpawnedResource;
-    bool HasFailedToSpawn;
-    float TimeToRespawnSeconds;
-};
-
 struct FUWESeededActorInstance {
     TSoftClassPtr<AActor> ActorClass;
     FGuid RuleGUID;
@@ -138464,14 +139824,8 @@ class UUWESeededResourceDataAsset : public UUWEPrimaryDataAssetBase {
 struct FUWESeededResourceInfo {
     FTransform Transform;
     TSoftClassPtr<AActor> ResourceClass;
+    FSoftObjectPath ActorInstance;
     FGuid ResourceGUID;
-    FGuid RuleGUID;
-    FGuid ZoneGUID;
-    bool HandPlaced;
-    float TimeToRespawnSeconds;
-    float SpawnRangeMultiplier;
-    ESpawnActorCollisionHandlingMethod CollisionHandlingMethod;
-    FUWEWorldPopResourceInterfaceSpawnSettings ResourceInterfaceSpawnSettings;
 };
 
 class UUWESeededResourceSpatialData : public UObject {
@@ -138497,7 +139851,9 @@ struct FUWESpatialOctreeCell {
 
 class UUWESpawnDataSubsystem : public UWorldSubsystem {
     UUWESpawningSpatialData* SpatialData;
-    UUWESeededResourceSpatialData* SeededLocations;
+    UUWESeededResourceSpatialData* SeededCreatureLocations;
+    UUWESeededResourceSpatialData* SeededResourceLocations;
+    TMap<TSoftClassPtr<AActor>, UUWEWorldPopResourceDA*> ResourceDefinitionByActorClass;
     TArray<FGuid> ZonesAdded;
     TArray<FGuid> ZonesAddedCreatures;
 
@@ -138576,7 +139932,6 @@ struct FUWEWorldPop2Query {
     TArray<TSoftClassPtr<AActor>> ExcludedClasses;
     bool OnlySpawned;
     bool OnlyActive;
-    bool OnlyRespawnable;
     double MinimumDepth;
     double MaximumDepth;
 };
@@ -138633,6 +139988,10 @@ class UUWEWorldPopCreaturesSubsystem : public UUWEServerWorldSubsystem {
     void RegisterExistingCreature(AActor* creature, const FGuid& SpawnId, bool bIsPersistent, FGameplayTagContainer RespawnAllowEncroachingTags, FUWEWorldPopCreatureData CreatureData);
     AActor* RequestSpawnManagedCreature(const FGuid& SpawnId, UClass* CreatureClass, const FTransform& SpawnTransform, bool bPersistentLocation, FUWEWorldPopCreatureData CreatureData);
     void UnregisterExistingCreature(const FGuid& SpawnId);
+};
+
+class AUWEWorldPopGlobalResourcesDataStorage : public APartitionActor {
+    UUWESeededResourceSpatialData* ResourcesOctree;
 };
 
 struct FUWEWorldPopLocationDebugInfo {
@@ -138830,27 +140189,19 @@ class UUWEWorldPopSpawningSettings : public UDeveloperSettings {
     float MaximumBoundsForGathering;
     int32_t MaximumForSlowReduce;
     int32_t MaxSpawnPointsWithoutUserConfirmation;
-    TSoftObjectPtr<UUWESeededCreatureDataAsset> SeededCreatureDataLocation;
     FString RegionDADirectory;
     FString RegionConfigDADirectory;
     FString ResourceDADirectory;
+    TArray<TSoftClassPtr<AActor>> SearchableResourceActorBaseClasses;
     FFilePath SeededDataPath;
 };
 
 class UUWEWorldPopSubsystem : public UUWEServerWorldSubsystem {
-    TMap<FGuid, FUWERuntimeResourceInfo> SpawnedResources;
-    TMap<TSoftObjectPtr<AActor>, FGuid> SpawnedResourceToGuidMap;
-    TSet<FGuid> FailedToSpawnResources;
     UUWESaveHandle* SaveHandle;
-    TSet<FGuid> RemovedResources;
     TSet<FGuid> ResourcesToRespawn;
     TMap<FGuid, float> RespawnTimers;
-    TMap<FGuid, uint32_t> SpawnIterationCounters;
+    TMap<FGuid, TWeakObjectPtr<AActor>> PendingRespawnActors;
     TMap<FGuid, uint8_t> ResourceInstanceGatherStates;
-    TArray<TSoftClassPtr<AActor>> DisabledClasses;
-
-    void DisableSpawnForClass(TSoftClassPtr<AActor> Class);
-    void OnSpawnedResourceDestroyed(AActor* SpawnedResource);
 };
 
 class UUWEWorldPopulationRule : public UObject {
@@ -139842,7 +141193,7 @@ struct FWaveTableTransform {
     FRichCurve CurveCustom;
     UCurveFloat* CurveShared;
     FWaveTableData TableData;
-    float duration;
+    float Duration;
 };
 
 struct FWidgetCarouselNavigationBarStyle : public FSlateWidgetStyle {

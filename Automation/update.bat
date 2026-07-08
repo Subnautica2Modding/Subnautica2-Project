@@ -36,6 +36,7 @@ set "OUTPUT_HEADERS_PATH=Headers.hpp"
 set "INDEX_PATH=DataIndex.json"
 set "ASSET_SNAPSHOT_PATH=%~dp0AssetSnapshot.txt"
 set "AR_PATH=%~dp0../AssetRegistry.bin"
+set "DLC_AR_PATH=%~dp0../Releases/SN2Base/Windows/AssetRegistry.bin"
 set "LOCRES_PATH=%~dp0Localisations.json"
 echo Output files will be: 
 echo   - %OUTPUT_JMAP_PATH%
@@ -44,6 +45,7 @@ echo   - %OUTPUT_HEADERS_PATH%
 echo   - %INDEX_PATH%
 echo   - %ASSET_SNAPSHOT_PATH%
 echo   - %AR_PATH%
+echo   - %DLC_AR_PATH%
 echo   - %LOCRES_PATH%
 
 echo Checking for UE4SS proxy DLL at: "%UE4SS_PROXY_PATH%"
@@ -244,6 +246,21 @@ if errorlevel 1 (
         echo File created: "%AR_PATH%"
     ) else (
         echo ERROR: "%AR_PATH%" file not found after export!
+    )
+)
+echo.
+
+echo Running CookedExport.exe for Alpakit DLC cook asset registry...
+echo Command: "%COOKED_EXPORT_PATH%" -p "%PAKS_DIR%" -erb -arbo "%DLC_AR_PATH%"
+"%COOKED_EXPORT_PATH%" -p "%PAKS_DIR%" -erb -arbo "%DLC_AR_PATH%"
+if errorlevel 1 (
+    echo WARNING: CookedExport.exe failed or returned an error
+) else (
+    echo SUCCESS: CookedExport.exe completed successfully
+    if exist "%DLC_AR_PATH%" (
+        echo File created: "%DLC_AR_PATH%"
+    ) else (
+        echo ERROR: "%DLC_AR_PATH%" file not found after export!
     )
 )
 echo.
