@@ -22,6 +22,17 @@
 			"Enabled": true
 		},
 		{
+			"Name": "SN2ModTools",
+			"Enabled": true,
+			"TargetAllowList": [
+				"Editor"
+			]
+		},
+		{
+			"Name": "Alpakit",
+			"Enabled": true
+		},
+		{
 			"Name": "AudioModulation",
 			"Enabled": true
 		},
@@ -33,12 +44,25 @@
 			]
 		},
 		{
+			"Name": "Prefixed",
+			"Enabled": false,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/24fba92028e04c77bff71efc518589d4"
+		},
+		{
+			"Name": "EditorTests",
+			"Enabled": false
+		},
+		{
 			"Name": "GameplayAbilities",
 			"Enabled": true
 		},
 		{
 			"Name": "ModelViewViewModel",
 			"Enabled": true
+		},
+		{
+			"Name": "PlasticSourceControl",
+			"Enabled": false
 		},
 		{
 			"Name": "HttpBlueprint",
@@ -62,6 +86,21 @@
 			]
 		},
 		{
+			"Name": "SteamSockets",
+			"Enabled": false,
+			"TargetAllowList": [
+				"Editor"
+			]
+		},
+		{
+			"Name": "OnlineSubsystemIOS",
+			"Enabled": false
+		},
+		{
+			"Name": "OnlineSubsystemGooglePlay",
+			"Enabled": false
+		},
+		{
 			"Name": "OnlineSubsystemEOS",
 			"Enabled": true
 		},
@@ -78,16 +117,76 @@
 			"Enabled": true
 		},
 		{
+			"Name": "GoogleCloudMessaging",
+			"Enabled": false
+		},
+		{
+			"Name": "GooglePAD",
+			"Enabled": false
+		},
+		{
 			"Name": "CommonUI",
 			"Enabled": true
+		},
+		{
+			"Name": "AvfMedia",
+			"Enabled": false
+		},
+		{
+			"Name": "AppleMoviePlayer",
+			"Enabled": false
+		},
+		{
+			"Name": "AppleImageUtils",
+			"Enabled": false
+		},
+		{
+			"Name": "AndroidMedia",
+			"Enabled": false
+		},
+		{
+			"Name": "AndroidMoviePlayer",
+			"Enabled": false
+		},
+		{
+			"Name": "AndroidPermission",
+			"Enabled": false
+		},
+		{
+			"Name": "AndroidFileServer",
+			"Enabled": false
+		},
+		{
+			"Name": "AndroidDeviceProfileSelector",
+			"Enabled": false
+		},
+		{
+			"Name": "AnalyticsBlueprintLibrary",
+			"Enabled": false
 		},
 		{
 			"Name": "UWEInterfaces",
 			"Enabled": true
 		},
 		{
+			"Name": "FunctionalTestingEditor",
+			"Enabled": false
+		},
+		{
+			"Name": "ImGui",
+			"Enabled": false
+		},
+		{
+			"Name": "CodeView",
+			"Enabled": true
+		},
+		{
 			"Name": "UWEWater",
 			"Enabled": true
+		},
+		{
+			"Name": "CommonLoadingScreen",
+			"Enabled": false
 		},
 		{
 			"Name": "Landmass",
@@ -112,6 +211,13 @@
 		{
 			"Name": "UWEAssetRegistry",
 			"Enabled": true
+		},
+		{
+			"Name": "UWEAssetSize",
+			"Enabled": false,
+			"TargetAllowList": [
+				"Editor"
+			]
 		},
 		{
 			"Name": "FMODStudio",
@@ -182,6 +288,13 @@
 			"Enabled": true
 		},
 		{
+			"Name": "UWERemoteControl",
+			"Enabled": false,
+			"TargetAllowList": [
+				"Editor"
+			]
+		},
+		{
 			"Name": "UWEBreakable",
 			"Enabled": true
 		},
@@ -210,6 +323,10 @@
 			"Enabled": true
 		},
 		{
+			"Name": "UMGEditorToolbars",
+			"Enabled": false
+		},
+		{
 			"Name": "UWEPingSystem",
 			"Enabled": true
 		},
@@ -222,7 +339,15 @@
 			"Enabled": true
 		},
 		{
+			"Name": "AnalyticsMulticast",
+			"Enabled": true
+		},
+		{
 			"Name": "UWEStimulus",
+			"Enabled": true
+		},
+		{
+			"Name": "SkeletalMeshModelingTools",
 			"Enabled": true
 		},
 		{
@@ -234,11 +359,18 @@
 			"Enabled": true
 		},
 		{
-			"Name": "AnalyticsMulticast",
+			"Name": "TraceSourceFilters",
 			"Enabled": true
 		},
 		{
-			"Name": "SkeletalMeshModelingTools",
+			"Name": "WinDualShock",
+			"Enabled": false,
+			"SupportedTargetPlatforms": [
+				"Win64"
+			]
+		},
+		{
+			"Name": "AlembicHairImporter",
 			"Enabled": true
 		},
 		{
@@ -259,6 +391,15 @@
 		},
 		{
 			"Name": "UWELobby",
+			"Enabled": true
+		},
+		{
+			"Name": "Prefabricator",
+			"Enabled": false,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/39ccbbf668e84847890992df9922e355"
+		},
+		{
+			"Name": "MeshBlend",
 			"Enabled": true
 		},
 		{
@@ -303,6 +444,17 @@
 			]
 		},
 		{
+			"Name": "UWEDataFabricator",
+			"Enabled": false,
+			"SupportedTargetPlatforms": [
+				"Win64"
+			]
+		},
+		{
+			"Name": "IconBaker",
+			"Enabled": false
+		},
+		{
 			"Name": "UWEConsole",
 			"Enabled": true
 		},
@@ -313,6 +465,19 @@
 		{
 			"Name": "UWEPlayerReady",
 			"Enabled": true
+		},
+		{
+			"Name": "OnlineSubsystemGDK",
+			"Enabled": false,
+			"PlatformDenyList": [
+				"Win64"
+			],
+			"SupportedTargetPlatforms": [
+				"Win64",
+				"WinGDK",
+				"XB1",
+				"XSX"
+			]
 		},
 		{
 			"Name": "UWEDynamicEvents",
@@ -355,6 +520,10 @@
 			"Enabled": true
 		},
 		{
+			"Name": "UWETutorials",
+			"Enabled": false
+		},
+		{
 			"Name": "UWETemperatureRegions",
 			"Enabled": true
 		},
@@ -371,12 +540,80 @@
 			"Enabled": true
 		},
 		{
+			"Name": "MovieRenderPipeline",
+			"Enabled": false
+		},
+		{
 			"Name": "ChaosClothAsset",
 			"Enabled": true
 		},
 		{
+			"Name": "AppleProResMedia",
+			"Enabled": true,
+			"SupportedTargetPlatforms": [
+				"Win64"
+			]
+		},
+		{
 			"Name": "PCGGeometryScriptInterop",
 			"Enabled": true
+		},
+		{
+			"Name": "DLSS",
+			"Enabled": false,
+			"MarketplaceURL": "https://www.unrealengine.com/marketplace/en-US/product/nvidia-dlss",
+			"SupportedTargetPlatforms": [
+				"Win64",
+				"WinGDK"
+			]
+		},
+		{
+			"Name": "DLSSMoviePipelineSupport",
+			"Enabled": false,
+			"MarketplaceURL": "https://www.unrealengine.com/marketplace/en-US/product/nvidia-dlss",
+			"SupportedTargetPlatforms": [
+				"Win64"
+			]
+		},
+		{
+			"Name": "StreamlineDLSSG",
+			"Enabled": false,
+			"MarketplaceURL": "https://www.unrealengine.com/marketplace/en-US/product/nvidia-dlss",
+			"SupportedTargetPlatforms": [
+				"Win64",
+				"WinGDK"
+			]
+		},
+		{
+			"Name": "StreamlineReflex",
+			"Enabled": false,
+			"MarketplaceURL": "https://www.unrealengine.com/marketplace/en-US/product/nvidia-dlss",
+			"SupportedTargetPlatforms": [
+				"Win64"
+			]
+		},
+		{
+			"Name": "StreamlineCore",
+			"Enabled": false,
+			"MarketplaceURL": "https://www.unrealengine.com/marketplace/en-US/product/nvidia-dlss",
+			"SupportedTargetPlatforms": [
+				"Win64",
+				"WinGDK"
+			]
+		},
+		{
+			"Name": "FSR3MovieRenderPipeline",
+			"Enabled": false,
+			"SupportedTargetPlatforms": [
+				"Win64"
+			]
+		},
+		{
+			"Name": "FSR3",
+			"Enabled": false,
+			"SupportedTargetPlatforms": [
+				"Win64"
+			]
 		},
 		{
 			"Name": "NiagaraMRQ",
@@ -395,35 +632,20 @@
 			"Enabled": true
 		},
 		{
-			"Name": "ElectraCodecs",
-			"Enabled": true
-		},
-		{
-			"Name": "ElectraPlayer",
-			"Enabled": true
-		},
-		{
-			"Name": "ElectraUtil",
-			"Enabled": true
-		},
-		{
-			"Name": "ElectraCDM",
-			"Enabled": true
-		},
-		{
-			"Name": "VPxDecoderElectra",
-			"Enabled": true
-		},
-		{
-			"Name": "MeshBlend",
-			"Enabled": true
-		},
-		{
-			"Name": "SN2ModTools",
-			"Enabled": true,
-			"TargetAllowList": [
-				"Editor"
+			"Name": "GameInputWindows",
+			"Enabled": false,
+			"SupportedTargetPlatforms": [
+				"Win64",
+				"WinGDK"
 			]
+		},
+		{
+			"Name": "LandscapePatch",
+			"Enabled": true
+		},
+		{
+			"Name": "BinkMedia",
+			"Enabled": true
 		}
 	]
 }

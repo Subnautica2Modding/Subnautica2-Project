@@ -1,0 +1,11 @@
+{
+	"BuildId": "bd967944-cabe-4ee7-b004-c4537601fea4",
+	"Modules": 
+	{
+		"ConstructionSystemEditor": "UnrealEditor-ConstructionSystemEditor.dll",
+		"ConstructionSystemRuntime": "UnrealEditor-ConstructionSystemRuntime.dll",
+		"PrefabricatorEditor": "UnrealEditor-PrefabricatorEditor.dll",
+		"PrefabricatorEditorPostInit": "UnrealEditor-PrefabricatorEditorPostInit.dll",
+		"PrefabricatorRuntime": "UnrealEditor-PrefabricatorRuntime.dll"
+	}
+}
