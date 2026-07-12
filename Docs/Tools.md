@@ -5,7 +5,7 @@
 ### Installation
 
 If you don't have UE4SS installed already:
-1. Grab the `zDEV-UE4SS_SN2.zip` file from [the bottom of this releases page](https://github.com/Subnautica2Modding/Subnautica2-UE4SS/releases) under "Assets"
+1. Grab the `zDEV-UE4SS_v3.0.1-xxxx-xxxxxxxx.zip ` file from [the bottom of the experimental-latest release](https://github.com/UE4SS-RE/RE-UE4SS/releases/) under "Assets"
 2. Navigate to your game directory:
 `\steamapps\common\Subnautica2\Subnautica2\Binaries\Win64\`
 3. Extract all files from the zip directly into the Win64 folder
