@@ -1,8 +1,9 @@
 # Subnautica 2 Project
 
-A template Unreal Engine editor project for creating SN2 content mods. 
+A template Unreal Engine editor project for creating Subnautica 2 content mods.
 
-## If you are brand new to modding
+<details>
+<summary><span style="font-size: 1.5em">Tools to help you make mods</span><hr></summary>
 
 Please get familiar with the basics of modding with this excellent set of guides:
 
@@ -10,11 +11,48 @@ https://github.com/Dmgvol/UE_Modding/
 
 Also start with a basic mod idea, such as changing a property on a blueprint.
 
-## Tools
+## UE4SS
 
-Get started with [basic mod tooling](./Docs/Tools.md) as outlined in the above UE Modding guides.
+### Installation
 
-## Prerequisites
+If you don't have UE4SS installed already:
+1. Grab the `zDEV-UE4SS_v3.0.1-xxxx-xxxxxxxx.zip ` file from [the bottom of the experimental-latest release](https://github.com/UE4SS-RE/RE-UE4SS/releases/) under "Assets"
+2. Navigate to your game directory:
+`\steamapps\common\Subnautica2\Subnautica2\Binaries\Win64\`
+3. Extract all files from the zip directly into the Win64 folder
+4. Launch game
+
+### Uninstallation/disable 
+
+If you want to uninstall or disable UE4SS:
+1. Navigate to game directory
+`\steamapps\common\Subnautica2\Subnautica2\Binaries\Win64\`
+2. Delete or rename file `dwmapi.dll`
+
+### Usage
+
+Here are some docs to help you get started with UE4SS:
+- [UE4SS Docs](https://docs.ue4ss.com/dev/)
+- [UE4SS Live Viewer](https://docs.ue4ss.com/dev/feature-overview/live-view.html)
+
+One thing that is very useful with UE4SS is its ability to dump information about the game's classes. You can do a C++ header dump which provides lots of juicy info about the game which you can access from the template.
+
+## FModel
+
+Download FModel from here: https://fmodel.app/
+
+FModel is a fundamental tool for researching how to make a mod and how the game works. You typically need it open alongside Unreal Engine to cross reference and search for stuff.
+
+Please follow these docs to get started with FModel:
+- [Setting up FModel](https://github.com/Dmgvol/UE_Modding/blob/main/TheBasics/ExportingFModel.md)
+- [Using FModel](https://github.com/Dmgvol/UE_Modding/blob/main/TheBasics/UsingFModel.md)
+
+Please note that you can either [dump your own](https://github.com/Dmgvol/UE_Modding/blob/main/TheBasics/Extractingusmap.md#step-3-extract-usmap-file) `.usmap` file using UE4SS, or you can get the `.usmap` file from the `Automation` folder in this project repository.
+
+</details>
+
+<details>
+<summary><span style="font-size: 1.5em">Prerequisites</span><hr></summary>
 
 You need to own Subnautica 2 and have the game installed.
 
@@ -34,6 +72,8 @@ It is best to install the engine:
 You also need to install Visual Studio 2022 and select the MSVC `v14.38` toolchain to be able to open the project.
 - [Helpful guide](https://dev.epicgames.com/documentation/unreal-engine/setting-up-visual-studio-development-environment-for-cplusplus-projects-in-unreal-engine?application_version=5.6)
 - [Reddit post in case you get stuck](https://www.reddit.com/r/unrealengine/comments/1i0bopv/detected_compiler_newer_than_visual_studio_2022/)
+
+</details>
 
 <details>
 <summary><span style="font-size: 1.5em">Setting up and opening the project</span><hr></summary>
@@ -259,7 +299,7 @@ And that's it! When you launch the game, your data is automatically scanned and 
 
 I also released a commentary video of me adding a new RGB disco light. It's 1 hour long and in the middle I'm mostly trying to figure out why it's not working - but the first 20 mins and last 20 mins are the most useful parts!
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/50UhTEQ8NwU?si=1am3SGPe60JO5Jp0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+[![Watch the video](https://img.youtube.com/vi/50UhTEQ8NwU/0.jpg)](https://www.youtube.com/watch?v=50UhTEQ8NwU)
 
 </details>
 
