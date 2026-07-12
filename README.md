@@ -306,9 +306,11 @@ I also released a commentary video of me adding a new RGB disco light. It's 1 ho
 ## Credits to:
 
 - anonymous crazy gigachad for reversing and implementing the game's engine shader changes, allowing for custom materials to work without crashing the game
-- axolotl/bmartin for developing the initial version of SN2 Mod Tools plugin
+- axolotl/bmartin for developing the initial version of SN2 Mod Tools plugin and setting up the FMODStudio plugin
 - paboyafx for figuring out the final fix required to get custom items working
 - Archengius & truman for making the goated jmap and Suzie tools
+- Archengius, truman, Narknon, LongerWarrior & Ryn for advice & insight on some issues
+- Narknon for providing a starting set of engine patches from his work on the DBSZ cooked editor modkit
 
 ### Please return the favour!
 
