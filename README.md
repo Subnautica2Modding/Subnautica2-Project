@@ -1,6 +1,8 @@
 # Subnautica 2 Project
 
-A template Unreal Engine editor project for creating Subnautica 2 content mods.
+The unofficial "cooked editor" modkit for creating Subnautica 2 content mods!
+
+![alt text](Docs/Images/Header.png)
 
 <details>
 <summary><span style="font-size: 1.5em">Tools to help you make mods</span><hr></summary>
@@ -60,6 +62,8 @@ The disk space that will be used - including custom engine and any intermediate 
 
 If you haven't done so already, [follow these instructions on linking your Epic Games and GitHub accounts](https://www.epicgames.com/help/en-US/c-Category_EpicAccount/c-ConnectedAccounts/how-do-i-link-my-unreal-engine-account-with-my-github-account-a000084938?sessionInvalidated=true). If you don't do this, the below custom engine link will return a 404 not found.
 
+## Windows users
+
 You need to install a [custom build of Unreal Engine 5.6](https://github.com/Buckminsterfullerene02/UnrealEngine/releases) (don't worry, you don't need to build or compile anything!). This build is approximately 10GB smaller than the vanilla build from Epic Games Store and is **necessary** to enable:
 - Adding custom materials into the game
 - Adding custom items, buildables, crafting recipes etc. into the game
@@ -73,6 +77,19 @@ It is best to install the engine:
 You also need to install Visual Studio 2022 and select the MSVC `v14.38` toolchain to be able to open the project.
 - [Helpful guide](https://dev.epicgames.com/documentation/unreal-engine/setting-up-visual-studio-development-environment-for-cplusplus-projects-in-unreal-engine?application_version=5.6)
 - [Reddit post in case you get stuck](https://www.reddit.com/r/unrealengine/comments/1i0bopv/detected_compiler_newer_than_visual_studio_2022/)
+
+## Linux users
+
+While I haven't tested it, this project should also work on Linux - you can package mods for Win64 and Linux platforms from here, and the mods will work exactly the same way.
+
+To keep the custom engine build size minimal, it is only built for Win64 platform. Therefore, on Linux, you will need to build the engine from source.
+
+Build the engine version for the latest tag that this project is against - for example, if this project's last tag is `sn2-v0.1.1.0`, build on the engine commit on the same tag `sn2-v0.1.1.0`. 
+https://github.com/Buckminsterfullerene02/UnrealEngine/tags
+
+The instructions for building the engine and project is the same as any other Unreal Engine project on Linux - plenty of tutorials out there.
+
+Note: I haven't tested any of the automation (Suzie, SN2 Mod Tools, Alpakit) on Linux. Results may vary, or require fixups. Please contribute with fixes if required!
 
 </details>
 
@@ -113,8 +130,7 @@ All you need to do, is open `GameInstallDirectory.txt` and paste in the location
 
 Now when you open the editor, the game content should all be visible!
 
-> [!NOTE]
-> Content in the editor is read-only, meaning that even if it allows you to edit the asset, the package cannot be saved and the value will be lost the next time you open the editor. Later on, I will show you how to create uncooked copies of some assets which you can use in your mods.
+**Note:** Content in the editor is read-only, meaning that even if it allows you to edit the asset, the package cannot be saved and the value will be lost the next time you open the editor. Later on, I will show you how to create uncooked copies of some assets which you can use in your mods.
 
 </details>
 
@@ -169,8 +185,7 @@ Open the asset, set `Cook Rule` to `Always Cook`, and check `Label Assets in My 
 
 Enter a number between `1` and `300` in this chunk Id field and press Ok. **Do not enter 0 for the Id!**
 
-> [!IMPORTANT]
-> Each mod **must** use a seperate pak chunk number to get packaged seperately from each other! Take note of each pak chunk Id you are assigning to files in each mod.
+**Important:** Each mod **must** use a seperate pak chunk number to get packaged seperately from each other! Take note of each pak chunk Id you are assigning to files in each mod.
 
 ![Paking-Step-4](Docs/Images/Paking-Step-4.png)
 
@@ -205,8 +220,7 @@ Now paste your pakchunk files into the mod folder.
 
 Rename the pakchunk files to the same name as the mod folder in the project, keeping their extensions.
 
-> [!IMPORTANT]
-> The files must be the same name as the mod folder in the unreal engine project! If you change the mod folder name in the project later, make sure the update the file names to match it! E.g. if the mod folder in the project is `MyMod`, the files must be called `MyMod.pak`, `MyMod.ucas`, `MyMod.utoc`.
+**Important:** The files must be the same name as the mod folder in the unreal engine project! If you change the mod folder name in the project later, make sure the update the file names to match it! E.g. if the mod folder in the project is `MyMod`, the files must be called `MyMod.pak`, `MyMod.ucas`, `MyMod.utoc`.
 
 </details>
 
@@ -284,7 +298,7 @@ Your mod will be installed to the `<game install dir>/Subnautica 2/Mods/` direct
 And that's it! When you launch the game, your data is automatically scanned and registered into the game. Here is what it should look like from the TestPluginMod:
 
 <details>
-<summary><span style="font-size: 1em"><b>Demo screenshots</b></span><hr></summary>
+<summary><span style="font-size: 1em">Demo screenshots</span><hr></summary>
 
 ![alt text](Docs/Images/Plugin-Mod-Demo-0.png)
 
@@ -304,6 +318,17 @@ I also released a commentary video of me adding a new RGB disco light. It's 1 ho
 
 </details>
 
+<details>
+<summary><span style="font-size: 1.5em">How the "cooked editor" project works</span><hr></summary>
+
+I have known about "cooked editor" for a couple of years, but I never really had a game to sit down with and put the research into it. Now, with Subnautica 2, I finally had a reason to! This modkit is the first of its kind - it is the first Unreal Engine project that directly uses the cooked assets from the game install and successfully loads in all assets and shaders! Previous cooked editor modkits have been created before, but never to the level of loading in compiled shaders, being able to open cooked levels, enable world partition streaming, and more. Not by any game studio or by another modder.
+
+I have written a guide containing all of the technical information required for this to be replicated for other games - and that it has! Due to this work, the Palworld modkit is reaching this level of completeness, which serves an even greater audience of modders for years to come!
+
+https://buckminsterfullerene02.github.io/dev-guide/ModSupport/ModKits/DeveloperModkits/CookedEngine.html
+
+</details>
+
 ## Credits to:
 
 - anonymous crazy gigachad for reversing and implementing the game's engine shader changes, allowing for custom materials to work without crashing the game
@@ -312,6 +337,8 @@ I also released a commentary video of me adding a new RGB disco light. It's 1 ho
 - Archengius & truman for making the goated jmap and Suzie tools
 - Archengius, truman, Narknon, LongerWarrior & Ryn for advice & insight on some issues
 - Narknon for providing a starting set of engine patches from his work on the DBSZ cooked editor modkit
+
+*This project is not endorsed by, directly affiliated with, maintained, authorized, or sponsored by Unknown Worlds Entertainment or KRAFTON. All product and company names are the registered trademarks of their original owners. The use of any trade name or trademark is for identification and reference purposes only and does not imply any association with the trademark holder of their product brand. No information, help, resources or advice has been provided by Unknown Worlds Entertainment or KRAFTON.*
 
 ### Please return the favour!
 
