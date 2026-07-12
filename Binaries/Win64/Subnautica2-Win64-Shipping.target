@@ -17,7 +17,7 @@
 		"IsLicenseeVersion": 0,
 		"IsPromotedBuild": 0,
 		"BranchName": "UE5",
-		"BuildId": "e47bea4b-3a15-4326-a35e-8253023b9904"
+		"BuildId": "e1727d6f-8d17-49e7-b355-4b28e0ba8e8e"
 	},
 	"BuildProducts": [
 		{
@@ -75,6 +75,10 @@
 			"Type": "NonUFS"
 		},
 		{
+			"Path": "$(ProjectDir)/Plugins/Alpakit/Alpakit.uplugin",
+			"Type": "UFS"
+		},
+		{
 			"Path": "$(ProjectDir)/Plugins/FMODStudioNiagara/FMODStudioNiagara.uplugin",
 			"Type": "UFS"
 		},
@@ -104,6 +108,10 @@
 		},
 		{
 			"Path": "$(ProjectDir)/Plugins/MeshBlend/MeshBlend.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/MoreBuildables/MoreBuildables.uplugin",
 			"Type": "UFS"
 		},
 		{
@@ -3867,6 +3875,10 @@
 			"Type": "UFS"
 		},
 		{
+			"Path": "$(EngineDir)/Plugins/Developer/TraceSourceFiltering/TraceSourceFilters.uplugin",
+			"Type": "UFS"
+		},
+		{
 			"Path": "$(EngineDir)/Plugins/Developer/UObjectPlugin/UObjectPlugin.uplugin",
 			"Type": "UFS"
 		},
@@ -4023,6 +4035,10 @@
 			"Type": "UFS"
 		},
 		{
+			"Path": "$(EngineDir)/Plugins/Experimental/CodeView/CodeView.uplugin",
+			"Type": "UFS"
+		},
+		{
 			"Path": "$(EngineDir)/Plugins/Experimental/Compositing/CompositeCore/CompositeCore.uplugin",
 			"Type": "UFS"
 		},
@@ -4072,6 +4088,10 @@
 		},
 		{
 			"Path": "$(EngineDir)/Plugins/Experimental/Landmass/Landmass.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Experimental/LandscapePatch/LandscapePatch.uplugin",
 			"Type": "UFS"
 		},
 		{
@@ -4143,6 +4163,10 @@
 			"Type": "UFS"
 		},
 		{
+			"Path": "$(EngineDir)/Plugins/Importers/AlembicHairImporter/AlembicHairImporter.uplugin",
+			"Type": "UFS"
+		},
+		{
 			"Path": "$(EngineDir)/Plugins/Importers/AlembicImporter/AlembicImporter.uplugin",
 			"Type": "UFS"
 		},
@@ -4163,31 +4187,15 @@
 			"Type": "UFS"
 		},
 		{
-			"Path": "$(EngineDir)/Plugins/Media/AvfMedia/AvfMedia.uplugin",
+			"Path": "$(EngineDir)/Plugins/Media/AppleProResMedia/AppleProResMedia.uplugin",
 			"Type": "UFS"
 		},
 		{
-			"Path": "$(EngineDir)/Plugins/Media/D3D12VideoDecodersElectra/D3D12VideoDecodersElectra.uplugin",
-			"Type": "UFS"
+			"Path": "$(EngineDir)/Plugins/Media/AppleProResMedia/Binaries/ThirdParty/Win64/ProResToolbox.dll",
+			"Type": "NonUFS"
 		},
 		{
-			"Path": "$(EngineDir)/Plugins/Media/ElectraCDM/ElectraCDM.uplugin",
-			"Type": "UFS"
-		},
-		{
-			"Path": "$(EngineDir)/Plugins/Media/ElectraCodecs/ElectraCodecs.uplugin",
-			"Type": "UFS"
-		},
-		{
-			"Path": "$(EngineDir)/Plugins/Media/ElectraPlayer/ElectraPlayer.uplugin",
-			"Type": "UFS"
-		},
-		{
-			"Path": "$(EngineDir)/Plugins/Media/ElectraSubtitles/ElectraSubtitles.uplugin",
-			"Type": "UFS"
-		},
-		{
-			"Path": "$(EngineDir)/Plugins/Media/ElectraUtil/ElectraUtil.uplugin",
+			"Path": "$(EngineDir)/Plugins/Media/BinkMedia/BinkMedia.uplugin",
 			"Type": "UFS"
 		},
 		{
@@ -4204,14 +4212,6 @@
 		},
 		{
 			"Path": "$(EngineDir)/Plugins/Media/MediaPlate/MediaPlate.uplugin",
-			"Type": "UFS"
-		},
-		{
-			"Path": "$(EngineDir)/Plugins/Media/OpusDecoderElectra/OpusDecoderElectra.uplugin",
-			"Type": "UFS"
-		},
-		{
-			"Path": "$(EngineDir)/Plugins/Media/VPxDecoderElectra/VPxDecoderElectra.uplugin",
 			"Type": "UFS"
 		},
 		{
@@ -4339,19 +4339,7 @@
 			"Type": "UFS"
 		},
 		{
-			"Path": "$(EngineDir)/Plugins/Runtime/AndroidFileServer/AndroidFileServer.uplugin",
-			"Type": "UFS"
-		},
-		{
-			"Path": "$(EngineDir)/Plugins/Runtime/AndroidPermission/AndroidPermission.uplugin",
-			"Type": "UFS"
-		},
-		{
 			"Path": "$(EngineDir)/Plugins/Runtime/AnimationBudgetAllocator/AnimationBudgetAllocator.uplugin",
-			"Type": "UFS"
-		},
-		{
-			"Path": "$(EngineDir)/Plugins/Runtime/AppleImageUtils/AppleImageUtils.uplugin",
 			"Type": "UFS"
 		},
 		{
@@ -4428,10 +4416,6 @@
 		},
 		{
 			"Path": "$(EngineDir)/Plugins/Runtime/GeometryScripting/GeometryScripting.uplugin",
-			"Type": "UFS"
-		},
-		{
-			"Path": "$(EngineDir)/Plugins/Runtime/GooglePAD/GooglePAD.uplugin",
 			"Type": "UFS"
 		},
 		{
@@ -4582,23 +4566,18 @@
 		"ActorPalette",
 		"ActorSequence",
 		"AdvancedRenamer",
+		"AlembicHairImporter",
 		"AlembicImporter",
 		"Alpakit",
 		"AnalyticsBlueprintLibrary",
 		"AnalyticsMulticast",
-		"AndroidDeviceProfileSelector",
-		"AndroidFileServer",
-		"AndroidMedia",
-		"AndroidMoviePlayer",
-		"AndroidPermission",
 		"AnimToTexture",
 		"AnimationBudgetAllocator",
 		"AnimationData",
 		"AnimationModifierLibrary",
 		"AnimationSharing",
 		"AnimationWarping",
-		"AppleImageUtils",
-		"AppleMoviePlayer",
+		"AppleProResMedia",
 		"ArchVisCharacter",
 		"AssetManagerEditor",
 		"AssetTags",
@@ -4608,8 +4587,8 @@
 		"AudioSynesthesia",
 		"AudioWidgets",
 		"AutomationUtils",
-		"AvfMedia",
 		"BackChannel",
+		"BinkMedia",
 		"BlendSpaceMotionAnalysis",
 		"BlendStack",
 		"BlueprintHeaderView",
@@ -4635,6 +4614,7 @@
 		"ChunkDownloader",
 		"CmdLinkServer",
 		"CodeLiteSourceCodeAccess",
+		"CodeView",
 		"ColorGrading",
 		"CommonUI",
 		"CompositeCore",
@@ -4652,7 +4632,6 @@
 		"CryptoKeys",
 		"CurveEditorTools",
 		"CustomMeshComponent",
-		"D3D12VideoDecodersElectra",
 		"DataRegistry",
 		"DataValidation",
 		"Dataflow",
@@ -4669,11 +4648,6 @@
 		"EditorPerformance",
 		"EditorScriptingUtilities",
 		"EditorTelemetry",
-		"ElectraCDM",
-		"ElectraCodecs",
-		"ElectraPlayer",
-		"ElectraSubtitles",
-		"ElectraUtil",
 		"EngineAssetDefinitions",
 		"EngineCameras",
 		"EnhancedInput",
@@ -4700,8 +4674,6 @@
 		"GeometryProcessing",
 		"GeometryScripting",
 		"GitSourceControl",
-		"GoogleCloudMessaging",
-		"GooglePAD",
 		"HairStrands",
 		"HardwareEncoders",
 		"HttpBlueprint",
@@ -4717,6 +4689,7 @@
 		"JsonBlueprintUtilities",
 		"KDevelopSourceCodeAccess",
 		"Landmass",
+		"LandscapePatch",
 		"LauncherChunkInstaller",
 		"LevelSequenceEditor",
 		"LevelSequenceNavigatorBridge",
@@ -4743,6 +4716,7 @@
 		"MobilePatchingUtils",
 		"ModelViewViewModel",
 		"ModularGameplay",
+		"MoreBuildables",
 		"MotionTrajectory",
 		"MotionWarping",
 		"Mover",
@@ -4770,7 +4744,6 @@
 		"OnlineSubsystemUtils",
 		"OodleNetwork",
 		"OpenColorIO",
-		"OpusDecoderElectra",
 		"PCG",
 		"PCGGeometryScriptInterop",
 		"Paper2D",
@@ -4778,7 +4751,6 @@
 		"PhysicsControl",
 		"PixWinPlugin",
 		"PlanarCut",
-		"PlasticSourceControl",
 		"PlatformCrypto",
 		"PluginBrowser",
 		"PluginUtils",
@@ -4826,6 +4798,7 @@
 		"TestPluginMod",
 		"TextureFormatOodle",
 		"ToolPresets",
+		"TraceSourceFilters",
 		"TraceUtilities",
 		"TweeningUtils",
 		"UMGWidgetPreview",
@@ -4965,7 +4938,6 @@
 		"UWEXboxFSE",
 		"UbaController",
 		"UdpMessaging",
-		"VPxDecoderElectra",
 		"VariantManager",
 		"VariantManagerContent",
 		"VisualStudioCodeSourceCodeAccess",
