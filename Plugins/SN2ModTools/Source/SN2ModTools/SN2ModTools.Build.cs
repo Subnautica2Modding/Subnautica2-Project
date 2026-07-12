@@ -11,6 +11,7 @@ public class SN2ModTools : ModuleRules
 			"Core",
 			"CoreUObject",
 			"Engine",
+			"Projects",
 			"UnrealEd",
 			"AssetTools",
 			"AssetRegistry",

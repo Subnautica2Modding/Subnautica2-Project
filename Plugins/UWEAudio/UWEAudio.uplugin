@@ -13,6 +13,13 @@
   "IsBetaVersion": false,
   "IsExperimentalVersion": false,
   "Installed": false,
+  "Modules": [
+    {
+      "Name": "UWEAudio",
+      "Type": "Runtime",
+      "LoadingPhase": "PreDefault"
+    }
+  ],
   "Plugins": [
     {
       "Name": "FMODStudio",

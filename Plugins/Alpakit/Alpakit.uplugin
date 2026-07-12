@@ -1,0 +1,24 @@
+{
+	"FileVersion": 3,
+	"Version": 2,
+	"VersionName": "2.0.0",
+	"FriendlyName": "Alpakit",
+	"Description": "Cook and stage Subnautica 2 DLC plugin mods and copy them to the game Mods folder",
+	"Category": "Modding",
+	"CreatedBy": "Buckminsterfullerene, Mircea Roata (ported & simplified for SN2)",
+	"CreatedByURL": "",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": false,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "Alpakit",
+			"Type": "Editor",
+			"LoadingPhase": "Default"
+		}
+	]
+}

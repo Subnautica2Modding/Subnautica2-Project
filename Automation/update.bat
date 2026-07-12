@@ -2,10 +2,11 @@
 setlocal enabledelayedexpansion
 
 set "INSTALL_DIR=C:\Program Files (x86)\Steam\steamapps\common\Subnautica2"
+set "PAKS_DIR=%INSTALL_DIR%\Subnautica2\Content\Paks"
 set "GAME_ID=1962700"
 set "PROCESS_NAME=Subnautica2-Win64-Shipping"
-set "JMAP_DUMPER_PATH=jmap_dumper.exe"
-set "WAIT_TIME=30"
+set "JMAP_DUMPER_PATH=jmap_dumper\jmap_dumper.exe"
+set "WAIT_TIME=40"
 set "UE4SS_PROXY_NAME=dwmapi.dll"
 set "UE4SS_PROXY_PATH=%INSTALL_DIR%\Subnautica2\Binaries\Win64\%UE4SS_PROXY_NAME%"
 set "UE4SS_DISABLED=0"
@@ -26,16 +27,26 @@ if "%GAME_VERSION%"=="" (
     pause
     exit /b 1
 )
-set PATTERNSLEUTH_RES_EngineVersion=5.6
 
 echo Game version detected: %GAME_VERSION%
+set PATTERNSLEUTH_RES_EngineVersion=5.6
 set "OUTPUT_JMAP_PATH=../Content/DynamicClasses/Subnautica2-%GAME_VERSION%.jmap.gz"
 set "OUTPUT_USMAP_PATH=Subnautica2-%GAME_VERSION%.usmap"
-set "OUTPUT_DIFF_JMAP_PATH=diff.hpp"
+set "OUTPUT_HEADERS_PATH=Headers.hpp"
+set "INDEX_PATH=DataIndex.json"
+set "ASSET_SNAPSHOT_PATH=%~dp0AssetSnapshot.txt"
+set "AR_PATH=%~dp0../AssetRegistry.bin"
+set "DLC_AR_PATH=%~dp0../Releases/SN2Base/Windows/AssetRegistry.bin"
+set "LOCRES_PATH=%~dp0Localisations.json"
 echo Output files will be: 
 echo   - %OUTPUT_JMAP_PATH%
 echo   - %OUTPUT_USMAP_PATH%
-echo   - %OUTPUT_DIFF_JMAP_PATH%
+echo   - %OUTPUT_HEADERS_PATH%
+echo   - %INDEX_PATH%
+echo   - %ASSET_SNAPSHOT_PATH%
+echo   - %AR_PATH%
+echo   - %DLC_AR_PATH%
+echo   - %LOCRES_PATH%
 
 echo Checking for UE4SS proxy DLL at: "%UE4SS_PROXY_PATH%"
 if exist "%UE4SS_PROXY_PATH%" (
@@ -124,8 +135,8 @@ echo Target .usmap path: "%OUTPUT_USMAP_PATH%"
 echo.
 
 echo Running jmap_dumper for .jmap.gz output...
-echo Command: %JMAP_DUMPER_PATH% --pid %PID% "%OUTPUT_JMAP_PATH%"
-%JMAP_DUMPER_PATH% --pid %PID% "%OUTPUT_JMAP_PATH%"
+echo Command: %JMAP_DUMPER_PATH% --pid %PID% --suzie "%OUTPUT_JMAP_PATH%"
+%JMAP_DUMPER_PATH% --pid %PID% --suzie "%OUTPUT_JMAP_PATH%"
 if errorlevel 1 (
     echo WARNING: jmap_dumper for .jmap.gz file failed or returned an error
 ) else (
@@ -137,50 +148,6 @@ if errorlevel 1 (
     )
 )
 echo.
-
-echo Running jmap_dumper for .usmap output...
-echo Command: %JMAP_DUMPER_PATH% --pid %PID% "%OUTPUT_USMAP_PATH%"
-%JMAP_DUMPER_PATH% --pid %PID% "%OUTPUT_USMAP_PATH%"
-if errorlevel 1 (
-    echo WARNING: jmap_dumper for .usmap file failed or returned an error
-) else (
-    echo SUCCESS: .usmap dump completed successfully
-    if exist "%OUTPUT_USMAP_PATH%" (
-        echo File created: "%OUTPUT_USMAP_PATH%"
-    ) else (
-        echo ERROR: .usmap file not found after dump!
-    )
-)
-echo.
-
-echo Running jmap_dumper for diff.jmap.gz output...
-echo Command: %JMAP_DUMPER_PATH% --pid %PID% "%OUTPUT_DIFF_JMAP_PATH%"
-%JMAP_DUMPER_PATH% --pid %PID% "%OUTPUT_DIFF_JMAP_PATH%"
-if errorlevel 1 (
-    echo WARNING: jmap_dumper for diff.jmap.gz file failed or returned an error
-) else (
-    echo SUCCESS: diff.jmap.gz dump completed successfully
-    if exist "%OUTPUT_DIFF_JMAP_PATH%" (
-        echo File created: "%OUTPUT_DIFF_JMAP_PATH%"
-    ) else (
-        echo ERROR: diff.jmap.gz file not found after dump!
-    )
-)
-echo.
-
-echo Running TableGraph.exe for DataTable dumps...
-echo Command: DTDumps/TableGraph.exe --pak-dir "%INSTALL_DIR%\Subnautica2\Content\Paks" --mappings "%OUTPUT_USMAP_PATH%" --version GAME_UE5_6 --export "DataIndex.json"
-DTDumps\TableGraph.exe --pak-dir "%INSTALL_DIR%\Subnautica2\Content\Paks" --mappings "%OUTPUT_USMAP_PATH%" --version GAME_UE5_6 --export "DataIndex.json"
-if errorlevel 1 (
-    echo WARNING: TableGraph.exe failed or returned an error
-) else (
-    echo SUCCESS: TableGraph.exe completed successfully
-    if exist "DataIndex.json" (
-        echo File created: "DataIndex.json"
-    ) else (
-        echo ERROR: DataIndex.json file not found after export!
-    )
-)
 
 echo Closing game process (PID: %PID%)...
 taskkill /pid %PID% /f >nul 2>&1
@@ -204,6 +171,114 @@ if "%UE4SS_DISABLED%"=="1" (
     )
     echo.
 )
+echo.
+
+echo Running jmap_dumper for .usmap output...
+echo Command: %JMAP_DUMPER_PATH% --jmap "%OUTPUT_JMAP_PATH%" "%OUTPUT_USMAP_PATH%"
+%JMAP_DUMPER_PATH% --jmap "%OUTPUT_JMAP_PATH%" "%OUTPUT_USMAP_PATH%"
+if errorlevel 1 (
+    echo WARNING: jmap_dumper for .usmap file failed or returned an error
+) else (
+    echo SUCCESS: .usmap dump completed successfully
+    if exist "%OUTPUT_USMAP_PATH%" (
+        echo File created: "%OUTPUT_USMAP_PATH%"
+    ) else (
+        echo ERROR: .usmap file not found after dump!
+    )
+)
+echo.
+
+echo Running jmap_dumper for Headers.hpp output...
+echo Command: %JMAP_DUMPER_PATH% --jmap "%OUTPUT_JMAP_PATH%" --no-offsets "%OUTPUT_HEADERS_PATH%"
+%JMAP_DUMPER_PATH% --jmap "%OUTPUT_JMAP_PATH%" --no-offsets "%OUTPUT_HEADERS_PATH%"
+if errorlevel 1 (
+    echo WARNING: jmap_dumper for Headers.hpp file failed or returned an error
+) else (
+    echo SUCCESS: Headers.hpp dump completed successfully
+    if exist "%OUTPUT_HEADERS_PATH%" (
+        echo File created: "%OUTPUT_HEADERS_PATH%"
+    ) else (
+        echo ERROR: Headers.hpp file not found after dump!
+    )
+)
+echo.
+
+set "TABLE_DUMPER_PATH=TableGraph/TableGraph.exe"
+echo Running TableGraph.exe for DataTable/DataAsset dumps...
+echo Command: "%TABLE_DUMPER_PATH%" --pak-dir "%PAKS_DIR%" --mappings "%OUTPUT_USMAP_PATH%" --version GAME_UE5_6 --export "%INDEX_PATH%"
+"%TABLE_DUMPER_PATH%" --pak-dir "%PAKS_DIR%" --mappings "%OUTPUT_USMAP_PATH%" --version GAME_UE5_6 --export "%INDEX_PATH%"
+if errorlevel 1 (
+    echo WARNING: TableGraph.exe failed or returned an error
+) else (
+    echo SUCCESS: TableGraph.exe completed successfully
+    if exist "%INDEX_PATH%" (
+        echo File created: "%INDEX_PATH%"
+    ) else (
+        echo ERROR: "%INDEX_PATH%" file not found after export!
+    )
+)
+echo.
+
+set "COOKED_EXPORT_PATH=CookedExport/CookedExport.exe"
+echo Running CookedExport.exe for asset list snapshot...
+echo Command: "%COOKED_EXPORT_PATH%" -p "%PAKS_DIR%" -m "%OUTPUT_USMAP_PATH%" -dra -ipp "Engine/" -ipp "Subnautica2/Content/Maps/Main/L_Main/_Generated_/"  -ro "%ASSET_SNAPSHOT_PATH%"
+"%COOKED_EXPORT_PATH%" -p "%PAKS_DIR%" -m "%OUTPUT_USMAP_PATH%" -dra -ipp "Engine/" -ipp "Subnautica2/Content/Maps/Main/L_Main/_Generated_/" -ro "%ASSET_SNAPSHOT_PATH%"
+if errorlevel 1 (
+    echo WARNING: CookedExport.exe failed or returned an error
+) else (
+    echo SUCCESS: CookedExport.exe completed successfully
+    if exist "%ASSET_SNAPSHOT_PATH%" (
+        echo File created: "%ASSET_SNAPSHOT_PATH%"
+    ) else (
+        echo ERROR: "%ASSET_SNAPSHOT_PATH%" file not found after export!
+    )
+)
+echo.
+
+echo Running CookedExport.exe for asset registry...
+echo Command: "%COOKED_EXPORT_PATH%" -p "%PAKS_DIR%" -erb -arbo "%AR_PATH%"
+"%COOKED_EXPORT_PATH%" -p "%PAKS_DIR%" -erb -arbo "%AR_PATH%"
+if errorlevel 1 (
+    echo WARNING: CookedExport.exe failed or returned an error
+) else (
+    echo SUCCESS: CookedExport.exe completed successfully
+    if exist "%AR_PATH%" (
+        echo File created: "%AR_PATH%"
+    ) else (
+        echo ERROR: "%AR_PATH%" file not found after export!
+    )
+)
+echo.
+
+echo Running CookedExport.exe for Alpakit DLC cook asset registry...
+echo Command: "%COOKED_EXPORT_PATH%" -p "%PAKS_DIR%" -erb -arbo "%DLC_AR_PATH%"
+"%COOKED_EXPORT_PATH%" -p "%PAKS_DIR%" -erb -arbo "%DLC_AR_PATH%"
+if errorlevel 1 (
+    echo WARNING: CookedExport.exe failed or returned an error
+) else (
+    echo SUCCESS: CookedExport.exe completed successfully
+    if exist "%DLC_AR_PATH%" (
+        echo File created: "%DLC_AR_PATH%"
+    ) else (
+        echo ERROR: "%DLC_AR_PATH%" file not found after export!
+    )
+)
+echo.
+
+echo Running CookedExport.exe for localisations file...
+echo Command: "%COOKED_EXPORT_PATH%" -p "%PAKS_DIR%" -dl "Subnautica2/Content/Localization/Game/en/Game.locres" "%LOCRES_PATH%"
+"%COOKED_EXPORT_PATH%" -p "%PAKS_DIR%" -dl "Subnautica2/Content/Localization/Game/en/Game.locres" "%LOCRES_PATH%"
+if errorlevel 1 (
+    echo WARNING: CookedExport.exe failed or returned an error
+) else (
+    echo SUCCESS: CookedExport.exe completed successfully
+    if exist "%LOCRES_PATH%" (
+        echo File created: "%LOCRES_PATH%"
+    ) else (
+        echo ERROR: "%LOCRES_PATH%" file not found after export!
+    )
+)
+echo.
 
 echo Done
 pause

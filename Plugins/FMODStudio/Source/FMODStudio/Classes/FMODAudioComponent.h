@@ -97,11 +97,14 @@ struct FFMODOcclusionDetails
     /** Whether or not to enable complex geometry occlusion checks. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="FMOD|Occlusion", meta=(EditCondition = "bEnableOcclusion"))
     bool bUseComplexCollisionForOcclusion;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="FMOD|Occlusion")
+    int32 OcclusionTickFrequency;
 
     FFMODOcclusionDetails()
         : bEnableOcclusion(false)
         , OcclusionTraceChannel(ECC_Visibility)
         , bUseComplexCollisionForOcclusion(false)
+        , OcclusionTickFrequency(0)
     {}
 };
 

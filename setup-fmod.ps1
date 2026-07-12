@@ -2,40 +2,34 @@
 # Copies FMOD banks from your local SN2 install and native DLLs from the FMOD download. Run once after cloning.
 
 param(
-    [string]$SN2Path = "",
     [string]$FMODPluginZip = ""
 )
 
 $ErrorActionPreference = "Stop"
 $StubRoot = $PSScriptRoot
 
-# Locate SN2 install
-if (-not $SN2Path) {
-    $steamLibraries = @(
-        "C:\Program Files (x86)\Steam\steamapps\common\Subnautica2",
-        "D:\SteamLibrary\steamapps\common\Subnautica2",
-        "E:\SteamLibrary\steamapps\common\Subnautica2"
-    )
-    foreach ($lib in $steamLibraries) {
-        if (Test-Path $lib) { $SN2Path = $lib; break }
-    }
+$gameInstallFile = Join-Path $StubRoot "GameInstallDirectory.txt"
+if (Test-Path $gameInstallFile) {
+    $SN2Path = (Get-Content $gameInstallFile | Where-Object { $_ -and -not $_.StartsWith(";") } | Select-Object -First 1).Trim()
 }
 
 if (-not $SN2Path -or -not (Test-Path $SN2Path)) {
-    Write-Error "Could not find Subnautica 2 install. Pass -SN2Path 'C:\...\Subnautica2'"
+    Write-Error "Could not find Subnautica 2 install. Please provide the path in GameInstallDirectory.txt"
 }
 
 # Copy FMOD banks
-$bankSrc = Join-Path $SN2Path "Subnautica2\Content\FMOD\Desktop"
+$bankSrc = Join-Path $SN2Path "Content\FMOD\Desktop"
 $bankDst = Join-Path $StubRoot "Content\FMOD\Desktop"
 
 if (-not (Test-Path $bankSrc)) {
-    Write-Error "FMOD banks not found at: $bankSrc`nIs SN2 fully installed?"
+    Write-Error "FMOD banks not found at: $bankSrc. Is SN2 fully installed?"
+    exit 0
 }
 
 New-Item -ItemType Directory -Force $bankDst | Out-Null
-Copy-Item "$bankSrc\Master.bank" $bankDst -Force
-Copy-Item "$bankSrc\Master.strings.bank" $bankDst -Force
+Get-ChildItem -Path $bankSrc -File | ForEach-Object {
+    Copy-Item $_.FullName (Join-Path $bankDst $_.Name) -Force
+}
 Write-Host "[OK] FMOD banks copied from $bankSrc"
 
 # Extract native FMOD DLLs and plugin source from the official FMOD download
@@ -71,5 +65,4 @@ if ($needDlls.Count -gt 0) {
     Write-Host "[OK] Native FMOD DLLs already present"
 }
 
-Write-Host ""
-Write-Host "Done. Open Subnautica2.uproject and FMOD events will show up under /Game/FMOD/ in the Content Browser."
+Write-Host "Done."

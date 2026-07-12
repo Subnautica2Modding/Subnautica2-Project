@@ -8,6 +8,8 @@ namespace ModActions
 
 	void CookAndInstallMod(const FString& ModName);
 
+	void InstallMod(const FString& ModName);
+
 	void UninstallMod(const FString& ModName);
 
 	// "/Game/Mods/MyMod" -> "MyMod"; empty for anything else.

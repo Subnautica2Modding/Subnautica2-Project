@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EpicGames.Oodle</name>
+    </assembly>
+    <members>
+        <member name="T:EpicGames.Compression.OodleCompressorType">
+            <summary>
+            Compressor type to use
+            </summary>
+        </member>
+        <member name="F:EpicGames.Compression.OodleCompressorType.None">
+            <summary>
+            None = memcpy, pass through uncompressed bytes
+            </summary>
+        </member>
+        <member name="F:EpicGames.Compression.OodleCompressorType.Kraken">
+            <summary>
+            Fast decompression and high compression ratios, amazing!
+            </summary>
+        </member>
+        <member name="F:EpicGames.Compression.OodleCompressorType.Leviathan">
+            <summary>
+            Leviathan = Kraken's big brother with higher compression, slightly slower decompression.
+            </summary>
+        </member>
+        <member name="F:EpicGames.Compression.OodleCompressorType.Mermaid">
+            <summary>
+            Mermaid is between Kraken and Selkie - crazy fast, still decent compression.
+            </summary>
+        </member>
+        <member name="F:EpicGames.Compression.OodleCompressorType.Selkie">
+            <summary>
+            Selkie is a super-fast relative of Mermaid.  For maximum decode speed.
+            </summary>
+        </member>
+        <member name="F:EpicGames.Compression.OodleCompressorType.Hydra">
+            <summary>
+            Hydra, the many-headed beast = Leviathan, Kraken, Mermaid, or Selkie (see $OodleLZ_About_Hydra)
+            </summary>
+        </member>
+        <member name="T:EpicGames.Compression.OodleCompressionLevel">
+            <summary>
+            Compression level
+            </summary>
+        </member>
+        <member name="F:EpicGames.Compression.OodleCompressionLevel.None">
+            <summary>
+            Don't compress, just copy raw bytes
+            </summary>
+        </member>
+        <member name="F:EpicGames.Compression.OodleCompressionLevel.SuperFast">
+            <summary>
+            Super fast mode, lower compression ratio
+            </summary>
+        </member>
+        <member name="F:EpicGames.Compression.OodleCompressionLevel.VeryFast">
+            <summary>
+            Fastest LZ mode with still decent compression ratio
+            </summary>
+        </member>
+        <member name="F:EpicGames.Compression.OodleCompressionLevel.Fast">
+            <summary>
+            Fast - good for daily use
+            </summary>
+        </member>
+        <member name="F:EpicGames.Compression.OodleCompressionLevel.Normal">
+            <summary>
+            Standard medium speed LZ mode
+            </summary>
+        </member>
+        <member name="F:EpicGames.Compression.OodleCompressionLevel.Optimal1">
+            <summary>
+            Optimal parse level 1 (faster optimal encoder)
+            </summary>
+        </member>
+        <member name="F:EpicGames.Compression.OodleCompressionLevel.Optimal2">
+            <summary>
+            Optimal parse level 2 (recommended baseline optimal encoder)
+            </summary>
+        </member>
+        <member name="F:EpicGames.Compression.OodleCompressionLevel.Optimal3">
+            <summary>
+            Optimal parse level 3 (slower optimal encoder)
+            </summary>
+        </member>
+        <member name="F:EpicGames.Compression.OodleCompressionLevel.Optimal4">
+            <summary>
+            Optimal parse level 4 (very slow optimal encoder)
+            </summary>
+        </member>
+        <member name="F:EpicGames.Compression.OodleCompressionLevel.Optimal5">
+            <summary>
+            Optimal parse level 5 (don't care about encode speed, maximum compression)
+            </summary>
+        </member>
+        <member name="F:EpicGames.Compression.OodleCompressionLevel.HyperFast1">
+            <summary>
+            Faster than SuperFast, less compression
+            </summary>
+        </member>
+        <member name="F:EpicGames.Compression.OodleCompressionLevel.HyperFast2">
+            <summary>
+            Faster than HyperFast1, less compression
+            </summary>
+        </member>
+        <member name="F:EpicGames.Compression.OodleCompressionLevel.HyperFast3">
+            <summary>
+            Faster than HyperFast2, less compression
+            </summary>
+        </member>
+        <member name="F:EpicGames.Compression.OodleCompressionLevel.HyperFast4">
+            <summary>
+            Fastest, less compression
+            </summary>
+        </member>
+        <member name="F:EpicGames.Compression.OodleCompressionLevel.HyperFast">
+            <summary>
+            Alias hyperfast base level
+            </summary>
+        </member>
+        <member name="F:EpicGames.Compression.OodleCompressionLevel.Optimal">
+            <summary>
+            Alias optimal standard level
+            </summary>
+        </member>
+        <member name="F:EpicGames.Compression.OodleCompressionLevel.Max">
+            <summary>
+            Maximum compression level
+            </summary>
+        </member>
+        <member name="F:EpicGames.Compression.OodleCompressionLevel.Min">
+            <summary>
+            fastest compression level
+            </summary>
+        </member>
+        <member name="T:EpicGames.Compression.OodleException">
+            <summary>
+            Base class for oodle exceptions
+            </summary>
+        </member>
+        <member name="M:EpicGames.Compression.OodleException.#ctor(System.String)">
+            <summary>
+            Base class for oodle exceptions
+            </summary>
+        </member>
+        <member name="T:EpicGames.Compression.Oodle">
+            <summary>
+            Wraps an instance of the Oodle compressor
+            </summary>
+        </member>
+        <member name="M:EpicGames.Compression.Oodle.#cctor">
+            <summary>
+            Static constructor. Registers the import resolver for the native Oodle library.
+            </summary>
+        </member>
+        <member name="M:EpicGames.Compression.Oodle.Compress(EpicGames.Compression.OodleCompressorType,System.ReadOnlySpan{System.Byte},System.Span{System.Byte},EpicGames.Compression.OodleCompressionLevel)">
+            <summary>
+            Compress a block of data
+            </summary>
+            <param name="compressor">Compressor to use</param>
+            <param name="inputData">Data to be compressed</param>
+            <param name="outputData">Buffer for output data</param>
+            <param name="compressionLevel">Desired compression level</param>
+            <returns></returns>
+        </member>
+        <member name="M:EpicGames.Compression.Oodle.MaximumOutputSize(EpicGames.Compression.OodleCompressorType,System.Int32)">
+            <summary>
+            Determines the max size of the compressed buffer
+            </summary>
+            <param name="compressor">Compressor type to use</param>
+            <param name="uncompressedLength">Length of the input data</param>
+            <returns>Size of the buffer required for output data</returns>
+        </member>
+        <member name="M:EpicGames.Compression.Oodle.Decompress(System.ReadOnlySpan{System.Byte},System.Span{System.Byte})">
+            <summary>
+            Decompresses a block of data
+            </summary>
+            <param name="inputData">The compressed buffer</param>
+            <param name="outputData">Output buffer for decompressed data</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
