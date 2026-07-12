@@ -19,6 +19,10 @@ No. This project contains no source code from Subnautica 2 - not in C++, nor in 
 
 No. This project only contains assets from within the Subnautica 2's install directory. You also need to own the game and have it installed.
 
+## Wait, but then how can I see the game's assets in the editor?
+
+More on this further down, but the editor is directly mounting and showing Subnautica 2's game install files, including its shaders!
+
 </details>
 
 <details>
