@@ -1,8 +1,25 @@
 # Subnautica 2 Project
 
-The unofficial "cooked editor" modkit for creating Subnautica 2 content mods!
+The unofficial modkit for creating Subnautica 2 mods!
 
 ![alt text](Docs/Images/Header.png)
+
+<details>
+<summary><span style="font-size: 1.5em">FAQ</span><hr></summary>
+
+## What is the purpose of this project?
+
+This project makes it as easy to make Subnautica 2 content as it is for the developers themselves! Add in your own logic, modify other game content at runtime, add new fuana, flora, map biomes, explorable areas, items, recipes, biomods, scannables, buildings, databank entries, story goals, resources, tools, audio, animations, vehicles... you get the gist. 
+
+## Can I play the game in the project?
+
+No. This project contains no source code from Subnautica 2 - not in C++, nor in blueprint code. All code that exists in the project are "stubs" - dummy code that defines the signature of game code, only used for references when making content. These references then point to the actual game code when the mod is loaded.
+
+## Does this project contain Subnautica 2 source assets?
+
+No. This project only contains assets from within the Subnautica 2's install directory. You also need to own the game and have it installed.
+
+</details>
 
 <details>
 <summary><span style="font-size: 1.5em">Tools to help you make mods</span><hr></summary>
@@ -210,7 +227,7 @@ Now navigate to the `Windows/Subnautica2/Content/Paks` folder, you should see al
 </details>
 
 <details>
-<summary><span style="font-size: 1.5em">Installing the packaged mod</span><hr></summary>
+<summary><span style="font-size: 1.5em">Installing the packaged mod (manual)</span><hr></summary>
 
 First copy the pakchunk id files, for the number you entered for your mod files. E.g. you set your id to 14, so copy `pakchunk14-Windows.pak`, `pakchunk14-Windows.utoc` & `pakchunk14-Windows.ucas`. 
 
@@ -348,4 +365,4 @@ Speaking of credits... if you release a mod using this project, I only ask that 
 
 ## Thanks and happy modding!
 
-- Buckminsterfullerene
+\- Buckminsterfullerene
