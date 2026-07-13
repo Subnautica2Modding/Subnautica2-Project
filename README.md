@@ -4,75 +4,25 @@ The unofficial modkit for creating Subnautica 2 mods!
 
 ![alt text](Docs/Images/Header.png)
 
-<details>
-<summary><span style="font-size: 1.5em">FAQ</span><hr></summary>
+## FAQ
 
-## What is the purpose of this project?
+### What is the purpose of this project?
 
 This project makes it as easy to make Subnautica 2 content as it is for the developers themselves! Add in your own logic, modify other game content at runtime, add new fuana, flora, map biomes, explorable areas, items, recipes, biomods, scannables, buildings, databank entries, story goals, resources, tools, audio, animations, vehicles... you get the gist. 
 
-## Can I play the game in the project?
+### Can I play the game in the project?
 
 No. This project contains no source code from Subnautica 2 - not in C++, nor in blueprint code. All code that exists in the project are "stubs" - dummy code that defines the signature of game code, only used for references when making content. These references then point to the actual game code when the mod is loaded.
 
-## Does this project contain Subnautica 2 source assets?
+### Does this project contain Subnautica 2 source assets?
 
 No. This project only contains assets from within the Subnautica 2's install directory. You also need to own the game and have it installed.
 
-## Wait, but then how can I see the game's assets in the editor?
+### Wait, but then how can I see the game's assets in the editor?
 
-More on this further down, but the editor is directly mounting and showing Subnautica 2's game install files, including its shaders!
+More on this later, but in a nutshell, the editor is directly loading and showing the contents in Subnautica 2's game install files, including its shaders!
 
-</details>
-
-<details>
-<summary><span style="font-size: 1.5em">Tools to help you make mods</span><hr></summary>
-
-Please get familiar with the basics of modding with this excellent set of guides:
-
-https://github.com/Dmgvol/UE_Modding/
-
-Also start with a basic mod idea, such as changing a property on a blueprint.
-
-## UE4SS
-
-### Installation
-
-If you don't have UE4SS installed already:
-1. Grab the `zDEV-UE4SS_v3.0.1-xxxx-xxxxxxxx.zip ` file from [the bottom of the experimental-latest release](https://github.com/UE4SS-RE/RE-UE4SS/releases/) under "Assets"
-2. Navigate to your game directory:
-`\steamapps\common\Subnautica2\Subnautica2\Binaries\Win64\`
-3. Extract all files from the zip directly into the Win64 folder
-4. Launch game
-
-### Uninstallation/disable 
-
-If you want to uninstall or disable UE4SS:
-1. Navigate to game directory
-`\steamapps\common\Subnautica2\Subnautica2\Binaries\Win64\`
-2. Delete or rename file `dwmapi.dll`
-
-### Usage
-
-Here are some docs to help you get started with UE4SS:
-- [UE4SS Docs](https://docs.ue4ss.com/dev/)
-- [UE4SS Live Viewer](https://docs.ue4ss.com/dev/feature-overview/live-view.html)
-
-One thing that is very useful with UE4SS is its ability to dump information about the game's classes. You can do a C++ header dump which provides lots of juicy info about the game which you can access from the template.
-
-## FModel
-
-Download FModel from here: https://fmodel.app/
-
-FModel is a fundamental tool for researching how to make a mod and how the game works. You typically need it open alongside Unreal Engine to cross reference and search for stuff.
-
-Please follow these docs to get started with FModel:
-- [Setting up FModel](https://github.com/Dmgvol/UE_Modding/blob/main/TheBasics/ExportingFModel.md)
-- [Using FModel](https://github.com/Dmgvol/UE_Modding/blob/main/TheBasics/UsingFModel.md)
-
-Please note that you can either [dump your own](https://github.com/Dmgvol/UE_Modding/blob/main/TheBasics/Extractingusmap.md#step-3-extract-usmap-file) `.usmap` file using UE4SS, or you can get the `.usmap` file from the `Automation` folder in this project repository.
-
-</details>
+## Setup
 
 <details>
 <summary><span style="font-size: 1.5em">Prerequisites</span><hr></summary>
@@ -154,6 +104,8 @@ Now when you open the editor, the game content should all be visible!
 **Note:** Content in the editor is read-only, meaning that even if it allows you to edit the asset, the package cannot be saved and the value will be lost the next time you open the editor. Later on, I will show you how to create uncooked copies of some assets which you can use in your mods.
 
 </details>
+
+## Guides
 
 <details>
 <summary><span style="font-size: 1.5em">Navigating the project</span><hr></summary>
@@ -339,10 +291,61 @@ I also released a commentary video of me adding a new RGB disco light. It's 1 ho
 
 </details>
 
+## More info
+
+<details>
+<summary><span style="font-size: 1.5em">Resources to help you make mods</span><hr></summary>
+
+Brilliant guides are in here for all sorts of modding methods - most useful in context of this project are those in the "Intermediate Modding" section and higher.
+
+https://github.com/Dmgvol/UE_Modding/
+
+Also start with a basic mod idea, such as changing a property on a blueprint.
+
+## UE4SS
+
+### Installation
+
+If you don't have UE4SS installed already:
+1. Grab the `zDEV-UE4SS_v3.0.1-xxxx-xxxxxxxx.zip ` file from [the bottom of the experimental-latest release](https://github.com/UE4SS-RE/RE-UE4SS/releases/) under "Assets"
+2. Navigate to your game directory:
+`\steamapps\common\Subnautica2\Subnautica2\Binaries\Win64\`
+3. Extract all files from the zip directly into the Win64 folder
+4. Launch game
+
+### Uninstallation/disable 
+
+If you want to uninstall or disable UE4SS:
+1. Navigate to game directory
+`\steamapps\common\Subnautica2\Subnautica2\Binaries\Win64\`
+2. Delete or rename file `dwmapi.dll`
+
+### Usage
+
+Here are some docs to help you get started with UE4SS:
+- [UE4SS Docs](https://docs.ue4ss.com/dev/)
+- [UE4SS Live Viewer](https://docs.ue4ss.com/dev/feature-overview/live-view.html)
+
+One thing that is very useful with UE4SS is its ability to dump information about the game's classes. You can do a C++ header dump which provides lots of juicy info about the game which you can access from the template.
+
+## FModel
+
+Download FModel from here: https://fmodel.app/
+
+FModel is a fundamental tool for researching how to make a mod and how the game works. You typically need it open alongside Unreal Engine to cross reference and search for stuff.
+
+Please follow these docs to get started with FModel:
+- [Setting up FModel](https://github.com/Dmgvol/UE_Modding/blob/main/TheBasics/ExportingFModel.md)
+- [Using FModel](https://github.com/Dmgvol/UE_Modding/blob/main/TheBasics/UsingFModel.md)
+
+Please note that you can either [dump your own](https://github.com/Dmgvol/UE_Modding/blob/main/TheBasics/Extractingusmap.md#step-3-extract-usmap-file) `.usmap` file using UE4SS, or you can get the `.usmap` file from the `Automation` folder in this project repository.
+
+</details>
+
 <details>
 <summary><span style="font-size: 1.5em">How the "cooked editor" project works</span><hr></summary>
 
-I have known about "cooked editor" for a couple of years, but I never really had a game to sit down with and put the research into it. Now, with Subnautica 2, I finally had a reason to! This modkit is the first of its kind - it is the first Unreal Engine project that directly uses the cooked assets from the game install and successfully loads in all assets and shaders! Previous cooked editor modkits have been created before, but never to the level of loading in compiled shaders, being able to open cooked levels, enable world partition streaming, and more. Not by any game studio or by another modder.
+I have known about "cooked editor" for a couple of years, but I never really had a game to sit down with and put the research into it. Now, with Subnautica 2, I finally had a reason to! This modkit is the first of its kind - it is the first Unreal Engine project that directly uses the cooked assets from the game install and successfully loads in all assets and shaders! Cooked editor modkits have been created before, but never to the level of loading in compiled shaders, being able to open cooked levels, enable world partition streaming and more.
 
 I have written a guide containing all of the technical information required for this to be replicated for other games - and that it has! Due to this work, the Palworld modkit is reaching this level of completeness, which serves an even greater audience of modders for years to come!
 
@@ -359,7 +362,7 @@ https://buckminsterfullerene02.github.io/dev-guide/ModSupport/ModKits/DeveloperM
 - Archengius, truman, Narknon, LongerWarrior & Ryn for advice & insight on some issues
 - Narknon for providing a starting set of engine patches from his work on the DBSZ cooked editor modkit
 
-*This project is not endorsed by, directly affiliated with, maintained, authorized, or sponsored by Unknown Worlds Entertainment or KRAFTON. All product and company names are the registered trademarks of their original owners. The use of any trade name or trademark is for identification and reference purposes only and does not imply any association with the trademark holder of their product brand. No information, help, resources or advice has been provided by Unknown Worlds Entertainment or KRAFTON.*
+*This project is not endorsed by, directly affiliated with, maintained, authorized, or sponsored by Unknown Worlds Entertainment or KRAFTON. All product and company names are the registered trademarks of their original owners. The use of any trade name or trademark is for identification and reference purposes only and does not imply any association with the trademark holder of their product brand. No information, resources or advice has been provided by Unknown Worlds Entertainment or KRAFTON in the making of this project.*
 
 ### Please return the favour!
 
