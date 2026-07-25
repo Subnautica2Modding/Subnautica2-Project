@@ -1,4 +1,4 @@
-//$ Copyright 2015-24, Code Respawn Technologies Pvt Ltd - All Rights Reserved $//
+//$ Copyright 2015-23, Code Respawn Technologies Pvt Ltd - All Rights Reserved $//
 
 #include "Prefab/PrefabActor.h"
 
@@ -7,6 +7,8 @@
 #include "Prefab/PrefabComponent.h"
 #include "Prefab/PrefabTools.h"
 #include "Utils/PrefabricatorStats.h"
+#include "TimerManager.h"
+#include "Engine/World.h"
 
 #include "UObject/Package.h"
 
@@ -61,6 +63,17 @@ void APrefabActor::PostLoad()
 {
 	Super::PostLoad();
 
+#if WITH_EDITOR
+	
+	//Need to do this on post load to catch prefabs loaded via world partition region loading
+	//Make sure we're not doing this in game though
+	const UWorld* World = GetWorld();
+	if(World && World->WorldType == EWorldType::Editor && IsPrefabOutdated())
+	{
+		TryLoadPrefab();
+	}
+#endif
+	
 }
 
 void APrefabActor::PostActorCreated()
@@ -90,7 +103,7 @@ void APrefabActor::PostDuplicate(EDuplicateMode::Type DuplicateMode)
 		FPrefabLoadSettings LoadSettings;
 		LoadSettings.bRandomizeNestedSeed = true;
 		LoadSettings.Random = &Random;
-		FPrefabTools::LoadStateFromPrefabAsset(this, LoadSettings);
+		FPrefabTools::LoadStateFromPrefabAsset(this, LoadSettings, true);
 	}
 }
 
@@ -100,11 +113,36 @@ FName APrefabActor::GetCustomIconName() const
 	return PrefabIconName;
 }
 
+
 #endif // WITH_EDITOR
 
-void APrefabActor::LoadPrefab()
+void APrefabActor::TryLoadPrefab()
 {
-	FPrefabTools::LoadStateFromPrefabAsset(this, FPrefabLoadSettings());
+#if WITH_EDITOR
+	//If we're loading in editor we can't mark packages dirty so new and destroyed
+	//actors won't get marked dirty correctly and will be missing from source control
+	if(IsInAsyncLoadingThread() || UE::GetIsEditorLoadingPackage())
+	{
+		if(!LoadPrefabTimer.IsValid())
+		{
+			GetWorldTimerManager().SetTimer(LoadPrefabTimer, this, &APrefabActor::TryLoadPrefab, 0.1f, true);
+		}
+	}
+	else
+#endif
+	{
+		if(LoadPrefabTimer.IsValid())
+		{
+			GetWorldTimerManager().ClearTimer(LoadPrefabTimer);
+		}
+		LoadPrefab();
+	}
+	
+}
+
+void APrefabActor::LoadPrefab(bool ForceUpdate/*=false*/)
+{
+	FPrefabTools::LoadStateFromPrefabAsset(this, FPrefabLoadSettings(), ForceUpdate);
 }
 
 void APrefabActor::SavePrefab()
@@ -155,6 +193,22 @@ void APrefabActor::HandleBuildComplete()
 	}
 }
 
+#if WITH_EDITOR
+void APrefabActor::SetIsTemporarilyHiddenInEditor(bool bIsHidden)
+{
+	Super::SetIsTemporarilyHiddenInEditor(bIsHidden);
+
+	TArray<AActor*> ChildActors;
+	GetAttachedActors(ChildActors);
+	for(AActor* Child : ChildActors)
+	{
+		if(Child)
+		{
+			Child->SetIsTemporarilyHiddenInEditor(bIsHidden);
+		}
+	}
+}
+#endif
 ////////////////////////////////// FPrefabBuildSystem //////////////////////////////////
 FPrefabBuildSystem::FPrefabBuildSystem(double InTimePerFrame)
 	: TimePerFrame(InTimePerFrame)

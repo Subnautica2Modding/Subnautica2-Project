@@ -1,14 +1,16 @@
-//$ Copyright 2015-24, Code Respawn Technologies Pvt Ltd - All Rights Reserved $//
+//$ Copyright 2015-23, Code Respawn Technologies Pvt Ltd - All Rights Reserved $//
 
 #include "Utils/PrefabEditorTools.h"
 
 #include "Asset/PrefabricatorAsset.h"
 #include "Asset/Thumbnail/PrefabricatorAssetThumbnailScene.h"
 #include "Prefab/PrefabActor.h"
-#include "Prefab/PrefabActor.h"
 #include "Prefab/PrefabComponent.h"
 #include "PrefabricatorSettings.h"
 
+#include "SceneView.h"
+#include "TextureResource.h"
+#include "Engine/Texture2D.h"
 #include "AssetRegistry/AssetData.h"
 #include "AssetToolsModule.h"
 #include "ContentBrowserModule.h"
@@ -18,6 +20,7 @@
 #include "Engine/World.h"
 #include "EngineModule.h"
 #include "EngineUtils.h"
+#include "FileHelpers.h"
 #include "Framework/Notifications/NotificationManager.h"
 #include "IContentBrowserDataModule.h"
 #include "IContentBrowserSingleton.h"
@@ -68,7 +71,7 @@ void FPrefabEditorTools::ReloadPrefabsInLevel(UWorld* World, UPrefabricatorAsset
 			}
 			if (bShouldRefresh) {
 				if (PrefabActor->IsPrefabOutdated()) {
-					PrefabActor->LoadPrefab();
+					PrefabActor->TryLoadPrefab();
 				}
 			}
 		}
@@ -204,6 +207,10 @@ void FPrefabEditorTools::AssignPrefabAssetThumbnail(UPrefabricatorAssetInterface
 
 				//Set that thumbnail as a valid custom thumbnail so it'll be saved out
 				NewThumbnail->SetCreatedAfterCustomThumbsEnabled();
+				
+				TArray<UPackage*> PackagesToSave = TArray<UPackage*>();
+				PackagesToSave.Add(AssetPackage->GetPackage());
+				UEditorLoadingAndSavingUtils::SavePackages(PackagesToSave, false);
 			}
 		}
 	}
@@ -269,15 +276,27 @@ UThumbnailInfo* FPrefabEditorTools::CreateDefaultThumbInfo(UPrefabricatorAsset* 
 
 UPrefabricatorAsset* FPrefabEditorTools::CreatePrefabAsset()
 {
-	UPrefabricatorAsset* PrefabAsset = CreateAssetOnContentBrowser<UPrefabricatorAsset>("Prefab", true);
+	UPrefabricatorAsset* PrefabAsset = CreateAssetOnContentBrowser<UPrefabricatorAsset>("PA_Prefab", true);
+
 	if (PrefabAsset) {
 		PrefabAsset->ThumbnailInfo = FPrefabEditorTools::CreateDefaultThumbInfo(PrefabAsset);
 	}
+
+	
+	TArray<UPackage*> PackagesToSave = TArray<UPackage*>();
+	PackagesToSave.Add(PrefabAsset->GetPackage());
+	UEditorLoadingAndSavingUtils::SavePackages(PackagesToSave, false);
+	
 	return PrefabAsset;
 }
 
 UPrefabricatorAssetCollection* FPrefabEditorTools::CreatePrefabCollectionAsset()
 {
-	return CreateAssetOnContentBrowser<UPrefabricatorAssetCollection>("PrefabCollection", true);
+	UPrefabricatorAssetCollection* Asset = CreateAssetOnContentBrowser<UPrefabricatorAssetCollection>("PAC_PrefabCollection", true);
+	
+	TArray<UPackage*> PackagesToSave = TArray<UPackage*>();
+	PackagesToSave.Add(Asset->GetPackage());
+	UEditorLoadingAndSavingUtils::SavePackages(PackagesToSave, false);
+	return Asset;
 }
 

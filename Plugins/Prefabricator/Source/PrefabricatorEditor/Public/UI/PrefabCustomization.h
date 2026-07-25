@@ -1,4 +1,4 @@
-//$ Copyright 2015-24, Code Respawn Technologies Pvt Ltd - All Rights Reserved $//
+//$ Copyright 2015-23, Code Respawn Technologies Pvt Ltd - All Rights Reserved $//
 
 #pragma once
 #include "CoreMinimal.h"
@@ -16,6 +16,7 @@ public:
 	static FReply HandleSaveToAsset(IDetailLayoutBuilder* DetailBuilder);
 	static FReply HandleSaveToNewAsset(IDetailLayoutBuilder* DetailBuilder);
 	static FReply HandleLoadFromAsset(IDetailLayoutBuilder* DetailBuilder);
+	static FReply HandleForceLoadFromAsset(IDetailLayoutBuilder* DetailBuilder);
 	static FReply RandomizePrefabCollection(IDetailLayoutBuilder* DetailBuilder);
 	static FReply UnlinkPrefab(IDetailLayoutBuilder* DetailBuilder);
 };

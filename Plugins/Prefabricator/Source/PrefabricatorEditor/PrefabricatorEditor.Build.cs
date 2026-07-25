@@ -6,7 +6,6 @@ namespace UnrealBuildTool.Rules
 	{
 		public PrefabricatorEditor(ReadOnlyTargetRules Target) : base(Target)
         {
-            bUseUnity = false;
             PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
             PublicIncludePaths.AddRange(
 				new string[] {
@@ -38,9 +37,12 @@ namespace UnrealBuildTool.Rules
                     "AdvancedPreviewScene",
                     "Kismet",
                     "PlacementMode",
+					"EditorFramework",
                     "EditorWidgets",
                     "RHI",
-                    "ToolMenus"
+                    "ToolMenus",             
+                    "PrefabricatorRuntime"
+
                 }
 				);
 
@@ -58,7 +60,6 @@ namespace UnrealBuildTool.Rules
 				    "ContentBrowser",
 				    "ContentBrowserData",
                     "Projects",
-                    "PrefabricatorRuntime",
 					// ... add private dependencies that you statically link with here ...
 				}
 				);

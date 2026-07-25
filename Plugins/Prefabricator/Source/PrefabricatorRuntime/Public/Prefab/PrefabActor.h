@@ -1,4 +1,4 @@
-//$ Copyright 2015-24, Code Respawn Technologies Pvt Ltd - All Rights Reserved $//
+//$ Copyright 2015-23, Code Respawn Technologies Pvt Ltd - All Rights Reserved $//
 
 #pragma once
 #include "CoreMinimal.h"
@@ -28,8 +28,13 @@ public:
 #endif // WITH_EDITOR
 	/// End of AActor Interface 
 
+	UFUNCTION()
+	void TryLoadPrefab();
+
+	FTimerHandle LoadPrefabTimer;
+	
 	UFUNCTION(BlueprintCallable, Category = "Prefabricator")
-	void LoadPrefab();
+	void LoadPrefab(bool ForceUpdate=false);
 
 	UFUNCTION(BlueprintCallable, Category = "Prefabricator")
 	void SavePrefab();
@@ -44,7 +49,9 @@ public:
 	void RandomizeSeed(const FRandomStream& InRandom, bool bRecursive = true);
 	void HandleBuildComplete();
 
-public:
+#if WITH_EDITOR
+	virtual void SetIsTemporarilyHiddenInEditor(bool bIsHidden) override;
+#endif
 	// The last update ID of the prefab asset when this actor was refreshed from it
 	// This is used to test if the prefab has changed since we last recreated it
 	UPROPERTY()

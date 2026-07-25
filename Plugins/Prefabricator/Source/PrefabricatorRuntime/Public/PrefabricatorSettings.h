@@ -1,4 +1,4 @@
-//$ Copyright 2015-24, Code Respawn Technologies Pvt Ltd - All Rights Reserved $//
+//$ Copyright 2015-23, Code Respawn Technologies Pvt Ltd - All Rights Reserved $//
 
 #pragma once
 #include "CoreMinimal.h"
@@ -34,6 +34,15 @@ public:
 	/** Whenever a prefab is saved, update all the other similar prefabs in the scene to reflect this new change */
 	UPROPERTY(config, EditAnywhere, Category = "General Settings", Meta=(ConfigRestartRequired=true))
 	TSet<UClass*> IgnoreBoundingBoxForObjects;
+
+	UPROPERTY(config, EditAnywhere, Category = "General Settings")
+	FName PrefabParentTag = "Prefab";
+	
+	UPROPERTY(config, EditAnywhere, Category = "General Settings")
+	FName PrefabChildTag = "PrefabChild";
+
+	UPROPERTY(config, EditAnywhere, Category = "General Settings")
+	FName NestedPrefabTag = "NestedPrefab";
 	
 	/** Use this angle while saving the prefab asset */
 	UPROPERTY(config, EditAnywhere, Category = "Thumbnail")

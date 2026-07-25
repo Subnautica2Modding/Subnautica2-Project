@@ -1,8 +1,9 @@
-//$ Copyright 2015-24, Code Respawn Technologies Pvt Ltd - All Rights Reserved $//
+//$ Copyright 2015-23, Code Respawn Technologies Pvt Ltd - All Rights Reserved $//
 
 #include "Utils/ConstructionSystemUtils.h"
 
 #include "Asset/PrefabricatorAsset.h"
+#include "Engine/World.h"
 #include "ConstructionSystem/ConstructionSystemSnap.h"
 #include "ConstructionSystemComponent.h"
 #include "Prefab/PrefabActor.h"
@@ -11,7 +12,6 @@
 #include "Utils/PrefabricatorFunctionLibrary.h"
 
 #include "Engine/CollisionProfile.h"
-#include "Engine/World.h"
 
 ECollisionChannel FConstructionSystemUtils::FindPrefabSnapChannel()
 {
@@ -529,6 +529,7 @@ bool FConstructionSystemCollision::WallBoxCollision(const FVector& InWallExtent,
 		|| WallWallCollision(InWallExtent, InWallTransform, ExtentYZ, YZP)
 		|| WallWallCollision(InWallExtent, InWallTransform, ExtentZX, ZXN)
 		|| WallWallCollision(InWallExtent, InWallTransform, ExtentZX, ZXP);
+
 }
 
 bool FConstructionSystemCollision::WallWallCollision(const FVector& ExtentA, const FTransform& TransformA, const FVector& ExtentB, const FTransform& TransformB)

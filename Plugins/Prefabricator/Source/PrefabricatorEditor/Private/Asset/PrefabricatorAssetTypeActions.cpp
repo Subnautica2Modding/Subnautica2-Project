@@ -1,4 +1,4 @@
-//$ Copyright 2015-24, Code Respawn Technologies Pvt Ltd - All Rights Reserved $//
+//$ Copyright 2015-23, Code Respawn Technologies Pvt Ltd - All Rights Reserved $//
 
 #include "Asset/PrefabricatorAssetTypeActions.h"
 
@@ -10,7 +10,9 @@
 
 #include "AssetToolsModule.h"
 #include "ContentBrowserModule.h"
+#include "FileHelpers.h"
 #include "Framework/MultiBox/MultiBoxBuilder.h"
+#include "Engine/Texture2D.h"
 
 #define LOCTEXT_NAMESPACE "AssetTypeActions"
 
@@ -85,6 +87,10 @@ void FPrefabricatorAssetTypeActions::ExecuteCreatePrefabCollection(TArray<TWeakO
 		Collection->Prefabs.Add(Item);
 	}
 	Collection->Modify();
+	
+	TArray<UPackage*> PackagesToSave = TArray<UPackage*>();
+	PackagesToSave.Add(Collection->GetPackage());
+	UEditorLoadingAndSavingUtils::SavePackages(PackagesToSave, false);
 }
 
 void FPrefabricatorAssetTypeActions::ExecuteUpgradePrefabs(TArray<TWeakObjectPtr<UPrefabricatorAsset>> InPrefabAssetPtrs)

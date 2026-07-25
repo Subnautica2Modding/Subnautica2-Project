@@ -1,7 +1,7 @@
 {
 	"FileVersion": 3,
-	"Version": 30,
-	"VersionName": "1.13.0",
+	"Version": 28,
+	"VersionName": "1.11.0",
 	"FriendlyName": "Prefabricator",
 	"Description": "Create Prefabs in Unreal Engine",
 	"Category": "Prefab",
@@ -10,7 +10,6 @@
 	"DocsURL": "http://docs.prefabricator.dev",
 	"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/39ccbbf668e84847890992df9922e355",
 	"SupportURL": "",
-	"EngineVersion": "5.6.0",
 	"CanContainContent": true,
 	"Installed": true,
 	"Modules": [

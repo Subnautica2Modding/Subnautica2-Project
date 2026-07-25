@@ -1,4 +1,4 @@
-//$ Copyright 2015-24, Code Respawn Technologies Pvt Ltd - All Rights Reserved $//
+//$ Copyright 2015-23, Code Respawn Technologies Pvt Ltd - All Rights Reserved $//
 
 #pragma once
 #include "CoreMinimal.h"
@@ -11,11 +11,11 @@ class UPrefabricatorProperty;
 struct FRandomStream;
 
 struct PREFABRICATORRUNTIME_API FPrefabLoadSettings {
-	bool bUnregisterComponentsBeforeLoading = true;
+	bool bUnregisterComponentsBeforeLoading = false;
 	bool bRandomizeNestedSeed = false;
 	bool bSynchronousBuild = true;
-	bool bCanLoadFromCachedTemplate = true;
-	bool bCanSaveToCachedTemplate = true;
+	bool bCanLoadFromCachedTemplate = false;
+	bool bCanSaveToCachedTemplate = false;
 	const FRandomStream* Random = nullptr;
 };
 
@@ -62,7 +62,7 @@ public:
 	static void AssignAssetUserData(AActor* InActor, const FGuid& InItemID, APrefabActor* Prefab);
 
 	static void SaveStateToPrefabAsset(APrefabActor* PrefabActor);
-	static void LoadStateFromPrefabAsset(APrefabActor* PrefabActor, const FPrefabLoadSettings& InSettings = FPrefabLoadSettings());
+	static void LoadStateFromPrefabAsset(APrefabActor* PrefabActor, const FPrefabLoadSettings& InSettings = FPrefabLoadSettings(), bool ForceUpdate = false, bool IgnoreLastUpdate = false);
 
 	static void FixupCrossReferences(const TArray<UPrefabricatorProperty*>& PrefabProperties, UObject* ObjToWrite, TMap<FGuid, AActor*>& PrefabItemToActorMap);
 

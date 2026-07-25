@@ -1,4 +1,4 @@
-//$ Copyright 2015-24, Code Respawn Technologies Pvt Ltd - All Rights Reserved $//
+//$ Copyright 2015-23, Code Respawn Technologies Pvt Ltd - All Rights Reserved $//
 
 #pragma once
 #include "CoreMinimal.h"
@@ -45,6 +45,15 @@ public:
 
 	void SaveReferencedAssetValues();
 	void LoadReferencedAssetValues();
+
+	
+	inline bool Equals(const UPrefabricatorProperty& Other) const
+	{
+		bool PropEqual = Other.PropertyName.Equals(PropertyName)
+					&& Other.ExportedValue.Equals(ExportedValue);
+
+		return PropEqual;
+	}
 };
 
 USTRUCT()
@@ -58,7 +67,46 @@ struct PREFABRICATORRUNTIME_API FPrefabricatorComponentData {
 	FString ComponentName;
 
 	UPROPERTY()
+	FString ClassPath;
+
+	UPROPERTY()
+	FSoftClassPath ClassPathRef;
+
+	UPROPERTY()
 	TArray<UPrefabricatorProperty*> Properties;
+
+	inline bool Equals(const FPrefabricatorComponentData& Other) const
+	{
+		bool Equal = ComponentName.Equals(Other.ComponentName)
+		&& RelativeTransform.Equals(Other.RelativeTransform)
+		&& ClassPathRef == Other.ClassPathRef;
+
+		if(!Equal)
+		{
+			return false;
+		}
+
+		if(Properties.Num() != Other.Properties.Num())
+		{
+			return false;
+		}
+		
+		//Check saved properties for differences
+		if(Properties.Num() != Other.Properties.Num())
+		{
+			return false;
+		}
+		
+		for(int32 i=0; i<Properties.Num(); i++)
+		{
+			if(!Properties[i]->Equals(*Other.Properties[i]))
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
 };
 
 USTRUCT()
@@ -67,7 +115,11 @@ struct PREFABRICATORRUNTIME_API FPrefabricatorActorData {
 
 	UPROPERTY()
 	FGuid PrefabItemID;
-
+	
+	// ID for the last time this actor was updated so we can update each actor not the entire prefab each time
+	UPROPERTY()
+	FGuid ActorLastUpdateID;
+	
 	UPROPERTY()
 	FTransform RelativeTransform;
 
@@ -87,6 +139,49 @@ struct PREFABRICATORRUNTIME_API FPrefabricatorActorData {
 	UPROPERTY()
 	FString ActorName;
 #endif // WITH_EDITORONLY_DATA
+
+	inline bool Equals(const FPrefabricatorActorData& Other) const
+	{
+		bool Equal = PrefabItemID == Other.PrefabItemID
+		&& ActorLastUpdateID == Other.ActorLastUpdateID
+		&& RelativeTransform.Equals(Other.RelativeTransform)
+		&& ClassPathRef == Other.ClassPathRef;
+		
+		if(!Equal)
+		{
+			return false;
+		}
+
+		//Check saved properties for differences
+		if(Properties.Num() != Other.Properties.Num())
+		{
+			return false;
+		}
+		
+		for(int32 i=0; i<Properties.Num(); i++)
+		{
+			if(!Properties[i]->Equals(*Other.Properties[i]))
+			{
+				return false;
+			}
+		}
+
+		//Check components for differences
+		if(Components.Num() != Other.Components.Num())
+		{
+			return false;
+		}
+		
+		for(int32 i=0; i<Components.Num(); i++)
+		{
+			if(!Components[i].Equals(Other.Components[i]))
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
 };
 
 struct FPrefabAssetSelectionConfig {
