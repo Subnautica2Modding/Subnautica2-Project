@@ -76,8 +76,20 @@ void SAlpakitModEntry::PackageMod(const TArray<TSharedPtr<SAlpakitModEntry>>& Ne
 
     UE_LOG(LogAlpakit, Display, TEXT("Cook & install plugin \"%s\". %d remaining"), *PluginName, NextEntries.Num());
 
-    const FString CommandLine = FString::Printf(TEXT("-ScriptsForProject=\"%s\" PackagePlugin -Project=\"%s\" -PluginName=\"%s\" %s"),
-                                                *ProjectPath, *ProjectPath, *PluginName, *AdditionalUATArguments);
+    // On source engine builds UAT does not search project/plugin folders for automation script modules
+    // makes UAT compile Alpakit.Automation when its build record is missing or stale
+    FString ScriptDirArgument;
+    if (const TSharedPtr<IPlugin> AlpakitPlugin = IPluginManager::Get().FindPlugin(TEXT("Alpakit"))) {
+        const FString ScriptDir = FPaths::ConvertRelativePathToFull(AlpakitPlugin->GetBaseDir() / TEXT("Source") / TEXT("Alpakit.Automation"));
+        if (FPaths::DirectoryExists(ScriptDir)) {
+            ScriptDirArgument = FString::Printf(TEXT("-ScriptDir=\"%s\" "), *ScriptDir);
+        } else {
+            UE_LOG(LogAlpakit, Warning, TEXT("Alpakit.Automation source directory not found at \"%s\"; UAT may fail to find the PackagePlugin command"), *ScriptDir);
+        }
+    }
+
+    const FString CommandLine = FString::Printf(TEXT("-ScriptsForProject=\"%s\" %sPackagePlugin -Project=\"%s\" -PluginName=\"%s\" %s"),
+                                                *ProjectPath, *ScriptDirArgument, *ProjectPath, *PluginName, *AdditionalUATArguments);
 
     const FText PlatformName = GetCurrentPlatformName();
     IUATHelperModule::Get().CreateUatTask(

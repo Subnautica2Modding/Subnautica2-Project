@@ -166,6 +166,50 @@
 			"Type": "RequiredResource"
 		},
 		{
+			"Path": "$(ProjectDir)/Plugins/Prefabricator/Binaries/Win64/UnrealEditor-ConstructionSystemEditor.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/Prefabricator/Binaries/Win64/UnrealEditor-ConstructionSystemEditor.pdb",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/Prefabricator/Binaries/Win64/UnrealEditor-ConstructionSystemRuntime.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/Prefabricator/Binaries/Win64/UnrealEditor-ConstructionSystemRuntime.pdb",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/Prefabricator/Binaries/Win64/UnrealEditor-PrefabricatorEditor.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/Prefabricator/Binaries/Win64/UnrealEditor-PrefabricatorEditor.pdb",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/Prefabricator/Binaries/Win64/UnrealEditor-PrefabricatorEditorPostInit.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/Prefabricator/Binaries/Win64/UnrealEditor-PrefabricatorEditorPostInit.pdb",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/Prefabricator/Binaries/Win64/UnrealEditor-PrefabricatorRuntime.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/Prefabricator/Binaries/Win64/UnrealEditor-PrefabricatorRuntime.pdb",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/Prefabricator/Binaries/Win64/UnrealEditor.modules",
+			"Type": "RequiredResource"
+		},
+		{
 			"Path": "$(ProjectDir)/Plugins/SN2ModTools/Binaries/Win64/UnrealEditor-SN2ModTools.dll",
 			"Type": "DynamicLibrary"
 		},
@@ -4996,6 +5040,10 @@
 			"Type": "UFS"
 		},
 		{
+			"Path": "$(ProjectDir)/Plugins/LeviathanPOV/LeviathanPOV.uplugin",
+			"Type": "UFS"
+		},
+		{
 			"Path": "$(ProjectDir)/Plugins/Mercuna/MercunaMover/MercunaMover.uplugin",
 			"Type": "UFS"
 		},
@@ -5017,6 +5065,10 @@
 		},
 		{
 			"Path": "$(ProjectDir)/Plugins/NiagaraUIRenderer/NiagaraUIRenderer.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/Prefabricator/Prefabricator.uplugin",
 			"Type": "UFS"
 		},
 		{
@@ -29565,6 +29617,7 @@
 		"LauncherChunkInstaller",
 		"LevelSequenceEditor",
 		"LevelSequenceNavigatorBridge",
+		"LeviathanPOV",
 		"LightMixer",
 		"LinuxDeviceProfileSelector",
 		"LocalizableMessage",
@@ -29630,6 +29683,7 @@
 		"PluginUtils",
 		"PortableObjectFileDataSource",
 		"PoseSearch",
+		"Prefabricator",
 		"ProceduralMeshComponent",
 		"ProjectLauncher",
 		"PropertyAccessEditor",

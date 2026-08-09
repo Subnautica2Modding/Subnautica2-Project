@@ -9,7 +9,7 @@ enum class EAlpakitStartGameType : uint8 {
     STEAM UMETA(DisplayName = "Steam"),
 };
 
-UCLASS(config=Game)
+UCLASS(config=EditorPerProjectUserSettings)
 class ALPAKIT_API UAlpakitSettings : public UObject {
     GENERATED_BODY()
 public:
@@ -18,6 +18,11 @@ public:
 
     /** Saves alpakit settings to configuration file */
     void SaveSettings();
+
+#if WITH_EDITOR
+    /** Persist immediately whenever a property is edited, regardless of which UI did the editing */
+    virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
+#endif
 
     /** Whether (and how) to launch the game after a plugin is cooked & installed */
     UPROPERTY(EditAnywhere, config, Category = Config)

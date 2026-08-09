@@ -17,7 +17,7 @@
 		"IsLicenseeVersion": 0,
 		"IsPromotedBuild": 0,
 		"BranchName": "UE5",
-		"BuildId": "e1727d6f-8d17-49e7-b355-4b28e0ba8e8e"
+		"BuildId": "42dece8c-917a-4b1d-808b-5308b5e059ff"
 	},
 	"BuildProducts": [
 		{
@@ -95,6 +95,10 @@
 			"Type": "UFS"
 		},
 		{
+			"Path": "$(ProjectDir)/Plugins/LeviathanPOV/LeviathanPOV.uplugin",
+			"Type": "UFS"
+		},
+		{
 			"Path": "$(ProjectDir)/Plugins/Mercuna/MercunaMover/MercunaMover.uplugin",
 			"Type": "UFS"
 		},
@@ -116,6 +120,10 @@
 		},
 		{
 			"Path": "$(ProjectDir)/Plugins/NiagaraUIRenderer/NiagaraUIRenderer.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/Prefabricator/Prefabricator.uplugin",
 			"Type": "UFS"
 		},
 		{
@@ -4693,6 +4701,7 @@
 		"LauncherChunkInstaller",
 		"LevelSequenceEditor",
 		"LevelSequenceNavigatorBridge",
+		"LeviathanPOV",
 		"LightMixer",
 		"LinuxDeviceProfileSelector",
 		"LocalizableMessage",
@@ -4756,6 +4765,7 @@
 		"PluginUtils",
 		"PortableObjectFileDataSource",
 		"PoseSearch",
+		"Prefabricator",
 		"ProceduralMeshComponent",
 		"ProjectLauncher",
 		"PropertyAccessEditor",
