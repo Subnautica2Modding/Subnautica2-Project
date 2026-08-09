@@ -1,4 +1,4 @@
-//$ Copyright 2015-24, Code Respawn Technologies Pvt Ltd - All Rights Reserved $//
+//$ Copyright 2015-23, Code Respawn Technologies Pvt Ltd - All Rights Reserved $//
 
 #pragma once
 #include "CoreMinimal.h"
@@ -15,5 +15,8 @@ public:
 
 	UPROPERTY(VisibleAnywhere, Category = "Prefabricator")
 	FGuid ItemID;
+
+	UPROPERTY(VisibleAnywhere, Category = "Prefabricator")
+	FGuid ActorLastUpdateID;
 };
 

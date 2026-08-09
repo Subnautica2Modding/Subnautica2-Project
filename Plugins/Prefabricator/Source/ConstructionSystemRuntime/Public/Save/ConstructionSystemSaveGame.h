@@ -1,4 +1,4 @@
-//$ Copyright 2015-24, Code Respawn Technologies Pvt Ltd - All Rights Reserved $//
+//$ Copyright 2015-23, Code Respawn Technologies Pvt Ltd - All Rights Reserved $//
 
 #pragma once
 #include "CoreMinimal.h"
@@ -13,13 +13,13 @@ struct CONSTRUCTIONSYSTEMRUNTIME_API FConstructionSystemSaveConstructedItem {
 	GENERATED_BODY()
 
 	UPROPERTY()
-	UPrefabricatorAssetInterface* PrefabAsset;
+	UPrefabricatorAssetInterface* PrefabAsset = nullptr;
 
 	UPROPERTY()
-	int32 Seed;
+	int32 Seed=0;
 
 	UPROPERTY()
-	FTransform Transform;
+	FTransform Transform = FTransform::Identity;
 };
 
 USTRUCT()
@@ -41,10 +41,10 @@ class CONSTRUCTIONSYSTEMRUNTIME_API UConstructionSystemSaveGame : public USaveGa
 	GENERATED_BODY()
 public:
 	UPROPERTY(VisibleAnywhere, Category = "ConstructionSystem")
-	FString SaveSlotName;
+	FString SaveSlotName = "";
 
 	UPROPERTY(VisibleAnywhere, Category = "ConstructionSystem")
-	uint32 UserIndex;
+	uint32 UserIndex = 0;
 
 	UPROPERTY(VisibleAnywhere, Category = "ConstructionSystem")
 	FConstructionSystemSavePlayerInfo PlayerInfo;

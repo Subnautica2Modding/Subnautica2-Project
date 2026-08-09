@@ -62,6 +62,7 @@ Plugins/**/Saved/*
 !Plugins/FMODStudioNiagara/Content/*
 !Plugins/NiagaraUIRenderer/Content/*
 !Plugins/TestPluginMod/Content/*
+!Plugins/Prefabricator/Content/*
 
 # Native FMOD DLLs are Firelight copyright. Copy from the official FMOD download via setup-fmod.ps1.
 Plugins/FMODStudio/Binaries/Win64/fmod*.dll

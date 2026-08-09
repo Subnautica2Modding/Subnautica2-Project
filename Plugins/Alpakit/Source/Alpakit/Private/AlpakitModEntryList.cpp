@@ -2,6 +2,8 @@
 #include "Alpakit.h"
 #include "AlpakitModEntry.h"
 #include "Interfaces/IPluginManager.h"
+#include "Interfaces/IProjectManager.h"
+#include "ProjectDescriptor.h"
 #include "Slate.h"
 
 #define LOCTEXT_NAMESPACE "AlpakitModListEntry"
@@ -51,11 +53,26 @@ void SAlpakitModEntryList::Construct(const FArguments& Args) {
 
 void SAlpakitModEntryList::LoadMods() {
     Mods.Empty();
+
+    // Exclude game dep plugins
+    TSet<FString> ProjectPluginNames;
+    if (const FProjectDescriptor* Project = IProjectManager::Get().GetCurrentProject()) {
+        for (const FPluginReferenceDescriptor& PluginRef : Project->Plugins) {
+            ProjectPluginNames.Add(PluginRef.Name);
+        }
+    }
+
     const TArray<TSharedRef<IPlugin>> EnabledPlugins = IPluginManager::Get().GetEnabledPlugins();
     for (TSharedRef<IPlugin> Plugin : EnabledPlugins) {
-        // Only project plugins that can contain content are candidates for content-only DLC mods.
+        // Only project plugins that can contain content are candidates for content-only DLC mods
         // (Engine plugins and pure C++ plugins are intentionally excluded.)
-        if (Plugin->GetType() == EPluginType::Project && Plugin->GetDescriptor().bCanContainContent) {
+        // Exclude UWE/Mercuna plugins as well
+        // Note: this does mean that if you make a mod name starting with Mercuna or UWE, it won't show up in the list
+        // but this is a compromise I'm willing to accept, as any other method doesn't work well enough
+        if (Plugin->GetType() == EPluginType::Project && Plugin->GetDescriptor().bCanContainContent
+            && !ProjectPluginNames.Contains(Plugin->GetName()) 
+            && !Plugin->GetName().StartsWith("UWE")
+            && !Plugin->GetName().StartsWith("Mercuna")) {
             Mods.Add(Plugin);
         }
     }
