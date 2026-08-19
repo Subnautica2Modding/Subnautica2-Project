@@ -19,6 +19,7 @@ Ability.ContextSensitiveMovement
 Ability.ContextSensitiveMovement.Dash
 Ability.ContextSensitiveMovement.Enabled
 Ability.Cooldown
+Ability.Cooldown.Biomod
 Ability.Cooldown.ContextSensitiveMovement
 Ability.Cooldown.Dash
 Ability.Cooldown.EchoLocation
@@ -38,6 +39,8 @@ Ability.Event.SonicBubblePop
 Ability.Event.Tarred
 Ability.HaulCameraActive
 Ability.Interact
+Ability.Tags
+Ability.Tags.EmoteAbility
 Ability.Tool
 Ability.Tool.Alt
 Ability.Tool.Flare
@@ -239,8 +242,11 @@ AI.Archetype.Halfmoon.Variant02
 AI.Archetype.Halfmoon_HidingExample
 AI.Archetype.Hammerhead
 AI.Archetype.Hammerhead.HeatVariant
+AI.Archetype.HillRay
 AI.Archetype.Houndgar
 AI.Archetype.InvisibleCreature
+AI.Archetype.Jelly
+AI.Archetype.Jelly.Generic
 AI.Archetype.JellyFisher
 AI.Archetype.JellyRing
 AI.Archetype.JetoCaris
@@ -273,6 +279,7 @@ AI.Archetype.StalkerCreature
 AI.Archetype.SurgeJelly
 AI.Archetype.TarCrab
 AI.Archetype.TarEel
+AI.Archetype.TarEel.Juvenile
 AI.Archetype.TempVoidLeviathan
 AI.Archetype.TempVoidLeviathan.Baby
 AI.Archetype.Test
@@ -327,6 +334,7 @@ AI.Movement.ObstacleAvoidanceProfiles.MaximumAvoidance
 AI.MovementStyles
 AI.MovementStyles.Attach
 AI.MovementStyles.AttachFast
+AI.MovementStyles.Attracted
 AI.MovementStyles.Crawling
 AI.MovementStyles.Crawling. Flee
 AI.MovementStyles.Crawling.Dizzy
@@ -546,6 +554,7 @@ AI.State.Symbiote.Attach
 AI.State.Symbiote.Attached
 AI.State.Symbiote.Detach
 AI.State.TarEel
+AI.State.TarEel.BiteHigh
 AI.State.TarEel.SubmergedTar
 AI.State.TwinEel
 AI.State.TwinEel.Dashing
@@ -620,13 +629,16 @@ Animation.Carryable
 Animation.Carryable.Pickup
 Animation.Creature
 Animation.Creature.Dizzy
+Animation.Creature.Hide
 Animation.Creature.TarEel
 Animation.Creature.TarEel.Bite
 Animation.Creature.TarEel.Bite.High
 Animation.Creature.TarEel.Bite.Low
 Animation.Creature.TarEel.EmitTar
 Animation.Creature.TarEel.ShootTar
+Animation.Creature.Unhide
 Animation.Emote
+Animation.Emote.Clap
 Animation.Emote.Emote1
 Animation.Emote.Expressive
 Animation.Emote.ThumbsDown
@@ -895,8 +907,11 @@ Character.Animation.Creature.Attack.Tadpole
 Character.Animation.Creature.ExitHide
 Character.Animation.Creature.Hide
 Character.Animation.Dash
+Character.Animation.Downed
 Character.Animation.Pickup
 Character.Animation.Pickup.Carryable
+Character.Animation.Revive
+Character.Animation.StopRevive
 Character.Animation.Tool
 Character.Animation.Tool.Activate
 Character.Animation.Tool.Cancel
@@ -925,7 +940,9 @@ Character.State.Attached.DrumKit
 Character.State.Attached.Elevator
 Character.State.Attached.Tadpole
 Character.State.AxumResonance
+Character.State.BeingRevived
 Character.State.BlockPermanentStructureCreation
+Character.State.BlockRevive
 Character.State.Camouflaged
 Character.State.Carrying
 Character.State.Cinematic
@@ -936,6 +953,7 @@ Character.State.DeepStartIntro
 Character.State.DiveElevatorRide
 Character.State.Downed
 Character.State.Drowning
+Character.State.Emoting
 Character.State.Fast
 Character.State.Glowskin
 Character.State.HideUI
@@ -949,6 +967,7 @@ Character.State.Mesmerized
 Character.State.Mimicry
 Character.State.ModalWidgetIsActive
 Character.State.OxygenDangerouslyLow
+Character.State.PauseMenuActive
 Character.State.Piloting
 Character.State.PilotingVehicle
 Character.State.Rebreather
@@ -965,6 +984,7 @@ Character.State.UI.BlockHoverTargetInfo
 Character.State.UI.BlockHoverTargetInfoReticle
 Character.State.UI.BlockNotifications
 Character.State.UI.BlockWarnings
+Character.State.WakemakerSpeedBoost
 Character.State.WellFed
 Character.State.WellHydrated
 Character.Type
@@ -1148,6 +1168,8 @@ Currency.BlightCorePoints
 Customization
 Customization.Body
 Customization.Body.Felix
+Customization.Body.Grace
+Customization.Body.Jegna
 Customization.Body.Player01
 Customization.Body.Stone
 Customization.Body.Tether
@@ -1155,7 +1177,9 @@ Customization.Body.Triage
 Customization.SuitColour
 Customization.SuitColour.Blue
 Customization.SuitColour.Green
+Customization.SuitColour.Grey
 Customization.SuitColour.Orange
+Customization.SuitColour.Pink
 Customization.SuitColour.Purple
 Customization.SuitColour.Red
 Customization.SuitColour.Yellow
@@ -1176,6 +1200,8 @@ DamageImmunity.Radiation
 DamageImmunity.Starving
 DamageType
 DamageType.Acid
+DamageType.Context
+DamageType.Context.BypassRevive
 DamageType.Dehydrated
 DamageType.Electricity
 DamageType.Physical
@@ -1331,6 +1357,8 @@ Gameplay.Config
 Gameplay.Config.Hunger
 Gameplay.Config.Oxygen
 Gameplay.Config.Thirst
+Gameplay.EffectTag
+Gameplay.EffectTag.RespawnEffect
 Gameplay.Modifiers
 Gameplay.Modifiers.OxygenPlant
 Gameplay.Modifiers.OxygenPlant.OxygenProvider
@@ -1348,6 +1376,8 @@ GameplayCue.AI
 GameplayCue.AI.Generic
 GameplayCue.AI.Generic.Burst
 GameplayCue.AI.Generic.Looping
+GameplayCue.AI.Trail
+GameplayCue.AI.Trail.Small
 GameplayCue.Battery
 GameplayCue.Battery.Empty
 GameplayCue.Battery.Load
@@ -1515,6 +1545,7 @@ GameplayCue.Cuttable.Break
 GameplayCue.Cuttable.Break.AcidAnemone
 GameplayCue.Cuttable.Break.AcidAnemone.New
 GameplayCue.Cuttable.Break.AlgaeBloom
+GameplayCue.Cuttable.Break.AmbereyedKelpCore
 GameplayCue.Cuttable.Break.Biomass
 GameplayCue.Cuttable.Break.BlightSap
 GameplayCue.Cuttable.Break.BulbFlower
@@ -1530,6 +1561,7 @@ GameplayCue.Cuttable.Hit
 GameplayCue.Cuttable.Hit.AcidAnemone
 GameplayCue.Cuttable.Hit.AcidAnemone.New
 GameplayCue.Cuttable.Hit.AlgaeBloom
+GameplayCue.Cuttable.Hit.AmbereyedKelpCore
 GameplayCue.Cuttable.Hit.Biomass
 GameplayCue.Cuttable.Hit.BlightSap
 GameplayCue.Cuttable.Hit.BulbFlower
@@ -1548,6 +1580,7 @@ GameplayCue.Cuttable.Hit.PlateCoral
 GameplayCue.Cuttable.Hit.TallShroom
 GameplayCue.Cuttable.Pickup
 GameplayCue.Cuttable.Pickup.AcidAnemone
+GameplayCue.Cuttable.Pickup.BulbFlower
 GameplayCue.Damage
 GameplayCue.Damage.Creature
 GameplayCue.Damage.Creature.Electricity
@@ -1687,6 +1720,10 @@ GameplayCue.Holster.Scanner
 GameplayCue.Holster.SonicResonator
 GameplayCue.Holster.Wakemaker
 GameplayCue.Holster.Welder
+GameplayCue.InventoryShare
+GameplayCue.InventoryShare.Close
+GameplayCue.InventoryShare.Hold
+GameplayCue.InventoryShare.Open
 GameplayCue.Item
 GameplayCue.Item.FunkyFruitConsumed
 GameplayCue.Item.ScannableGlint
@@ -1726,8 +1763,10 @@ GameplayCue.Pickup.WaterSlug
 GameplayCue.Pickup.Wet
 GameplayCue.Ping
 GameplayCue.Ping.Double
+GameplayCue.Ping.DownedPlayer
 GameplayCue.Ping.Hold
 GameplayCue.Ping.Player
+GameplayCue.Ping.TrackingTag
 GameplayCue.Player
 GameplayCue.Player.Base
 GameplayCue.Player.Base.Entered
@@ -1776,6 +1815,9 @@ GameplayCue.Player.Movement.SwimFast
 GameplayCue.Player.Oxygen
 GameplayCue.Player.Oxygen.Low
 GameplayCue.Player.Respawn
+GameplayCue.Player.Revive
+GameplayCue.Player.Revive.Hold
+GameplayCue.Player.Revived
 GameplayCue.Player.SeaFloorKickup
 GameplayCue.Player.Sensed
 GameplayCue.Player.Submerged
@@ -1871,6 +1913,7 @@ GameplayCue.ScoutRay
 GameplayCue.ScoutRay.DamageStates
 GameplayCue.Seafrog
 GameplayCue.Seafrog.Climb
+GameplayCue.Seafrog.Dash
 GameplayCue.Seafrog.Footstep
 GameplayCue.Seafrog.Jump
 GameplayCue.Seafrog.JumpLand
@@ -1927,10 +1970,12 @@ GameplayCue.Tadpole.Explode
 GameplayCue.Tadpole.HaulrigStorageClose
 GameplayCue.Tadpole.HaulrigStorageOpen
 GameplayCue.Tadpole.Impact
+GameplayCue.Tadpole.Knock
 GameplayCue.Tadpole.Light
 GameplayCue.Tadpole.Light.Default
 GameplayCue.Tadpole.Light.Haul
 GameplayCue.Tadpole.Light.ScoutRay
+GameplayCue.Tadpole.Light.Seafrog
 GameplayCue.Tadpole.LightsOff
 GameplayCue.Tadpole.LightsOn
 GameplayCue.Tadpole.LocalAmbience
@@ -2058,6 +2103,10 @@ GameplayCue.Tools.Weld
 GameplayCue.Tools.Welder
 GameplayCue.Tools.Welder.NoEnergy
 GameplayCue.Tools.Welder.Online
+GameplayCue.Trashcan
+GameplayCue.Trashcan.Close
+GameplayCue.Trashcan.Looping
+GameplayCue.Trashcan.Open
 GameplayCue.Trident
 GameplayCue.Trident.AI
 GameplayCue.Trident.AI.AbandonShip
@@ -2182,10 +2231,12 @@ GameplayEvent.Damage
 GameplayEvent.Death
 GameplayEvent.Detach
 GameplayEvent.Died
+GameplayEvent.Downed
 GameplayEvent.DynamicResources
 GameplayEvent.DynamicResources.ImperfectHarvest
 GameplayEvent.DynamicResources.PerfectHarvest
 GameplayEvent.Equip
+GameplayEvent.GetUp
 GameplayEvent.Hit
 GameplayEvent.Interact
 GameplayEvent.Interact.CallBegin
@@ -2323,6 +2374,8 @@ ItemType.Battery.BasicBattery
 ItemType.Battery.BasicBattery.ItemType
 ItemType.Battery.NuclearBattery
 ItemType.Battery.NuclearBattery.ItemType
+ItemType.BigSub
+ItemType.BigSub.PowerCoreInsertedItem
 ItemType.Biomass
 ItemType.Carryable
 ItemType.Carryable.Beacon
@@ -2389,6 +2442,7 @@ ItemType.Test.CraftInput
 ItemType.Test.CraftInput.ItemType
 ItemType.Test.ScanTestActor
 ItemType.Test.WeldTarget
+ItemType.TrackingTag
 ItemType.TunableData
 ItemType.TunableData.BioFuelConsumption
 ItemType.TunableData.BioFuelConsumption.ExtraLong
@@ -2437,6 +2491,10 @@ ItemType.TunableData.SeedGrowerTime.Slow
 ItemType.TunableData.SwimSpeedIncrease
 ItemType.TunableData.ThrowForceAir
 ItemType.TunableData.ThrowForceWater
+ItemType.TunableData.ThrowRotation
+ItemType.TunableData.ThrowRotation.X
+ItemType.TunableData.ThrowRotation.Y
+ItemType.TunableData.ThrowRotation.Z
 ItemType.TunableData.Water
 ItemType.Upgrade
 ItemType.Upgrade.Tadpole
@@ -2448,6 +2506,9 @@ ItemType.Upgrade.Tadpole.EngineEfficiency
 ItemType.Upgrade.Tadpole.HullReinforcement
 ItemType.Upgrade.Tadpole.HydraulicMuffler
 ItemType.Upgrade.Tadpole.PhotovoltaicCharger
+ItemTypeCategory
+ItemTypeCategory.Tadpole
+ItemTypeCategory.Tadpole.DepthUpgrade
 Message
 Message.Dialogue
 Message.Dialogue.End
@@ -2456,7 +2517,6 @@ Movement
 Movement.Accelerating
 Movement.CharacterMovementComponent
 Movement.CharacterMovementComponent.Base
-Movement.Grounded
 Movement.InMotion
 Movement.Land
 Movement.Land.Crouching
@@ -2528,6 +2588,7 @@ Ping.Blight.Core
 Ping.Blight.Node
 Ping.Blight.Node.CG2
 Ping.Chassis
+Ping.DownedPlayer
 Ping.EchoLocation
 Ping.EVASuit
 Ping.Fauna
@@ -2543,6 +2604,7 @@ Ping.Resource
 Ping.ResourceFinder
 Ping.ScannerStation
 Ping.Signal
+Ping.TrackingTag
 Ping.Trident
 Ping.Vehicle
 Ping.Void
@@ -2551,6 +2613,8 @@ Ping.Void.Biomass
 Ping.Void.Leviathan
 Ping.Void.MiningSite
 Ping.Void.ThermalPower
+PlacementVolume
+PlacementVolume.Rug
 Platform
 Platform.Trait
 Platform.Trait.BinauralSettingControlledByOS
@@ -2590,6 +2654,7 @@ Player.PreventItemDrop
 Player.TagResponses
 Radar
 Radar.Scanner
+Radar.Scanner.AcidSource
 Radar.Scanner.BioscanUnlockPoint
 Radar.Scanner.ExtraUnlocksPoint
 Radar.Scanner.Point
@@ -2598,7 +2663,6 @@ RamData
 RamData.Flora
 RamData.Flora.CoralDome
 RangeTracker
-RangeTracker.MeshCollision
 RangeTracker.Range1
 RangeTracker.Range2
 RangeTracker.Range3
@@ -2621,6 +2685,7 @@ Reason.Builder.CannotDeconstruct.HasAttachments
 Reason.Builder.CannotDeconstruct.ItemsInInventory
 Reason.Builder.CannotDeconstruct.Oversized
 Reason.Builder.CannotEditArchived
+Reason.Builder.CannotEditHasAttachment
 Reason.Builder.CannotFindValidSupportSurface
 Reason.Builder.CantBuildOffGhost
 Reason.Builder.DefaultLadderHInt
@@ -3079,6 +3144,7 @@ SculpturalBase.BrushType.Nook
 SculpturalBase.BrushType.Planter
 SculpturalBase.BrushType.ResourceCrusher
 SculpturalBase.BrushType.Room
+SculpturalBase.BrushType.RoundRoom
 SculpturalBase.BrushType.Sofa
 SculpturalBase.BrushType.StackedRoom
 SculpturalBase.BrushType.Support
@@ -3238,12 +3304,18 @@ StimulusType.AI.ClamthuluTendrilTrigger.Mild
 StimulusType.AI.ClamthuluTendrilTrigger.Strong
 StimulusType.AI.Collector
 StimulusType.AI.Collector.Attract
+StimulusType.AI.Collector.Attract.Harp
 StimulusType.AI.Collector.Fear
+StimulusType.AI.Collector.Range
+StimulusType.AI.Collector.Range.Long
+StimulusType.AI.Collector.Range.Medium
+StimulusType.AI.Collector.Range.Short
 StimulusType.AI.Flee
 StimulusType.AI.Follow
 StimulusType.AI.FollowGreaterHalfmoon
 StimulusType.AI.Invisible
 StimulusType.AI.Lure
+StimulusType.AI.Lure.Descender
 StimulusType.AI.Lure.Sandspear
 StimulusType.AI.Mesmerize
 StimulusType.AI.ParasiteRemove
@@ -3277,6 +3349,9 @@ StimulusType.Light.Vehicle
 StimulusType.Light.Vehicle.Tadpole
 StimulusType.Sound
 StimulusType.Sound.AI
+StimulusType.Sound.AI.Collector
+StimulusType.Sound.AI.Collector.Range
+StimulusType.Sound.AI.Collector.Range.Long
 StimulusType.Sound.AI.Symbiote
 StimulusType.Sound.AI.Symbiote.Call
 StimulusType.Sound.Creature
@@ -3404,6 +3479,7 @@ Tool.Equipped.Builder.ActiveAction.MoveMode
 Tool.Equipped.Builder.ActiveAction.OpenMenu
 Tool.Equipped.Builder.ActiveAction.PlaceConstructGhost
 Tool.Equipped.Builder.CanDeconstruct
+Tool.Equipped.Builder.ExclusiveAction
 Tool.Equipped.Builder.SculptDeconstruct
 Tool.Equipped.Builder.ShowSupportFeedback
 Tool.Equipped.Builder.Snapping
@@ -3548,6 +3624,9 @@ UI.ComputerTextInterface
 UI.EmoteMenu
 UI.IngameFeedback
 UI.PDA
+UWE
+UWE.Movement
+UWE.Movement.InWater
 UWEEventTrackerTest
 UWEEventTrackerTest.Craft
 UWEEventTrackerTest.Drop
@@ -3562,7 +3641,9 @@ Vehicle
 Vehicle.Chassis
 Vehicle.Chassis.HaulRig
 Vehicle.Chassis.ScoutRay
-Vehicle.Chassis.Seafrog
+Vehicle.Chassis.SeaFrog
+Vehicle.Chassis.Seafrog.Dashing
+Vehicle.Chassis.SeaFrog.Gravitizing
 Vehicle.Chassis.Seafrog.Overheating
 Vehicle.DiveElevator
 Vehicle.Piloted
