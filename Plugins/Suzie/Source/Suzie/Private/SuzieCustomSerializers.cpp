@@ -5,21 +5,12 @@
 
 namespace SuzieCustomSerializers
 {
-    // ---- /Script/UWEWorldPopulation2.UWEWorldPopSpatialLayer ----
-    // Native layout is a single TMap<int64, FUWEWorldPopSpatialCell> CellMap, where the cell is a
-    // 3-byte POD (three 1-byte, non-bitfield bools at offsets 0/1/2). The game's TMap native
-    // serializer writes int32 ElementCount followed by ElementCount pairs of (int64 key, 3-byte
-    // cell).
     static constexpr int32 SpatialCellSize = 3;
 
     static bool Serialize_UWEWorldPopSpatialLayer(FArchive& Ar, void* Data, UScriptStruct* Struct)
     {
         FMapProperty* MapProp = CastField<FMapProperty>(Struct->FindPropertyByName(TEXT("CellMap")));
-        if (MapProp == nullptr)
-        {
-            // Schema unexpectedly changed; let default serialization try rather than corrupt blindly.
-            return false;
-        }
+        if (MapProp == nullptr) return false;
 
         FScriptMapHelper MapHelper(MapProp, MapProp->ContainerPtrToValuePtr<void>(Data));
 
@@ -47,10 +38,7 @@ namespace SuzieCustomSerializers
             Ar << Count;
             for (int32 SparseIndex = 0; SparseIndex < MapHelper.GetMaxIndex(); ++SparseIndex)
             {
-                if (!MapHelper.IsValidIndex(SparseIndex))
-                {
-                    continue;
-                }
+                if (!MapHelper.IsValidIndex(SparseIndex)) continue;
                 int64 Key = *reinterpret_cast<const int64*>(MapHelper.GetKeyPtr(SparseIndex));
                 Ar << Key;
                 uint8 CellBytes[SpatialCellSize] = {};
@@ -60,14 +48,7 @@ namespace SuzieCustomSerializers
         }
         return true;
     }
-
-    // ---- Raw plain-old-data blob serializers ----
-    // FMercunaUsageTypes is a 32-bit usage bitmask (4 bytes); FMercunaUsageSpec is two of them
-    // (8 bytes). Both are STRUCT_Native | STRUCT_SerializeNative | STRUCT_CopyNative plain-old-data
-    // bitfields, so the game's native serializer simply dumps the raw struct bytes. The Suzie-generated
-    // reflected layout has the SAME width (verified from the jmap: properties_size 4 and 8), so a raw
-    // byte copy of the game size round-trips correctly. GameSize is fixed from the jmap rather than read
-    // from the live struct so stream consumption stays correct even if editor padding ever diverged.
+    
     static bool SerializeRawPOD(FArchive& Ar, void* Data, UScriptStruct* Struct, int32 GameSize)
     {
         const int32 EditorSize = Struct->GetStructureSize();
@@ -77,7 +58,6 @@ namespace SuzieCustomSerializers
             return true;
         }
 
-        // Sizes diverged: still consume exactly GameSize bytes from the stream, copying only the overlap.
         TArray<uint8, TInlineAllocator<16>> Temp;
         Temp.SetNumZeroed(GameSize);
         const int32 Overlap = FMath::Min(EditorSize, GameSize);

@@ -645,6 +645,18 @@
 		{
 			"Name": "BinkMedia",
 			"Enabled": true
+		},
+		{
+			"Name": "UWEMassAI",
+			"Enabled": false
+		},
+		{
+			"Name": "Mover",
+			"Enabled": true
+		},
+		{
+			"Name": "UWEMover",
+			"Enabled": true
 		}
 	]
 }

@@ -75,12 +75,17 @@ Note: I haven't tested any of the automation (Suzie, SN2 Mod Tools, Alpakit) on 
 
 ![FMOD-Download](Docs/Images/FMOD-Download.png)
 
-4. Run this command in powershell to copy banks and extract FMOD DLLs 
+4. Run this command in powershell from the project folder to copy banks and extract FMOD DLLs. Change the path to match the location where you downloaded the file to. **Do not** drop the plugin files from the zip into the project.
 ```ps1
-powershell -ExecutionPolicy Bypass -File setup-fmod.ps1 -FMODPluginZip "<your downloads>\fmodstudio20309ue5.6win64.zip"
+powershell -ExecutionPolicy Bypass -File setup-fmod.ps1 -FMODPluginZip "C:\Users\yourusername\Downloads\fmodstudio20309ue5.6win64.zip"
 ``` 
 
-5. Now right click on `Subnautica2.uproject`, select **Switch Unreal Engine version**, then select to the folder containing the `Engine` folder from the custom engine.
+5. Run this command in powershell from the project folder to copy the FMOD banks to the project. **Rerun this command anytime the game gets an update.**
+```ps1
+.\copy-fmod-banks.ps1
+```
+
+6. Now right click on `Subnautica2.uproject`, select **Switch Unreal Engine version**, then select to the folder containing the `Engine` folder from the custom engine.
 
 ![Switch engine ver](Docs/Images/Switch-Version.png)
 
@@ -88,7 +93,7 @@ For example mine is here (obviously pick the path where you installed the engine
 
 ![Select engine ver](Docs/Images/Select-Version.png)
 
-6. Open `Subnautica2.uproject`. It may spend some time compiling some plugins first (2-10 mins depending on your hardware).
+7. Open `Subnautica2.uproject`. It may spend some time compiling some plugins first (2-10 mins depending on your hardware).
 
 </details>
 
@@ -112,9 +117,11 @@ Now when you open the editor, the game content should all be visible!
 
 Once the project is open and you can see all the content, there are some additional tips you need to know to use it properly (aside from common UE editor actions):
 - When opening levels, you can search for `BP_Ocean` in the details panel and click the eye icon to hide it, so everything is not blurry
+- To simulate the day/night cycle in the level without entering PIE (Play In Editor), click the `Time Of Day` button above the viewport and click `Open Root Sequence`. Then click play to start the cycle sequence. You can use the scrubber to instantly get to the time of day you want
 - When opening blueprints and widgets, you will just see a properties view. To see more info about the asset:
     - Right click on blueprints and click "Make Uncooked Bluepriny Copy", this then allows you to see the component tree, variables, functions and event stubs
     - Right click on widgets and click "Make Uncooked Widget Copy", this makes a copy of the cooked widget into an uncooked one with the full widget tree and animations
+    - Right click on animation blueprints and click "Make Uncooked Animation Blueprint Copy", this does the same as blueprints and widgets
     - Right click on FMOD events and click "Play" or "Stop" to play or stop the audio
 - You can directly ctrl+c ctrl+v cooked data assets (and other simple asset types) into your mods. This is especially useful for making new items (see the section below on adding custom items for more info) by copying off of game data assets.
 
