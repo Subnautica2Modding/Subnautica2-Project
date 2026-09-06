@@ -13,6 +13,10 @@ Target custom engine release:
 Project fork (this repo):
   https://github.com/whagan1310-droid/Subnautica2-Project
 
+Directions (project root):
+  FAB_PLUGIN.md  — Fab is IN this project, OR usable on any SN2 editor
+                   with BuildId a0f35de5-25c7-44b8-87b3-4fe5671dcf5c
+
 
 COMPATIBILITY (READ THIS FIRST)
 -------------------------------
