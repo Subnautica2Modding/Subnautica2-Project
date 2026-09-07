@@ -25498,7 +25498,6 @@ class ACharacter : public APawn {
     bool IsJumpProvidingForce() const;
     bool IsPlayingNetworkedRootMotionMontage() const;
     bool IsPlayingRootMotion() const;
-    void Jump();
     void K2_OnEndCrouch(float HalfHeightAdjust, float ScaledHalfHeightAdjust);
     void K2_OnMovementModeChanged(uint8_t PrevMovementMode, uint8_t NewMovementMode, uint8_t PrevCustomMode, uint8_t NewCustomMode);
     void K2_OnStartCrouch(float HalfHeightAdjust, float ScaledHalfHeightAdjust);
@@ -25524,6 +25523,7 @@ class ACharacter : public APawn {
     void StopAnimMontage(UAnimMontage* AnimMontage);
     void StopJumping();
     void UnCrouch(bool bClientSimulation);
+    void jump();
 };
 
 struct FCharacterMoveResponsePackedBits : public FCharacterNetworkSerializationPackedBits {
@@ -35758,8 +35758,8 @@ class UKismetMathLibrary : public UBlueprintFunctionLibrary {
     static float PerlinNoise1D(const float Value);
     static bool PointsAreCoplanar(const TArray<FVector>& Points, float Tolerance);
     static FVector ProjectPointOnToPlane(FVector Point, FVector PlaneBase, FVector PlaneNormal);
-    static FVector ProjectVectorOnToPlane(FVector V, FVector PlaneNormal);
     static FVector ProjectVectorOnToVector(FVector V, FVector Target);
+    static FVector ProjectVectorOntoPlane(FVector V, FVector PlaneNormal);
     static float Quat_AngularDistance(const FQuat& A, const FQuat& B);
     static void Quat_EnforceShortestArcWith(FQuat& A, const FQuat& B);
     static FVector Quat_Euler(const FQuat& Q);
@@ -83023,11 +83023,11 @@ class UCharacterMoverComponent : public UMoverComponent {
     bool IsOnGround() const;
     bool IsSlopeSliding() const;
     bool IsSwimming() const;
-    bool Jump();
     void OnMoverPreSimulationTick(const FMoverTimeStep& TimeStep, const FMoverInputCmdContext& InputCmd);
     void SetHandleJump(bool bInHandleJump);
     void SetHandleStanceChanges(bool bInHandleStanceChanges);
     void UnCrouch();
+    bool jump();
 };
 
 class UCommonLegacyMovementSettings : public UObject {
@@ -114884,7 +114884,8 @@ enum class ESN2WorldBuilderProjectState {
     BioScanCompleted = 1,
     GhostCreated = 2,
     Completed = 3,
-    ESN2WorldBuilderProjectState_MAX = 4,
+    RecoverGhostInFreeState = 100,
+    ESN2WorldBuilderProjectState_MAX = 101,
 };
 
 enum class ESettingsTab {
@@ -116184,6 +116185,9 @@ class ASN2BuilderGhost : public AActor {
     void UpdateMaterial(float Progress);
 };
 
+class USN2BuilderGhostCleanupUpgrader : public UUWESaveHandleUpgrader {
+};
+
 struct FSN2BuilderGhostParams {
     TArray<FSN2GhostPrimitive> ExplicitGhostPrimitives;
     TArray<TSoftClassPtr<AActor>> SourceActors;
@@ -116354,6 +116358,10 @@ struct FSN2CameraAndMovementVariables {
 };
 
 class USN2CameraDebugger : public UUWEImGuiComponent {
+};
+
+struct FSN2CancelTipHandle {
+    FGameplayTag Tag;
 };
 
 struct FSN2CannotBuildReason {
@@ -116531,7 +116539,6 @@ class USN2CheatManager : public USN2BaseCheatManager {
     void EditorCameraCoords(FString Coordinates);
     void EnableWeather(const bool bEnabled);
     void EnsureClient();
-    void Equip(FString TagName);
     void EquipAll();
     void EquipAll_EquipNext();
     void ExecuteCue(FString TagName);
@@ -116690,6 +116697,7 @@ class USN2CheatManager : public USN2BaseCheatManager {
     void Warp(float X, float Y, float Z);
     void WorldPopRemove(FString ResourceName);
     void WreckTrident();
+    void equip(FString TagName);
     void ffe(bool bAffectsLeftLarge, bool bAffectsLeftSmall, bool bAffectsRightLarge, bool bAffectsRightSmall, float Intensity);
     void surface();
 };
@@ -117523,6 +117531,7 @@ class USN2GameInstance : public UUWEGameInstance {
     int32_t EventNumber;
     UCommonUserWidget* CompilingShadersWidget;
 
+    void OnSonarLoginCompleted(bool bLoginSucceeded);
     void OnUserPrivilegeChanged(const UCommonUserInfo* UserInfo, EUWEUserPrivilege Privilege, bool bHasPrivilege);
     void PrintCacheStats();
     void ShowCompilingShadersWidget();
@@ -117865,7 +117874,6 @@ class USN2InventoryItemViewModel : public UMVVMViewModelBase {
 
     bool CanItemGoInQuickSlot() const;
     void Drop();
-    void Equip();
     TArray<FText> GetActiveWarnings() const;
     TArray<FConsumableInfo> GetConsumableInfo() const;
     FUWEInventoryItem GetInventoryItem();
@@ -117893,6 +117901,7 @@ class USN2InventoryItemViewModel : public UMVVMViewModelBase {
     void SetTertiaryActionDescription(FText Desc);
     void SetTertiaryActionWithModifierDescription(FText Desc);
     void SetToolbarNumSlots(int32_t NewSize);
+    void equip();
 };
 
 class USN2InventoryScreenViewModel : public UMVVMViewModelBase {
@@ -118878,11 +118887,13 @@ class USN2PlayerInternalTemperatureViewModel : public USN2AttributeViewModel {
 
 class USN2PlayerInventoryInteractionComponent : public UUWEInventoryInteractionComponent {
     bool BlockOpeningInteraction;
+    APlayerState* LocalPlayerState;
     APawn* OwningPawn;
     FText SinglePlayerTipText;
     FText MultiPlayerTipText;
     FGameplayTag PlayerInteractBeginCue;
     FGameplayTag PlayerInteractEndCue;
+    FGameplayTagContainer CancelTipTags;
 
     void MulticastInteractEnded(APawn* Instigator);
     void MulticastInteractStarted(APawn* Instigator);
@@ -120330,10 +120341,12 @@ class USN2Statics : public UBlueprintFunctionLibrary {
     static void LogToScreen(FString Message, bool LongLasting);
     static void MinimizeGameWindow();
     static bool PlayerPickupActor(AActor* PlayerCharacter, AActor* Pickupable, const FHitResult& HitResult);
+    static FUIActionBindingHandle RegisterGlobalUIAction(UCommonUserWidget* Widget, UInputAction* Action, FDelegate Callback, uint8_t KeyEvent);
     static void RemoveGameplayCue_NonReplicated(AActor* Target, const FGameplayTag GameplayCueTag, const FGameplayCueParameters& Parameters);
     static void SetActorEnableCollisionInSeconds(UObject* WorldContextObject, AActor* Actor, float Time, bool bNewEnableCollision);
     static void SetHiddenInSeconds(UObject* WorldContextObject, AActor* Actor, float Time, bool bNewHidden);
     static AActor* SpawnItemWithImpulse(const UObject* WorldContextObject, UClass* ActorClass, const FTransform& ActorTransform, const FVector& Impulse);
+    static void UnregisterGlobalUIAction(UCommonUserWidget* Widget, FUIActionBindingHandle Handle);
 };
 
 class USN2StepSmoothingCameraAnimation : public UUWECameraAnimation {
@@ -121129,6 +121142,13 @@ class ASN2WorldBuilderProject : public AActor {
     void OnBuilderConstructionCompleted(bool bWasConstructed);
     void OnRep_ConstructionState();
     void OnRequiredBioScanCompleted(UUWEStoryGoal* UnlockedStoryGoal, AActor* ReceivingActor);
+};
+
+class USN2WorldBuilderProjectRestoreGhost : public UUWESaveHandleUpgrader {
+};
+
+class USN2WorldBuilderProjectRestoreGhostSettings : public UDeveloperSettings {
+    TSoftClassPtr<ASN2WorldBuilderProject> WorldBuilderProjectClass;
 };
 
 class ASN2WorldGameMode : public AUWEGameModeBase {
@@ -130362,7 +130382,7 @@ class UUWEBeforeSendHandler : public USentryBeforeSendHandler {
 class UUWECrashReporterStatics : public UBlueprintFunctionLibrary {
 
     static void NotifyLobbyReached();
-    static void SendEvent(FString Message);
+    static void SendEvent(FString Message, const ESentryLevel Level);
     static bool WasLastExitUnclean();
     static bool WasLastLobbyNotReached();
 };
@@ -130370,11 +130390,6 @@ class UUWECrashReporterStatics : public UBlueprintFunctionLibrary {
 class UUWECrashReporterSubsystem : public UEngineSubsystem {
 
     void OnSentrySettings(USentrySettings* Settings);
-};
-
-class UUWESentryGameInstanceUpdater : public UGameInstanceSubsystem {
-
-    void OnSonarLoginCompleted(bool bLoggedIn);
 };
 
 class UUWESentryLocationUpdater : public UWorldSubsystem {
@@ -130827,6 +130842,10 @@ struct FUWEDynamicItemsSave {
     TMap<FGuid, FUWEDynamicItemInfo> DynamicItems;
 };
 
+class UUWEDynamicItemsSaveDeserialized : public UObject {
+    FUWEDynamicItemsSave DynamicItemsSave;
+};
+
 class AUWEPlaceableProxy : public AActor {
     FGuid Guid;
     TSoftClassPtr<AActor> ActorClass;
@@ -130914,6 +130933,7 @@ class UUWEEdgeOfWorldHUDViewModel : public UMVVMViewModelBase {
     UObject* WorldContextObject;
 
     void OOBTagResponseEvent(FGameplayTag GameplayTag, int32_t I);
+    void OnPossessedPawnChanged(APawn* OldPawn, APawn* NewPawn);
 };
 
 class AUWEEdgeOfWorldSpline : public AActor {
@@ -132868,6 +132888,7 @@ class IKnifeTarget : public UInterface {
 class IUWEActorLifeCycle : public UInterface {
 
     void HandleDynamicItemDespawned();
+    void HandleDynamicItemDestroyed();
 };
 
 class IUWECarryableActorInterface : public UInterface {
@@ -133228,7 +133249,6 @@ class UUWEInventoryComponent : public UActorComponent {
     void OnItemAddedToInventory(const int32_t& InInventoryId, const FUWEInventoryItem& Item);
     void OnItemRemovedFromInventory(const int32_t& InInventoryId, const FUWEInventoryItem& Item);
     void OnRep_MaxItems();
-    bool Pickup(AActor* ActorToPickup, bool bNotify);
     bool PickupAndGetID(AActor* ActorToPickup, FUWEInventoryItemId& OutItemID, bool bNotify);
     bool PickupItem(AActor* ActorToPickup, bool bCanOverflow);
     bool PickupItemAndGetID(AActor* ActorToPickup, FUWEInventoryItemId& OutItemID, bool bCanOverflow);
@@ -133241,6 +133261,7 @@ class UUWEInventoryComponent : public UActorComponent {
     void SetMaxItems(int32_t NewMaxItems);
     bool TryGetItemAtIndex(int32_t Index, FUWEInventoryItem& Item);
     bool UsesAFilter() const;
+    bool pickup(AActor* ActorToPickup, bool bNotify);
 };
 
 struct FUWEInventoryContainer : public FFastArraySerializer {
@@ -135764,6 +135785,16 @@ struct FileS3UploadInfo {
     S3UploadStatus Status;
 };
 
+enum class EUWEBuildNumberCompatibility {
+    Invalid = 0,
+    Invalid_BuildNumberNewerThanSupported = 1,
+    Valid = 2,
+    Valid_DevBuild = 3,
+    Valid_CompatIgnored = 4,
+    Valid_BuildNumberOverride = 5,
+    EUWEBuildNumberCompatibility_MAX = 6,
+};
+
 enum class EUWEImportSaveGameResult {
     Error_NoSlotName = 0,
     Error_NoSlots = 1,
@@ -136063,6 +136094,8 @@ struct FUWESaveGameCollectionInfo {
     int32_t SavesCount;
     int32_t BuildNumber;
     FString BuildBranch;
+    int32_t CreatedInBuildNumber;
+    FString CreatedInBuildBranch;
     FUWESaveHandleUpgraderList UpgraderList;
     EUWESaveGameValidity Validity;
     TArray<FUWESaveSlotMetaData> CheckpointMetaData;
@@ -136265,6 +136298,7 @@ class UUWESaveGameStatics : public UBlueprintFunctionLibrary {
     static int32_t GetMaxSaveSlots();
     static bool IsAutoSaveEnabled();
     static bool IsAutoSaveEnabledForTests();
+    static EUWEBuildNumberCompatibility IsCompatibleWithBuildNumber(const int32_t BuildNum);
     static bool IsSaveSystemInitialized();
     static bool IsSavingBlocked();
     static void OpenSavesFolder();
@@ -138640,6 +138674,10 @@ class UUWEBuilderItemsCullingComponent : public UActorComponent {
 struct FUWEBuilderItemsSave {
     TMap<FGuid, FUWEBuilderActorSpawnInfo> Items;
     TMap<AActor*, FUWEAttachedActorList> PendingParents;
+};
+
+class UUWEBuilderItemsSaveDeserialized : public UObject {
+    FUWEBuilderItemsSave BuilderItemsSave;
 };
 
 class UUWEBuilderItemsSaveUpgrader : public UUWESaveHandleUpgrader {

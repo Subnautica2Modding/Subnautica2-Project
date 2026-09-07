@@ -939,7 +939,6 @@ Character.State.Attached
 Character.State.Attached.DrumKit
 Character.State.Attached.Elevator
 Character.State.Attached.Tadpole
-Character.State.AxumResonance
 Character.State.BeingRevived
 Character.State.BlockPermanentStructureCreation
 Character.State.BlockRevive

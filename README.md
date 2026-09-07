@@ -75,7 +75,7 @@ Note: I haven't tested any of the automation (Suzie, SN2 Mod Tools, Alpakit) on 
 
 ![FMOD-Download](Docs/Images/FMOD-Download.png)
 
-4. Run this command in powershell from the project folder to copy banks and extract FMOD DLLs. Change the path to match the location where you downloaded the file to. **Do not** drop the plugin files from the zip into the project.
+4. Run this command in powershell from the project folder to extract FMOD DLLs. Change the path to match the location where you downloaded the file to. **Do not** drop the plugin files from the zip into the project.
 ```ps1
 powershell -ExecutionPolicy Bypass -File setup-fmod.ps1 -FMODPluginZip "C:\Users\yourusername\Downloads\fmodstudio20309ue5.6win64.zip"
 ``` 
