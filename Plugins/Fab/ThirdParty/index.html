@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>Document</title>
+	<script>
+		(async () => {
+			if (window.ue) {
+				const url = await window.ue?.fab?.geturl?.();
+				if (url) {
+					window.location.replace(url);
+					return;
+				}
+			}
+			
+			setTimeout(async () => {
+				if (window.ue) {
+					window.location.replace(await window.ue.fab.geturl());
+				}
+			}, 500);
+		})();
+	</script>
+</head>
+<body style="background-color: #202024">
+</body>
+</html>

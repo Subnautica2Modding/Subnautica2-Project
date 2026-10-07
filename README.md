@@ -4,6 +4,15 @@ The unofficial modkit for creating Subnautica 2 mods!
 
 ![alt text](Docs/Images/Header.png)
 
+## Fab plugin (this fork)
+
+Epic **Fab** Content Browser is included for the SN2 custom editor.
+
+- **In this project:** [`Plugins/Fab`](Plugins/Fab) (enabled in `Subnautica2.uproject`)
+- **Also usable** on any project with SN2 editor **BuildId** `a0f35de5-25c7-44b8-87b3-4fe5671dcf5c` (engine folder name does not matter)
+- **Directions:** [FAB_PLUGIN.md](FAB_PLUGIN.md) · [Plugins/Fab/README_INSTALL.txt](Plugins/Fab/README_INSTALL.txt)
+- **Engine:** [Custom Engine V4 / sn2-v0.1.2.0](https://github.com/Buckminsterfullerene02/UnrealEngine/releases/tag/sn2-v0.1.2.0) · Built by Gam3rGoon
+
 ## FAQ
 
 ### What is the purpose of this project?

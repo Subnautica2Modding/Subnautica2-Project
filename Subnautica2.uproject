@@ -18,6 +18,13 @@
 	],
 	"Plugins": [
 		{
+			"Name": "Fab",
+			"Enabled": true,
+			"TargetAllowList": [
+				"Editor"
+			]
+		},
+		{
 			"Name": "Suzie",
 			"Enabled": true
 		},
