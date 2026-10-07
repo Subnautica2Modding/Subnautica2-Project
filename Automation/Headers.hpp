@@ -110337,6 +110337,20 @@ class USentryMetric : public UObject {
     bool TryGetAttribute(FString Key, FSentryVariant& Value) const;
 };
 
+struct FSentryReplayInfo {
+    FString ReplayId;
+    FString ReplayType;
+    int32_t SegmentID;
+    double StartTimestampSec;
+    double EndTimestampSec;
+    int32_t Width;
+    int32_t Height;
+    int64_t DurationMs;
+    int64_t SizeBytes;
+    int32_t FrameCount;
+    int32_t FrameRate;
+};
+
 class USentrySamplingContext : public UObject {
 
     TMap<FString, FSentryVariant> GetCustomSamplingContext() const;
@@ -110432,6 +110446,7 @@ class USentrySettings : public UObject {
     FSentryCrashReporterAppearance CrashReporterAppearance;
     bool EnableHangTracking;
     float HangTimeoutDuration;
+    bool UseNativeHangTracking;
     bool AttachSessionReplay;
     uint32_t SessionReplayDurationMs;
     FSentrySessionReplayOptions SessionReplayOptions;
@@ -115136,7 +115151,6 @@ class USN2AbilityTask_UpdateMoveSelection : public UAbilityTask {
     AActor* MoveTarget;
     ASN2BuilderGhost* PlacedActorGhost;
     FUWECachedActorHiddenState CachedHoveredActorHiddenState;
-    TWeakObjectPtr<AActor> HiddenActor;
 
     bool IsLegal() const;
     void PauseTask();
@@ -135216,6 +135230,7 @@ class UUWEPingSystemComponent : public UActorComponent {
     FMulticastInlineDelegate OnPingVisited;
     FMulticastInlineDelegate OnPingPinned;
     FMulticastInlineDelegate OnPingTextChanged;
+    FMulticastInlineDelegate OnPingOriginalTextChanged;
     FMulticastInlineDelegate OnPingColorChanged;
     TArray<FUWEPing> ActivePings;
     UUWEPingData* BeaconPingData;
@@ -135240,6 +135255,7 @@ class UUWEPingSystemComponent : public UActorComponent {
     void SetDefaultPingVisibility(FGuid UniqueID, bool bNewValue);
     void SetPingDisplayName(const FGuid UniqueID, const FText NewDisplayName);
     void SetPingLocation(const FGuid UniqueID, const FVector NewLocation);
+    void SetPingOriginalName(const FGuid UniqueID, const FText NewName);
     void SetPingPinned(const FGuid UniqueID, bool bNewValue);
     void SetPingThumbnailColor(const FGuid UniqueID, const FLinearColor NewThumbnailColor);
     void SetPingVisibilityForPlayer(APlayerState* PlayerState, FGuid UniqueID, bool bNewValue);
@@ -135419,6 +135435,7 @@ class UUWEPowerNodeComponent : public UActorComponent {
     TSet<UUWEPowerNodeComponent*> ProximityLinks;
     TArray<UUWEPowerNodeComponent*> DirectLinksArray;
     FGuid SimulationId;
+    bool bIsFromInitialConstruction;
     UUWESaveHandle* SaveHandle;
     UUWEPowerNodeSimulation* Simulation;
     UUWEPowerSystemComponent* PowerSystem;
@@ -135440,6 +135457,7 @@ class UUWEPowerNodeComponent : public UActorComponent {
     FVector GetWorldTransmissionLocation() const;
     void HandleLinkVfxLinkAdded(const UUWEPowerNodeComponent* OtherNode);
     void HandleLinkVfxLinkRemoved(const UUWEPowerNodeComponent* OtherNode);
+    bool IsFromInitialConstruction() const;
     static void LinkAttachedActorPowerNodesToRoot(TArray<AActor*> AttachedActors, AActor* Root);
     static void LinkChildActorPowerNodesToRoot(TArray<UChildActorComponent*> ChildActors, AActor* Other);
     void OnInitNewPowerSimulation__DelegateSignature(UUWEPowerNodeSimulation* NewSim);
@@ -141055,7 +141073,6 @@ class UUWEWorldPop2Diagnostic : public UUWEImGuiComponent {
 struct FUWEWorldPop2Query {
     TArray<TSoftClassPtr<AActor>> IncludedClasses;
     TArray<TSoftClassPtr<AActor>> ExcludedClasses;
-    bool OnlySpawned;
     bool OnlyActive;
     double MinimumDepth;
     double MaximumDepth;
